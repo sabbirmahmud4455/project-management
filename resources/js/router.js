@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
-import Home from './component/pages/home.vue'
+import Home from './pages/home.vue'
 
 const routes = new VueRouter({
     mode: 'history',
