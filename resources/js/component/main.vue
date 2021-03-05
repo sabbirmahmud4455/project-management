@@ -140,6 +140,8 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                         with font-awesome or any other icon font library -->
+
+
                     <!-- <li class="nav-item has-treeview menu-open">
                         <a href="#" class="nav-link active">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -163,21 +165,132 @@
                         </li>
                         </ul>
                     </li> -->
+
+
+
                     <li class="nav-item has-treeview menu-open">
-                        <a href="#" class="nav-link active">
-                        <i class="nav-icon fas fa-home "></i>
-                        <p>
-                            Home
-                        </p>
-                        </a>
-                        
+                        <router-link  :to="{name:'home'}" class="nav-link" active-class="active">
+                            <i class="nav-icon fas fa-home "></i>
+                            <p>Home</p>
+                        </router-link>
                     </li>
+                   
+                   <!-- user -->
+                    <li class="nav-item has-treeview menu-open">
+                        <router-link  :to="{name:'users'}" class="nav-link" active-class="active">
+                            <i class="fas fa-users nav-icon"></i>
+                            <p>
+                                Users
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </router-link>
+                        <ul class="pl-2 nav nav-treeview">
+                            <li class="nav-item">
+                                <router-link  :to="{name:'user_create'}" class="nav-link" active-class="active">
+                                    <i class="fas fa-user-plus nav-icon  "></i>
+                                    <p>
+                                        Create User
+                                    </p>
+                                </router-link>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- clients -->
+                    <li class="nav-item has-treeview menu-open">
+                        <router-link  :to="{name:'clients'}" class="nav-link" active-class="active">
+                            <i class="fas fa-users nav-icon"></i>
+                            <p>
+                                Clients
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </router-link>
+                        <ul class="pl-2 nav nav-treeview">
+                            <li class="nav-item">
+                                <router-link  :to="{name:'clients_create'}" class="nav-link" active-class="active">
+                                    <i class="fas fa-user-plus nav-icon  "></i>
+                                    <p>
+                                        Create Client
+                                    </p>
+                                </router-link>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- project -->
+                    <li class="nav-item has-treeview menu-open">
+                        <router-link  :to="{name:'projects'}" class="nav-link" active-class="active">
+                            <i class="fas fa-project-diagram nav-icon"></i>
+                            <p>
+                                Projects
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </router-link>
+                        <ul class="pl-2 nav nav-treeview">
+                            <li class="nav-item">
+                                <router-link  :to="{name:'project_create'}" class="nav-link" active-class="active">
+                                    <i class="fas fa-project-diagram nav-icon"></i>
+                                    <small></i> <i class="fas fa-plus"></i></small>
+                                    <p>
+                                        Create Project
+                                    </p>
+                                </router-link>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- modules -->
+                    <li class="nav-item has-treeview menu-open">
+                        <router-link  :to="{name:'modules'}" class="nav-link" active-class="active">
+                            <i class="fas fa-project-diagram nav-icon"></i>
+                            <p>
+                                Modules
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </router-link>
+                        <ul class="pl-2 nav nav-treeview">
+                            <li class="nav-item">
+                                <router-link  :to="{name:'module_create'}" class="nav-link" active-class="active">
+                                    <i class="fas fa-project-diagram nav-icon"></i>
+                                    <small></i> <i class="fas fa-plus"></i></small>
+                                    <p>
+                                        Create Module
+                                    </p>
+                                </router-link>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- tasks -->
+                    <li class="nav-item has-treeview menu-open">
+                        <router-link  :to="{name:'tasks'}" class="nav-link" active-class="active">
+                            <i class="fas fa-project-diagram nav-icon"></i>
+                            <p>
+                                Tasks
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </router-link>
+                        <ul class="pl-2 nav nav-treeview">
+                            <li class="nav-item">
+                                <router-link  :to="{name:'task_create'}" class="nav-link" active-class="active">
+                                    <i class="fas fa-project-diagram nav-icon"></i>
+                                    <small></i> <i class="fas fa-plus"></i></small>
+                                    <p>
+                                        Create Task
+                                    </p>
+                                </router-link>
+                            </li>
+                        </ul>
+                    </li>
+
+
+
+
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="#" class="nav-link  bg-danger">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
-                            Simple Link
-                            <span class="right badge badge-danger">New</span>
+                            Log Out
                         </p>
                         </a>
                     </li>

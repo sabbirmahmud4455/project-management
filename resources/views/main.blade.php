@@ -24,6 +24,7 @@
 <!-- AdminLTE App -->
 <script src="{{asset('template/plugins/jquery/jquery.min.js')}}"></script>
 <script src="{{asset('template/dist/js/adminlte.min.js')}}"></script>
+<script src="{{asset('template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
 <script src="{{asset('js/app.js')}}"></script>
 </body>
 </html>

@@ -14,9 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('main');
+    return redirect('/home');
 });
-
 
 Route::get('/{any}', function(){
     return view('main');
