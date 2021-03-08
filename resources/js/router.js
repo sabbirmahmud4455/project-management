@@ -17,6 +17,8 @@ import Users_member from './pages/users/user_table/member.vue'
 import Users_admin from './pages/users/user_table/admin.vue'
 //user create 
 import User_create from './pages/users/create.vue'
+//user update 
+import User_update from './pages/users/update.vue'
 
 
 // Clients
@@ -77,7 +79,7 @@ const routes = new VueRouter({
             
         },
         {
-            path: '/user-profile',
+            path: '/user-profile/:id',
             component: UserProfile,
             name: 'user_profile',
         },
@@ -85,6 +87,11 @@ const routes = new VueRouter({
             path: '/user-create',
             component: User_create,
             name: 'user_create',
+        },
+        {
+            path: '/user-update/:id',
+            component: User_update,
+            name: 'user_update',
         },
         {
             path: '/clients',

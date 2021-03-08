@@ -28,12 +28,12 @@
                     <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                        <img class="profile-user-img img-fluid img-circle" src="/template/dist/img/user4-128x128.jpg" alt="User profile picture">
+                        <img v-if="photo.length" class="profile-user-img img-fluid img-circle" :src="photo" alt="User profile picture">
                         </div>
 
-                        <h3 class="profile-username text-center">Nina Mcintire</h3>
+                        <h3 v-if="name.length" class="profile-username text-center">{{name}}</h3>
 
-                        <p class="text-muted text-center">Software Engineer</p>
+                        <p v-if="bio.length" class="text-muted text-center">{{bio}}</p>
 
                         <ul class="list-group list-group-unbordered mb-3">
                         <li class="list-group-item">
@@ -382,7 +382,34 @@
 </template>
 <script>
 export default {
-    
+    data() {
+        return {
+            'name': '',
+            'bio':'',
+            'email': '',
+            'contact_no': '',
+            'type': '',
+            'gender': '',
+            'photo': '',
+        }
+    },
+    methods:{
+        getUser(){
+            let id = this.$route.params.id;
+            axios.get(`/api/user/${id}`)
+            .then(response => {
+                this.name= response.data.name;
+                this.email= response.data.email;
+                this.type= response.data.type_id;
+                this.contact_no= response.data.contact_no;
+                this.gender= response.data.gender;
+                this.photo= response.data.photo;
+        })
+      },
+    },
+    mounted(){
+        this.getUser();
+    }
 }
 </script>
 <style lang="">
