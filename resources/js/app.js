@@ -10,6 +10,12 @@ Vue.component(AlertError.name, AlertError)
 //vfrom 
 
 
+//vue2 editor
+import Vue2Editor from "vue2-editor";
+Vue.use(Vue2Editor);
+//vue2 editor
+
+
 //toggle switch
 import ToggleSwitch from 'vuejs-toggle-switch'
 Vue.use(ToggleSwitch)

@@ -77,7 +77,7 @@ class UserController extends Controller
             'password'=> Hash::make($request->password),
             'created_at'=>Carbon::now(),
         ]);
-        return response()->json($request->photo);
+        return response()->json('User Store successfully');
     }
 
     /**

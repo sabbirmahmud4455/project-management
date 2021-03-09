@@ -1,12 +1,14 @@
 <?php
 
-use App\Models\User;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Client;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ClientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +25,8 @@ use App\Http\Controllers\UserController;
 //     return $request->user();
 // });
 
+
+//user
 Route::resource('/user', UserController::class);
 
 Route::get('/users/admin', function () {
@@ -54,3 +58,29 @@ Route::post('/users/update/{user}', function (Request $request, User $user) {
     }
     return response()->json('image update successfully');
 });
+//user
+
+//client
+Route::resource('/client', ClientController::class);
+
+Route::post('/clients/update/{client}', function (Request $request, Client $client) {
+    $request->validate([
+        "photo"=>"image"
+    ]);
+    if ($request->photo) {
+        $imageName = time() . '_' . uniqid() . '.' . $request->photo->getClientOriginalExtension();
+        $request->photo->move(public_path('images/clients'), $imageName);
+        $image_path= '/images/clients/'.$imageName;
+        if (!$client->photo =='/images/clients/default/avatar1.png' || !$client->photo=='/images/clients/default/avatar2.png') {
+            if (File::exists($client->image)) {
+                File::delete($client->image);
+                //unlink($image_path);
+            }
+        }
+        $client->update([
+            'photo'=>$image_path
+        ]);
+    }
+    return response()->json('image update successfully');
+});
+//client

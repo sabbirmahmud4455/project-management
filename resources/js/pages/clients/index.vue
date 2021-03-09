@@ -26,168 +26,119 @@
                 <div class="row">
                     <div class="col">
                         <div class="card card-primary">
-            <div class="card-header d-flex">
-                <h3 class="card-title">Clients</h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-                  <table class="table table-striped projects">
-                <thead>
-                    <tr>
-                        <th style="width: 1%">
-                            #
-                        </th>
-                        <th style="width: 20%">
-                            Project Name
-                        </th>
-                        <th style="width: 30%">
-                            Team Members
-                        </th>
-                        <th>
-                            Project Progress
-                        </th>
-                        <th style="width: 8%" class="text-center">
-                            Status
-                        </th>
-                        <th style="width: 20%">
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            #
-                        </td>
-                        <td>
-                            <a>
-                                AdminLTE v3
-                            </a>
-                            <br>
-                            <small>
-                                Created 01.01.2019
-                            </small>
-                        </td>
-                        <td>
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <img alt="Avatar" class="table-avatar" src="/template/dist/img/avatar.png">
-                                </li>
-                                <li class="list-inline-item">
-                                    <img alt="Avatar" class="table-avatar" src="/template/dist/img/avatar3.png">
-                                </li>
-                                        <li class="list-inline-item">
-                                            <img alt="Avatar" class="table-avatar" src="/template/dist/img/avatar04.png">
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <img alt="Avatar" class="table-avatar" src="/template/dist/img/avatar5.png">
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td class="project_progress">
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-green" role="progressbar" aria-volumenow="77" aria-volumemin="0" aria-volumemax="100" style="width: 77%">
-                                        </div>
+                            <div class="card-header d-flex">
+                                <h3 class="card-title">All Clients</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table class="table table-striped table-bordered projects">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 1%">
+                                                #
+                                            </th>
+                                            <th>
+                                                Name
+                                            </th>
+                                            <th>
+                                                Email
+                                            </th>
+                                            <th>
+                                                Contact No
+                                            </th>
+                                            <th  style="width: 7%" class="text-center">
+                                                Status
+                                            </th>
+                                            <th  style="width: 7%" class="text-center">
+                                                Photo
+                                            </th>
+                                            <th style="width: 20%">
+                                                Action
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-if="all_clients.data.length" v-for="(client, index) in all_clients.data" :key="index">
+                                            <td>
+                                                {{index+1}}
+                                            </td>
+                                            <td>
+                                                <span v-if="client.name">{{client.name}}</span>
+                                                <span v-else>Null</span>
+                                                
+                                            </td>
+                                            <td>
+                                                <span v-if="client.email">{{client.email}}</span>
+                                                <span v-else>Null</span>
+                                                
+                                            </td>
+                                            <td>
+                                                <span v-if="client.contact_no">{{client.contact_no}}</span>
+                                                <span v-else>Null</span>
+                                            </td>
+                                                
+                                            <td>
+                                                <span v-if="client.status===1" class="badge badge-success">Active</span>
+                                                <span v-else class=" badge badge-danger">InActive</span>
+                                            </td>
+                                            <td>
+                                                <div  v-if="client.photo" class=" d-flex justify-content-center">
+                                                    <img class="table-avatar" :src="client.photo" alt="client photo">
+                                                </div>
+                                                <span v-else class=" badge badge-danger">Null</span>
+                                            </td>
+                                            <td class="project-actions text-right">
+                                                <router-link  :to="{name:'client_profile', params:{id: client.id}}" class="btn btn-info btn-sm">
+                                                    <i class="fas fa-folder">
+                                                    </i>
+                                                    View
+                                                </router-link>
+                                                <router-link  :to="{name:'client_update', params:{id: client.id}}" class="btn btn-info btn-sm">
+                                                <i class="fas fa-pencil-alt">
+                                                    </i>
+                                                    Edit
+                                                </router-link>
+                                                <a class="btn btn-danger btn-sm" href="#delete_modal"  data-toggle="modal" @click="delete_data.data=client, delete_data.index=index">
+                                                    <i class="fas fa-trash">
+                                                    </i>
+                                                    Delete
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                            <div class="card-footer clearfix">
+                                <pagination :data="all_clients" :limit=2 align='center'  @pagination-change-page="getClient">
+                                    <span slot="prev-nav">Previous <i class="fas fa-arrow-left "></i></span>
+                                    <span slot="next-nav"><i class="fas fa-arrow-right "></i> Next</span>
+                                </pagination>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- delete Modal HTML -->
+                        <div id="delete_modal" class="modal fade">
+                            <div class="modal-dialog modal-confirm">
+                                <div class="modal-content">
+                                    <div class="modal-header flex-column">
+                                        <div class="icon-box">
+                                            <i class="fas fa-trash-alt material-icons"></i>
+                                        </div>						
+                                        <h4 class="modal-title w-100">Are you sure?</h4>	
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                     </div>
-                                    <small>
-                                        77% Complete
-                                    </small>
-                                </td>
-                                <td class="project-state">
-                                    <span class="badge badge-success">Success</span>
-                                </td>
-                                <td class="project-actions text-right">
-                                    <a class="btn btn-primary btn-sm" href="#">
-                                        <i class="fas fa-folder">
-                                        </i>
-                                        View
-                                    </a>
-                                    <a class="btn btn-info btn-sm" href="#">
-                                        <i class="fas fa-pencil-alt">
-                                        </i>
-                                        Edit
-                                    </a>
-                                    <a class="btn btn-danger btn-sm" href="#">
-                                        <i class="fas fa-trash">
-                                        </i>
-                                        Delete
-                                    </a>
-                                </td>
-                            </tr>
-                    <tr>
-                        <td>
-                            #
-                        </td>
-                        <td>
-                            <a>
-                                AdminLTE v3
-                            </a>
-                            <br>
-                            <small>
-                                Created 01.01.2019
-                            </small>
-                        </td>
-                        <td>
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <img alt="Avatar" class="table-avatar" src="/template/dist/img/avatar.png">
-                                </li>
-                                <li class="list-inline-item">
-                                    <img alt="Avatar" class="table-avatar" src="/template/dist/img/avatar3.png">
-                                </li>
-                                        <li class="list-inline-item">
-                                            <img alt="Avatar" class="table-avatar" src="/template/dist/img/avatar04.png">
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <img alt="Avatar" class="table-avatar" src="/template/dist/img/avatar5.png">
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td class="project_progress">
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-green" role="progressbar" aria-volumenow="77" aria-volumemin="0" aria-volumemax="100" style="width: 77%">
-                                        </div>
+                                    <div class="modal-body">
+                                        <p>Do you really want to delete these records? This process cannot be undone.</p>
                                     </div>
-                                    <small>
-                                        77% Complete
-                                    </small>
-                                </td>
-                                <td class="project-state">
-                                    <span class="badge badge-success">Success</span>
-                                </td>
-                                <td class="project-actions text-right">
-                                    <a class="btn btn-primary btn-sm" href="#">
-                                        <i class="fas fa-folder">
-                                        </i>
-                                        View
-                                    </a>
-                                    <a class="btn btn-info btn-sm" href="#">
-                                        <i class="fas fa-pencil-alt">
-                                        </i>
-                                        Edit
-                                    </a>
-                                    <a class="btn btn-danger btn-sm" href="#">
-                                        <i class="fas fa-trash">
-                                        </i>
-                                        Delete
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                
-            </div>
-            <!-- /.card-body -->
-            <!-- <div class="card-footer clearfix">
-                <ul class="pagination pagination-sm m-0 float-right">
-                <li class="page-item"><a class="page-link" href="#">«</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">»</a></li>
-                </ul>
-            </div> -->
-        </div>
-                        
+                                    <div class="modal-footer justify-content-center">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-danger"  data-dismiss='modal' @click="clientDelete(delete_data.data , delete_data.index)">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
                     </div>
                 </div>
                 <!-- /.row -->
@@ -200,9 +151,38 @@
 </template>
 <script>
 export default {
-    
+    data() {
+        return {
+            all_clients:{},
+            delete_data:{
+                data:[],
+                index:[]
+            }
+        }
+    },
+    methods:{
+        getClient(page){
+                    if (typeof page === 'undefined') {
+                    page = 1;
+                }
+            axios.get('/api/client?page=' + page).then(response => {
+                this.all_clients = response.data;
+            })
+        },
+        clientDelete(data, index){
+            axios.delete(`/api/client/${data.id}`).then( res=>{
+
+                this.all_clients.data.splice(index, 1);
+
+                  this.$toast.success({
+                  title:'SUCCESS',
+                  message: res.data,
+                  })
+                })
+        }
+    },
+    mounted() {
+        this.getClient();
+    },
 }
 </script>
-<style lang="">
-    
-</style>

@@ -25,6 +25,10 @@ import User_update from './pages/users/update.vue'
 import Clients from './pages/clients/index.vue'
 // create Client
 import Clients_create from './pages/clients/create.vue'
+// update Client
+import Clients_update from './pages/clients/update.vue'
+// profile Client
+import Clients_profile from './pages/clients/profile.vue'
 
 
 //projects
@@ -102,6 +106,16 @@ const routes = new VueRouter({
             path: '/clients-create',
             component: Clients_create,
             name: 'clients_create',
+        },
+        {
+            path: '/client-update/:id',
+            component: Clients_update,
+            name: 'client_update',
+        },
+        {
+            path: '/client-profile/:id',
+            component: Clients_profile,
+            name: 'client_profile',
         },
         {
             path: '/projects',
