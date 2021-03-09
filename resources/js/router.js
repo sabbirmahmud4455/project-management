@@ -37,6 +37,8 @@ import Projects from './pages/projects/index.vue'
 import ViewProject from './pages/projects/view.vue'
 //project create
 import CreateProject from './pages/projects/create.vue'
+//project create
+import UpdateProject from './pages/projects/update.vue'
 //all projects
 import All_projects from './pages/projects/projects_table/all.vue'
 
@@ -58,11 +60,15 @@ import TaskCreate from './pages/tasks/create.vue'
 const routes = new VueRouter({
     mode: 'history',
     routes: [
+
+        //home page route
         {
             path: '/home',
             component: Home,
             name: 'home',
         },
+
+        //user route
         {
             path: '/users',
             component: Users,
@@ -97,6 +103,8 @@ const routes = new VueRouter({
             component: User_update,
             name: 'user_update',
         },
+
+        //client route
         {
             path: '/clients',
             component: Clients,
@@ -117,27 +125,31 @@ const routes = new VueRouter({
             component: Clients_profile,
             name: 'client_profile',
         },
+
+
+        //project route
         {
             path: '/projects',
             component: Projects,
-            children: [
-                { path: '',
-                component: All_projects,
-                name: 'projects',
-                },
-                { path: '/users-admin',
-                component: Users_admin, 
-                name:'users_admin' 
-                },
-                { path: '/users-member',
-                component: Users_member,
-                name:'users_member'
-                },
-            ]
+            name: 'projects',
+            // children: [
+            //     { path: '',
+            //     component: All_projects,
+            //     name: 'projects',
+            //     },
+            //     { path: '/users-admin',
+            //     component: Users_admin, 
+            //     name:'users_admin' 
+            //     },
+            //     { path: '/users-member',
+            //     component: Users_member,
+            //     name:'users_member'
+            //     },
+            // ]
             
         },
         {
-            path: '/projects/view',
+            path: '/project-view/:id',
             component: ViewProject,
             name: 'project_view',
         },
@@ -146,6 +158,15 @@ const routes = new VueRouter({
             component: CreateProject,
             name: 'project_create',
         },
+        {
+            path: '/project-update/:id',
+            component: UpdateProject,
+            name: 'project_update',
+        },
+
+
+
+
         {
             path: '/modules',
             component: ModuleIndex,

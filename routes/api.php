@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ProjectController;
+use App\Models\Project;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,4 +85,34 @@ Route::post('/clients/update/{client}', function (Request $request, Client $clie
     }
     return response()->json('image update successfully');
 });
+Route::get('/all_clients', function () {
+    $clients= Client::orderBy('id', 'desc')->get();
+    return response()->json($clients);
+});
 //client
+
+
+//project
+Route::resource('/project', ProjectController::class);
+Route::post('/projects/update/{project}', function (Request $request, Project $project) {
+    $request->validate([
+        "photo"=>"image"
+    ]);
+    if ($request->photo) {
+        $imageName = time() . '_' . uniqid() . '.' . $request->photo->getClientOriginalExtension();
+        $request->photo->move(public_path('images/projects'), $imageName);
+        $image_path= '/images/projects/'.$imageName;
+        if (!$project->photo =='/images/projects/default/project_default.jpg') {
+            if (File::exists($project->image)) {
+                File::delete($project->image);
+                //unlink($image_path);
+            }
+        }
+        $project->update([
+            'photo'=>$image_path
+        ]);
+    }
+    return response()->json('image update successfully');
+});
+
+//project

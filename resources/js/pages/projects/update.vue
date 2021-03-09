@@ -8,7 +8,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Create Project</h1>
+                        <h1 class="m-0 text-dark">Update Project</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -26,13 +26,12 @@
             <div class="container-fluid">
                 <div class="row">
                 <div class="col">
-                    
                     <div class="card card-primary">
                         <div class="card-header d-flex">
-                            <h3 class="card-title">Project</h3>
+                            <h3 class="card-title">Update Project</h3>
                         </div>
                         <!-- /.card-header -->
-                        <form   @submit.prevent="createProject()" @keydown="form.onKeydown($event)">
+                        <form   @submit.prevent="updateProject()" @keydown="form.onKeydown($event)">
                             <div class="card-body row">
                                 <div class="col-md-6 col">
                                     <div class="form-group">
@@ -44,7 +43,7 @@
                                 <div class="col-md-6 col">
                                     <div class="form-group">
                                         <label for="inputStatus">Client</label>
-                                        <select @click="getClient()" v-model="form.client_id" class="form-control custom-select" :class="{ 'is-invalid': form.errors.has('client_id') }">
+                                        <select v-model="form.client_id" class="form-control custom-select" :class="{ 'is-invalid': form.errors.has('client_id') }">
                                             <option value="0">Select Client</option>
                                         <option v-if="all_clients.length" v-for="(client, index) in all_clients" :key="index" :value="client.id">{{client.name}}</option>
                                         </select>
@@ -91,6 +90,7 @@
                                         </div>
                                         <button  v-if="real_time_photo.length > 0" @click="img_x" class="btn btn-light"><i class="fas fa-times"></i></button>
                                         <img v-if="real_time_photo.length > 0" style="max-width:35px; margin-left:2%; border-radius:5%;" :src="real_time_photo" alt="project photo">
+                                        <img v-else style="max-width:35px; margin-left:2%; border-radius:5%;" :src="real_photo" alt="project photo">
                                         </div>
                                         
                                     </div>
@@ -100,7 +100,7 @@
                                 <!-- /.card-body -->
 
                                 <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Create Project</button>
+                                <button type="submit" class="btn btn-primary">Update project</button>
                             </div>
                         </form>
                     </div>
@@ -126,16 +126,20 @@ export default {
     data() {
         return {
             real_time_photo:'',
+            real_photo:'',
             all_clients:[],
             form: new Form({
-                client_id:0,
+               client_id:0,
                 name:'',
                 type:'',
                 photo:'',
                 start_date:null,
                 end_date:null,
                 development_cost:'',
-            })
+            }),
+            img: new Form({
+                photo: '',
+            }),
         }
     },
     methods:{
@@ -148,51 +152,64 @@ export default {
                 this.all_clients = response.data;
             })
         },
-        createProject(){
-        this.form.post('/api/project' , {
+        editproject(){
+            let id = this.$route.params.id;
+        axios.get(`/api/project/${id}/edit`)
+            .then(response => {
+                this.form.name= response.data.name;
+                this.form.client_id= response.data.client_id;
+                this.form.type= response.data.type;
+                this.form.start_date= response.data.start_date;
+                this.form.end_date= response.data.end_date;
+                this.form.development_cost= response.data.development_cost;
+                this.real_photo= response.data.photo;
+        })
+      },
+      updateProject(){
+          let id = this.$route.params.id;
+          
+            if (!this.img.photo=='') {
+                this.img.post(`/api/projects/update/${id}`, {
                 transformRequest: [function (data, headers) {
                     return objectToFormData(data)
-                }],
-                onUploadProgress: e => {
-                    // Do whatever you want with the progress event
-                    console.log(e)
-                }
+                }]
             })
             .then(response => { 
-                this.img_x();
-                this.form.client_id= 0;
-                this.form.name= '';
-                this.form.type= '';
-                this.form.start_date= null;
-                this.form.end_date= null;
-                this.form.development_cost= '';
+                console.log(response);
+            }).catch(error => {
+                if (error.response.data.errors.photo) {
+                this.$toast.error({
+                title:'! ERRORS',
+                message: error.response.data.errors.photo[0],
+                })
+                }
+            })
+            }
+          this.form.put(`/api/project/${id}`)
+            .then(response => {
                 this.$toast.success({
                     title:'SUCCESS',
                     message:'project Created Successfully'
                 })
-        }).catch(error => {
-                if (error.response.data.errors.name) {
-                  this.$toast.error({
-                  title:'! ERRORS',
-                  message: error.response.data.errors.name[0],
-                  })
-                }
-                if (error.response.data.errors.photo) {
-                  this.$toast.error({
-                  title:'! ERRORS',
-                  message: error.response.data.errors.photo[0],
-                  })
+            }).catch(error => {
+                if (error) {
+                    if (error.response.data.errors.name) {
+                    this.$toast.error({
+                    title:'! ERRORS',
+                    message: error.response.data.errors.name[0],
+                    })
+                    }
                 }
             })
       },
-
+      
       //form img feld on chang
       onImageChange(event){
 
             //object to form data
             const file = event.target.files[0]
-            // Do some project side validation...
-            this.form.photo = file
+            // Do some client side validation...
+            this.img.photo = file
 
 
             // show uploading file
@@ -212,6 +229,11 @@ export default {
             }
         
         }
+
+    },
+    mounted(){
+        this.editproject();
+        this.getClient();
     },
     components : {
         VueDatePicker,
@@ -220,5 +242,5 @@ export default {
 }
 </script>
 <style lang="">
-    
+
 </style>
