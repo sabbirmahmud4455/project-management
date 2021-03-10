@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\ProjectController;
 use App\Models\Project;
 
@@ -94,6 +95,7 @@ Route::get('/all_clients', function () {
 
 //project
 Route::resource('/project', ProjectController::class);
+
 Route::post('/projects/update/{project}', function (Request $request, Project $project) {
     $request->validate([
         "photo"=>"image"
@@ -115,4 +117,15 @@ Route::post('/projects/update/{project}', function (Request $request, Project $p
     return response()->json('image update successfully');
 });
 
+Route::get('/all_projects', function () {
+    $projects= Project::orderBy('id', 'desc')->get();
+    return response()->json($projects);
+});
 //project
+
+
+//module
+Route::resource('/module', ModuleController::class);
+
+
+//module

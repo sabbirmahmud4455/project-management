@@ -71,7 +71,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        return response()->json($project);
     }
 
     /**
@@ -107,7 +107,7 @@ class ProjectController extends Controller
             'end_date'=>$request->end_date,
             'development_cost'=>$request->development_cost,
             'status'=>'Pending',
-            'update_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now(),
         ]);
         return response()->json('Project Update successfully');
     }

@@ -8,7 +8,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Create Module</h1>
+                        <h1 class="m-0 text-dark">Update Module</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -32,7 +32,7 @@
                             <h3 class="card-title">Module</h3>
                         </div>
                         <!-- /.card-header -->
-                        <form   @submit.prevent="createModule()" @keydown="form.onKeydown($event)">
+                        <form   @submit.prevent="updateModule()" @keydown="form.onKeydown($event)">
                             <div class="card-body row">
                                 <div class="col-12">
                                     <div class="form-group">
@@ -69,7 +69,7 @@
                                 <!-- /.card-body -->
 
                                 <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Create Module</button>
+                                <button type="submit" class="btn btn-primary">Update Module</button>
                             </div>
                         </form>
                     </div>
@@ -106,16 +106,23 @@ export default {
                 this.all_projects = response.data;
             })
         },
-        createModule(){
-        this.form.post('/api/module')
+        editModule(){
+            let id = this.$route.params.id;
+            axios.get(`/api/module/${id}/edit`)
+            .then(response => {
+                this.form.name= response.data.name;
+                this.form.title= response.data.title;
+                this.form.project_id= response.data.project_id;
+                this.form.description=response.data.description;
+        })
+      },
+        updateModule(){
+        let id = this.$route.params.id;
+        this.form.put(`/api/module/${id}`)
             .then(response => { 
-                this.form.name= '';
-                this.form.title= '';
-                this.form.project_id= 0;
-                this.form.description= '<h4 class="text-muted">Module Details</h4>';
                 this.$toast.success({
                     title:'SUCCESS',
-                    message:'Module Created Successfully'
+                    message:'Module Updated Successfully'
                 })
         }).catch(error => {
                 if (error.response.data.errors.name) {
@@ -135,6 +142,7 @@ export default {
 
     },
     mounted(){
+       this.editModule();
        this.getProject();
     },
     components: { 

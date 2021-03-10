@@ -33,20 +33,30 @@ import Clients_profile from './pages/clients/profile.vue'
 
 //projects
 import Projects from './pages/projects/index.vue'
-//project view
-import ViewProject from './pages/projects/view.vue'
 //project create
 import CreateProject from './pages/projects/create.vue'
 //project create
 import UpdateProject from './pages/projects/update.vue'
-//all projects
-import All_projects from './pages/projects/projects_table/all.vue'
+//project view
+import ViewProject from './pages/projects/view/index.vue'
+//product view status
+import product_view_status from './pages/projects/view/status.vue'
+//product view module
+import product_view_module from './pages/projects/view/module.vue'
+//product view task
+import product_view_task from './pages/projects/view/task.vue'
+//product view details
+import product_view_details from './pages/projects/view/details.vue'
 
 
 //all module
 import ModuleIndex from './pages/modules/index.vue'
 //create module
 import ModuleCreate from './pages/modules/create.vue'
+//update module
+import ModuleUpdate from './pages/modules/update.vue'
+//View module
+import ModuleView from './pages/modules/view.vue'
 
 
 //all module
@@ -134,24 +144,41 @@ const routes = new VueRouter({
             name: 'projects',
             // children: [
             //     { path: '',
-            //     component: All_projects,
-            //     name: 'projects',
+            //     component: product_view_status,
+            //     name: 'project_view_status',
             //     },
-            //     { path: '/users-admin',
-            //     component: Users_admin, 
-            //     name:'users_admin' 
-            //     },
-            //     { path: '/users-member',
-            //     component: Users_member,
-            //     name:'users_member'
-            //     },
+            //     // { path: '/users-admin',
+            //     // component: Users_admin, 
+            //     // name:'users_admin' 
+            //     // },
+            //     // { path: '/users-member',
+            //     // component: Users_member,
+            //     // name:'users_member'
+            //     // },
             // ]
             
         },
         {
             path: '/project-view/:id',
             component: ViewProject,
-            name: 'project_view',
+            children: [
+                { path: '',
+                component: product_view_status,
+                name: 'project_view',
+                },
+                { path: '/project-view/module/:id',
+                component: product_view_module, 
+                name:'project_view_module' 
+                },
+                { path: '/project-view/tasks/:id',
+                component: product_view_task,
+                name:'project_view_tasks'
+                },
+                { path: '/project-view/details/:id',
+                component: product_view_details,
+                name:'project_view_details'
+                },
+            ]
         },
         {
             path: '/project-create',
@@ -166,7 +193,7 @@ const routes = new VueRouter({
 
 
 
-
+        //module route
         {
             path: '/modules',
             component: ModuleIndex,
@@ -177,6 +204,19 @@ const routes = new VueRouter({
             component: ModuleCreate,
             name: 'module_create',
         },
+        {
+            path: '/module-update/:id',
+            component: ModuleUpdate,
+            name: 'module_update',
+        },
+        {
+            path: '/module-view/:id',
+            component: ModuleView,
+            name: 'module_view',
+        },
+
+
+        
         {
             path: '/tasks',
             component: TasksIndex,
