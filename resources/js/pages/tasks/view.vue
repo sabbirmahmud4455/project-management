@@ -63,7 +63,7 @@ export default {
     methods:{
         getUser(){
             let id = this.$route.params.id;
-            axios.get(`/api/module/${id}`)
+            axios.get(`/api/task/${id}`)
             .then(response => {
                 this.name= response.data.name;
                 this.title= response.data.title;

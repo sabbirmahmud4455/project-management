@@ -163,7 +163,6 @@ export default {
                 }
             axios.get('/api/module?page=' + page).then(response => {
                 this.all_modules = response.data;
-                console.log(all_modules['0']);
             })
         },
         moduleDelete(data, index){

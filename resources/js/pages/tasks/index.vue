@@ -26,168 +26,127 @@
                 <div class="row">
                     <div class="col">
                         <div class="card card-primary">
-            <div class="card-header d-flex">
-                <h3 class="card-title">Clients</h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-                  <table class="table table-striped projects">
-                <thead>
-                    <tr>
-                        <th style="width: 1%">
-                            #
-                        </th>
-                        <th style="width: 20%">
-                            Project Name
-                        </th>
-                        <th style="width: 30%">
-                            Team Members
-                        </th>
-                        <th>
-                            Project Progress
-                        </th>
-                        <th style="width: 8%" class="text-center">
-                            Status
-                        </th>
-                        <th style="width: 20%">
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            #
-                        </td>
-                        <td>
-                            <a>
-                                AdminLTE v3
-                            </a>
-                            <br>
-                            <small>
-                                Created 01.01.2019
-                            </small>
-                        </td>
-                        <td>
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <img alt="Avatar" class="table-avatar" src="/template/dist/img/avatar.png">
-                                </li>
-                                <li class="list-inline-item">
-                                    <img alt="Avatar" class="table-avatar" src="/template/dist/img/avatar3.png">
-                                </li>
-                                        <li class="list-inline-item">
-                                            <img alt="Avatar" class="table-avatar" src="/template/dist/img/avatar04.png">
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <img alt="Avatar" class="table-avatar" src="/template/dist/img/avatar5.png">
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td class="project_progress">
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-green" role="progressbar" aria-volumenow="77" aria-volumemin="0" aria-volumemax="100" style="width: 77%">
-                                        </div>
+                            <div class="card-header d-flex">
+                                <h3 class="card-title">All Tasks</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table class="table table-striped table-bordered projects">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 1%">
+                                                #
+                                            </th>
+                                            <th>
+                                                Name
+                                            </th>
+                                            <th>
+                                                Title
+                                            </th>
+                                            <th>
+                                               Project
+                                            </th>
+                                            <th>
+                                               Module
+                                            </th>
+                                            <th  style="width: 7%" class="text-center">
+                                                Status
+                                            </th>
+                                            <th style="width: 20%">
+                                                Action
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-if="all_tasks.data.length" v-for="(task, index) in all_tasks.data" :key="index">
+                                            <td>
+                                                {{index+1}}
+                                            </td>
+                                            <td>
+                                                <span v-if="task.name">{{task.name}}</span>
+                                                <span v-else>Null</span>
+                                                
+                                            </td>
+                                            <td>
+                                                <span v-if="task.title">{{task.title}}</span>
+                                                <span v-else>Null</span>
+                                                
+                                            </td>
+                                            <td>
+                                                <span v-if="task.project">
+                                                    <router-link  :to="{name:'project_view', params:{id: task.project.id}}">
+                                                      {{task.project.name}}
+                                                    </router-link>
+                                                    
+                                                    
+                                                    </span>
+                                                <span v-else>Null</span>
+                                            </td>
+                                            <td>
+                                                <span v-if="task.module">
+                                                    <router-link  :to="{name:'module_view', params:{id: task.module.id}}">
+                                                      {{task.module.name}}
+                                                    </router-link>
+                                                    
+                                                    </span>
+                                                <span v-else>Null</span>
+                                            </td>
+                                            <td>
+                                                <span v-if="task.status" class="badge badge-success">{{task.status}}</span>
+                                                <span v-else class=" badge badge-danger">null</span>
+                                            </td>
+                                            <td class="project-actions text-right">
+                                                <router-link  :to="{name:'task_view', params:{id: task.id}}" class="btn btn-info btn-sm">
+                                                    <i class="fas fa-folder">
+                                                    </i>
+                                                    View
+                                                </router-link>
+                                                <router-link  :to="{name:'task_update', params:{id: task.id}}" class="btn btn-info btn-sm">
+                                                <i class="fas fa-pencil-alt">
+                                                    </i>
+                                                    Edit
+                                                </router-link>
+                                                <a class="btn btn-danger btn-sm" href="#delete_modal"  data-toggle="modal" @click="delete_data.data=task, delete_data.index=index">
+                                                    <i class="fas fa-trash">
+                                                    </i>
+                                                    Delete
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                            <div class="card-footer clearfix">
+                                <pagination :data="all_tasks" :limit=2 align='center'  @pagination-change-page="getTask">
+                                    <span slot="prev-nav">Previous <i class="fas fa-arrow-left "></i></span>
+                                    <span slot="next-nav"><i class="fas fa-arrow-right "></i> Next</span>
+                                </pagination>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- delete Modal HTML -->
+                        <div id="delete_modal" class="modal fade">
+                            <div class="modal-dialog modal-confirm">
+                                <div class="modal-content">
+                                    <div class="modal-header flex-column">
+                                        <div class="icon-box">
+                                            <i class="fas fa-trash-alt material-icons"></i>
+                                        </div>						
+                                        <h4 class="modal-title w-100">Are you sure?</h4>	
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                     </div>
-                                    <small>
-                                        77% Complete
-                                    </small>
-                                </td>
-                                <td class="project-state">
-                                    <span class="badge badge-success">Success</span>
-                                </td>
-                                <td class="project-actions text-right">
-                                    <a class="btn btn-primary btn-sm" href="#">
-                                        <i class="fas fa-folder">
-                                        </i>
-                                        View
-                                    </a>
-                                    <a class="btn btn-info btn-sm" href="#">
-                                        <i class="fas fa-pencil-alt">
-                                        </i>
-                                        Edit
-                                    </a>
-                                    <a class="btn btn-danger btn-sm" href="#">
-                                        <i class="fas fa-trash">
-                                        </i>
-                                        Delete
-                                    </a>
-                                </td>
-                            </tr>
-                    <tr>
-                        <td>
-                            #
-                        </td>
-                        <td>
-                            <a>
-                                AdminLTE v3
-                            </a>
-                            <br>
-                            <small>
-                                Created 01.01.2019
-                            </small>
-                        </td>
-                        <td>
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <img alt="Avatar" class="table-avatar" src="/template/dist/img/avatar.png">
-                                </li>
-                                <li class="list-inline-item">
-                                    <img alt="Avatar" class="table-avatar" src="/template/dist/img/avatar3.png">
-                                </li>
-                                        <li class="list-inline-item">
-                                            <img alt="Avatar" class="table-avatar" src="/template/dist/img/avatar04.png">
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <img alt="Avatar" class="table-avatar" src="/template/dist/img/avatar5.png">
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td class="project_progress">
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-green" role="progressbar" aria-volumenow="77" aria-volumemin="0" aria-volumemax="100" style="width: 77%">
-                                        </div>
+                                    <div class="modal-body">
+                                        <p>Do you really want to delete these records? This process cannot be undone.</p>
                                     </div>
-                                    <small>
-                                        77% Complete
-                                    </small>
-                                </td>
-                                <td class="project-state">
-                                    <span class="badge badge-success">Success</span>
-                                </td>
-                                <td class="project-actions text-right">
-                                    <a class="btn btn-primary btn-sm" href="#">
-                                        <i class="fas fa-folder">
-                                        </i>
-                                        View
-                                    </a>
-                                    <a class="btn btn-info btn-sm" href="#">
-                                        <i class="fas fa-pencil-alt">
-                                        </i>
-                                        Edit
-                                    </a>
-                                    <a class="btn btn-danger btn-sm" href="#">
-                                        <i class="fas fa-trash">
-                                        </i>
-                                        Delete
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                
-            </div>
-            <!-- /.card-body -->
-            <!-- <div class="card-footer clearfix">
-                <ul class="pagination pagination-sm m-0 float-right">
-                <li class="page-item"><a class="page-link" href="#">«</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">»</a></li>
-                </ul>
-            </div> -->
-        </div>
-                        
+                                    <div class="modal-footer justify-content-center">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-danger"  data-dismiss='modal' @click="taskDelete(delete_data.data , delete_data.index)">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
                     </div>
                 </div>
                 <!-- /.row -->
@@ -200,9 +159,38 @@
 </template>
 <script>
 export default {
-    
+    data() {
+        return {
+            all_tasks:{},
+            delete_data:{
+                data:[],
+                index:[]
+            }
+        }
+    },
+    methods:{
+        getTask(page){
+                    if (typeof page === 'undefined') {
+                    page = 1;
+                }
+            axios.get('/api/task?page=' + page).then(response => {
+                this.all_tasks = response.data;
+            })
+        },
+        taskDelete(data, index){
+            axios.delete(`/api/task/${data.id}`).then( res=>{
+
+                this.all_tasks.data.splice(index, 1);
+
+                  this.$toast.success({
+                  title:'SUCCESS',
+                  message: res.data,
+                  })
+                })
+        }
+    },
+    mounted() {
+        this.getTask();
+    },
 }
 </script>
-<style lang="">
-    
-</style>

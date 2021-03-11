@@ -59,10 +59,14 @@ import ModuleUpdate from './pages/modules/update.vue'
 import ModuleView from './pages/modules/view.vue'
 
 
-//all module
+//all task
 import TasksIndex from './pages/tasks/index.vue'
-//create module
+//create task
 import TaskCreate from './pages/tasks/create.vue'
+//update task
+import TaskUpdate from './pages/tasks/update.vue'
+//view task
+import TaskView from './pages/tasks/view.vue'
 
 
 
@@ -215,8 +219,7 @@ const routes = new VueRouter({
             name: 'module_view',
         },
 
-
-        
+        //task
         {
             path: '/tasks',
             component: TasksIndex,
@@ -226,6 +229,16 @@ const routes = new VueRouter({
             path: '/task-create',
             component: TaskCreate,
             name: 'task_create',
+        },
+        {
+            path: '/task-update/:id',
+            component: TaskUpdate,
+            name: 'task_update',
+        },
+        {
+            path: '/task-view/:id',
+            component: TaskView,
+            name: 'task_view',
         },
         
     ]

@@ -21,4 +21,5 @@ class Module extends Model
     {
     	return $this->belongsTo(Project::class);
     }
+    
 }

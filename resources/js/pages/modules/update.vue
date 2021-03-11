@@ -114,8 +114,8 @@ export default {
                 this.form.title= response.data.title;
                 this.form.project_id= response.data.project_id;
                 this.form.description=response.data.description;
-        })
-      },
+            })
+        },
         updateModule(){
         let id = this.$route.params.id;
         this.form.put(`/api/module/${id}`)

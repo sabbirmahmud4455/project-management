@@ -11,6 +11,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TaskController;
+use App\Models\Module;
 use App\Models\Project;
 
 /*
@@ -38,6 +40,11 @@ Route::get('/users/admin', function () {
 });
 Route::get('/users/member', function () {
     $users= User::orderBy('id', 'desc')->where('type_id', 0)->paginate(10);
+        return response()->json($users);
+});
+
+Route::get('/all_users', function () {
+    $users= User::orderBy('id', 'desc')->get();
         return response()->json($users);
 });
 
@@ -126,6 +133,18 @@ Route::get('/all_projects', function () {
 
 //module
 Route::resource('/module', ModuleController::class);
+Route::get('/all_modules', function () {
+    $projects= Project::orderBy('id', 'desc')->get();
+    return response()->json($projects);
+});
+Route::get('/product_modules/{id}', function ($id) {
+    $projects= Module::orderBy('id', 'desc')->where('project_id', $id)->get();
+    return response()->json($projects);
+});
 
 
-//module
+
+
+
+//task
+Route::resource('/task', TaskController::class);
