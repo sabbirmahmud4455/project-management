@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Profile;
 use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -88,7 +89,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return response()->json($user);
+        $user_pro= User::where('id', $user->id)->with(['profile'])->get();
+        return response()->json($user_pro);
     }
 
     /**

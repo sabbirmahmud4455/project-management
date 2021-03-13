@@ -8,7 +8,6 @@ import Home from './pages/home.vue'
 
 //user pager
 import Users from './pages/users/index.vue'
-import UserProfile from './pages/users/profile.vue'
 //all users
 import Users_all from './pages/users/user_table/all.vue'
 //member users
@@ -19,6 +18,14 @@ import Users_admin from './pages/users/user_table/admin.vue'
 import User_create from './pages/users/create.vue'
 //user update 
 import User_update from './pages/users/update.vue'
+//user profile index
+import UserProfile from './pages/users/view/index.vue'
+//user profile active task
+import UserProfile_Activ_task from './pages/users/view/active_task.vue'
+//user profile complete task
+import UserProfile_Complete_task from './pages/users/view/complete_task.vue'
+//user profile details
+import UserProfile_details from './pages/users/view/details.vue'
 
 
 // Clients
@@ -82,6 +89,7 @@ const routes = new VueRouter({
             name: 'home',
         },
 
+
         //user route
         {
             path: '/users',
@@ -105,7 +113,20 @@ const routes = new VueRouter({
         {
             path: '/user-profile/:id',
             component: UserProfile,
-            name: 'user_profile',
+            children: [
+                { path: '',
+                component: UserProfile_Activ_task,
+                name: 'user_profile',
+                },
+                { path: '/user-view/module/:id',
+                component: UserProfile_Complete_task, 
+                name:'user_view_complete_task' 
+                },
+                { path: '/user-view/details/:id',
+                component: UserProfile_details,
+                name:'user_view_details'
+                },
+            ]
         },
         {
             path: '/user-create',

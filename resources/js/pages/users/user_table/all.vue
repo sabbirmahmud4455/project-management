@@ -102,7 +102,6 @@
                     <span slot="prev-nav">Previous <i class="fas fa-arrow-left "></i></span>
                     <span slot="next-nav"><i class="fas fa-arrow-right "></i> Next</span>
                 </pagination>
-                </ul>
             </div>
         </div>
 

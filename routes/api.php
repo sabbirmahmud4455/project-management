@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\CustomController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
@@ -143,8 +144,13 @@ Route::get('/product_modules/{id}', function ($id) {
 });
 
 
-
-
-
 //task
 Route::resource('/task', TaskController::class);
+Route::get('/user_active/task/{id}', [TaskController::class, 'user_active_task']);
+Route::get('/user_complete/task/{id}', [TaskController::class, 'user_complete_task']);
+
+
+//profile 
+Route::get('/profile/edit/{id}', [CustomController::class, 'edit_profile']);
+Route::post('/profile/create/{id}', [CustomController::class, 'create_profile']);
+Route::put('/profile/update/{id}', [CustomController::class, 'update_profile']);

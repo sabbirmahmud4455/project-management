@@ -125,4 +125,14 @@ class TaskController extends Controller
             return response()->json('Delete Successfully');
         }
     }
+    public function user_active_task($id)
+    {
+        $task= Task::where('assign_to', $id)->where('status', 'Active')->orderBy('id', 'desc')->paginate(10);
+        return response()->json($task);
+    }
+    public function user_complete_task($id)
+    {
+        $task= Task::where('assign_to', $id)->where('status', 'Complete')->orderBy('id', 'desc')->paginate(10);
+        return response()->json($task);
+    }
 }
