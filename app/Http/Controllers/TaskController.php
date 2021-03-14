@@ -87,6 +87,8 @@ class TaskController extends Controller
     public function show(Task $task)
     {
         return response()->json($task);
+        // $task= Task::where('id', $task->id)->with(['profile'])->get();
+        // return response()->json($task);
     }
 
     /**
@@ -134,5 +136,17 @@ class TaskController extends Controller
     {
         $task= Task::where('assign_to', $id)->where('status', 'Complete')->orderBy('id', 'desc')->paginate(10);
         return response()->json($task);
+    }
+
+    public function project_task($id)
+    {
+        $tasks= Task::where('project_id', $id)->orderBy('id', 'desc')->paginate(10);
+        return response()->json($tasks);
+    }
+
+    public function module_tasks($id)
+    {
+        $tasks= Task::where('module_id', $id)->orderBy('id', 'desc')->paginate(4);
+        return response()->json($tasks);
     }
 }

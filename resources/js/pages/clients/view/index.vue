@@ -36,33 +36,29 @@
 
                         
                         <ul class="list-group list-group-unbordered mb-3">
+                            <li class="list-group-item">
+                                <b>Email</b> <span v-if="email" class="float-right">{{email}}</span>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Contact</b> <span v-if="contact_no" class="float-right">{{contact_no}}</span>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Contact (Other)</b> <span v-if="emergency_contact_person" class="float-right">{{emergency_contact_person}}</span>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Gender</b> <span v-if="gender" class="float-right">{{gender}}</span>
+                            </li>
+                            
+                            <br>
+                            <li class="list-group-item">
+                                <b class='d-block'>Address </b><span v-if="address">{{address}}</span>
+                            </li>
+                            <li class="list-group-item">
+                                <b class='d-block'>Details </b>
+                                <div v-if="details" v-html="details"></div>
+                            </li>
                         
-                       
-                        <li class="list-group-item">
-                            <b>Email</b> <span v-if="email" class="float-right">{{email}}</span>
-                        </li>
-                        <li class="list-group-item">
-                            <b>Contact</b> <span v-if="contact_no" class="float-right">{{contact_no}}</span>
-                        </li>
-                        <li class="list-group-item">
-                            <b>Contact (Other)</b> <span v-if="emergency_contact_person" class="float-right">{{emergency_contact_person}}</span>
-                        </li>
-                        <li class="list-group-item">
-                            <b>Gender</b> <span v-if="gender" class="float-right">{{gender}}</span>
-                        </li>
-                        
-                        <br>
-                        <li class="list-group-item">
-                            <b class='d-block'>Address </b><span v-if="address">{{address}}</span>
-                        </li>
-                        <li class="list-group-item">
-                            <b class='d-block'>Details </b>
-                            <div v-if="details" v-html="details"></div>
-                        </li>
-                       
                         </ul>
-
-                        
                     </div>
                     <!-- /.card-body -->
                     </div>

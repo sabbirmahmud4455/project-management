@@ -125,19 +125,24 @@ class ProjectController extends Controller
             return response()->json('Delete Successfully');
         }
     }
+
     public function client_pending_project($id)
     {
         $project= Project::where('client_id', $id)->where('status', 'Pending')->orderBy('id', 'desc')->paginate(10);
         return response()->json($project);
     }
+
     public function client_active_project($id)
     {
         $project= Project::where('client_id', $id)->where('status', 'Active')->orderBy('id', 'desc')->paginate(10);
         return response()->json($project);
     }
+
     public function client_complete_project($id)
     {
         $project= Project::where('client_id', $id)->where('status', 'Complete')->orderBy('id', 'desc')->paginate(10);
         return response()->json($project);
     }
+
+    
 }

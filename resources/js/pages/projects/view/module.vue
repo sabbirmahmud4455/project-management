@@ -1,107 +1,60 @@
 <template lang="">
     <div>
-        <div class="tab-pane container mt-3" id="timeline">
-            <!-- The timeline -->
-            <div class="timeline timeline-inverse">
-            <!-- timeline time label -->
-            <div class="time-label">
-                <span class="bg-danger">
-                10 Feb. 2014
-                </span>
+        <div class="row">
+            <div v-if="modules.data" v-for="(module, index) in modules.data" :key="index" class="col-6">
+                <div class="card card-widget">
+                <div class="card-body">
+                    <h6>
+                        <span>
+                            <router-link :to="{name:'module_view', params:{id: module.id}}" class=" text-dark">
+                            {{module.name}}
+                            </router-link>
+                        </span>
+                    </h6>
+                    <h5>
+                        <span>
+                            <router-link :to="{name:'module_view', params:{id: module.id}}" class=" text-dark">
+                            {{module.title}}
+                            </router-link>
+                        </span>
+                    </h5>
+                    <span class=" badge badge-primary ">{{module.status}}</span>
+                </div>
+                <!-- /.card-body -->
+                
+                </div>
+                <pagination :data="modules" :limit=2 align='center'  @pagination-change-page="getmodule">
+                    <span slot="prev-nav">Previous <i class="fas fa-arrow-left "></i></span>
+                    <span slot="next-nav"><i class="fas fa-arrow-right "></i> Next</span>
+                </pagination>
             </div>
-            <!-- /.timeline-label -->
-            <!-- timeline item -->
-            <div>
-                <i class="fas fa-envelope bg-primary"></i>
-
-                <div class="timeline-item">
-                <span class="time"><i class="far fa-clock"></i> 12:05</span>
-
-                <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-
-                <div class="timeline-body">
-                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                    weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                    jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                    quora plaxo ideeli hulu weebly balihoo...
-                </div>
-                <div class="timeline-footer">
-                    <a href="#" class="btn btn-primary btn-sm">Read more</a>
-                    <a href="#" class="btn btn-danger btn-sm">Delete</a>
-                </div>
-                </div>
-            </div>
-            <!-- END timeline item -->
-            <!-- timeline item -->
-            <div>
-                <i class="fas fa-user bg-info"></i>
-
-                <div class="timeline-item">
-                <span class="time"><i class="far fa-clock"></i> 5 mins ago</span>
-
-                <h3 class="timeline-header border-0"><a href="#">Sarah Young</a> accepted your friend request
-                </h3>
-                </div>
-            </div>
-            <!-- END timeline item -->
-            <!-- timeline item -->
-            <div>
-                <i class="fas fa-comments bg-warning"></i>
-
-                <div class="timeline-item">
-                <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
-
-                <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-
-                <div class="timeline-body">
-                    Take me to your leader!
-                    Switzerland is small and neutral!
-                    We are more like Germany, ambitious and misunderstood!
-                </div>
-                <div class="timeline-footer">
-                    <a href="#" class="btn btn-warning btn-flat btn-sm">View comment</a>
-                </div>
-                </div>
-            </div>
-            <!-- END timeline item -->
-            <!-- timeline time label -->
-            <div class="time-label">
-                <span class="bg-success">
-                3 Jan. 2014
-                </span>
-            </div>
-            <!-- /.timeline-label -->
-            <!-- timeline item -->
-            <div>
-                <i class="fas fa-camera bg-purple"></i>
-
-                <div class="timeline-item">
-                <span class="time"><i class="far fa-clock"></i> 2 days ago</span>
-
-                <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-
-                <div class="timeline-body">
-                    <!-- <img src="http://placehold.it/150x100" alt="...">
-                    <img src="http://placehold.it/150x100" alt="...">
-                    <img src="http://placehold.it/150x100" alt="...">
-                    <img src="http://placehold.it/150x100" alt="..."> -->
-                </div>
-                </div>
-            </div>
-            <!-- END timeline item -->
-            <div>
-                <i class="far fa-clock bg-gray"></i>
-            </div>
+            <div class="col-12" v-if="!modules.data">
+                <h5 class="text-center text-muted">Module Not Found</h5>
             </div>
         </div>
-        <!-- /.tab-pane -->
     </div>
 </template>
 <script>
 export default {
-    
+    data() {
+        return {
+            id: this.$route.params.id,
+            modules:{},
+        }
+    },
+    methods:{
+        getmodule(page){
+            if (typeof page === 'undefined') {
+            page = 1;
+            }
+            axios.get(`/api/project/module/${this.id}?page=` + page).then(response => {
+                this.modules = response.data;
+            })
+        },
+        
+    },
+    mounted() {
+        this.getmodule();
+    },
 }
 </script>
-<style lang="">
-    
-</style>

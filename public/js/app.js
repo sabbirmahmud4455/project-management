@@ -3272,10 +3272,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4067,30 +4063,110 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      id: this.$route.params.id,
+      tasks: {},
       name: '',
       title: '',
-      project: '',
-      description: ''
+      description: '',
+      project_name: '',
+      project_id: ''
     };
   },
   methods: {
-    getUser: function getUser() {
+    getModule: function getModule() {
       var _this = this;
 
       var id = this.$route.params.id;
       axios.get("/api/module/".concat(id)).then(function (response) {
-        _this.name = response.data.name;
-        _this.title = response.data.title;
-        _this.project = response.data.project;
-        _this.description = response.data.description;
+        _this.name = response.data[0].name;
+        _this.title = response.data[0].title;
+        _this.description = response.data[0].description;
+
+        if (response.data[0].project) {
+          _this.project_name = response.data[0].project.name;
+          _this.project_id = response.data[0].project.id;
+        }
+      });
+    },
+    getTask: function getTask(page) {
+      var _this2 = this;
+
+      if (typeof page === 'undefined') {
+        page = 1;
+      }
+
+      axios.get("/api/module/task/".concat(this.id, "?page=") + page).then(function (response) {
+        _this2.tasks = response.data;
       });
     }
   },
   mounted: function mounted() {
-    this.getUser();
+    this.getModule();
+    this.getTask();
   }
 });
 
@@ -4975,8 +5051,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5058,70 +5132,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      id: this.$route.params.id,
+      modules: {}
+    };
+  },
+  methods: {
+    getmodule: function getmodule(page) {
+      var _this = this;
+
+      if (typeof page === 'undefined') {
+        page = 1;
+      }
+
+      axios.get("/api/project/module/".concat(this.id, "?page=") + page).then(function (response) {
+        _this.modules = response.data;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getmodule();
+  }
+});
 
 /***/ }),
 
@@ -5301,24 +5335,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      id: this.$route.params.id,
+      tasks: {}
+    };
+  },
+  methods: {
+    getTask: function getTask(page) {
+      var _this = this;
+
+      if (typeof page === 'undefined') {
+        page = 1;
+      }
+
+      axios.get("/api/project/task/".concat(this.id, "?page=") + page).then(function (response) {
+        _this.tasks = response.data;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getTask();
+  }
+});
 
 /***/ }),
 
@@ -45559,21 +45599,209 @@ var render = function() {
       _c("div", { staticClass: "content" }, [
         _c("div", { staticClass: "container-fluid" }, [
           _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col" }, [
+            _c("div", { staticClass: "col-4" }, [
               _c("div", { staticClass: "card card-primary card-outline" }, [
                 _vm._m(1),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body" }, [
-                  _vm.title.length
-                    ? _c("h3", [_vm._v(_vm._s(_vm.title))])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.description.length
-                    ? _c("div", {
-                        domProps: { innerHTML: _vm._s(_vm.description) }
-                      })
-                    : _vm._e()
+                  _c(
+                    "ul",
+                    { staticClass: "list-group list-group-unbordered mb-3" },
+                    [
+                      _c("li", { staticClass: "list-group-item" }, [
+                        _c("b", [_vm._v("Name")]),
+                        _vm._v(" "),
+                        _vm.name
+                          ? _c("span", { staticClass: "float-right" }, [
+                              _vm._v(_vm._s(_vm.name))
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("li", { staticClass: "list-group-item" }, [
+                        _c("b", [_vm._v("Project")]),
+                        _vm._v(" "),
+                        _vm.project_name
+                          ? _c(
+                              "span",
+                              { staticClass: "float-right" },
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    staticClass: " text-primary",
+                                    attrs: {
+                                      to: {
+                                        name: "project_view",
+                                        params: { id: _vm.project_id }
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                                                                                                " +
+                                        _vm._s(_vm.project_name) +
+                                        "  \n                                "
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
+                            )
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("li", { staticClass: "list-group-item" }, [
+                        _c("b", { staticClass: "d-block" }, [
+                          _vm._v("Description")
+                        ]),
+                        _vm._v(" "),
+                        _vm.description
+                          ? _c("div", {
+                              domProps: { innerHTML: _vm._s(_vm.description) }
+                            })
+                          : _vm._e()
+                      ])
+                    ]
+                  )
                 ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-8" }, [
+              _c("div", { staticClass: "card card-primary card-outline" }, [
+                _vm._m(2),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c(
+                    "div",
+                    { staticClass: "row" },
+                    _vm._l(_vm.tasks.data, function(task, index) {
+                      return _c(
+                        "div",
+                        { key: index, staticClass: "col-6" },
+                        [
+                          _c("div", { staticClass: "card card-widget" }, [
+                            _c("div", { staticClass: "card-body" }, [
+                              _c("h6", [
+                                _c(
+                                  "span",
+                                  [
+                                    _c(
+                                      "router-link",
+                                      {
+                                        staticClass: " text-dark",
+                                        attrs: {
+                                          to: {
+                                            name: "task_view",
+                                            params: { id: task.id }
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                                " +
+                                            _vm._s(task.name) +
+                                            "\n                                                "
+                                        )
+                                      ]
+                                    )
+                                  ],
+                                  1
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("h5", [
+                                _c(
+                                  "span",
+                                  [
+                                    _c(
+                                      "router-link",
+                                      {
+                                        staticClass: " text-dark",
+                                        attrs: {
+                                          to: {
+                                            name: "task_view",
+                                            params: { id: task.id }
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                                " +
+                                            _vm._s(task.title) +
+                                            "\n                                                "
+                                        )
+                                      ]
+                                    )
+                                  ],
+                                  1
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "span",
+                                { staticClass: " badge badge-primary " },
+                                [_vm._v(_vm._s(task.status))]
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "pagination",
+                            {
+                              attrs: {
+                                data: _vm.tasks,
+                                limit: 2,
+                                align: "center"
+                              },
+                              on: { "pagination-change-page": _vm.getTask }
+                            },
+                            [
+                              _c(
+                                "span",
+                                {
+                                  attrs: { slot: "prev-nav" },
+                                  slot: "prev-nav"
+                                },
+                                [
+                                  _vm._v("Previous "),
+                                  _c("i", { staticClass: "fas fa-arrow-left " })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "span",
+                                {
+                                  attrs: { slot: "next-nav" },
+                                  slot: "next-nav"
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-arrow-right "
+                                  }),
+                                  _vm._v(" Next")
+                                ]
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    }),
+                    0
+                  )
+                ]),
+                _vm._v(" "),
+                !_vm.tasks.data
+                  ? _c("div", { staticClass: "col-12" }, [
+                      _c("h5", { staticClass: "text-center text-muted" }, [
+                        _vm._v("Task Not Found")
+                      ])
+                    ])
+                  : _vm._e()
               ])
             ])
           ])
@@ -45615,6 +45843,14 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("h5", [_vm._v("Module Description")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h5", [_vm._v("Module Tasks")])
     ])
   }
 ]
@@ -47178,48 +47414,52 @@ var render = function() {
                         )
                       : _vm._e(),
                     _vm._v(" "),
-                    _vm.type.length
-                      ? _c("p", { staticClass: "text-muted text-center" }, [
-                          _vm._v(_vm._s(_vm.type))
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
                     _c(
                       "ul",
                       { staticClass: "list-group list-group-unbordered mb-3" },
                       [
-                        _vm.start_date
-                          ? _c("li", { staticClass: "list-group-item" }, [
-                              _c("b", [_vm._v("Start Date")]),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "float-right" }, [
+                        _c("li", { staticClass: "list-group-item" }, [
+                          _c("b", [_vm._v("Type")]),
+                          _vm._v(" "),
+                          _vm.type.length
+                            ? _c("span", { staticClass: "float-right" }, [
+                                _vm._v(_vm._s(_vm.type))
+                              ])
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("li", { staticClass: "list-group-item" }, [
+                          _c("b", [_vm._v("Start Date")]),
+                          _vm._v(" "),
+                          _vm.start_date
+                            ? _c("span", { staticClass: "float-right" }, [
                                 _vm._v(_vm._s(_vm.start_date))
                               ])
-                            ])
-                          : _vm._e(),
+                            : _vm._e()
+                        ]),
                         _vm._v(" "),
-                        _vm.end_date
-                          ? _c("li", { staticClass: "list-group-item" }, [
-                              _c("b", [_vm._v("End Date")]),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "float-right" }, [
+                        _c("li", { staticClass: "list-group-item" }, [
+                          _c("b", [_vm._v("End Date")]),
+                          _vm._v(" "),
+                          _vm.end_date
+                            ? _c("span", { staticClass: "float-right" }, [
                                 _vm._v(" " + _vm._s(_vm.end_date))
                               ])
-                            ])
-                          : _vm._e(),
+                            : _vm._e()
+                        ]),
                         _vm._v(" "),
-                        _vm.development_cost > 0
-                          ? _c("li", { staticClass: "list-group-item" }, [
-                              _c("b", [_vm._v("Dev Cost")]),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "float-right" }, [
+                        _c("li", { staticClass: "list-group-item" }, [
+                          _c("b", [_vm._v("Dev Cost")]),
+                          _vm._v(" "),
+                          _vm.development_cost > 0
+                            ? _c("span", { staticClass: "float-right" }, [
                                 _c("i", {
                                   staticClass: "fas fa-dollar-sign    "
                                 }),
                                 _vm._v(" " + _vm._s(_vm.development_cost))
                               ])
-                            ])
-                          : _vm._e()
+                            : _vm._e()
+                        ])
                       ]
                     )
                   ])
@@ -47386,147 +47626,126 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "div",
-        { staticClass: "tab-pane container mt-3", attrs: { id: "timeline" } },
-        [
-          _c("div", { staticClass: "timeline timeline-inverse" }, [
-            _c("div", { staticClass: "time-label" }, [
-              _c("span", { staticClass: "bg-danger" }, [
-                _vm._v("\n            10 Feb. 2014\n            ")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", [
-              _c("i", { staticClass: "fas fa-envelope bg-primary" }),
-              _vm._v(" "),
-              _c("div", { staticClass: "timeline-item" }, [
-                _c("span", { staticClass: "time" }, [
-                  _c("i", { staticClass: "far fa-clock" }),
-                  _vm._v(" 12:05")
-                ]),
-                _vm._v(" "),
-                _c("h3", { staticClass: "timeline-header" }, [
-                  _c("a", { attrs: { href: "#" } }, [_vm._v("Support Team")]),
-                  _vm._v(" sent you an email")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "timeline-body" }, [
-                  _vm._v(
-                    "\n                Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,\n                weebly ning heekya handango imeem plugg dopplr jibjab, movity\n                jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle\n                quora plaxo ideeli hulu weebly balihoo...\n            "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "timeline-footer" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-primary btn-sm",
-                      attrs: { href: "#" }
-                    },
-                    [_vm._v("Read more")]
-                  ),
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "row" },
+      [
+        _vm._l(_vm.modules.data, function(module, index) {
+          return _vm.modules.data
+            ? _c(
+                "div",
+                { key: index, staticClass: "col-6" },
+                [
+                  _c("div", { staticClass: "card card-widget" }, [
+                    _c("div", { staticClass: "card-body" }, [
+                      _c("h6", [
+                        _c(
+                          "span",
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: " text-dark",
+                                attrs: {
+                                  to: {
+                                    name: "module_view",
+                                    params: { id: module.id }
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(module.name) +
+                                    "\n                        "
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("h5", [
+                        _c(
+                          "span",
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: " text-dark",
+                                attrs: {
+                                  to: {
+                                    name: "module_view",
+                                    params: { id: module.id }
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(module.title) +
+                                    "\n                        "
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: " badge badge-primary " }, [
+                        _vm._v(_vm._s(module.status))
+                      ])
+                    ])
+                  ]),
                   _vm._v(" "),
                   _c(
-                    "a",
+                    "pagination",
                     {
-                      staticClass: "btn btn-danger btn-sm",
-                      attrs: { href: "#" }
+                      attrs: { data: _vm.modules, limit: 2, align: "center" },
+                      on: { "pagination-change-page": _vm.getmodule }
                     },
-                    [_vm._v("Delete")]
+                    [
+                      _c(
+                        "span",
+                        { attrs: { slot: "prev-nav" }, slot: "prev-nav" },
+                        [
+                          _vm._v("Previous "),
+                          _c("i", { staticClass: "fas fa-arrow-left " })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        { attrs: { slot: "next-nav" }, slot: "next-nav" },
+                        [
+                          _c("i", { staticClass: "fas fa-arrow-right " }),
+                          _vm._v(" Next")
+                        ]
+                      )
+                    ]
                   )
-                ])
+                ],
+                1
+              )
+            : _vm._e()
+        }),
+        _vm._v(" "),
+        !_vm.modules.data
+          ? _c("div", { staticClass: "col-12" }, [
+              _c("h5", { staticClass: "text-center text-muted" }, [
+                _vm._v("Module Not Found")
               ])
-            ]),
-            _vm._v(" "),
-            _c("div", [
-              _c("i", { staticClass: "fas fa-user bg-info" }),
-              _vm._v(" "),
-              _c("div", { staticClass: "timeline-item" }, [
-                _c("span", { staticClass: "time" }, [
-                  _c("i", { staticClass: "far fa-clock" }),
-                  _vm._v(" 5 mins ago")
-                ]),
-                _vm._v(" "),
-                _c("h3", { staticClass: "timeline-header border-0" }, [
-                  _c("a", { attrs: { href: "#" } }, [_vm._v("Sarah Young")]),
-                  _vm._v(" accepted your friend request\n            ")
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", [
-              _c("i", { staticClass: "fas fa-comments bg-warning" }),
-              _vm._v(" "),
-              _c("div", { staticClass: "timeline-item" }, [
-                _c("span", { staticClass: "time" }, [
-                  _c("i", { staticClass: "far fa-clock" }),
-                  _vm._v(" 27 mins ago")
-                ]),
-                _vm._v(" "),
-                _c("h3", { staticClass: "timeline-header" }, [
-                  _c("a", { attrs: { href: "#" } }, [_vm._v("Jay White")]),
-                  _vm._v(" commented on your post")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "timeline-body" }, [
-                  _vm._v(
-                    "\n                Take me to your leader!\n                Switzerland is small and neutral!\n                We are more like Germany, ambitious and misunderstood!\n            "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "timeline-footer" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-warning btn-flat btn-sm",
-                      attrs: { href: "#" }
-                    },
-                    [_vm._v("View comment")]
-                  )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "time-label" }, [
-              _c("span", { staticClass: "bg-success" }, [
-                _vm._v("\n            3 Jan. 2014\n            ")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", [
-              _c("i", { staticClass: "fas fa-camera bg-purple" }),
-              _vm._v(" "),
-              _c("div", { staticClass: "timeline-item" }, [
-                _c("span", { staticClass: "time" }, [
-                  _c("i", { staticClass: "far fa-clock" }),
-                  _vm._v(" 2 days ago")
-                ]),
-                _vm._v(" "),
-                _c("h3", { staticClass: "timeline-header" }, [
-                  _c("a", { attrs: { href: "#" } }, [_vm._v("Mina Lee")]),
-                  _vm._v(" uploaded new photos")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "timeline-body" })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", [_c("i", { staticClass: "far fa-clock bg-gray" })])
-          ])
-        ]
-      )
-    ])
-  }
-]
+            ])
+          : _vm._e()
+      ],
+      2
+    )
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -47803,146 +48022,126 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "div",
-        { staticClass: "tab-pane container mt-3", attrs: { id: "settings" } },
-        [
-          _c("form", { staticClass: "form-horizontal" }, [
-            _c("div", { staticClass: "form-group row" }, [
-              _c(
-                "label",
-                {
-                  staticClass: "col-sm-2 col-form-label",
-                  attrs: { for: "inputName" }
-                },
-                [_vm._v("Name")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-10" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: { type: "email", id: "inputName", placeholder: "Name" }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group row" }, [
-              _c(
-                "label",
-                {
-                  staticClass: "col-sm-2 col-form-label",
-                  attrs: { for: "inputEmail" }
-                },
-                [_vm._v("Email")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-10" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "email",
-                    id: "inputEmail",
-                    placeholder: "Email"
-                  }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group row" }, [
-              _c(
-                "label",
-                {
-                  staticClass: "col-sm-2 col-form-label",
-                  attrs: { for: "inputName2" }
-                },
-                [_vm._v("Name")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-10" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: { type: "text", id: "inputName2", placeholder: "Name" }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group row" }, [
-              _c(
-                "label",
-                {
-                  staticClass: "col-sm-2 col-form-label",
-                  attrs: { for: "inputExperience" }
-                },
-                [_vm._v("Experience")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-10" }, [
-                _c("textarea", {
-                  staticClass: "form-control",
-                  attrs: { id: "inputExperience", placeholder: "Experience" }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group row" }, [
-              _c(
-                "label",
-                {
-                  staticClass: "col-sm-2 col-form-label",
-                  attrs: { for: "inputSkills" }
-                },
-                [_vm._v("Skills")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-10" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    id: "inputSkills",
-                    placeholder: "Skills"
-                  }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group row" }, [
-              _c("div", { staticClass: "offset-sm-2 col-sm-10" }, [
-                _c("div", { staticClass: "checkbox" }, [
-                  _c("label", [
-                    _c("input", { attrs: { type: "checkbox" } }),
-                    _vm._v(" I agree to the "),
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("terms and conditions")
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "row" },
+      [
+        _vm._l(_vm.tasks.data, function(task, index) {
+          return _vm.tasks.data
+            ? _c(
+                "div",
+                { key: index, staticClass: "col-6" },
+                [
+                  _c("div", { staticClass: "card card-widget" }, [
+                    _c("div", { staticClass: "card-body" }, [
+                      _c("h6", [
+                        _c(
+                          "span",
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: " text-dark",
+                                attrs: {
+                                  to: {
+                                    name: "task_view",
+                                    params: { id: task.id }
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(task.name) +
+                                    "\n                        "
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("h5", [
+                        _c(
+                          "span",
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: " text-dark",
+                                attrs: {
+                                  to: {
+                                    name: "task_view",
+                                    params: { id: task.id }
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(task.title) +
+                                    "\n                        "
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: " badge badge-primary " }, [
+                        _vm._v(_vm._s(task.status))
+                      ])
                     ])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group row" }, [
-              _c("div", { staticClass: "offset-sm-2 col-sm-10" }, [
-                _c(
-                  "button",
-                  { staticClass: "btn btn-danger", attrs: { type: "submit" } },
-                  [_vm._v("Submit")]
-                )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "pagination",
+                    {
+                      attrs: { data: _vm.tasks, limit: 2, align: "center" },
+                      on: { "pagination-change-page": _vm.getTask }
+                    },
+                    [
+                      _c(
+                        "span",
+                        { attrs: { slot: "prev-nav" }, slot: "prev-nav" },
+                        [
+                          _vm._v("Previous "),
+                          _c("i", { staticClass: "fas fa-arrow-left " })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        { attrs: { slot: "next-nav" }, slot: "next-nav" },
+                        [
+                          _c("i", { staticClass: "fas fa-arrow-right " }),
+                          _vm._v(" Next")
+                        ]
+                      )
+                    ]
+                  )
+                ],
+                1
+              )
+            : _vm._e()
+        }),
+        _vm._v(" "),
+        !_vm.tasks.data
+          ? _c("div", { staticClass: "col-12" }, [
+              _c("h5", { staticClass: "text-center text-muted" }, [
+                _vm._v("Task Not Found")
               ])
             ])
-          ])
-        ]
-      )
-    ])
-  }
-]
+          : _vm._e()
+      ],
+      2
+    )
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 

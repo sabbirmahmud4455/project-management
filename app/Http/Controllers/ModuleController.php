@@ -66,7 +66,8 @@ class ModuleController extends Controller
      */
     public function show(Module $module)
     {
-        return response()->json($module);
+        $get_module= Module::where('id', $module->id)->with(['project'])->get();
+        return response()->json($get_module);
     }
 
     /**
@@ -123,4 +124,11 @@ class ModuleController extends Controller
             return response()->json('Delete Successfully');
         }
     }
+
+    public function project_modules($id)
+    {
+        $module= Module::where('project_id', $id)->orderBy('id', 'desc')->paginate(10);
+        return response()->json($module);
+    }
+    
 }

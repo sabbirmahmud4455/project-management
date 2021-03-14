@@ -10,8 +10,8 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">User Profile</li>
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">User Profile</li>
                     </ol>
                 </div>
                 </div>
@@ -32,22 +32,20 @@
                         </div>
 
                         <h3 v-if="name.length" class="profile-username text-center">{{name}}</h3>
-
-                        <p v-if="type.length" class="text-muted text-center">{{type}}</p>
-
+                        
                         <ul class="list-group list-group-unbordered mb-3">
-                            <li v-if="start_date" class="list-group-item">
-                                <b>Start Date</b> <span class="float-right">{{start_date}}</span>
+                            <li class="list-group-item">
+                                <b>Type</b> <span v-if="type.length" class="float-right">{{type}}</span>
                             </li>
-                            <li v-if="end_date" class="list-group-item">
-                                <b>End Date</b> <span class="float-right"> {{end_date}}</span>
+                            <li class="list-group-item">
+                                <b>Start Date</b> <span class="float-right" v-if="start_date">{{start_date}}</span>
                             </li>
-                            <li v-if="development_cost>0" class="list-group-item">
-                                <b>Dev Cost</b> <span class="float-right"><i class="fas fa-dollar-sign    "></i> {{development_cost}}</span>
+                            <li class="list-group-item">
+                                <b>End Date</b> <span class="float-right" v-if="end_date"> {{end_date}}</span>
                             </li>
-                        <!-- <li class="list-group-item">
-                            <b>Client</b> <span class="float-right"> {{}}</span>
-                        </li> -->
+                            <li class="list-group-item">
+                                <b>Dev Cost</b> <span v-if="development_cost>0" class="float-right"><i class="fas fa-dollar-sign    "></i> {{development_cost}}</span>
+                            </li>
                         </ul>
 
                     </div>

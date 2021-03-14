@@ -135,7 +135,7 @@ Route::get('/client_pending/project/{id}', [ProjectController::class, 'client_pe
 Route::get('/client_active/project/{id}', [ProjectController::class, 'client_active_project']);
 
 Route::get('/client_complete/project/{id}', [ProjectController::class, 'client_complete_project']);
-//project
+
 
 
 //module
@@ -148,12 +148,18 @@ Route::get('/product_modules/{id}', function ($id) {
     $projects= Module::orderBy('id', 'desc')->where('project_id', $id)->get();
     return response()->json($projects);
 });
+Route::get('/project/module/{id}', [ModuleController::class, 'project_modules']);
+
 
 
 //task
 Route::resource('/task', TaskController::class);
 Route::get('/user_active/task/{id}', [TaskController::class, 'user_active_task']);
+
 Route::get('/user_complete/task/{id}', [TaskController::class, 'user_complete_task']);
+
+Route::get('/project/task/{id}', [TaskController::class, 'project_task']);
+Route::get('/module/task/{id}', [TaskController::class, 'module_tasks']);
 
 
 //profile 
