@@ -35,7 +35,13 @@ import Clients_create from './pages/clients/create.vue'
 // update Client
 import Clients_update from './pages/clients/update.vue'
 // profile Client
-import Clients_profile from './pages/clients/profile.vue'
+import Clients_profile from './pages/clients/view/index.vue'
+// profile Client 
+import Clients_profile_active_project from './pages/clients/view/active_project.vue'
+// profile Client 
+import Clients_profile_pending_project from './pages/clients/view/pending_project.vue'
+// profile Client
+import Clients_profile_com_project from './pages/clients/view/complete_project.vue'
 
 
 //projects
@@ -158,7 +164,20 @@ const routes = new VueRouter({
         {
             path: '/client-profile/:id',
             component: Clients_profile,
-            name: 'client_profile',
+            children: [
+                { path: '',
+                component: Clients_profile_active_project,
+                name: 'client_profile',
+                },
+                { path: '/client-view/pending_project/:id',
+                component: Clients_profile_pending_project, 
+                name:'client_view_pending_project' 
+                },
+                { path: '/client-view/complete_project/:id',
+                component: Clients_profile_com_project, 
+                name:'client_view_complete_project' 
+                },
+            ]
         },
 
 
@@ -167,21 +186,6 @@ const routes = new VueRouter({
             path: '/projects',
             component: Projects,
             name: 'projects',
-            // children: [
-            //     { path: '',
-            //     component: product_view_status,
-            //     name: 'project_view_status',
-            //     },
-            //     // { path: '/users-admin',
-            //     // component: Users_admin, 
-            //     // name:'users_admin' 
-            //     // },
-            //     // { path: '/users-member',
-            //     // component: Users_member,
-            //     // name:'users_member'
-            //     // },
-            // ]
-            
         },
         {
             path: '/project-view/:id',

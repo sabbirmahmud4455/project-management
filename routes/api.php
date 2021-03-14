@@ -98,6 +98,7 @@ Route::get('/all_clients', function () {
     $clients= Client::orderBy('id', 'desc')->get();
     return response()->json($clients);
 });
+
 //client
 
 
@@ -129,6 +130,11 @@ Route::get('/all_projects', function () {
     $projects= Project::orderBy('id', 'desc')->get();
     return response()->json($projects);
 });
+Route::get('/client_pending/project/{id}', [ProjectController::class, 'client_pending_project']);
+
+Route::get('/client_active/project/{id}', [ProjectController::class, 'client_active_project']);
+
+Route::get('/client_complete/project/{id}', [ProjectController::class, 'client_complete_project']);
 //project
 
 
