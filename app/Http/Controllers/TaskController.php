@@ -86,9 +86,8 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
+        $task= Task::where('id', $task->id)->with(['project', 'module'])->get();
         return response()->json($task);
-        // $task= Task::where('id', $task->id)->with(['profile'])->get();
-        // return response()->json($task);
     }
 
     /**

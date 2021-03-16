@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class ClientController extends Controller
 {
@@ -149,4 +150,34 @@ class ClientController extends Controller
             return response()->json('Delete Successfully');
         }
     }
+
+    public function image_update(Request $request, Client $client)
+    {
+        $request->validate([
+            "photo"=>"image"
+        ]);
+        if ($request->photo) {
+            $imageName = time() . '_' . uniqid() . '.' . $request->photo->getClientOriginalExtension();
+            $request->photo->move(public_path('images/clients'), $imageName);
+            $image_path= '/images/clients/'.$imageName;
+            if (!$client->photo =='/images/clients/default/avatar1.png' || !$client->photo=='/images/clients/default/avatar2.png') {
+                if (File::exists($client->image)) {
+                    File::delete($client->image);
+                    //unlink($image_path);
+                }
+            }
+            $client->update([
+                'photo'=>$image_path
+            ]);
+        }
+        return response()->json('image update successfully');
+    }
+
+    public function all_clients()
+    {
+        $clients= Client::orderBy('id', 'desc')->get();
+        return response()->json($clients);
+    }
+
+   
 }

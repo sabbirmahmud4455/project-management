@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class ProjectController extends Controller
 {
@@ -142,6 +143,35 @@ class ProjectController extends Controller
     {
         $project= Project::where('client_id', $id)->where('status', 'Complete')->orderBy('id', 'desc')->paginate(10);
         return response()->json($project);
+    }
+
+
+    public function image_update(Request $request, Project $project)
+    {
+        $request->validate([
+            "photo"=>"image"
+        ]);
+        if ($request->photo) {
+            $imageName = time() . '_' . uniqid() . '.' . $request->photo->getClientOriginalExtension();
+            $request->photo->move(public_path('images/projects'), $imageName);
+            $image_path= '/images/projects/'.$imageName;
+            if (!$project->photo =='/images/projects/default/project_default.jpg') {
+                if (File::exists($project->image)) {
+                    File::delete($project->image);
+                    //unlink($image_path);
+                }
+            }
+            $project->update([
+                'photo'=>$image_path
+            ]);
+        }
+        return response()->json('image update successfully');
+    }
+
+    public function all_project()
+    {
+        $projects= Project::orderBy('id', 'desc')->get();
+        return response()->json($projects);
     }
 
     

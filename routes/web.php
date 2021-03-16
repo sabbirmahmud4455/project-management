@@ -21,3 +21,5 @@ Route::get('/{any}', function(){
     return view('main');
 })->where('any', '.*');
 
+
+Route::get('/download/{id}', [CustomController::class, 'download']);

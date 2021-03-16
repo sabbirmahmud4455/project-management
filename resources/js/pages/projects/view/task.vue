@@ -28,9 +28,7 @@
                     <span slot="next-nav"><i class="fas fa-arrow-right "></i> Next</span>
                 </pagination>
             </div>
-            <div class="col-12" v-if="!tasks.data">
-                <h5 class="text-center text-muted">Task Not Found</h5>
-            </div>
+            
         </div>
     </div>
 </template>

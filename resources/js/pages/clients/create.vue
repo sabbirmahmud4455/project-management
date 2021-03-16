@@ -243,8 +243,6 @@ export default {
     components: { 
         VueEditor
     },
-    
-    
 }
 </script>
 <style lang="">

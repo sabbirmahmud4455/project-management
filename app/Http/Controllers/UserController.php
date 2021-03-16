@@ -165,4 +165,42 @@ class UserController extends Controller
             return response()->json('Delete Successfully');
         }
     }
+
+    public function image_update(Request $request, User $user)
+    {
+        $request->validate([
+            "photo"=>"image"
+        ]);
+        if ($request->photo) {
+            $imageName = time() . '_' . uniqid() . '.' . $request->photo->getClientOriginalExtension();
+            $request->photo->move(public_path('images/users'), $imageName);
+            $image_path= '/images/users/'.$imageName;
+            if (!$user->photo =='/images/users/default/avatar1.png' || !$user->photo=='/images/users/default/avatar2.png') {
+                if (File::exists($user->image)) {
+                    File::delete($user->image);
+                    //unlink($image_path);
+                }
+            }
+            $user->update([
+                'photo'=>$image_path
+            ]);
+        }
+        return response()->json('image update successfully');
+    }
+
+    public function get_admin()
+    {
+        $users= User::orderBy('id', 'desc')->where('type_id', 1)->paginate(10);
+        return response()->json($users);
+    }
+    public function get_member()
+    {
+        $users= User::orderBy('id', 'desc')->where('type_id', 0)->paginate(10);
+        return response()->json($users);
+    }
+    public function get_all_users()
+    {
+        $users= User::orderBy('id', 'desc')->get();
+        return response()->json($users);
+    }
 }

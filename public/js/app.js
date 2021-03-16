@@ -2240,52 +2240,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -4120,10 +4074,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4888,6 +4838,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var object_to_formdata__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! object-to-formdata */ "./node_modules/object-to-formdata/dist/index.module.js");
+/* harmony import */ var vue2_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue2-editor */ "./node_modules/vue2-editor/dist/vue2-editor.esm.js");
 //
 //
 //
@@ -4941,7 +4895,131 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      id: this.$route.params.id,
+      have_file: '',
+      form: new vform__WEBPACK_IMPORTED_MODULE_0__["Form"]({
+        id: '',
+        document_file: '',
+        description: '<h4 class="text-muted">Project Description</h4>',
+        documentation: '<h4 class="text-muted">Project Documentation</h4>'
+      })
+    };
+  },
+  methods: {
+    file_x: function file_x() {
+      document.getElementById('docu_file_id').value = '';
+      this.form.document_file = '';
+      this.have_file = '';
+    },
+    editProject_desc: function editProject_desc() {
+      var _this = this;
+
+      axios.get("/api/project_desc/edit/".concat(this.id)).then(function (response) {
+        if (response.data[0]) {
+          _this.form.id = response.data[0].id;
+          _this.have_file = response.data[0].document_path;
+          _this.form.documentation = response.data[0].documentation;
+          _this.form.description = response.data[0].description;
+        }
+      });
+    },
+    updateProject_desc: function updateProject_desc() {
+      var _this2 = this;
+
+      this.form.post("/api/project_desc/update/".concat(this.id), {
+        transformRequest: [function (data, headers) {
+          return Object(object_to_formdata__WEBPACK_IMPORTED_MODULE_1__["objectToFormData"])(data);
+        }],
+        onUploadProgress: function onUploadProgress(e) {
+          // Do whatever you want with the progress event
+          console.log(e);
+        }
+      }).then(function (response) {
+        _this2.$toast.success({
+          title: 'SUCCESS',
+          message: 'Updated Successfully'
+        });
+      })["catch"](function (error) {
+        if (error.response.data.errors.document_file) {
+          _this2.$toast.error({
+            title: '! ERRORS',
+            message: error.response.data.errors.document_file[0]
+          });
+        }
+      });
+    },
+    createProject_desc: function createProject_desc() {
+      var _this3 = this;
+
+      this.form.post("/api/project_desc/create/".concat(this.id), {
+        transformRequest: [function (data, headers) {
+          return Object(object_to_formdata__WEBPACK_IMPORTED_MODULE_1__["objectToFormData"])(data);
+        }],
+        onUploadProgress: function onUploadProgress(e) {
+          // Do whatever you want with the progress event
+          console.log(e);
+        }
+      }).then(function (response) {
+        _this3.$toast.success({
+          title: 'SUCCESS',
+          message: 'Updated Successfully'
+        });
+      })["catch"](function (error) {
+        if (error.response.data.errors.document_file) {
+          _this3.$toast.error({
+            title: '! ERRORS',
+            message: error.response.data.errors.document_file[0]
+          });
+        }
+      });
+    },
+    //form img feld on chang
+    onImageChange: function onImageChange(event) {
+      //object to form data
+      var file = event.target.files[0]; // Do some client side validation...
+
+      this.form.document_file = file;
+      this.have_file = 'aksdfkajdfjasd';
+    }
+  },
+  mounted: function mounted() {
+    this.editProject_desc();
+  },
+  components: {
+    VueEditor: vue2_editor__WEBPACK_IMPORTED_MODULE_2__["VueEditor"]
+  }
+});
 
 /***/ }),
 
@@ -5189,104 +5267,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      id: this.$route.params.id,
+      file_path: '',
+      description: '',
+      documentation: ''
+    };
+  },
+  methods: {
+    getProject_desc: function getProject_desc() {
+      var _this = this;
+
+      axios.get("/api/project_desc/edit/".concat(this.id)).then(function (response) {
+        if (response.data[0]) {
+          _this.file_path = response.data[0].document_path;
+          _this.documentation = response.data[0].documentation;
+          _this.description = response.data[0].description;
+        }
+      });
+    },
+    file_download: function file_download() {
+      window.location.replace("/api/download/".concat(this.id));
+    }
+  },
+  mounted: function mounted() {
+    this.getProject_desc();
+  }
+});
 
 /***/ }),
 
@@ -5299,8 +5308,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -6049,12 +6056,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       name: '',
       title: '',
-      project: '',
+      project_name: '',
+      project_id: '',
+      module_name: '',
+      module_id: '',
       description: ''
     };
   },
@@ -6064,10 +6100,19 @@ __webpack_require__.r(__webpack_exports__);
 
       var id = this.$route.params.id;
       axios.get("/api/task/".concat(id)).then(function (response) {
-        _this.name = response.data.name;
-        _this.title = response.data.title;
-        _this.project = response.data.project;
-        _this.description = response.data.description;
+        _this.name = response.data[0].name;
+        _this.title = response.data[0].title;
+        _this.description = response.data[0].description;
+
+        if (response.data[0].project) {
+          _this.project_name = response.data[0].project.name;
+          _this.project_id = response.data[0].project.id;
+        }
+
+        if (response.data[0].module) {
+          _this.module_name = response.data[0].module.name;
+          _this.module_id = response.data[0].module.id;
+        }
       });
     }
   },
@@ -41561,7 +41606,7 @@ var render = function() {
                   [
                     _c(
                       "li",
-                      { staticClass: "nav-item has-treeview menu-open" },
+                      { staticClass: "nav-item has-treeview " },
                       [
                         _c(
                           "router-link",
@@ -41582,333 +41627,339 @@ var render = function() {
                       1
                     ),
                     _vm._v(" "),
-                    _c(
-                      "li",
-                      { staticClass: "nav-item has-treeview menu-open" },
-                      [
+                    _c("li", { staticClass: "nav-item has-treeview " }, [
+                      _vm._m(3),
+                      _vm._v(" "),
+                      _c("ul", { staticClass: "pl-2 nav nav-treeview" }, [
                         _c(
-                          "router-link",
-                          {
-                            staticClass: "nav-link",
-                            attrs: {
-                              to: { name: "users" },
-                              "active-class": "active"
-                            }
-                          },
+                          "li",
+                          { staticClass: "nav-item" },
                           [
-                            _c("i", { staticClass: "fas fa-users nav-icon" }),
-                            _vm._v(" "),
-                            _c("p", [
-                              _vm._v(
-                                "\n                            Users\n                            "
-                              ),
-                              _c("i", {
-                                staticClass: "right fas fa-angle-left"
-                              })
-                            ])
-                          ]
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "nav-link",
+                                attrs: {
+                                  to: { name: "users" },
+                                  "active-class": "active"
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fas fa-users nav-icon"
+                                }),
+                                _vm._v(" "),
+                                _c("p", [
+                                  _vm._v(
+                                    "\n                                    Users\n                                "
+                                  )
+                                ])
+                              ]
+                            )
+                          ],
+                          1
                         ),
                         _vm._v(" "),
-                        _c("ul", { staticClass: "pl-2 nav nav-treeview" }, [
-                          _c(
-                            "li",
-                            { staticClass: "nav-item" },
-                            [
-                              _c(
-                                "router-link",
-                                {
-                                  staticClass: "nav-link",
-                                  attrs: {
-                                    to: { name: "user_create" },
-                                    "active-class": "active"
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fas fa-user-plus nav-icon  "
-                                  }),
-                                  _vm._v(" "),
-                                  _c("p", [
-                                    _vm._v(
-                                      "\n                                    Create User\n                                "
-                                    )
-                                  ])
-                                ]
-                              )
-                            ],
-                            1
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      { staticClass: "nav-item has-treeview menu-open" },
-                      [
                         _c(
-                          "router-link",
-                          {
-                            staticClass: "nav-link",
-                            attrs: {
-                              to: { name: "clients" },
-                              "active-class": "active"
-                            }
-                          },
+                          "li",
+                          { staticClass: "nav-item" },
                           [
-                            _c("i", { staticClass: "fas fa-users nav-icon" }),
-                            _vm._v(" "),
-                            _c("p", [
-                              _vm._v(
-                                "\n                            Clients\n                            "
-                              ),
-                              _c("i", {
-                                staticClass: "right fas fa-angle-left"
-                              })
-                            ])
-                          ]
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "nav-link",
+                                attrs: {
+                                  to: { name: "user_create" },
+                                  "active-class": "active"
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fas fa-user-plus nav-icon  "
+                                }),
+                                _vm._v(" "),
+                                _c("p", [
+                                  _vm._v(
+                                    "\n                                    Create User\n                                "
+                                  )
+                                ])
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("li", { staticClass: "nav-item has-treeview " }, [
+                      _vm._m(4),
+                      _vm._v(" "),
+                      _c("ul", { staticClass: "pl-2 nav nav-treeview" }, [
+                        _c(
+                          "li",
+                          { staticClass: "nav-item" },
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "nav-link",
+                                attrs: {
+                                  to: { name: "clients" },
+                                  "active-class": "active"
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fas fa-users nav-icon"
+                                }),
+                                _vm._v(" "),
+                                _c("p", [
+                                  _vm._v(
+                                    "\n                                    Clients\n                                "
+                                  )
+                                ])
+                              ]
+                            )
+                          ],
+                          1
                         ),
                         _vm._v(" "),
-                        _c("ul", { staticClass: "pl-2 nav nav-treeview" }, [
-                          _c(
-                            "li",
-                            { staticClass: "nav-item" },
-                            [
-                              _c(
-                                "router-link",
-                                {
-                                  staticClass: "nav-link",
-                                  attrs: {
-                                    to: { name: "clients_create" },
-                                    "active-class": "active"
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fas fa-user-plus nav-icon  "
-                                  }),
-                                  _vm._v(" "),
-                                  _c("p", [
-                                    _vm._v(
-                                      "\n                                    Create Client\n                                "
-                                    )
-                                  ])
-                                ]
-                              )
-                            ],
-                            1
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      { staticClass: "nav-item has-treeview menu-open" },
-                      [
                         _c(
-                          "router-link",
-                          {
-                            staticClass: "nav-link",
-                            attrs: {
-                              to: { name: "projects" },
-                              "active-class": "active"
-                            }
-                          },
+                          "li",
+                          { staticClass: "nav-item" },
                           [
-                            _c("i", {
-                              staticClass: "fas fa-project-diagram nav-icon"
-                            }),
-                            _vm._v(" "),
-                            _c("p", [
-                              _vm._v(
-                                "\n                            Projects\n                            "
-                              ),
-                              _c("i", {
-                                staticClass: "right fas fa-angle-left"
-                              })
-                            ])
-                          ]
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "nav-link",
+                                attrs: {
+                                  to: { name: "clients_create" },
+                                  "active-class": "active"
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fas fa-user-plus nav-icon  "
+                                }),
+                                _vm._v(" "),
+                                _c("p", [
+                                  _vm._v(
+                                    "\n                                    Create Client\n                                "
+                                  )
+                                ])
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("li", { staticClass: "nav-item has-treeview " }, [
+                      _vm._m(5),
+                      _vm._v(" "),
+                      _c("ul", { staticClass: "pl-2 nav nav-treeview" }, [
+                        _c(
+                          "li",
+                          { staticClass: "nav-item" },
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "nav-link",
+                                attrs: {
+                                  to: { name: "projects" },
+                                  "active-class": "active"
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fas fa-project-diagram nav-icon"
+                                }),
+                                _vm._v(" "),
+                                _c("p", [
+                                  _vm._v(
+                                    "\n                                    Projects\n                                "
+                                  )
+                                ])
+                              ]
+                            )
+                          ],
+                          1
                         ),
                         _vm._v(" "),
-                        _c("ul", { staticClass: "pl-2 nav nav-treeview" }, [
-                          _c(
-                            "li",
-                            { staticClass: "nav-item" },
-                            [
-                              _c(
-                                "router-link",
-                                {
-                                  staticClass: "nav-link",
-                                  attrs: {
-                                    to: { name: "project_create" },
-                                    "active-class": "active"
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass:
-                                      "fas fa-project-diagram nav-icon"
-                                  }),
-                                  _vm._v(" "),
-                                  _c("small", [
-                                    _c("i", { staticClass: "fas fa-plus" })
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("p", [
-                                    _vm._v(
-                                      "\n                                    Create Project\n                                "
-                                    )
-                                  ])
-                                ]
-                              )
-                            ],
-                            1
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      { staticClass: "nav-item has-treeview menu-open" },
-                      [
                         _c(
-                          "router-link",
-                          {
-                            staticClass: "nav-link",
-                            attrs: {
-                              to: { name: "modules" },
-                              "active-class": "active"
-                            }
-                          },
+                          "li",
+                          { staticClass: "nav-item" },
                           [
-                            _c("i", {
-                              staticClass: "fas fa-project-diagram nav-icon"
-                            }),
-                            _vm._v(" "),
-                            _c("p", [
-                              _vm._v(
-                                "\n                            Modules\n                            "
-                              ),
-                              _c("i", {
-                                staticClass: "right fas fa-angle-left"
-                              })
-                            ])
-                          ]
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "nav-link",
+                                attrs: {
+                                  to: { name: "project_create" },
+                                  "active-class": "active"
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fas fa-project-diagram nav-icon"
+                                }),
+                                _vm._v(" "),
+                                _c("small", [
+                                  _c("i", { staticClass: "fas fa-plus" })
+                                ]),
+                                _vm._v(" "),
+                                _c("p", [
+                                  _vm._v(
+                                    "\n                                    Create Project\n                                "
+                                  )
+                                ])
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("li", { staticClass: "nav-item has-treeview " }, [
+                      _vm._m(6),
+                      _vm._v(" "),
+                      _c("ul", { staticClass: "pl-2 nav nav-treeview" }, [
+                        _c(
+                          "li",
+                          { staticClass: "nav-item" },
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "nav-link",
+                                attrs: {
+                                  to: { name: "modules" },
+                                  "active-class": "active"
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fas fa-project-diagram nav-icon"
+                                }),
+                                _vm._v(" "),
+                                _c("p", [
+                                  _vm._v(
+                                    "\n                                    Modules\n                                "
+                                  )
+                                ])
+                              ]
+                            )
+                          ],
+                          1
                         ),
                         _vm._v(" "),
-                        _c("ul", { staticClass: "pl-2 nav nav-treeview" }, [
-                          _c(
-                            "li",
-                            { staticClass: "nav-item" },
-                            [
-                              _c(
-                                "router-link",
-                                {
-                                  staticClass: "nav-link",
-                                  attrs: {
-                                    to: { name: "module_create" },
-                                    "active-class": "active"
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass:
-                                      "fas fa-project-diagram nav-icon"
-                                  }),
-                                  _vm._v(" "),
-                                  _c("small", [
-                                    _c("i", { staticClass: "fas fa-plus" })
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("p", [
-                                    _vm._v(
-                                      "\n                                    Create Module\n                                "
-                                    )
-                                  ])
-                                ]
-                              )
-                            ],
-                            1
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      { staticClass: "nav-item has-treeview menu-open" },
-                      [
                         _c(
-                          "router-link",
-                          {
-                            staticClass: "nav-link",
-                            attrs: {
-                              to: { name: "tasks" },
-                              "active-class": "active"
-                            }
-                          },
+                          "li",
+                          { staticClass: "nav-item" },
                           [
-                            _c("i", {
-                              staticClass: "fas fa-project-diagram nav-icon"
-                            }),
-                            _vm._v(" "),
-                            _c("p", [
-                              _vm._v(
-                                "\n                            Tasks\n                            "
-                              ),
-                              _c("i", {
-                                staticClass: "right fas fa-angle-left"
-                              })
-                            ])
-                          ]
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "nav-link",
+                                attrs: {
+                                  to: { name: "module_create" },
+                                  "active-class": "active"
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fas fa-project-diagram nav-icon"
+                                }),
+                                _vm._v(" "),
+                                _c("small", [
+                                  _c("i", { staticClass: "fas fa-plus" })
+                                ]),
+                                _vm._v(" "),
+                                _c("p", [
+                                  _vm._v(
+                                    "\n                                    Create Module\n                                "
+                                  )
+                                ])
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("li", { staticClass: "nav-item has-treeview " }, [
+                      _vm._m(7),
+                      _vm._v(" "),
+                      _c("ul", { staticClass: "pl-2 nav nav-treeview" }, [
+                        _c(
+                          "li",
+                          { staticClass: "nav-item" },
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "nav-link",
+                                attrs: {
+                                  to: { name: "tasks" },
+                                  "active-class": "active"
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fas fa-tasks  nav-icon"
+                                }),
+                                _vm._v(" "),
+                                _c("p", [
+                                  _vm._v(
+                                    "\n                                    Tasks\n                                    \n                                "
+                                  )
+                                ])
+                              ]
+                            )
+                          ],
+                          1
                         ),
                         _vm._v(" "),
-                        _c("ul", { staticClass: "pl-2 nav nav-treeview" }, [
-                          _c(
-                            "li",
-                            { staticClass: "nav-item" },
-                            [
-                              _c(
-                                "router-link",
-                                {
-                                  staticClass: "nav-link",
-                                  attrs: {
-                                    to: { name: "task_create" },
-                                    "active-class": "active"
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass:
-                                      "fas fa-project-diagram nav-icon"
-                                  }),
-                                  _vm._v(" "),
-                                  _c("small", [
-                                    _c("i", { staticClass: "fas fa-plus" })
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("p", [
-                                    _vm._v(
-                                      "\n                                    Create Task\n                                "
-                                    )
-                                  ])
-                                ]
-                              )
-                            ],
-                            1
-                          )
-                        ])
-                      ],
-                      1
-                    ),
+                        _c(
+                          "li",
+                          { staticClass: "nav-item" },
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "nav-link",
+                                attrs: {
+                                  to: { name: "task_create" },
+                                  "active-class": "active"
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fas fa-tasks  nav-icon"
+                                }),
+                                _vm._v(" "),
+                                _c("small", [
+                                  _c("i", { staticClass: "fas fa-plus" })
+                                ]),
+                                _vm._v(" "),
+                                _c("p", [
+                                  _vm._v(
+                                    "\n                                    Create Task\n                                "
+                                  )
+                                ])
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ])
+                    ]),
                     _vm._v(" "),
-                    _vm._m(3)
+                    _vm._m(8)
                   ]
                 )
               ])
@@ -41918,7 +41969,7 @@ var render = function() {
         _vm._v(" "),
         _c("router-view"),
         _vm._v(" "),
-        _vm._m(4)
+        _vm._m(9)
       ],
       1
     )
@@ -41947,275 +41998,6 @@ var staticRenderFns = [
               [_c("i", { staticClass: "fas fa-bars" })]
             )
           ])
-        ]),
-        _vm._v(" "),
-        _c("form", { staticClass: "form-inline ml-3" }, [
-          _c("div", { staticClass: "input-group input-group-sm" }, [
-            _c("input", {
-              staticClass: "form-control form-control-navbar",
-              attrs: {
-                type: "search",
-                placeholder: "Search",
-                "aria-label": "Search"
-              }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "input-group-append" }, [
-              _c(
-                "button",
-                { staticClass: "btn btn-navbar", attrs: { type: "submit" } },
-                [_c("i", { staticClass: "fas fa-search" })]
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("ul", { staticClass: "navbar-nav ml-auto" }, [
-          _c("li", { staticClass: "nav-item dropdown" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: { "data-toggle": "dropdown", href: "#" }
-              },
-              [
-                _c("i", { staticClass: "far fa-comments" }),
-                _vm._v(" "),
-                _c("span", { staticClass: "badge badge-danger navbar-badge" }, [
-                  _vm._v("3")
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "dropdown-menu dropdown-menu-lg dropdown-menu-right"
-              },
-              [
-                _c(
-                  "a",
-                  { staticClass: "dropdown-item", attrs: { href: "#" } },
-                  [
-                    _c("div", { staticClass: "media" }, [
-                      _c("img", {
-                        staticClass: "img-size-50 mr-3 img-circle",
-                        attrs: {
-                          src: "dist/img/user1-128x128.jpg",
-                          alt: "User Avatar"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "media-body" }, [
-                        _c("h3", { staticClass: "dropdown-item-title" }, [
-                          _vm._v(
-                            "\n                        Brad Diesel\n                        "
-                          ),
-                          _c(
-                            "span",
-                            { staticClass: "float-right text-sm text-danger" },
-                            [_c("i", { staticClass: "fas fa-star" })]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "text-sm" }, [
-                          _vm._v("Call me whenever you can...")
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "text-sm text-muted" }, [
-                          _c("i", { staticClass: "far fa-clock mr-1" }),
-                          _vm._v(" 4 Hours Ago")
-                        ])
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "dropdown-divider" }),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "dropdown-item", attrs: { href: "#" } },
-                  [
-                    _c("div", { staticClass: "media" }, [
-                      _c("img", {
-                        staticClass: "img-size-50 img-circle mr-3",
-                        attrs: {
-                          src: "dist/img/user8-128x128.jpg",
-                          alt: "User Avatar"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "media-body" }, [
-                        _c("h3", { staticClass: "dropdown-item-title" }, [
-                          _vm._v(
-                            "\n                        John Pierce\n                        "
-                          ),
-                          _c(
-                            "span",
-                            { staticClass: "float-right text-sm text-muted" },
-                            [_c("i", { staticClass: "fas fa-star" })]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "text-sm" }, [
-                          _vm._v("I got your message bro")
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "text-sm text-muted" }, [
-                          _c("i", { staticClass: "far fa-clock mr-1" }),
-                          _vm._v(" 4 Hours Ago")
-                        ])
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "dropdown-divider" }),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "dropdown-item", attrs: { href: "#" } },
-                  [
-                    _c("div", { staticClass: "media" }, [
-                      _c("img", {
-                        staticClass: "img-size-50 img-circle mr-3",
-                        attrs: {
-                          src: "dist/img/user3-128x128.jpg",
-                          alt: "User Avatar"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "media-body" }, [
-                        _c("h3", { staticClass: "dropdown-item-title" }, [
-                          _vm._v(
-                            "\n                        Nora Silvester\n                        "
-                          ),
-                          _c(
-                            "span",
-                            { staticClass: "float-right text-sm text-warning" },
-                            [_c("i", { staticClass: "fas fa-star" })]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "text-sm" }, [
-                          _vm._v("The subject goes here")
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "text-sm text-muted" }, [
-                          _c("i", { staticClass: "far fa-clock mr-1" }),
-                          _vm._v(" 4 Hours Ago")
-                        ])
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "dropdown-divider" }),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "dropdown-item dropdown-footer",
-                    attrs: { href: "#" }
-                  },
-                  [_vm._v("See All Messages")]
-                )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item dropdown" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: { "data-toggle": "dropdown", href: "#" }
-              },
-              [
-                _c("i", { staticClass: "far fa-bell" }),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  { staticClass: "badge badge-warning navbar-badge" },
-                  [_vm._v("15")]
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "dropdown-menu dropdown-menu-lg dropdown-menu-right"
-              },
-              [
-                _c("span", { staticClass: "dropdown-header" }, [
-                  _vm._v("15 Notifications")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "dropdown-divider" }),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "dropdown-item", attrs: { href: "#" } },
-                  [
-                    _c("i", { staticClass: "fas fa-envelope mr-2" }),
-                    _vm._v(" 4 new messages\n                    "),
-                    _c(
-                      "span",
-                      { staticClass: "float-right text-muted text-sm" },
-                      [_vm._v("3 mins")]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "dropdown-divider" }),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "dropdown-item", attrs: { href: "#" } },
-                  [
-                    _c("i", { staticClass: "fas fa-users mr-2" }),
-                    _vm._v(" 8 friend requests\n                    "),
-                    _c(
-                      "span",
-                      { staticClass: "float-right text-muted text-sm" },
-                      [_vm._v("12 hours")]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "dropdown-divider" }),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "dropdown-item", attrs: { href: "#" } },
-                  [
-                    _c("i", { staticClass: "fas fa-file mr-2" }),
-                    _vm._v(" 3 new reports\n                    "),
-                    _c(
-                      "span",
-                      { staticClass: "float-right text-muted text-sm" },
-                      [_vm._v("2 days")]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "dropdown-divider" }),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "dropdown-item dropdown-footer",
-                    attrs: { href: "#" }
-                  },
-                  [_vm._v("See All Notifications")]
-                )
-              ]
-            )
-          ])
         ])
       ]
     )
@@ -42231,7 +42013,10 @@ var staticRenderFns = [
         _c("img", {
           staticClass: "brand-image img-circle elevation-3",
           staticStyle: { opacity: ".8" },
-          attrs: { src: "dist/img/AdminLTELogo.png", alt: "AdminLTE Logo" }
+          attrs: {
+            src: "/template/dist/img/AdminLTELogo.png",
+            alt: "AdminLTE Logo"
+          }
         }),
         _vm._v(" "),
         _c("span", { staticClass: "brand-text font-weight-light" }, [
@@ -42248,7 +42033,10 @@ var staticRenderFns = [
       _c("div", { staticClass: "image" }, [
         _c("img", {
           staticClass: "img-circle elevation-2",
-          attrs: { src: "dist/img/user2-160x160.jpg", alt: "User Image" }
+          attrs: {
+            src: "/template/dist/img/user2-160x160.jpg",
+            alt: "User Image"
+          }
         })
       ]),
       _vm._v(" "),
@@ -42258,6 +42046,91 @@ var staticRenderFns = [
         ])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "nav-link", attrs: { "active-class": "active" } },
+      [
+        _c("i", { staticClass: "fas fa-user    " }),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v("\n                        User\n                        "),
+          _c("i", { staticClass: "right fas fa-angle-left" })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "nav-link", attrs: { "active-class": "active" } },
+      [
+        _c("i", { staticClass: "fas fa-user    " }),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v("\n                        Client\n                        "),
+          _c("i", { staticClass: "right fas fa-angle-left" })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "nav-link", attrs: { "active-class": "active" } },
+      [
+        _c("i", { staticClass: "fas fa-project-diagram nav-icon" }),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v("\n                        Project\n                        "),
+          _c("i", { staticClass: "right fas fa-angle-left" })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "nav-link", attrs: { "active-class": "active" } },
+      [
+        _c("i", { staticClass: "fas fa-project-diagram nav-icon" }),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v("\n                        Module\n                        "),
+          _c("i", { staticClass: "right fas fa-angle-left" })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "nav-link", attrs: { "active-class": "active" } },
+      [
+        _c("i", { staticClass: "fas fa-tasks  nav-icon" }),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v("\n                        Task\n                        "),
+          _c("i", { staticClass: "right fas fa-angle-left" })
+        ])
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -45793,15 +45666,7 @@ var render = function() {
                     }),
                     0
                   )
-                ]),
-                _vm._v(" "),
-                !_vm.tasks.data
-                  ? _c("div", { staticClass: "col-12" }, [
-                      _c("h5", { staticClass: "text-center text-muted" }, [
-                        _vm._v("Task Not Found")
-                      ])
-                    ])
-                  : _vm._e()
+                ])
               ])
             ])
           ])
@@ -47217,146 +47082,253 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "div",
-        { staticClass: "tab-pane container mt-3", attrs: { id: "settings" } },
-        [
-          _c("form", { staticClass: "form-horizontal" }, [
-            _c("div", { staticClass: "form-group row" }, [
-              _c(
-                "label",
-                {
-                  staticClass: "col-sm-2 col-form-label",
-                  attrs: { for: "inputName" }
-                },
-                [_vm._v("Name")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-10" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: { type: "email", id: "inputName", placeholder: "Name" }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group row" }, [
-              _c(
-                "label",
-                {
-                  staticClass: "col-sm-2 col-form-label",
-                  attrs: { for: "inputEmail" }
-                },
-                [_vm._v("Email")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-10" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "email",
-                    id: "inputEmail",
-                    placeholder: "Email"
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "tab-pane container mt-3", attrs: { id: "settings" } },
+      [
+        _vm.form.id
+          ? _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.updateProject_desc()
+                  },
+                  keydown: function($event) {
+                    return _vm.form.onKeydown($event)
                   }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group row" }, [
-              _c(
-                "label",
-                {
-                  staticClass: "col-sm-2 col-form-label",
-                  attrs: { for: "inputName2" }
-                },
-                [_vm._v("Name")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-10" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: { type: "text", id: "inputName2", placeholder: "Name" }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group row" }, [
-              _c(
-                "label",
-                {
-                  staticClass: "col-sm-2 col-form-label",
-                  attrs: { for: "inputExperience" }
-                },
-                [_vm._v("Experience")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-10" }, [
-                _c("textarea", {
-                  staticClass: "form-control",
-                  attrs: { id: "inputExperience", placeholder: "Experience" }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group row" }, [
-              _c(
-                "label",
-                {
-                  staticClass: "col-sm-2 col-form-label",
-                  attrs: { for: "inputSkills" }
-                },
-                [_vm._v("Skills")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-10" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    id: "inputSkills",
-                    placeholder: "Skills"
-                  }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group row" }, [
-              _c("div", { staticClass: "offset-sm-2 col-sm-10" }, [
-                _c("div", { staticClass: "checkbox" }, [
-                  _c("label", [
-                    _c("input", { attrs: { type: "checkbox" } }),
-                    _vm._v(" I agree to the "),
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("terms and conditions")
+                }
+              },
+              [
+                _c("div", { staticClass: "card-body row" }, [
+                  _c("div", { staticClass: "col-12" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", { attrs: { for: "address" } }, [
+                          _vm._v("Documentation Description")
+                        ]),
+                        _vm._v(" "),
+                        _c("vue-editor", {
+                          model: {
+                            value: _vm.form.documentation,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "documentation", $$v)
+                            },
+                            expression: "form.documentation"
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-12" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "profilePhoto" } }, [
+                        _vm._v("Documentation File")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "input-group" }, [
+                        _c("div", { staticClass: "custom-file" }, [
+                          _c("input", {
+                            staticClass: "custom-file-input",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("document_file")
+                            },
+                            attrs: {
+                              name: "docu",
+                              type: "file",
+                              id: "docu_file_id"
+                            },
+                            on: { change: _vm.onImageChange }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "custom-file-label",
+                              attrs: { for: "profilePhoto" }
+                            },
+                            [_vm._v("Choose zip file")]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _vm.have_file
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-light",
+                                on: { click: _vm.file_x }
+                              },
+                              [_c("i", { staticClass: "fas fa-times" })]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.have_file
+                          ? _c("i", { staticClass: "fas fa-file-archive btn" })
+                          : _vm._e()
+                      ])
                     ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-12" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", { attrs: { for: "address" } }, [
+                          _vm._v("Project Description")
+                        ]),
+                        _vm._v(" "),
+                        _c("vue-editor", {
+                          model: {
+                            value: _vm.form.description,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "description", $$v)
+                            },
+                            expression: "form.description"
+                          }
+                        })
+                      ],
+                      1
+                    )
                   ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group row" }, [
-              _c("div", { staticClass: "offset-sm-2 col-sm-10" }, [
+                ]),
+                _vm._v(" "),
                 _c(
                   "button",
-                  { staticClass: "btn btn-danger", attrs: { type: "submit" } },
-                  [_vm._v("Submit")]
+                  { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+                  [_vm._v("Update Project Description")]
                 )
-              ])
-            ])
-          ])
-        ]
-      )
-    ])
-  }
-]
+              ]
+            )
+          : _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.createProject_desc()
+                  },
+                  keydown: function($event) {
+                    return _vm.form.onKeydown($event)
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "card-body row" }, [
+                  _c("div", { staticClass: "col-12" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", { attrs: { for: "address" } }, [
+                          _vm._v("Documentation Description")
+                        ]),
+                        _vm._v(" "),
+                        _c("vue-editor", {
+                          model: {
+                            value: _vm.form.documentation,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "documentation", $$v)
+                            },
+                            expression: "form.documentation"
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-12" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "profilePhoto" } }, [
+                        _vm._v("Docu")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "input-group" }, [
+                        _c("div", { staticClass: "custom-file" }, [
+                          _c("input", {
+                            staticClass: "custom-file-input",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("document_file")
+                            },
+                            attrs: {
+                              name: "docu",
+                              type: "file",
+                              id: "docu_file_id"
+                            },
+                            on: { change: _vm.onImageChange }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "custom-file-label",
+                              attrs: { for: "profilePhoto" }
+                            },
+                            [_vm._v("Choose zip file")]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _vm.have_file
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-light",
+                                on: { click: _vm.file_x }
+                              },
+                              [_c("i", { staticClass: "fas fa-times" })]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.form.have_file
+                          ? _c("i", { staticClass: "fas fa-file-archive btn" })
+                          : _vm._e()
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-12" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", { attrs: { for: "address" } }, [
+                          _vm._v("Project Description")
+                        ]),
+                        _vm._v(" "),
+                        _c("vue-editor", {
+                          model: {
+                            value: _vm.form.description,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "description", $$v)
+                            },
+                            expression: "form.description"
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+                  [_vm._v("Update Project Description")]
+                )
+              ]
+            )
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -47767,240 +47739,59 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "tab-pane", attrs: { id: "activity" } }, [
-        _c("div", { staticClass: "post" }, [
-          _c("div", { staticClass: "user-block" }, [
-            _c("img", {
-              staticClass: "img-circle img-bordered-sm",
-              attrs: {
-                src: "/template/dist/img/user1-128x128.jpg",
-                alt: "user image"
-              }
-            }),
-            _vm._v(" "),
-            _c("span", { staticClass: "username" }, [
-              _c("a", { attrs: { href: "#" } }, [_vm._v("Jonathan Burke Jr.")]),
+  return _c("div", [
+    _c("div", { staticClass: "tab-pane", attrs: { id: "activity" } }, [
+      _c("ul", { staticClass: "list-group list-group-unbordered mb-3" }, [
+        _vm.description
+          ? _c("li", { staticClass: "list-group-item" }, [
+              _c("b", [_vm._v("Documentation File")]),
               _vm._v(" "),
-              _c(
-                "a",
-                { staticClass: "float-right btn-tool", attrs: { href: "#" } },
-                [_c("i", { staticClass: "fas fa-times" })]
-              )
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "description" }, [
-              _vm._v("Shared publicly - 7:30 PM today")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "\n            Lorem ipsum represents a long-held tradition for designers,\n            typographers and the like. Some people hate it and argue for\n            its demise, but others ignore the hate as they create awesome\n            tools to help create filler text for everyone from bacon lovers\n            to Charlie Sheen fans.\n        "
-            )
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _c(
-              "a",
-              { staticClass: "link-black text-sm mr-2", attrs: { href: "#" } },
-              [_c("i", { staticClass: "fas fa-share mr-1" }), _vm._v(" Share")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "link-black text-sm", attrs: { href: "#" } },
-              [
-                _c("i", { staticClass: "far fa-thumbs-up mr-1" }),
-                _vm._v(" Like")
-              ]
-            ),
-            _vm._v(" "),
-            _c("span", { staticClass: "float-right" }, [
-              _c(
-                "a",
-                { staticClass: "link-black text-sm", attrs: { href: "#" } },
-                [
-                  _c("i", { staticClass: "far fa-comments mr-1" }),
-                  _vm._v(" Comments (5)\n            ")
-                ]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control form-control-sm",
-            attrs: { type: "text", placeholder: "Type a comment" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "post clearfix" }, [
-          _c("div", { staticClass: "user-block" }, [
-            _c("img", {
-              staticClass: "img-circle img-bordered-sm",
-              attrs: {
-                src: "/template/dist/img/user7-128x128.jpg",
-                alt: "User Image"
-              }
-            }),
-            _vm._v(" "),
-            _c("span", { staticClass: "username" }, [
-              _c("a", { attrs: { href: "#" } }, [_vm._v("Sarah Ross")]),
-              _vm._v(" "),
-              _c(
-                "a",
-                { staticClass: "float-right btn-tool", attrs: { href: "#" } },
-                [_c("i", { staticClass: "fas fa-times" })]
-              )
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "description" }, [
-              _vm._v("Sent you a message - 3 days ago")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "\n            Lorem ipsum represents a long-held tradition for designers,\n            typographers and the like. Some people hate it and argue for\n            its demise, but others ignore the hate as they create awesome\n            tools to help create filler text for everyone from bacon lovers\n            to Charlie Sheen fans.\n        "
-            )
-          ]),
-          _vm._v(" "),
-          _c("form", { staticClass: "form-horizontal" }, [
-            _c("div", { staticClass: "input-group input-group-sm mb-0" }, [
-              _c("input", {
-                staticClass: "form-control form-control-sm",
-                attrs: { placeholder: "Response" }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "input-group-append" }, [
+              _c("span", { staticClass: "mr-4" }, [
                 _c(
                   "button",
-                  { staticClass: "btn btn-danger", attrs: { type: "submit" } },
-                  [_vm._v("Send")]
+                  {
+                    staticClass: "btn btn-success ",
+                    on: {
+                      click: function($event) {
+                        return _vm.file_download()
+                      }
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-file-download" }),
+                    _vm._v(" Download")
+                  ]
                 )
               ])
             ])
-          ])
-        ]),
+          : _vm._e(),
         _vm._v(" "),
-        _c("div", { staticClass: "post" }, [
-          _c("div", { staticClass: "user-block" }, [
-            _c("img", {
-              staticClass: "img-circle img-bordered-sm",
-              attrs: {
-                src: "/template/dist/img/user6-128x128.jpg",
-                alt: "User Image"
-              }
-            }),
-            _vm._v(" "),
-            _c("span", { staticClass: "username" }, [
-              _c("a", { attrs: { href: "#" } }, [_vm._v("Adam Jones")]),
+        _c("br"),
+        _vm._v(" "),
+        _vm.description
+          ? _c("li", { staticClass: "list-group-item" }, [
+              _c("b", { staticClass: "d-block" }, [
+                _vm._v("Project Description ")
+              ]),
               _vm._v(" "),
-              _c(
-                "a",
-                { staticClass: "float-right btn-tool", attrs: { href: "#" } },
-                [_c("i", { staticClass: "fas fa-times" })]
-              )
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "description" }, [
-              _vm._v("Posted 5 photos - 5 days ago")
+              _c("div", { domProps: { innerHTML: _vm._s(_vm.description) } })
             ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row mb-3" }, [
-            _c("div", { staticClass: "col-sm-6" }, [
-              _c("img", {
-                staticClass: "img-fluid",
-                attrs: { src: "/template/dist/img/photo1.png", alt: "Photo" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-6" }, [
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-sm-6" }, [
-                  _c("img", {
-                    staticClass: "img-fluid mb-3",
-                    attrs: {
-                      src: "/template/dist/img/photo2.png",
-                      alt: "Photo"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("img", {
-                    staticClass: "img-fluid",
-                    attrs: {
-                      src: "/template/dist/img/photo3.jpg')",
-                      alt: "Photo"
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-6" }, [
-                  _c("img", {
-                    staticClass: "img-fluid mb-3",
-                    attrs: {
-                      src: "/template/dist/img/photo4.jpg",
-                      alt: "Photo"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("img", {
-                    staticClass: "img-fluid",
-                    attrs: {
-                      src: "/template/dist/img/photo1.png",
-                      alt: "Photo"
-                    }
-                  })
-                ])
-              ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.documentation
+          ? _c("li", { staticClass: "list-group-item" }, [
+              _c("b", { staticClass: "d-block" }, [
+                _vm._v("Documentation Description ")
+              ]),
+              _vm._v(" "),
+              _c("div", { domProps: { innerHTML: _vm._s(_vm.documentation) } })
             ])
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _c(
-              "a",
-              { staticClass: "link-black text-sm mr-2", attrs: { href: "#" } },
-              [_c("i", { staticClass: "fas fa-share mr-1" }), _vm._v(" Share")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              { staticClass: "link-black text-sm", attrs: { href: "#" } },
-              [
-                _c("i", { staticClass: "far fa-thumbs-up mr-1" }),
-                _vm._v(" Like")
-              ]
-            ),
-            _vm._v(" "),
-            _c("span", { staticClass: "float-right" }, [
-              _c(
-                "a",
-                { staticClass: "link-black text-sm", attrs: { href: "#" } },
-                [
-                  _c("i", { staticClass: "far fa-comments mr-1" }),
-                  _vm._v(" Comments (5)\n            ")
-                ]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control form-control-sm",
-            attrs: { type: "text", placeholder: "Type a comment" }
-          })
-        ])
+          : _vm._e()
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -48026,118 +47817,108 @@ var render = function() {
     _c(
       "div",
       { staticClass: "row" },
-      [
-        _vm._l(_vm.tasks.data, function(task, index) {
-          return _vm.tasks.data
-            ? _c(
-                "div",
-                { key: index, staticClass: "col-6" },
-                [
-                  _c("div", { staticClass: "card card-widget" }, [
-                    _c("div", { staticClass: "card-body" }, [
-                      _c("h6", [
-                        _c(
-                          "span",
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                staticClass: " text-dark",
-                                attrs: {
-                                  to: {
-                                    name: "task_view",
-                                    params: { id: task.id }
-                                  }
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                        " +
-                                    _vm._s(task.name) +
-                                    "\n                        "
-                                )
-                              ]
-                            )
-                          ],
-                          1
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("h5", [
-                        _c(
-                          "span",
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                staticClass: " text-dark",
-                                attrs: {
-                                  to: {
-                                    name: "task_view",
-                                    params: { id: task.id }
-                                  }
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                        " +
-                                    _vm._s(task.title) +
-                                    "\n                        "
-                                )
-                              ]
-                            )
-                          ],
-                          1
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("span", { staticClass: " badge badge-primary " }, [
-                        _vm._v(_vm._s(task.status))
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "pagination",
-                    {
-                      attrs: { data: _vm.tasks, limit: 2, align: "center" },
-                      on: { "pagination-change-page": _vm.getTask }
-                    },
-                    [
+      _vm._l(_vm.tasks.data, function(task, index) {
+        return _vm.tasks.data
+          ? _c(
+              "div",
+              { key: index, staticClass: "col-6" },
+              [
+                _c("div", { staticClass: "card card-widget" }, [
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("h6", [
                       _c(
                         "span",
-                        { attrs: { slot: "prev-nav" }, slot: "prev-nav" },
                         [
-                          _vm._v("Previous "),
-                          _c("i", { staticClass: "fas fa-arrow-left " })
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        { attrs: { slot: "next-nav" }, slot: "next-nav" },
-                        [
-                          _c("i", { staticClass: "fas fa-arrow-right " }),
-                          _vm._v(" Next")
-                        ]
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: " text-dark",
+                              attrs: {
+                                to: {
+                                  name: "task_view",
+                                  params: { id: task.id }
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                        " +
+                                  _vm._s(task.name) +
+                                  "\n                        "
+                              )
+                            ]
+                          )
+                        ],
+                        1
                       )
-                    ]
-                  )
-                ],
-                1
-              )
-            : _vm._e()
-        }),
-        _vm._v(" "),
-        !_vm.tasks.data
-          ? _c("div", { staticClass: "col-12" }, [
-              _c("h5", { staticClass: "text-center text-muted" }, [
-                _vm._v("Task Not Found")
-              ])
-            ])
+                    ]),
+                    _vm._v(" "),
+                    _c("h5", [
+                      _c(
+                        "span",
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: " text-dark",
+                              attrs: {
+                                to: {
+                                  name: "task_view",
+                                  params: { id: task.id }
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                        " +
+                                  _vm._s(task.title) +
+                                  "\n                        "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: " badge badge-primary " }, [
+                      _vm._v(_vm._s(task.status))
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "pagination",
+                  {
+                    attrs: { data: _vm.tasks, limit: 2, align: "center" },
+                    on: { "pagination-change-page": _vm.getTask }
+                  },
+                  [
+                    _c(
+                      "span",
+                      { attrs: { slot: "prev-nav" }, slot: "prev-nav" },
+                      [
+                        _vm._v("Previous "),
+                        _c("i", { staticClass: "fas fa-arrow-left " })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      { attrs: { slot: "next-nav" }, slot: "next-nav" },
+                      [
+                        _c("i", { staticClass: "fas fa-arrow-right " }),
+                        _vm._v(" Next")
+                      ]
+                    )
+                  ]
+                )
+              ],
+              1
+            )
           : _vm._e()
-      ],
-      2
+      }),
+      0
     )
   ])
 }
@@ -49574,15 +49355,101 @@ var render = function() {
                 _vm._m(1),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body" }, [
-                  _vm.title.length
-                    ? _c("h3", [_vm._v(_vm._s(_vm.title))])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.description.length
-                    ? _c("div", {
-                        domProps: { innerHTML: _vm._s(_vm.description) }
-                      })
-                    : _vm._e()
+                  _c(
+                    "ul",
+                    { staticClass: "list-group list-group-unbordered mb-3" },
+                    [
+                      _c("li", { staticClass: "list-group-item" }, [
+                        _c("b", [_vm._v("Name :")]),
+                        _vm._v(" "),
+                        _vm.name
+                          ? _c("span", { staticClass: "ml-2" }, [
+                              _vm._v(_vm._s(_vm.name))
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("li", { staticClass: "list-group-item" }, [
+                        _c("b", [_vm._v("Project :")]),
+                        _vm._v(" "),
+                        _vm.project_name
+                          ? _c(
+                              "span",
+                              { staticClass: "ml-2" },
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    staticClass: " text-primary",
+                                    attrs: {
+                                      to: {
+                                        name: "project_view",
+                                        params: { id: _vm.project_id }
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                                                                                                " +
+                                        _vm._s(_vm.project_name) +
+                                        "  \n                                "
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
+                            )
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("li", { staticClass: "list-group-item" }, [
+                        _c("b", [_vm._v("Module :")]),
+                        _vm._v(" "),
+                        _vm.module_name
+                          ? _c(
+                              "span",
+                              { staticClass: "ml-2" },
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    staticClass: " text-primary",
+                                    attrs: {
+                                      to: {
+                                        name: "module_view",
+                                        params: { id: _vm.module_id }
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                                                                                                " +
+                                        _vm._s(_vm.module_name) +
+                                        "  \n                                "
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
+                            )
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("li", { staticClass: "list-group-item" }, [
+                        _c("b", { staticClass: "d-block" }, [
+                          _vm._v("Description")
+                        ]),
+                        _vm._v(" "),
+                        _vm.description
+                          ? _c("div", {
+                              domProps: { innerHTML: _vm._s(_vm.description) }
+                            })
+                          : _vm._e()
+                      ])
+                    ]
+                  )
                 ])
               ])
             ])
@@ -74573,7 +74440,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _details_vue_vue_type_template_id_15ed6034_lang_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./details.vue?vue&type=template&id=15ed6034&lang=true& */ "./resources/js/pages/projects/view/details.vue?vue&type=template&id=15ed6034&lang=true&");
 /* harmony import */ var _details_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./details.vue?vue&type=script&lang=js& */ "./resources/js/pages/projects/view/details.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var vue_multiselect_dist_vue_multiselect_min_css_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect/dist/vue-multiselect.min.css?vue&type=style&index=0&lang=css& */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.css?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -74581,7 +74450,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _details_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _details_vue_vue_type_template_id_15ed6034_lang_true___WEBPACK_IMPORTED_MODULE_0__["render"],
   _details_vue_vue_type_template_id_15ed6034_lang_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],

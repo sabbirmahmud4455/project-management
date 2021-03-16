@@ -92,11 +92,7 @@
                                         </pagination>
                                     </div>
                                 </div>
-                            </div class="row">
-                            <div class="col-12" v-if="!tasks.data">
-                                <h5 class="text-center text-muted">Task Not Found</h5>
                             </div>
-
                         </div>
                     </div>
                 </div>

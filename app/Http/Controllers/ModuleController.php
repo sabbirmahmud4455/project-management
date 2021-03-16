@@ -125,10 +125,16 @@ class ModuleController extends Controller
         }
     }
 
-    public function project_modules($id)
+    public function project_modules_pag($id)
     {
         $module= Module::where('project_id', $id)->orderBy('id', 'desc')->paginate(10);
         return response()->json($module);
+    }
+
+    public function project_modules($id)
+    {
+        $projects= Module::orderBy('id', 'desc')->where('project_id', $id)->get();
+        return response()->json($projects);
     }
     
 }
