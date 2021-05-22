@@ -17,7 +17,7 @@
   {{-- custom css --}}
   <link rel="stylesheet" href="{{asset('template/dist/css/custom.css')}}">
 </head>
-<body>
+<body class="layout-fixed layout-navbar-fixed layout-footer-fixed">
   <div id="app">
     <app-main class="mb-4"></app-main>
 </div>

@@ -2,8 +2,14 @@
     <div>
         <div class="card card-primary">
             <div class="card-header d-flex">
-                <h3 class="card-title">All Admins</h3>
+                <h3 class="card-title title d-flex align-items-center">All Admins</h3>
                 <div class="ml-auto d-flex">
+                    <router-link
+                        :to="{ name: 'user_create' }"
+                        class="nav-link bg-info mx-1"
+                    >
+                        Create User
+                    </router-link>
                     <router-link  :to="{name:'users'}" class="nav-link bg-info mx-1" active-class="active bg-white">All Users</router-link>
                     <router-link  :to="{name:'users_admin'}" class="nav-link bg-info mx-1" active-class="active bg-white">Admins</router-link>
                     <router-link  :to="{name:'users_member'}" class="nav-link bg-info mx-1" active-class="active bg-white">Members</router-link>
@@ -48,23 +54,23 @@
                             <td>
                                 <span v-if="user.name">{{user.name}}</span>
                                 <span v-else>Null</span>
-                                
+
                             </td>
                             <td>
                                 <span v-if="user.email">{{user.email}}</span>
                                 <span v-else>Null</span>
-                                
+
                             </td>
                             <td>
                                 <span v-if="user.type">{{user.type}}</span>
                                 <span v-else>Null</span>
-                                
+
                             </td>
                             <td>
                                 <span v-if="user.contact_no">{{user.contact_no}}</span>
                                 <span v-else>Null</span>
                             </td>
-                                
+
                             <td>
                                 <span v-if="user.status===1" class="badge badge-success">Active</span>
                                 <span v-else class=" badge badge-danger">InActive</span>
@@ -113,8 +119,8 @@
                     <div class="modal-header flex-column">
                         <div class="icon-box">
                             <i class="fas fa-trash-alt material-icons"></i>
-                        </div>						
-                        <h4 class="modal-title w-100">Are you sure?</h4>	
+                        </div>
+                        <h4 class="modal-title w-100">Are you sure?</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">
@@ -126,7 +132,7 @@
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
 
     </div>
 </template>
@@ -168,5 +174,5 @@ export default {
 }
 </script>
 <style lang="">
-    
+
 </style>

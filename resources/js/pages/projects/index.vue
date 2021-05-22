@@ -11,8 +11,14 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Starter Page</li>
+                            <li class="breadcrumb-item">
+                                <router-link :to="{ name: 'home' }">
+                                    Home
+                                </router-link>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                Projects
+                            </li>
                         </ol>
                     </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -27,7 +33,11 @@
                     <div class="col">
                         <div class="card card-primary">
                             <div class="card-header d-flex">
-                                <h3 class="card-title">All Projects</h3>
+                                <h3 class="card-title title d-flex align-items-center">All Projects</h3>
+
+                                <router-link  :to="{name:'project_create'}" class=" btn btn-info ml-auto">
+                                    Create Project
+                                </router-link>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -55,7 +65,7 @@
                                             <th>
                                                 Dev Cost
                                             </th>
-                                            
+
                                             <th style="width: 20%">
                                                 Action
                                             </th>
@@ -69,7 +79,7 @@
                                             <td>
                                                 <span v-if="project.name">{{project.name}}</span>
                                                 <span v-else>Null</span>
-                                                
+
                                             </td>
                                             <td>
                                                 <span v-if="project.type">{{project.type}}</span>
@@ -93,7 +103,7 @@
                                                 </span>
                                                 <span v-else>Null</span>
                                             </td>
-                                            
+
                                             <td class="project-actions text-right">
                                                 <router-link  :to="{name:'project_view', params:{id: project.id}}" class="btn btn-info btn-sm">
                                                     <i class="fas fa-folder">
@@ -132,8 +142,8 @@
                                     <div class="modal-header flex-column">
                                         <div class="icon-box">
                                             <i class="fas fa-trash-alt material-icons"></i>
-                                        </div>						
-                                        <h4 class="modal-title w-100">Are you sure?</h4>	
+                                        </div>
+                                        <h4 class="modal-title w-100">Are you sure?</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                     </div>
                                     <div class="modal-body">
@@ -145,7 +155,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                 </div>
                 <!-- /.row -->

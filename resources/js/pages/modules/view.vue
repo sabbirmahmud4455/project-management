@@ -1,6 +1,6 @@
 <template lang="">
     <div>
-        
+
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
@@ -29,6 +29,7 @@
                     <div class="card card-primary card-outline">
                         <div class="card-header">
                             <h5>Module Description</h5>
+                            
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -37,20 +38,20 @@
                                 <b>Name</b> <span v-if="name" class="float-right">{{name}}</span>
                             </li>
                             <li class="list-group-item">
-                                <b>Project</b> 
+                                <b>Project</b>
                                  <span v-if="project_name" class="float-right">
                                      <router-link :to="{name:'project_view', params:{id: project_id}}" class=" text-primary">
-                                                                                                                    {{project_name}}  
+                                                                                                                    {{project_name}}
                                     </router-link>
                                 </span>
                             </li>
-                            
+
                             <br>
                             <li class="list-group-item">
                                 <b class='d-block'>Description</b>
                                 <div v-if="description" v-html="description"></div>
                             </li>
-                        
+
                         </ul>
                         </div>
                     </div>
@@ -84,7 +85,7 @@
                                             <span class=" badge badge-primary ">{{task.status}}</span>
                                         </div>
                                         <!-- /.card-body -->
-                                        
+
                                         </div>
                                         <pagination :data="tasks" :limit=2 align='center'  @pagination-change-page="getTask">
                                             <span slot="prev-nav">Previous <i class="fas fa-arrow-left "></i></span>
@@ -143,7 +144,7 @@ export default {
                 this.tasks = response.data;
             })
         },
-        
+
     },
     mounted(){
         this.getModule();

@@ -27,7 +27,10 @@
                     <div class="col">
                         <div class="card card-primary">
                             <div class="card-header d-flex">
-                                <h3 class="card-title">All Tasks</h3>
+                                <h3 class="card-title title d-flex align-items-center">All Tasks</h3>
+                                <router-link  :to="{name:'task_create'}" class=" btn btn-info ml-auto">
+                                    Create Task
+                                </router-link>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -65,20 +68,20 @@
                                             <td>
                                                 <span v-if="task.name">{{task.name}}</span>
                                                 <span v-else>Null</span>
-                                                
+
                                             </td>
                                             <td>
                                                 <span v-if="task.title">{{task.title}}</span>
                                                 <span v-else>Null</span>
-                                                
+
                                             </td>
                                             <td>
                                                 <span v-if="task.project">
                                                     <router-link  :to="{name:'project_view', params:{id: task.project.id}}">
                                                       {{task.project.name}}
                                                     </router-link>
-                                                    
-                                                    
+
+
                                                     </span>
                                                 <span v-else>Null</span>
                                             </td>
@@ -87,7 +90,7 @@
                                                     <router-link  :to="{name:'module_view', params:{id: task.module.id}}">
                                                       {{task.module.name}}
                                                     </router-link>
-                                                    
+
                                                     </span>
                                                 <span v-else>Null</span>
                                             </td>
@@ -133,8 +136,8 @@
                                     <div class="modal-header flex-column">
                                         <div class="icon-box">
                                             <i class="fas fa-trash-alt material-icons"></i>
-                                        </div>						
-                                        <h4 class="modal-title w-100">Are you sure?</h4>	
+                                        </div>
+                                        <h4 class="modal-title w-100">Are you sure?</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                     </div>
                                     <div class="modal-body">
@@ -146,7 +149,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                 </div>
                 <!-- /.row -->
