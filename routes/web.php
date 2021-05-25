@@ -17,9 +17,9 @@ Route::get('/', function () {
     return redirect('/home');
 });
 
-Route::get('/{any}', function(){
+Route::get('/{any}', function () {
     return view('main');
 })->where('any', '.*');
 
 
-Route::get('/download/{id}', [CustomController::class, 'download']);
+// Route::get('/download/{id}', [CustomController::class, 'download']);

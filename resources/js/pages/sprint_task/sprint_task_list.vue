@@ -7,7 +7,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Tasks</h1>
+                        <h1 class="m-0 text-dark">Sprint Tasks</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -17,7 +17,7 @@
                                 </router-link>
                             </li>
                             <li class="breadcrumb-item active">
-                                Tasks
+                                Sprint Tasks
                             </li>
                         </ol>
                     </div><!-- /.col -->
@@ -33,9 +33,9 @@
                     <div class="col">
                         <div class="card card-primary">
                             <div class="card-header d-flex">
-                                <h3 class="card-title title d-flex align-items-center">All Tasks</h3>
-                                <router-link  :to="{name:'task_create'}" class=" btn btn-info ml-auto">
-                                    Create Task
+                                <h3 class="card-title title d-flex align-items-center">All Sprint Tasks</h3>
+                                <router-link  :to="{name:'create_sprint_task'}" class=" btn btn-info ml-auto">
+                                    Create Sprint Task
                                 </router-link>
                             </div>
                             <!-- /.card-header -->
@@ -50,13 +50,13 @@
                                                 Name
                                             </th>
                                             <th>
-                                                Title
+                                                Type
                                             </th>
                                             <th>
-                                               Project
+                                               Start Date
                                             </th>
                                             <th>
-                                               Module
+                                               End Date
                                             </th>
                                             <th  style="width: 7%" class="text-center">
                                                 Status
@@ -67,55 +67,44 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-if="all_tasks.data.length" v-for="(task, index) in all_tasks.data" :key="index">
+                                        <tr v-if="all_sprint_tasks.data.length" v-for="(sprint_task, index) in all_sprint_tasks.data" :key="index">
                                             <td>
                                                 {{index+1}}
                                             </td>
                                             <td>
-                                                <span v-if="task.name">{{task.name}}</span>
+                                                <span v-if="sprint_task.name">{{sprint_task.name}}</span>
                                                 <span v-else>Null</span>
 
                                             </td>
                                             <td>
-                                                <span v-if="task.title">{{task.title}}</span>
-                                                <span v-else>Null</span>
+                                                <span>{{sprint_task.type}}</span>
+
+                                            </td>
+
+                                            <td>
+                                                <span>{{sprint_task.start_date}}</span>
 
                                             </td>
                                             <td>
-                                                <span v-if="task.project">
-                                                    <router-link  :to="{name:'project_view', params:{id: task.project.id}}">
-                                                      {{task.project.name}}
-                                                    </router-link>
-
-
-                                                    </span>
-                                                <span v-else>Null</span>
+                                                <span>{{sprint_task.end_date}}</span>
                                             </td>
-                                            <td>
-                                                <span v-if="task.module">
-                                                    <router-link  :to="{name:'module_view', params:{id: task.module.id}}">
-                                                      {{task.module.name}}
-                                                    </router-link>
 
-                                                    </span>
-                                                <span v-else>Null</span>
-                                            </td>
                                             <td>
-                                                <span v-if="task.status" class="badge badge-success">{{task.status}}</span>
+                                                <span v-if="sprint_task.status" class="badge badge-success">{{sprint_task.status}}</span>
                                                 <span v-else class=" badge badge-danger">null</span>
                                             </td>
                                             <td class="project-actions text-right">
-                                                <router-link  :to="{name:'task_view', params:{id: task.id}}" class="btn btn-info btn-sm">
+                                                <router-link  :to="{name:'sprint_task_view', params:{id: sprint_task.id}}" class="btn btn-info btn-sm">
                                                     <i class="fas fa-folder">
                                                     </i>
                                                     View
                                                 </router-link>
-                                                <router-link  :to="{name:'task_update', params:{id: task.id}}" class="btn btn-info btn-sm">
+                                                <router-link  :to="{name:'sprint_task_update', params:{id: sprint_task.id}}" class="btn btn-info btn-sm">
                                                 <i class="fas fa-pencil-alt">
                                                     </i>
                                                     Edit
                                                 </router-link>
-                                                <a class="btn btn-danger btn-sm" href="#delete_modal"  data-toggle="modal" @click="delete_data.data=task, delete_data.index=index">
+                                                <a class="btn btn-danger btn-sm" href="#delete_modal"  data-toggle="modal" @click="delete_data.id=sprint_task.id, delete_data.index=index">
                                                     <i class="fas fa-trash">
                                                     </i>
                                                     Delete
@@ -127,7 +116,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer clearfix">
-                                <pagination :data="all_tasks" :limit=2 align='center'  @pagination-change-page="getTask">
+                                <pagination :data="all_sprint_tasks" :limit=2 align='center'  @pagination-change-page="getsprint_task">
                                     <span slot="prev-nav">Previous <i class="fas fa-arrow-left "></i></span>
                                     <span slot="next-nav"><i class="fas fa-arrow-right "></i> Next</span>
                                 </pagination>
@@ -151,7 +140,7 @@
                                     </div>
                                     <div class="modal-footer justify-content-center">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                        <button type="button" class="btn btn-danger"  data-dismiss='modal' @click="taskDelete(delete_data.data , delete_data.index)">Delete</button>
+                                        <button type="button" class="btn btn-danger"  @click="sprint_taskDelete(delete_data.id , delete_data.index)">Delete</button>
                                     </div>
                                 </div>
                             </div>
@@ -170,36 +159,36 @@
 export default {
     data() {
         return {
-            all_tasks:{},
+            all_sprint_tasks:{},
             delete_data:{
-                data:[],
-                index:[]
+                id:null,
+                index:null
             }
         }
     },
     methods:{
-        getTask(page){
+        getsprint_task(page){
                     if (typeof page === 'undefined') {
                     page = 1;
                 }
-            axios.get('/api/task?page=' + page).then(response => {
-                this.all_tasks = response.data;
+            axios.get('/api/sprint_task?page=' + page).then(response => {
+                this.all_sprint_tasks = response.data;
             })
         },
-        taskDelete(data, index){
-            axios.delete(`/api/task/${data.id}`).then( res=>{
-
-                this.all_tasks.data.splice(index, 1);
+        sprint_taskDelete(id, index){
+            axios.delete(`/api/sprint_task/${id}`).then( res=>{
+                $('#delete_modal').modal('hide');
+                this.all_sprint_tasks.data.splice(index, 1);
 
                   this.$toast.success({
                   title:'SUCCESS',
-                  message: res.data,
+                  message: "Sprint Task Deleted Successfully",
                   })
                 })
         }
     },
     mounted() {
-        this.getTask();
+        this.getsprint_task();
     },
 }
 </script>

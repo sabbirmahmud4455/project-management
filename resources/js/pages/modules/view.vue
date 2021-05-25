@@ -12,8 +12,19 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Starter Page</li>
+                            <li class="breadcrumb-item">
+                                <router-link :to="{ name: 'home' }">
+                                    Home
+                                </router-link>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <router-link :to="{ name: 'modules' }">
+                                    Modules
+                                </router-link>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                Module Description
+                            </li>
                         </ol>
                     </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -29,7 +40,7 @@
                     <div class="card card-primary card-outline">
                         <div class="card-header">
                             <h5>Module Description</h5>
-                            
+
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">

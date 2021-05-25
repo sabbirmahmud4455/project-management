@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('contact_no')->nullable();
             $table->string('gender')->nullable();
             $table->string('photo')->nullable();
+            $table->double('weight', 5, 2)->nullable();
             $table->integer('type_id')->nullable()->default(0);
             $table->string('type')->nullable()->default('Member');
             $table->boolean('status')->nullable()->default(1);

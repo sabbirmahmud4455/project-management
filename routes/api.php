@@ -6,6 +6,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CustomController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\SprintController;
 use App\Http\Controllers\TaskController;
 
 /*
@@ -73,23 +74,32 @@ Route::get('/project/module/{id}', [ModuleController::class, 'project_modules_pa
 
 //task
 Route::resource('/task', TaskController::class);
+//Route::get('/tasks-list', [TaskController::class, 'get_all_task']);
 Route::get('/user_active/task/{id}', [TaskController::class, 'user_active_task']);
 
 Route::get('/user_complete/task/{id}', [TaskController::class, 'user_complete_task']);
 
-Route::get('/project/task/{id}', [TaskController::class, 'project_task']);
+Route::get('/project/task/{id}', [TaskController::class, 'project_task_pagination']);
+Route::get('/project/task/w/{id}', [TaskController::class, 'project_task']);
 Route::get('/module/task/{id}', [TaskController::class, 'module_tasks']);
 
 
-//profile 
+//profile
 Route::get('/profile/edit/{id}', [CustomController::class, 'edit_profile']);
 Route::post('/profile/create/{id}', [CustomController::class, 'create_profile']);
 Route::put('/profile/update/{id}', [CustomController::class, 'update_profile']);
 
-//project desc 
+//project desc
 Route::get('/project_desc/edit/{id}', [CustomController::class, 'edit_project_desc']);
 Route::post('/project_desc/create/{id}', [CustomController::class, 'create_project_desc']);
 Route::post('/project_desc/update/{id}', [CustomController::class, 'update_project_desc']);
 
 
 Route::get('/download/{id}', [CustomController::class, 'download']);
+
+//app info
+Route::get('/app_info', [CustomController::class, 'app_info']);
+Route::post('/app_info', [CustomController::class, 'app_info_update']);
+
+//sprint
+Route::resource('/sprint', SprintController::class);

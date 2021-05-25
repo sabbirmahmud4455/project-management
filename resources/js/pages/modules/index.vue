@@ -10,9 +10,16 @@
                         <h1 class="m-0 text-dark">Modules</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Starter Page</li>
+                       <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item">
+                                <router-link :to="{ name: 'home' }">
+                                    Home
+                                </router-link>
+                            </li>
+
+                            <li class="breadcrumb-item active">
+                                Modules
+                            </li>
                         </ol>
                     </div><!-- /.col -->
                     </div><!-- /.row -->

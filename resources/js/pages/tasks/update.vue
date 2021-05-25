@@ -1,6 +1,6 @@
 <template lang="">
     <div>
-        
+
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
@@ -12,8 +12,19 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Starter Page</li>
+                            <li class="breadcrumb-item">
+                                <router-link :to="{ name: 'home' }">
+                                    Home
+                                </router-link>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <router-link :to="{ name: 'tasks' }">
+                                    Tasks
+                                </router-link>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                Update Task
+                            </li>
                         </ol>
                     </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -26,7 +37,7 @@
             <div class="container-fluid">
                 <div class="row">
                 <div class="col">
-                    
+
                     <div class="card card-primary">
                         <div class="card-header d-flex">
                             <h3 class="card-title">Task</h3>
@@ -84,7 +95,7 @@
                                         <vue-editor v-model="form.description"/>
                                     </div>
                                 </div>
-                                
+
                                 </div>
                                 <!-- /.card-body -->
 
@@ -156,7 +167,7 @@ export default {
         },
         updateTask(){
         this.form.post('/api/task')
-            .then(response => { 
+            .then(response => {
                 this.form.name= '';
                 this.form.title= '';
                 this.form.project_id= 0;
@@ -191,10 +202,10 @@ export default {
     components: {
         VueEditor
     },
-    
-    
+
+
 }
 </script>
 <style lang="">
-    
+
 </style>

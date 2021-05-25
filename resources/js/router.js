@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
-//home 
+//home
 import Home from './pages/home.vue'
 
 
@@ -14,9 +14,9 @@ import Users_all from './pages/users/user_table/all.vue'
 import Users_member from './pages/users/user_table/member.vue'
 //admin users
 import Users_admin from './pages/users/user_table/admin.vue'
-//user create 
+//user create
 import User_create from './pages/users/create.vue'
-//user update 
+//user update
 import User_update from './pages/users/update.vue'
 //user profile index
 import UserProfile from './pages/users/view/index.vue'
@@ -36,9 +36,9 @@ import Clients_create from './pages/clients/create.vue'
 import Clients_update from './pages/clients/update.vue'
 // profile Client
 import Clients_profile from './pages/clients/view/index.vue'
-// profile Client 
+// profile Client
 import Clients_profile_active_project from './pages/clients/view/active_project.vue'
-// profile Client 
+// profile Client
 import Clients_profile_pending_project from './pages/clients/view/pending_project.vue'
 // profile Client
 import Clients_profile_com_project from './pages/clients/view/complete_project.vue'
@@ -81,6 +81,19 @@ import TaskUpdate from './pages/tasks/update.vue'
 //view task
 import TaskView from './pages/tasks/view.vue'
 
+//sprints
+import SprintList from './pages/sprint/sprint_list'
+import SprintCreate from './pages/sprint/create_sprint'
+import SprintUpdate from './pages/sprint/update_sprint'
+import SprintDetails from './pages/sprint/sprint_details'
+
+//sprint task
+// import SprintTask from './pages/sprint_task/sprint_task_list'
+// import CreateSprintTask from './pages/sprint_task/sprint_details'
+// import SprintDetails from './pages/sprint_task/sprint_details'
+
+//app info
+import appInfo from './dashboard/settings/app_info/index'
 
 
 
@@ -105,16 +118,16 @@ const routes = new VueRouter({
                 component: Users_all,
                 name: 'users',
                 },
-                { path: '/users-admin', 
-                component: Users_admin, 
-                name:'users_admin' 
+                { path: '/users-admin',
+                component: Users_admin,
+                name:'users_admin'
                 },
                 { path: '/users-member',
                 component: Users_member,
                 name:'users_member'
                 },
             ]
-            
+
         },
         {
             path: '/user-profile/:id',
@@ -125,8 +138,8 @@ const routes = new VueRouter({
                 name: 'user_profile',
                 },
                 { path: '/user-view/module/:id',
-                component: UserProfile_Complete_task, 
-                name:'user_view_complete_task' 
+                component: UserProfile_Complete_task,
+                name:'user_view_complete_task'
                 },
                 { path: '/user-view/details/:id',
                 component: UserProfile_details,
@@ -170,12 +183,12 @@ const routes = new VueRouter({
                 name: 'client_profile',
                 },
                 { path: '/client-view/pending_project/:id',
-                component: Clients_profile_pending_project, 
-                name:'client_view_pending_project' 
+                component: Clients_profile_pending_project,
+                name:'client_view_pending_project'
                 },
                 { path: '/client-view/complete_project/:id',
-                component: Clients_profile_com_project, 
-                name:'client_view_complete_project' 
+                component: Clients_profile_com_project,
+                name:'client_view_complete_project'
                 },
             ]
         },
@@ -196,8 +209,8 @@ const routes = new VueRouter({
                 name: 'project_view',
                 },
                 { path: '/project-view/module/:id',
-                component: product_view_module, 
-                name:'project_view_module' 
+                component: product_view_module,
+                name:'project_view_module'
                 },
                 { path: '/project-view/tasks/:id',
                 component: product_view_task,
@@ -265,7 +278,49 @@ const routes = new VueRouter({
             component: TaskView,
             name: 'task_view',
         },
-        
+
+        //sprint
+        {
+            path: '/sprints',
+            component: SprintList,
+            name: 'sprints',
+        },
+        {
+            path: '/sprint-create',
+            component: SprintCreate,
+            name: 'sprint_create',
+        },
+        {
+            path: '/sprint-update/:id',
+            component: SprintUpdate,
+            name: 'sprint_update',
+        },
+        {
+            path: '/sprint-details/:id',
+            component: SprintDetails,
+            name: 'sprint_details',
+        },
+
+
+        //sprint task
+        // {
+        //     path: '/sprint-task',
+        //     component: SprintTask,
+        //     name: 'sprint_task',
+        // },
+        // {
+        //     path: '/sprint-task/create',
+        //     component: CreateSprintTask,
+        //     name: 'create_sprint_task',
+        // },
+
+        //app info
+        {
+            path: '/app-info',
+            component: appInfo,
+            name: 'app_info',
+        },
+
     ]
 });
 

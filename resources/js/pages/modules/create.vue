@@ -1,83 +1,166 @@
 <template lang="">
     <div>
-        
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Create Module</h1>
-                    </div><!-- /.col -->
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Starter Page</li>
-                        </ol>
-                    </div><!-- /.col -->
-                    </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
+                        <div class="col-sm-6">
+                            <h1 class="m-0 text-dark">Create Module</h1>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item">
+                                    <router-link :to="{ name: 'home' }">
+                                        Home
+                                    </router-link>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <router-link :to="{ name: 'modules' }">
+                                        Modules
+                                    </router-link>
+                                </li>
+                                <li class="breadcrumb-item active">
+                                    Create Module
+                                </li>
+                            </ol>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
             </div>
             <!-- /.content-header -->
 
             <!-- Main content -->
             <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                <div class="col">
-                    
-                    <div class="card card-primary">
-                        <div class="card-header d-flex">
-                            <h3 class="card-title">Module</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <form   @submit.prevent="createModule()" @keydown="form.onKeydown($event)">
-                            <div class="card-body row">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="module_name">Name *</label>
-                                        <input v-model="form.name" type="text" name="name" class="form-control" placeholder="Enter Name" :class="{ 'is-invalid': form.errors.has('name') }">
-                                        <has-error :form="form" field="name"></has-error>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card card-primary">
+                                <div class="card-header d-flex">
+                                    <h3 class="card-title">Module</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <form
+                                    @submit.prevent="createModule()"
+                                    @keydown="form.onKeydown($event)"
+                                >
+                                    <div class="card-body row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="module_name"
+                                                    >Name *</label
+                                                >
+                                                <input
+                                                    v-model="form.name"
+                                                    type="text"
+                                                    name="name"
+                                                    class="form-control"
+                                                    placeholder="Enter Name"
+                                                    :class="{
+                                                        'is-invalid': form.errors.has(
+                                                            'name'
+                                                        )
+                                                    }"
+                                                />
+                                                <has-error
+                                                    :form="form"
+                                                    field="name"
+                                                ></has-error>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="module_name"
+                                                    >Title</label
+                                                >
+                                                <input
+                                                    v-model="form.title"
+                                                    type="text"
+                                                    name="title"
+                                                    class="form-control"
+                                                    placeholder="Enter Title"
+                                                    :class="{
+                                                        'is-invalid': form.errors.has(
+                                                            'title'
+                                                        )
+                                                    }"
+                                                />
+                                                <has-error
+                                                    :form="form"
+                                                    field="title"
+                                                ></has-error>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="inputStatus"
+                                                    >Project</label
+                                                >
+                                                <select
+                                                    v-model="form.project_id"
+                                                    class="form-control custom-select"
+                                                    :class="{
+                                                        'is-invalid': form.errors.has(
+                                                            'project_id'
+                                                        )
+                                                    }"
+                                                >
+                                                    <option value="0"
+                                                        >Select Project</option
+                                                    >
+                                                    <option
+                                                        v-if="
+                                                            all_projects.length
+                                                        "
+                                                        v-for="(project,
+                                                        index) in all_projects"
+                                                        :key="index"
+                                                        :value="project.id"
+                                                        >{{
+                                                            project.name
+                                                        }}</option
+                                                    >
+                                                </select>
+                                                <has-error
+                                                    :form="form"
+                                                    field="project_id"
+                                                ></has-error>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="address"
+                                                    >Description</label
+                                                >
+                                                <vue-editor
+                                                    v-model="form.description"
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="module_name">Title</label>
-                                        <input v-model="form.title" type="text" name="title" class="form-control" placeholder="Enter Title" :class="{ 'is-invalid': form.errors.has('title') }">
-                                        <has-error :form="form" field="title"></has-error>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="inputStatus">Project</label>
-                                        <select v-model="form.project_id" class="form-control custom-select" :class="{ 'is-invalid': form.errors.has('project_id') }">
-                                            <option value="0">Select Project</option>
-                                        <option v-if="all_projects.length" v-for="(project, index) in all_projects" :key="index" :value="project.id">{{project.name}}</option>
-                                        </select>
-                                        <has-error :form="form" field="project_id"></has-error>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="address">Description</label>
-                                        <vue-editor v-model="form.description"/>
-                                    </div>
-                                </div>
-                                
-                                </div>
-                                <!-- /.card-body -->
+                                    <!-- /.card-body -->
 
-                                <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Create Module</button>
+                                    <div class="card-footer">
+                                        <button
+                                            type="submit"
+                                            class="btn btn-primary"
+                                        >
+                                            Create Module
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
+                        </div>
+                        <!-- /.col-md-6 -->
                     </div>
+                    <!-- /.row -->
                 </div>
-                <!-- /.col-md-6 -->
-                </div>
-                <!-- /.row -->
-            </div><!-- /.container-fluid -->
+                <!-- /.container-fluid -->
             </div>
             <!-- /.content -->
         </div>
@@ -85,65 +168,63 @@
     </div>
 </template>
 <script>
-import { Form } from 'vform'
+import { Form } from "vform";
 import { VueEditor } from "vue2-editor";
 
 export default {
     data() {
         return {
-            all_projects:[],
+            all_projects: [],
             form: new Form({
-                 name:'',
-                 title:'',
-                project_id:0,
-                description:'<h4 class="text-muted">Module Details</h4>',
+                name: "",
+                title: "",
+                project_id: 0,
+                description: '<h4 class="text-muted">Module Details</h4>'
             })
+        };
+    },
+    methods: {
+        getProject() {
+            axios.get("/api/all_projects").then(response => {
+                this.all_projects = response.data;
+            });
+        },
+        createModule() {
+            this.form
+                .post("/api/module")
+                .then(response => {
+                    this.form.name = "";
+                    this.form.title = "";
+                    this.form.project_id = 0;
+                    this.form.description =
+                        '<h4 class="text-muted">Module Details</h4>';
+                    this.$toast.success({
+                        title: "SUCCESS",
+                        message: "Module Created Successfully"
+                    });
+                })
+                .catch(error => {
+                    if (error.response.data.errors.name) {
+                        this.$toast.error({
+                            title: "! ERRORS",
+                            message: error.response.data.errors.name[0]
+                        });
+                    }
+                    if (error.response.data.errors.project_id) {
+                        this.$toast.error({
+                            title: "! ERRORS",
+                            message: error.response.data.errors.project_id[0]
+                        });
+                    }
+                });
         }
     },
-    methods:{
-        getProject(){
-            axios.get('/api/all_projects').then(response => {
-                this.all_projects = response.data;
-            })
-        },
-        createModule(){
-        this.form.post('/api/module')
-            .then(response => { 
-                this.form.name= '';
-                this.form.title= '';
-                this.form.project_id= 0;
-                this.form.description= '<h4 class="text-muted">Module Details</h4>';
-                this.$toast.success({
-                    title:'SUCCESS',
-                    message:'Module Created Successfully'
-                })
-        }).catch(error => {
-                if (error.response.data.errors.name) {
-                  this.$toast.error({
-                  title:'! ERRORS',
-                  message: error.response.data.errors.name[0],
-                  })
-                }
-                if (error.response.data.errors.project_id) {
-                  this.$toast.error({
-                  title:'! ERRORS',
-                  message: error.response.data.errors.project_id[0],
-                  })
-                }
-            })
-      },
-
+    mounted() {
+        this.getProject();
     },
-    mounted(){
-       this.getProject();
-    },
-    components: { 
+    components: {
         VueEditor
-    },
-    
-    
-}
+    }
+};
 </script>
-<style lang="">
-    
-</style>
+<style lang=""></style>

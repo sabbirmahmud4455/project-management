@@ -17,7 +17,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks= Task::with(["project", "module"])->orderBy('id', 'desc')->paginate(10);
+        $tasks = Task::with(["project", "module"])->orderBy('id', 'desc')->paginate(10);
         return response()->json($tasks);
     }
 
@@ -40,41 +40,41 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required',
-            'project_id'=>'integer',
-            'module_id'=>'integer',
-            'assign_to'=>'integer',
+            'name' => 'required',
+            'project_id' => 'integer',
+            'module_id' => 'integer',
+            'assign_to' => 'integer',
         ]);
-        if ($request->description=='<h4 class="text-muted">Client Details</h4>') {
-            $description= '';
-        }else{
-            $description= $request->description;
+        if ($request->description == '<h4 class="text-muted">Client Details</h4>') {
+            $description = '';
+        } else {
+            $description = $request->description;
         }
 
         Task::insert([
-            'name'=>$request->name,
-            'title'=>$request->title,
-            'project_id'=>$request->project_id,
-            'module_id'=>$request->module_id,
-            'assign_to'=>$request->assign_to,
-            'description'=>$description,
-            'status'=>'Active',
-            'created_at'=>Carbon::now(),
+            'name' => $request->name,
+            'title' => $request->title,
+            'project_id' => $request->project_id,
+            'module_id' => $request->module_id,
+            'assign_to' => $request->assign_to,
+            'description' => $description,
+            'status' => 'Active',
+            'created_at' => Carbon::now(),
         ]);
         if ($request->module_id) {
             Module::where('id', $request->module_id)->update([
-                "status"=> "Active"
+                "status" => "Active"
             ]);
         }
-        
+
 
 
         if ($request->project_id) {
             Project::where('id', $request->project_id)->update([
-                "status"=> "Active"
+                "status" => "Active"
             ]);
         }
-        
+
         return response()->json('Module Store successfully');
     }
 
@@ -86,7 +86,7 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        $task= Task::where('id', $task->id)->with(['project', 'module'])->get();
+        $task = Task::where('id', $task->id)->with(['project', 'module'])->get();
         return response()->json($task);
     }
 
@@ -126,26 +126,41 @@ class TaskController extends Controller
             return response()->json('Delete Successfully');
         }
     }
+
+    public function get_all_task()
+    {
+        $tasks = Task::orderBy('id', 'desc')->get();
+        return response()->json($tasks);
+    }
+
+
+
     public function user_active_task($id)
     {
-        $task= Task::where('assign_to', $id)->where('status', 'Active')->orderBy('id', 'desc')->paginate(10);
+        $task = Task::where('assign_to', $id)->where('status', 'Active')->orderBy('id', 'desc')->paginate(10);
         return response()->json($task);
     }
     public function user_complete_task($id)
     {
-        $task= Task::where('assign_to', $id)->where('status', 'Complete')->orderBy('id', 'desc')->paginate(10);
+        $task = Task::where('assign_to', $id)->where('status', 'Complete')->orderBy('id', 'desc')->paginate(10);
         return response()->json($task);
+    }
+
+    public function project_task_pagination($id)
+    {
+        $tasks = Task::where('project_id', $id)->orderBy('id', 'desc')->paginate(10);
+        return response()->json($tasks);
     }
 
     public function project_task($id)
     {
-        $tasks= Task::where('project_id', $id)->orderBy('id', 'desc')->paginate(10);
+        $tasks = Task::where('project_id', $id)->orderBy('id', 'desc')->get();
         return response()->json($tasks);
     }
 
     public function module_tasks($id)
     {
-        $tasks= Task::where('module_id', $id)->orderBy('id', 'desc')->paginate(4);
+        $tasks = Task::where('module_id', $id)->orderBy('id', 'desc')->paginate(4);
         return response()->json($tasks);
     }
 }

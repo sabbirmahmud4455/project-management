@@ -7,7 +7,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Update Module</h1>
+                            <h1 class="m-0 text-dark">Create Sprint</h1>
                         </div>
                         <!-- /.col -->
                         <div class="col-sm-6">
@@ -18,12 +18,12 @@
                                     </router-link>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <router-link :to="{ name: 'modules' }">
-                                        Modules
+                                    <router-link :to="{ name: 'Sprints' }">
+                                        Sprints
                                     </router-link>
                                 </li>
                                 <li class="breadcrumb-item active">
-                                    Update Module
+                                    Create Sprint
                                 </li>
                             </ol>
                         </div>
@@ -42,17 +42,17 @@
                         <div class="col">
                             <div class="card card-primary">
                                 <div class="card-header d-flex">
-                                    <h3 class="card-title">Module</h3>
+                                    <h3 class="card-title">Sprint</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <form
-                                    @submit.prevent="updateModule()"
+                                    @submit.prevent="createSprint()"
                                     @keydown="form.onKeydown($event)"
                                 >
                                     <div class="card-body row">
-                                        <div class="col-12">
+                                        <div class="col-md-6 col">
                                             <div class="form-group">
-                                                <label for="module_name"
+                                                <label for="Sprint_name"
                                                     >Name *</label
                                                 >
                                                 <input
@@ -73,68 +73,86 @@
                                                 ></has-error>
                                             </div>
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-md-6 col">
                                             <div class="form-group">
-                                                <label for="module_name"
-                                                    >Title</label
+                                                <label for="Sprint_type"
+                                                    >Type</label
                                                 >
                                                 <input
-                                                    v-model="form.title"
+                                                    v-model="form.type"
                                                     type="text"
-                                                    name="title"
+                                                    name="type"
                                                     class="form-control"
-                                                    placeholder="Enter Title"
+                                                    id="Sprint_type"
+                                                    placeholder="Enter type"
                                                     :class="{
                                                         'is-invalid': form.errors.has(
-                                                            'title'
+                                                            'type'
                                                         )
                                                     }"
                                                 />
                                                 <has-error
                                                     :form="form"
-                                                    field="title"
+                                                    field="type"
                                                 ></has-error>
                                             </div>
                                         </div>
-                                        <div class="col-12">
+
+                                        <div class="col-md-6 col">
                                             <div class="form-group">
-                                                <label for="inputStatus"
-                                                    >Project</label
-                                                >
-                                                <select
-                                                    v-model="form.project_id"
-                                                    class="form-control custom-select"
-                                                    :class="{
-                                                        'is-invalid': form.errors.has(
-                                                            'project_id'
-                                                        )
-                                                    }"
-                                                >
-                                                    <option value="0"
-                                                        >Select Project</option
-                                                    >
-                                                    <option
-                                                        v-if="
-                                                            all_projects.length
+                                                <label>Start Date</label>
+                                                <div class="form-control">
+                                                    <VueDatePicker
+                                                        v-model="
+                                                            form.start_date
                                                         "
-                                                        v-for="(project,
-                                                        index) in all_projects"
-                                                        :key="index"
-                                                        :value="project.id"
-                                                        >{{
-                                                            project.name
-                                                        }}</option
-                                                    >
-                                                </select>
-                                                <has-error
-                                                    :form="form"
-                                                    field="project_id"
-                                                ></has-error>
+                                                        placeholder="Choose date"
+                                                        clearable
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-md-6 col">
                                             <div class="form-group">
-                                                <label for="address"
+                                                <label>End Date</label>
+                                                <div class="form-control">
+                                                    <VueDatePicker
+                                                        v-model="form.end_date"
+                                                        placeholder="Choose date"
+                                                        clearable
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="">Duration</label>
+                                                <input
+                                                    v-model="form.duration"
+                                                    type="text"
+                                                    name=""
+                                                    id=""
+                                                    class="form-control"
+                                                    placeholder="Duration"
+                                                    aria-describedby="helpId"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="">Purposes</label>
+                                                <input
+                                                    v-model="form.purposes"
+                                                    type="text"
+                                                    class="form-control"
+                                                    placeholder="Purposes"
+                                                    aria-describedby="helpId"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for=""
                                                     >Description</label
                                                 >
                                                 <vue-editor
@@ -150,7 +168,7 @@
                                             type="submit"
                                             class="btn btn-primary"
                                         >
-                                            Update Module
+                                            Create Sprint
                                         </button>
                                     </div>
                                 </form>
@@ -169,43 +187,40 @@
 </template>
 <script>
 import { Form } from "vform";
+
+import { VueDatePicker } from "@mathieustan/vue-datepicker";
+import "@mathieustan/vue-datepicker/dist/vue-datepicker.min.css";
 import { VueEditor } from "vue2-editor";
 
 export default {
     data() {
         return {
-            all_projects: [],
             form: new Form({
-                name: "",
-                title: "",
-                project_id: 0,
-                description: '<h4 class="text-muted">Module Details</h4>'
+                name: null,
+                type: null,
+                duration: null,
+                purposes: null,
+                start_date: null,
+                end_date: null,
+                description: ""
             })
         };
     },
     methods: {
-        getProject() {
-            axios.get("/api/all_projects").then(response => {
-                this.all_projects = response.data;
-            });
-        },
-        editModule() {
-            let id = this.$route.params.id;
-            axios.get(`/api/module/${id}/edit`).then(response => {
-                this.form.name = response.data.name;
-                this.form.title = response.data.title;
-                this.form.project_id = response.data.project_id;
-                this.form.description = response.data.description;
-            });
-        },
-        updateModule() {
-            let id = this.$route.params.id;
+        createSprint() {
             this.form
-                .put(`/api/module/${id}`)
+                .post("/api/sprint")
                 .then(response => {
+                    this.form.name = null;
+                    this.form.type = null;
+                    this.form.start_date = null;
+                    this.form.end_date = null;
+                    this.form.duration = null;
+                    this.form.purposes = null;
+                    this.form.description = null;
                     this.$toast.success({
                         title: "SUCCESS",
-                        message: "Module Updated Successfully"
+                        message: "Sprint Created Successfully"
                     });
                 })
                 .catch(error => {
@@ -215,22 +230,13 @@ export default {
                             message: error.response.data.errors.name[0]
                         });
                     }
-                    if (error.response.data.errors.project_id) {
-                        this.$toast.error({
-                            title: "! ERRORS",
-                            message: error.response.data.errors.project_id[0]
-                        });
-                    }
                 });
         }
     },
-    mounted() {
-        this.editModule();
-        this.getProject();
-    },
+
     components: {
+        VueDatePicker,
         VueEditor
     }
 };
 </script>
-<style lang=""></style>
