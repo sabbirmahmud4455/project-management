@@ -52,6 +52,7 @@
                                 >
                                     <div class="card-body row">
                                         <div class="col-md-6 col">
+
                                             <div class="form-group">
                                                 <label for="user_name"
                                                     >Name *</label
@@ -75,27 +76,13 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6 col">
+
                                             <div class="form-group">
-                                                <label for="user_email"
-                                                    >Email address *</label
-                                                >
-                                                <input
-                                                    v-model="form.email"
-                                                    type="email"
-                                                    class="form-control"
-                                                    id="user_email"
-                                                    placeholder="Enter email"
-                                                    :class="{
-                                                        'is-invalid': form.errors.has(
-                                                            'email'
-                                                        )
-                                                    }"
-                                                />
-                                                <has-error
-                                                    :form="form"
-                                                    field="email"
-                                                ></has-error>
+                                                <label for="type">User Type</label>
+                                                <multiselect  type="text" v-model="form.types" tag-placeholder="Add this as new skill" placeholder="Search or add a skill" label="name" track-by="name" :options="typeOptions" :multiple="true" :taggable="true"></multiselect>
                                             </div>
+
+
                                         </div>
                                         <div class="col-md-6 col">
                                             <div class="form-group">
@@ -121,31 +108,34 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6 col">
+                                           <div class="form-group">
+                                                <label for="type">User Role</label>
+                                                <multiselect type="text" v-model="form.roles" tag-placeholder="Add this as new skill" placeholder="Search or add a skill" label="name" track-by="name" :options="roleOptions" :multiple="true" :taggable="true"></multiselect>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
                                             <div class="form-group">
-                                                <label for="inputStatus"
-                                                    >User Type</label
+                                                <label for="user_email"
+                                                    >Email address *</label
                                                 >
-                                                <select
-                                                    v-model="form.user_type"
-                                                    class="form-control custom-select"
+                                                <input
+                                                    v-model="form.email"
+                                                    type="email"
+                                                    class="form-control"
+                                                    id="user_email"
+                                                    placeholder="Enter email"
                                                     :class="{
                                                         'is-invalid': form.errors.has(
-                                                            'user_type'
+                                                            'email'
                                                         )
                                                     }"
-                                                >
-                                                    <option selected value="0"
-                                                        >Member</option
-                                                    >
-                                                    <option value="1"
-                                                        >Admin</option
-                                                    >
-                                                </select>
+                                                />
                                                 <has-error
                                                     :form="form"
-                                                    field="user_type"
+                                                    field="email"
                                                 ></has-error>
                                             </div>
+
                                         </div>
                                         <div class="col-md-6 col">
                                             <div class="form-group">
@@ -353,171 +343,195 @@
 <script>
 import { Form } from "vform";
 import { objectToFormData } from "object-to-formdata";
+import Multiselect from "vue-multiselect";
+
 export default {
-    data() {
-        return {
-            real_time_photo: "",
-            real_photo: "",
-            myOptions: {
-                layout: {
-                    color: "black",
-                    backgroundColor: "lightgray",
-                    selectedColor: "white",
-                    selectedBackgroundColor: "green",
-                    borderColor: "black",
-                    fontFamily: "Arial",
-                    fontWeight: "normal",
-                    fontWeightSelected: "bold",
-                    squareCorners: false,
-                    noBorder: true
-                },
-                size: {
-                    fontSize: 0.8,
-                    height: 2,
-                    padding: 0.5,
-                    width: 8
-                },
-                items: {
-                    delay: 0.4,
-                    preSelected: "unknown",
-                    disabled: false,
-                    labels: [
-                        { name: "Off", color: "white", backgroundColor: "red" },
-                        { name: "On", color: "white", backgroundColor: "green" }
-                    ]
-                }
-            },
-            form: new Form({
-                name: "",
-                email: "",
-                user_type: "0",
-                contact_no: "",
-                gender: "Male",
-                pass_change: "Off",
-                old_password: "",
-                password: "",
-                password_confirmation: ""
-            }),
-            img: new Form({
-                photo: ""
-            })
+  data() {
+    return {
+      real_time_photo: "",
+      real_photo: "",
+      myOptions: {
+        layout: {
+          color: "black",
+          backgroundColor: "lightgray",
+          selectedColor: "white",
+          selectedBackgroundColor: "green",
+          borderColor: "black",
+          fontFamily: "Arial",
+          fontWeight: "normal",
+          fontWeightSelected: "bold",
+          squareCorners: false,
+          noBorder: true,
+        },
+        size: {
+          fontSize: 0.8,
+          height: 2,
+          padding: 0.5,
+          width: 8,
+        },
+        items: {
+          delay: 0.4,
+          preSelected: "unknown",
+          disabled: false,
+          labels: [
+            { name: "Off", color: "white", backgroundColor: "red" },
+            { name: "On", color: "white", backgroundColor: "green" },
+          ],
+        },
+      },
+
+      typeOptions: [
+        { name: "Backend Developer" },
+        { name: "Forntend Developer" },
+        { name: "Full Stack Developer" },
+        { name: "UI/UX" },
+        { name: "Designer" },
+        { name: "QA" },
+        { name: "App Developer" },
+      ],
+
+      roleOptions: [
+        { name: "Admin" },
+        { name: "Operator" },
+        { name: "Developer" },
+        { name: "Client" },
+      ],
+
+      form: new Form({
+        name: "",
+        email: "",
+        types: [],
+        roles: [],
+        contact_no: "",
+        gender: "Male",
+        pass_change: "Off",
+        old_password: "",
+        password: "",
+        password_confirmation: "",
+      }),
+      img: new Form({
+        photo: "",
+      }),
+    };
+  },
+  methods: {
+    editUser() {
+      let id = this.$route.params.id;
+
+      axios.get(`/api/user/${id}/edit`).then((response) => {
+        this.form.name = response.data.name;
+        this.form.email = response.data.email;
+        this.form.user_type = response.data.type_id;
+        this.form.contact_no = response.data.contact_no;
+        this.form.gender = response.data.gender;
+        this.real_photo = response.data.photo;
+        this.form.roles = response.data[0].roles;
+        this.form.types = response.data[0].types;
+      });
+    },
+    updateUser() {
+      let id = this.$route.params.id;
+
+      if (!this.img.photo == "") {
+        this.img
+          .post(`/api/users/update/${id}`, {
+            transformRequest: [
+              function (data, headers) {
+                return objectToFormData(data);
+              },
+            ],
+          })
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            if (error.response.data.errors.photo) {
+              this.$toast.error({
+                title: "! ERRORS",
+                message: error.response.data.errors.photo[0],
+              });
+            }
+          });
+      }
+      this.form
+        .put(`/api/user/${id}`)
+        .then((response) => {
+          this.$toast.success({
+            title: "SUCCESS",
+            message: "User Created Successfully",
+          });
+        })
+        .catch((error) => {
+          if (error) {
+            if (error.response.data.errors.name) {
+              this.$toast.error({
+                title: "! ERRORS",
+                message: error.response.data.errors.name[0],
+              });
+            }
+            if (error.response.data.errors.email) {
+              this.$toast.error({
+                title: "! ERRORS",
+                message: error.response.data.errors.email[0],
+              });
+            }
+            if (error.response.data.errors.user_type) {
+              this.$toast.error({
+                title: "! ERRORS",
+                message: error.response.data.errors.user_type[0],
+              });
+            }
+            if (error.response.data.errors.photo) {
+              this.$toast.error({
+                title: "! ERRORS",
+                message: error.response.data.errors.photo[0],
+              });
+            }
+            if (error.response.data.errors.password) {
+              this.$toast.error({
+                title: "! ERRORS",
+                message: error.response.data.errors.password[0],
+              });
+            }
+            if (error.response.data.errors.old_password) {
+              this.$toast.error({
+                title: "! ERRORS",
+                message: error.response.data.errors.old_password[0],
+              });
+            }
+          }
+        });
+    },
+
+    //form img feld on chang
+    onImageChange(event) {
+      //object to form data
+      const file = event.target.files[0];
+      // Do some client side validation...
+      this.img.photo = file;
+
+      // show uploading file
+      var input = event.target;
+      // Ensure that you have a file before attempting to read it
+      if (input.files && input.files[0]) {
+        // create a new FileReader to read this image and convert to base64 format
+        var reader = new FileReader();
+        // Define a callback function to run, when FileReader finishes its job
+        reader.onload = (e) => {
+          // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
+          // Read image as base64 and set to imageData
+          this.real_time_photo = e.target.result;
         };
+        // Start the reader job - read file as a data url (base64 format)
+        reader.readAsDataURL(input.files[0]);
+      }
     },
-    methods: {
-        editUser() {
-            let id = this.$route.params.id;
-
-            axios.get(`/api/user/${id}/edit`).then(response => {
-                this.form.name = response.data.name;
-                this.form.email = response.data.email;
-                this.form.user_type = response.data.type_id;
-                this.form.contact_no = response.data.contact_no;
-                this.form.gender = response.data.gender;
-                this.real_photo = response.data.photo;
-            });
-        },
-        updateUser() {
-            let id = this.$route.params.id;
-
-            if (!this.img.photo == "") {
-                this.img
-                    .post(`/api/users/update/${id}`, {
-                        transformRequest: [
-                            function(data, headers) {
-                                return objectToFormData(data);
-                            }
-                        ]
-                    })
-                    .then(response => {
-                        console.log(response);
-                    })
-                    .catch(error => {
-                        if (error.response.data.errors.photo) {
-                            this.$toast.error({
-                                title: "! ERRORS",
-                                message: error.response.data.errors.photo[0]
-                            });
-                        }
-                    });
-            }
-            this.form
-                .put(`/api/user/${id}`)
-                .then(response => {
-                    this.$toast.success({
-                        title: "SUCCESS",
-                        message: "User Created Successfully"
-                    });
-                })
-                .catch(error => {
-                    if (error) {
-                        if (error.response.data.errors.name) {
-                            this.$toast.error({
-                                title: "! ERRORS",
-                                message: error.response.data.errors.name[0]
-                            });
-                        }
-                        if (error.response.data.errors.email) {
-                            this.$toast.error({
-                                title: "! ERRORS",
-                                message: error.response.data.errors.email[0]
-                            });
-                        }
-                        if (error.response.data.errors.user_type) {
-                            this.$toast.error({
-                                title: "! ERRORS",
-                                message: error.response.data.errors.user_type[0]
-                            });
-                        }
-                        if (error.response.data.errors.photo) {
-                            this.$toast.error({
-                                title: "! ERRORS",
-                                message: error.response.data.errors.photo[0]
-                            });
-                        }
-                        if (error.response.data.errors.password) {
-                            this.$toast.error({
-                                title: "! ERRORS",
-                                message: error.response.data.errors.password[0]
-                            });
-                        }
-                        if (error.response.data.errors.old_password) {
-                            this.$toast.error({
-                                title: "! ERRORS",
-                                message:
-                                    error.response.data.errors.old_password[0]
-                            });
-                        }
-                    }
-                });
-        },
-
-        //form img feld on chang
-        onImageChange(event) {
-            //object to form data
-            const file = event.target.files[0];
-            // Do some client side validation...
-            this.img.photo = file;
-
-            // show uploading file
-            var input = event.target;
-            // Ensure that you have a file before attempting to read it
-            if (input.files && input.files[0]) {
-                // create a new FileReader to read this image and convert to base64 format
-                var reader = new FileReader();
-                // Define a callback function to run, when FileReader finishes its job
-                reader.onload = e => {
-                    // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
-                    // Read image as base64 and set to imageData
-                    this.real_time_photo = e.target.result;
-                };
-                // Start the reader job - read file as a data url (base64 format)
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-    },
-    mounted() {
-        this.editUser();
-    }
+  },
+  mounted() {
+    this.editUser();
+  },
+  components: {
+    Multiselect,
+  },
 };
 </script>
-<style lang=""></style>

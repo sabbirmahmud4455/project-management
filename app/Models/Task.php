@@ -15,6 +15,7 @@ class Task extends Model
         'module_id',
         'name',
         'title',
+        'type',
         'description',
         'assign_to',
         'checked_by',
@@ -23,11 +24,11 @@ class Task extends Model
 
     public function project()
     {
-    	return $this->belongsTo(Project::class);
+        return $this->belongsTo(Project::class);
     }
 
     public function module()
     {
-    	return $this->belongsTo(Module::class);
+        return $this->belongsTo(Module::class);
     }
 }

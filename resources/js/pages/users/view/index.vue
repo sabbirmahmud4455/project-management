@@ -68,7 +68,7 @@
                                         <li class="list-group-item">
                                             <b>Type</b>
                                             <span
-                                                v-if="type"
+                                                v-if="types"
                                                 class="float-right"
                                                 >{{ type }}</span
                                             >
@@ -219,54 +219,52 @@
 </template>
 <script>
 export default {
-    data() {
-        return {
-            id: this.$route.params.id,
-            name: "",
-            bio: "",
-            email: "",
-            contact_no: "",
-            type: "",
-            gender: "",
-            photo: "",
-            skills: [],
-            nid: "",
-            date_of_birth: "",
-            present_address: "",
-            permanent_address: "",
-            emergency_contact_person: ""
-        };
-    },
-    methods: {
-        getUser() {
-            let id = this.$route.params.id;
-            axios.get(`/api/user/${id}`).then(response => {
-                this.name = response.data[0].name;
-                this.email = response.data[0].email;
-                this.type = response.data[0].type;
-                this.contact_no = response.data[0].contact_no;
-                this.gender = response.data[0].gender;
-                this.photo = response.data[0].photo;
-                // this.bio= response.data[0].profile.bio;
+  data() {
+    return {
+      id: this.$route.params.id,
+      name: "",
+      bio: "",
+      email: "",
+      contact_no: "",
+      type: "",
+      gender: "",
+      photo: "",
+      skills: [],
+      nid: "",
+      date_of_birth: "",
+      present_address: "",
+      permanent_address: "",
+      emergency_contact_person: "",
+    };
+  },
+  methods: {
+    getUser() {
+      let id = this.$route.params.id;
+      axios.get(`/api/user/${id}`).then((response) => {
+        this.name = response.data[0].name;
+        this.email = response.data[0].email;
+        this.type = response.data[0].type;
+        this.contact_no = response.data[0].contact_no;
+        this.gender = response.data[0].gender;
+        this.photo = response.data[0].photo;
+        // this.bio= response.data[0].profile.bio;
 
-                if (response.data[0].profile) {
-                    this.skills = JSON.parse(response.data[0].profile.skills);
+        if (response.data[0].profile) {
+          this.skills = JSON.parse(response.data[0].profile.skills);
 
-                    this.bio = response.data[0].profile.bio;
-                    this.nid = response.data[0].profile.nid;
-                    this.date_of_birth = response.data[0].profile.date_of_birth;
-                    this.present_address =
-                        response.data[0].profile.present_address;
-                    this.permanent_address =
-                        response.data[0].profile.permanent_address;
-                    this.emergency_contact_person =
-                        response.data[0].profile.emergency_contact_person;
-                }
-            });
+          this.bio = response.data[0].profile.bio;
+          this.nid = response.data[0].profile.nid;
+          this.date_of_birth = response.data[0].profile.date_of_birth;
+          this.present_address = response.data[0].profile.present_address;
+          this.permanent_address = response.data[0].profile.permanent_address;
+          this.emergency_contact_person =
+            response.data[0].profile.emergency_contact_person;
         }
+      });
     },
-    mounted() {
-        this.getUser();
-    }
+  },
+  mounted() {
+    this.getUser();
+  },
 };
 </script>

@@ -18,4 +18,9 @@ class Sprint extends Model
         'duration',
         'description'
     ];
+
+    public function sprintTask()
+    {
+        return $this->hasMany(SprintTask::class)->with(['task', 'user']);
+    }
 }

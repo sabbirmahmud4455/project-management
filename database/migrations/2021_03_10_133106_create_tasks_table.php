@@ -20,6 +20,7 @@ class CreateTasksTable extends Migration
             $table->string('name');
             $table->string('title')->nullable();
             $table->text('description')->nullable();
+            $table->string('type')->nullable();
             $table->integer('assign_to')->nullable();
             $table->integer('checked_by')->nullable();
             $table->string('status')->nullable();

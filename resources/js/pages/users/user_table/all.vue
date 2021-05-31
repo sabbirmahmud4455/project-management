@@ -2,7 +2,9 @@
     <div>
         <div class="card card-primary">
             <div class="card-header d-flex">
-                <h3 class="card-title title d-flex align-items-center">All Users</h3>
+                <h3 class="card-title title d-flex align-items-center">
+                    All Users
+                </h3>
                 <div class="ml-auto d-flex">
                     <router-link
                         :to="{ name: 'user_create' }"
@@ -32,7 +34,10 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <table class="table table-striped table-bordered projects">
+                <table
+                    v-if="all_users.data.length"
+                    class="table table-striped table-bordered projects"
+                >
                     <thead>
                         <tr>
                             <th style="width: 1%">
@@ -46,6 +51,9 @@
                             </th>
                             <th style="width: 8%">
                                 Type
+                            </th>
+                            <th style="width: 8%">
+                                Role
                             </th>
                             <th>
                                 Contact No
@@ -79,7 +87,25 @@
                                 <span v-else>Null</span>
                             </td>
                             <td>
-                                <span v-if="user.type">{{ user.type }}</span>
+                                <span
+                                    class="badge badge-primary"
+                                    v-if="user.types"
+                                    v-for="(type, index) in user.types"
+                                    :key="index"
+                                >
+                                    {{ type.name }}</span
+                                >
+                                <span v-else>Null</span>
+                            </td>
+                            <td>
+                                <span
+                                    class="badge badge-primary"
+                                    v-if="user.roles"
+                                    v-for="(role, index) in user.roles"
+                                    :key="index"
+                                >
+                                    {{ role.name }}</span
+                                >
                                 <span v-else>Null</span>
                             </td>
                             <td>
@@ -151,6 +177,9 @@
                         </tr>
                     </tbody>
                 </table>
+                <div v-else>
+                    <h5>User not found</h5>
+                </div>
             </div>
             <!-- /.card-body -->
             <div class="card-footer clearfix">
@@ -220,37 +249,37 @@
 </template>
 <script>
 export default {
-    data() {
-        return {
-            all_users: {},
-            delete_data: {
-                data: [],
-                index: []
-            }
-        };
+  data() {
+    return {
+      all_users: {},
+      delete_data: {
+        data: [],
+        index: [],
+      },
+    };
+  },
+  methods: {
+    getUser(page) {
+      if (typeof page === "undefined") {
+        page = 1;
+      }
+      axios.get("/api/user?page=" + page).then((response) => {
+        this.all_users = response.data;
+      });
     },
-    methods: {
-        getUser(page) {
-            if (typeof page === "undefined") {
-                page = 1;
-            }
-            axios.get("/api/user?page=" + page).then(response => {
-                this.all_users = response.data;
-            });
-        },
-        userDelete(data, index) {
-            axios.delete(`/api/user/${data.id}`).then(res => {
-                this.all_users.data.splice(index, 1);
+    userDelete(data, index) {
+      axios.delete(`/api/user/${data.id}`).then((res) => {
+        this.all_users.data.splice(index, 1);
 
-                this.$toast.success({
-                    title: "SUCCESS",
-                    message: res.data
-                });
-            });
-        }
+        this.$toast.success({
+          title: "SUCCESS",
+          message: res.data,
+        });
+      });
     },
-    mounted() {
-        this.getUser();
-    }
+  },
+  mounted() {
+    this.getUser();
+  },
 };
 </script>

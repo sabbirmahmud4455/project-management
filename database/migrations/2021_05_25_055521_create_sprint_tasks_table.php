@@ -16,7 +16,6 @@ class CreateSprintTasksTable extends Migration
         Schema::create('sprint_tasks', function (Blueprint $table) {
 
             $table->id();
-            $table->string('title');
             $table->integer('sprint_id');
             $table->integer('task_id');
             $table->string('priority')->nullable();

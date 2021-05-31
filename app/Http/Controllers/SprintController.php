@@ -55,11 +55,12 @@ class SprintController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Sprint  $sprint
+     * @param  int sprint_id
      * @return \Illuminate\Http\Response
      */
-    public function show(Sprint $sprint)
+    public function show(int $sprint_id)
     {
+        $sprint = Sprint::with(['sprintTask'])->whereId($sprint_id)->first();
         return response()->json($sprint);
     }
 

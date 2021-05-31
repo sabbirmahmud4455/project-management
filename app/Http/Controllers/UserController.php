@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Profile;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\UserRole;
+use App\Models\UserType;
+use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -18,7 +21,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users= User::orderBy('id', 'desc')->paginate(10);
+        $users = User::with(['types', 'roles'])->orderBy('id', 'desc')->paginate(10);
         return response()->json($users);
     }
 
@@ -41,43 +44,60 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required',
-            'email'=>'required|email|unique:users,email',
-            'user_type'=>'required|numeric',
-            'gender'=>'required',
-            'photo'=>'image|nullable',
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            // 'user_type' => 'required|numeric',
+            'gender' => 'required',
+            'photo' => 'image|nullable',
             'password' => 'required|confirmed|min:6',
         ]);
-        if($request->user_type==1){
-            $user_type= 'Admin';
-        }else{
-            $user_type= 'Member';
-        }
 
-        if ($request->photo==null) {
-            if ($request->gender=='Male') {
-                $image_path='/images/users/default/avatar1.png';
+
+        if ($request->photo == null) {
+            if ($request->gender == 'Male') {
+                $image_path = '/images/users/default/avatar1.png';
             } else {
-                $image_path='/images/users/default/avatar2.png';
+                $image_path = '/images/users/default/avatar2.png';
             }
-            
         } else {
             $imageName = time() . '_' . uniqid() . '.' . $request->photo->getClientOriginalExtension();
             $request->photo->move(public_path('images/users'), $imageName);
-            $image_path= '/images/users/'.$imageName;
+            $image_path = '/images/users/' . $imageName;
         }
 
-        User::insert([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'contact_no'=>$request->contact_no,
-            'type_id'=>$request->user_type,
-            'type'=>$user_type,
-            'gender'=>$request->gender,
-            'photo'=>$image_path,
-            'password'=> Hash::make($request->password),
-            'created_at'=>Carbon::now(),
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'contact_no' => $request->contact_no,
+            // 'type_id' => $request->user_type,
+            // 'type' => $user_type,
+            'gender' => $request->gender,
+            'photo' => $image_path,
+            'password' => Hash::make($request->password),
         ]);
+
+        if ($request->types) {
+            foreach ($request->types as $key => $type) {
+
+                $user_type = UserType::create([
+                    'user_id' => $user->id,
+                    'name' => $type['name']
+                ]);
+            }
+        }
+        if ($request->roles) {
+            foreach ($request->roles as $key => $role) {
+                $role_name = strval($role['name']);
+                $user_role = UserRole::create([
+
+                    'user_id' => $user->id,
+                    'name' => $role_name
+                ]);
+            }
+        }
+
+
+
         return response()->json('User Store successfully');
     }
 
@@ -89,7 +109,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $user_pro= User::where('id', $user->id)->with(['profile'])->get();
+        $user_pro = User::where('id', $user->id)->with(['profile'])->get();
         return response()->json($user_pro);
     }
 
@@ -101,7 +121,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return response()->json($user);
+        $user_pro = User::where('id', $user->id)->with(['types', 'roles'])->get();
+        return response()->json($user_pro);
     }
 
     /**
@@ -114,39 +135,39 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $request->validate([
-            'name'=>'required',
-            'email'=>'required|email|unique:users,email,'.$user->id,
-            'user_type'=>'required|numeric',
-            'gender'=>'required',
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'user_type' => 'required|numeric',
+            'gender' => 'required',
         ]);
 
-        if ($request->pass_change=="On") {
+        if ($request->pass_change == "On") {
             $request->validate([
-                'old_password'=>'required',
+                'old_password' => 'required',
                 'password' => 'required|confirmed|min:6'
             ]);
             if (Hash::check('$request->old_password', $user->password)) {
                 $user->update([
-                'password'=> Hash::make($request->password),
+                    'password' => Hash::make($request->password),
                 ]);
             }
             return response()->json(['old_password' => 'Old Password Not Match'], 422);
         }
 
-        if($request->user_type==1){
-            $user_type= 'Admin';
-        }else{
-            $user_type= 'Member';
+        if ($request->user_type == 1) {
+            $user_type = 'Admin';
+        } else {
+            $user_type = 'Member';
         }
-        
+
         $user->update([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'contact_no'=>$request->contact_no,
-            'type_id'=>$request->user_type,
-            'type'=>$user_type,
-            'gender'=>$request->gender,
-            'updated_at'=>Carbon::now(),
+            'name' => $request->name,
+            'email' => $request->email,
+            'contact_no' => $request->contact_no,
+            'type_id' => $request->user_type,
+            'type' => $user_type,
+            'gender' => $request->gender,
+            'updated_at' => Carbon::now(),
         ]);
 
         return response()->json('Update successfully');
@@ -169,20 +190,21 @@ class UserController extends Controller
     public function image_update(Request $request, User $user)
     {
         $request->validate([
-            "photo"=>"image"
+            "photo" => "image"
         ]);
+
         if ($request->photo) {
             $imageName = time() . '_' . uniqid() . '.' . $request->photo->getClientOriginalExtension();
             $request->photo->move(public_path('images/users'), $imageName);
-            $image_path= '/images/users/'.$imageName;
-            if (!$user->photo =='/images/users/default/avatar1.png' || !$user->photo=='/images/users/default/avatar2.png') {
+            $image_path = '/images/users/' . $imageName;
+            if (!$user->photo == '/images/users/default/avatar1.png' || !$user->photo == '/images/users/default/avatar2.png') {
                 if (File::exists($user->image)) {
                     File::delete($user->image);
                     //unlink($image_path);
                 }
             }
             $user->update([
-                'photo'=>$image_path
+                'photo' => $image_path
             ]);
         }
         return response()->json('image update successfully');
@@ -190,17 +212,17 @@ class UserController extends Controller
 
     public function get_admin()
     {
-        $users= User::orderBy('id', 'desc')->where('type_id', 1)->paginate(10);
+        $users = User::orderBy('id', 'desc')->where('type_id', 1)->paginate(10);
         return response()->json($users);
     }
     public function get_member()
     {
-        $users= User::orderBy('id', 'desc')->where('type_id', 0)->paginate(10);
+        $users = User::orderBy('id', 'desc')->where('type_id', 0)->paginate(10);
         return response()->json($users);
     }
     public function get_all_users()
     {
-        $users= User::orderBy('id', 'desc')->get();
+        $users = User::orderBy('id', 'desc')->get();
         return response()->json($users);
     }
 }

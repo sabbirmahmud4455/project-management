@@ -86,6 +86,7 @@ import SprintList from './pages/sprint/sprint_list'
 import SprintCreate from './pages/sprint/create_sprint'
 import SprintUpdate from './pages/sprint/update_sprint'
 import SprintDetails from './pages/sprint/sprint_details'
+import SprintTask from './pages/sprint/add_sprint_task'
 
 //sprint task
 // import SprintTask from './pages/sprint_task/sprint_task_list'
@@ -299,6 +300,11 @@ const routes = new VueRouter({
             path: '/sprint-details/:id',
             component: SprintDetails,
             name: 'sprint_details',
+        },
+        {
+            path: '/sprint/sprint-task/:id',
+            component: SprintTask,
+            name: 'sprint_task',
         },
 
 

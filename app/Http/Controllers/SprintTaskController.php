@@ -35,7 +35,18 @@ class SprintTaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'tasks' => 'required'
+        ]);
+        foreach ($request->tasks as $key => $task) {
+            $sprintTask = SprintTask::create([
+                'sprint_id' => $request->spritnID,
+                'priority' => $request->priority,
+                'assigned_to' => $request->asigneTo,
+                'task_id' => $task,
+            ]);
+        }
+        return $request;
     }
 
     /**

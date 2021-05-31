@@ -116,18 +116,7 @@
                                 </p>
                             </router-link>
                         </li>
-                        <li class="nav-item has-treeview ">
-                            <router-link
-                                :to="{ name: 'sprint_task' }"
-                                class="nav-link"
-                                active-class="active"
-                            >
-                                <i class="fas fa-tasks  nav-icon"></i>
-                                <p>
-                                    Sprint Task
-                                </p>
-                            </router-link>
-                        </li>
+
 
                         <!-- app info -->
                         <li class="nav-item has-treeview ">

@@ -56,6 +56,7 @@ class TaskController extends Controller
             'title' => $request->title,
             'project_id' => $request->project_id,
             'module_id' => $request->module_id,
+            'type' => $request->type,
             'assign_to' => $request->assign_to,
             'description' => $description,
             'status' => 'Active',

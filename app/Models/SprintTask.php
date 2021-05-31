@@ -18,4 +18,12 @@ class SprintTask extends Model
         'checked_by',
         'status'
     ];
+    public function task()
+    {
+        return $this->belongsTo(Task::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'assigned_to', 'id');
+    }
 }

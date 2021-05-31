@@ -7,6 +7,7 @@ use App\Http\Controllers\CustomController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SprintController;
+use App\Http\Controllers\SprintTaskController;
 use App\Http\Controllers\TaskController;
 
 /*
@@ -74,7 +75,7 @@ Route::get('/project/module/{id}', [ModuleController::class, 'project_modules_pa
 
 //task
 Route::resource('/task', TaskController::class);
-//Route::get('/tasks-list', [TaskController::class, 'get_all_task']);
+Route::get('/tasks-list', [TaskController::class, 'get_all_task']);
 Route::get('/user_active/task/{id}', [TaskController::class, 'user_active_task']);
 
 Route::get('/user_complete/task/{id}', [TaskController::class, 'user_complete_task']);
@@ -103,3 +104,6 @@ Route::post('/app_info', [CustomController::class, 'app_info_update']);
 
 //sprint
 Route::resource('/sprint', SprintController::class);
+
+// sprint task
+Route::resource('/sprint/sprint-task', SprintTaskController::class);
