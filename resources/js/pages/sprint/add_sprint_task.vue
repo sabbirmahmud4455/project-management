@@ -85,14 +85,63 @@
                                 Carate Task
                               </button>
                             </div>
-                            <div class="card-body row">
-                              <div
-                                class="col-md-4"
-                                v-for="(task, index) in allTask"
+                          </div>
+                        </div>
+
+                        <div v-if="task_category === 'module_task'">
+                          <div class="form-group">
+                            <label for="project_input">Project</label>
+                            <select
+                              class="form-control"
+                              name=""
+                              id="project_input"
+                            >
+                              <option @click="form.tasks = []" :valeu="null">
+                                Select Project
+                              </option>
+                              <option
+                                v-for="(project, index) in allProject"
                                 :key="index"
-                                v-if="allTask"
+                                @click="getProjectTask(project.id)"
+                                :value="project.id"
                               >
-                                <div class="card">
+                                {{ project.name }}
+                              </option>
+                            </select>
+                          </div>
+
+                          <div v-if="projectModules" class="form-group">
+                            <label for="module_input">Module</label>
+                            <select
+                              class="form-control"
+                              name=""
+                              id="module_input"
+                            >
+                              <option :valeu="null">
+                                Select Module
+                              </option>
+                              <option
+                                v-for="(projectModule, index) in projectModules"
+                                :key="index"
+                                @click="getModuleTask(projectModule.id)"
+                                :value="projectModule.id"
+                              >
+                                {{ projectModule.name }}
+                              </option>
+                            </select>
+                          </div>
+                          <div v-if="tasks" class="col-12">
+                            <h5>Task List</h5>
+                          </div>
+                        </div>
+
+
+
+
+                              <div class="row" > 
+
+                                <div class="card col-4" v-if="tasks"   v-for="(task, index) in tasks"
+                                          :key="index">
                                   <div class="card-body">
                                     <label :for="'task' + task.id">{{
                                       task.name
@@ -179,57 +228,14 @@
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                          </div>
-                        </div>
 
-                        <div v-if="task_category === 'module_task'">
-                          <div class="form-group">
-                            <label for="project_input">Project</label>
-                            <select
-                              class="form-control"
-                              name=""
-                              id="project_input"
-                            >
-                              <option @click="form.tasks = []" :valeu="null">
-                                Select Project
-                              </option>
-                              <option
-                                v-for="(project, index) in allProject"
-                                :key="index"
-                                @click="getProjectTask(project.id)"
-                                :value="project.id"
-                              >
-                                {{ project.name }}
-                              </option>
-                            </select>
-                          </div>
-                          <div v-if="projectTask" class="col-12">
-                            <h5>Task List</h5>
-                          </div>
 
-                          <div
-                            class="col-md-4 col"
-                            v-if="projectTask"
-                            v-for="(task, index) in projectTask"
-                            :key="index"
-                          >
-                            <div class="card">
-                              <div class="card-body">
-                                <label :for="'task' + task.id">{{
-                                  task.name
-                                }}</label>
-                                <input
-                                  v-model="form.tasks"
-                                  :value="task.id"
-                                  type="checkbox"
-                                  name=""
-                                  :id="'task' + task.id"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+
+
+
+
+
+
                       </div>
                     </div>
                   </div>
@@ -265,8 +271,8 @@ export default {
     return {
       allUsers: null,
       allProject: null,
-      allTask: null,
-      projectTask: null,
+      tasks: null,
+      projectModules:null,
       task_category: null,
       form: {
         spritnID: this.$route.params.id,
@@ -282,6 +288,11 @@ export default {
         console.log(res.data);
       });
     },
+    getProjectModule(id){
+        axios.get(`/api/product_modules/${id}`).then(response => {
+            this.projectModules = response.data;
+        })
+    },
     getUsers() {
       axios.get("/api/all_users").then((res) => {
         this.allUsers = res.data;
@@ -289,7 +300,7 @@ export default {
     },
     getAllTask() {
       axios.get("/api/tasks-list").then((res) => {
-        this.allTask = res.data;
+        this.tasks = res.data;
       });
     },
     getProject() {
@@ -298,11 +309,22 @@ export default {
       });
     },
     getProjectTask(id) {
+      this.getProjectModule(id)
+
       this.selectTask = [];
       axios.get(`/api/project/task/w/${id}`).then((res) => {
-        this.projectTask = res.data;
+        this.tasks = res.data;
+      });
+      this.selectTask = [];
+      axios.get(`/api/project/task/w/${id}`).then((res) => {
+        this.tasks = res.data;
       });
     },
+    getModuleTask(id){
+      axios.get(`/api/module/task/w/${id}`).then((res) => {
+        this.tasks = res.data;
+      });
+    }
   },
   mounted() {
     this.getUsers();

@@ -131,7 +131,7 @@
                           v-model="form.type"
                           class="form-control custom-select"
                           :class="{
-                            'is-invalid': form.errors.has('assign_to'),
+                            'is-invalid': form.errors.has('type'),
                           }"
                         >
                           <option :value="null">Task Type</option>

@@ -54,13 +54,6 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="task_title">Title</label>
-                                        <input v-model="form.title" type="text" name="title" class="form-control" placeholder="Enter Title" :class="{ 'is-invalid': form.errors.has('title') }">
-                                        <has-error :form="form" field="title"></has-error>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
                                         <label for="inputStatus">Project</label>
                                         <select v-model="form.project_id" class="form-control custom-select" :class="{ 'is-invalid': form.errors.has('project_id') }">
                                             <option @click="getModule(0)" value="0">Select Project</option>
@@ -69,26 +62,46 @@
                                         <has-error :form="form" field="project_id"></has-error>
                                     </div>
                                 </div>
-                                <div class="col-md-6" v-if="all_modules.length">
+                                <div class="col-md-6" v-if="projectModule.length">
                                     <div class="form-group">
                                         <label for="inputStatus">Module</label>
                                         <select v-model="form.module_id" class="form-control custom-select" :class="{ 'is-invalid': form.errors.has('module_id') }">
                                             <option value="0">Select Module</option>
-                                            <option v-for="(module, index) in all_modules" :key="index" :value="module.id">{{module.name}}</option>
+                                            <option v-for="(module, index) in projectModule" :key="index" :value="module.id">{{module.name}}</option>
                                         </select>
                                         <has-error :form="form" field="project_id"></has-error>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="inputStatus">Assign To</label>
-                                        <select v-model="form.assign_to" class="form-control custom-select" :class="{ 'is-invalid': form.errors.has('assign_to') }">
-                                            <option value="0">Select User</option>
-                                        <option v-if="all_users.length" v-for="(user, index) in all_users" :key="index" :value="user.id" >{{user.name}}</option>
+                                        <label for="inputStatus">Type</label>
+                                        <select
+                                        v-model="form.type"
+                                        class="form-control custom-select"
+                                        :class="{
+                                            'is-invalid': form.errors.has('type'),
+                                        }"
+                                        >
+                                        <option :value="null">Task Type</option>
+                                        <option value="Epic">Epic</option>
+                                        <option value="Story">Story</option>
+                                        <option value="Development">Development</option>
+                                        <option value="Bug">Bug</option>
+                                        <option value="Update">Update</option>
+                                        <option value="Change Request">Change Request</option>
+                                        <option value="Idea">Idea</option>
+                                        <option value="Enhancement">Enhancement</option>
+                                        <option value="Research & Do">Research & Do</option>
+                                        <option value="Maintenance">Maintenance</option>
+                                        <option value="Quality Assurance">
+                                            Quality Assurance
+                                        </option>
+                                        <option value="Unit Testing">Unit Testing</option>
+                                        <option value="Enhancement">Enhancement</option>
                                         </select>
                                         <has-error :form="form" field="project_id"></has-error>
                                     </div>
-                                </div>
+                                    </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="address">Description</label>
@@ -123,14 +136,13 @@ export default {
     data() {
         return {
             all_projects:[],
-            all_modules:[],
+            projectModule:[],
             all_users:[],
             form: new Form({
                  project_id:0,
                  module_id:0,
-                 assign_to:0,
+                 type:null,
                  name:'',
-                 title:'',
                 description:'<h4 class="text-muted">Task Details</h4>',
             })
         }
@@ -143,7 +155,7 @@ export default {
         },
         getModule(id){
             axios.get(`/api/product_modules/${id}`).then(response => {
-                this.all_modules = response.data;
+                this.projectModule = response.data;
             })
         },
         getUser(){
@@ -156,10 +168,10 @@ export default {
             axios.get(`/api/task/${id}/edit`)
             .then(response => {
                 this.form.name= response.data.name;
-                this.form.title= response.data.title;
                 this.form.project_id= response.data.project_id;
                 this.form.module_id= response.data.module_id;
                 this.form.assign_to= response.data.assign_to;
+                this.form.type= response.data.type;
                 this.form.description= response.data.description;
 
                 this.getModule(response.data.project_id)
@@ -169,7 +181,6 @@ export default {
         this.form.post('/api/task')
             .then(response => {
                 this.form.name= '';
-                this.form.title= '';
                 this.form.project_id= 0;
                 this.form.description= '<h4 class="text-muted">task Details</h4>';
                 this.$toast.success({

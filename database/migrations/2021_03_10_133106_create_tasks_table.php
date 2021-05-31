@@ -18,7 +18,6 @@ class CreateTasksTable extends Migration
             $table->integer('project_id')->nullable();
             $table->integer('module_id')->nullable();
             $table->string('name');
-            $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->string('type')->nullable();
             $table->integer('assign_to')->nullable();

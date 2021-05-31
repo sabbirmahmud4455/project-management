@@ -83,6 +83,7 @@ Route::get('/user_complete/task/{id}', [TaskController::class, 'user_complete_ta
 Route::get('/project/task/{id}', [TaskController::class, 'project_task_pagination']);
 Route::get('/project/task/w/{id}', [TaskController::class, 'project_task']);
 Route::get('/module/task/{id}', [TaskController::class, 'module_tasks']);
+Route::get('/module/task/w/{id}', [TaskController::class, 'Wmodule_tasks']);
 
 
 //profile

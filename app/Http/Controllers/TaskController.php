@@ -53,7 +53,6 @@ class TaskController extends Controller
 
         Task::insert([
             'name' => $request->name,
-            'title' => $request->title,
             'project_id' => $request->project_id,
             'module_id' => $request->module_id,
             'type' => $request->type,
@@ -162,6 +161,11 @@ class TaskController extends Controller
     public function module_tasks($id)
     {
         $tasks = Task::where('module_id', $id)->orderBy('id', 'desc')->paginate(4);
+        return response()->json($tasks);
+    }
+    public function Wmodule_tasks($id)
+    {
+        $tasks = Task::where('module_id', $id)->orderBy('id', 'desc')->get();
         return response()->json($tasks);
     }
 }

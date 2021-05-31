@@ -419,12 +419,12 @@ export default {
       let id = this.$route.params.id;
 
       axios.get(`/api/user/${id}/edit`).then((response) => {
-        this.form.name = response.data.name;
-        this.form.email = response.data.email;
-        this.form.user_type = response.data.type_id;
-        this.form.contact_no = response.data.contact_no;
-        this.form.gender = response.data.gender;
-        this.real_photo = response.data.photo;
+        this.form.name = response.data[0].name;
+        this.form.email = response.data[0].email;
+        this.form.user_type = response.data[0].type_id;
+        this.form.contact_no = response.data[0].contact_no;
+        this.form.gender = response.data[0].gender;
+        this.real_photo = response.data[0].photo;
         this.form.roles = response.data[0].roles;
         this.form.types = response.data[0].types;
       });

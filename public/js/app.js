@@ -7034,13 +7034,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       allUsers: null,
       allProject: null,
-      allTask: null,
-      projectTask: null,
+      tasks: null,
+      projectModules: null,
       task_category: null,
       form: {
         spritnID: this.$route.params.id,
@@ -7056,33 +7062,52 @@ __webpack_require__.r(__webpack_exports__);
         console.log(res.data);
       });
     },
-    getUsers: function getUsers() {
+    getProjectModule: function getProjectModule(id) {
       var _this = this;
 
+      axios.get("/api/product_modules/".concat(id)).then(function (response) {
+        _this.projectModules = response.data;
+      });
+    },
+    getUsers: function getUsers() {
+      var _this2 = this;
+
       axios.get("/api/all_users").then(function (res) {
-        _this.allUsers = res.data;
+        _this2.allUsers = res.data;
       });
     },
     getAllTask: function getAllTask() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.get("/api/tasks-list").then(function (res) {
-        _this2.allTask = res.data;
+        _this3.tasks = res.data;
       });
     },
     getProject: function getProject() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get("/api/all_projects").then(function (res) {
-        _this3.allProject = res.data;
+        _this4.allProject = res.data;
       });
     },
     getProjectTask: function getProjectTask(id) {
-      var _this4 = this;
+      var _this5 = this;
 
+      this.getProjectModule(id);
       this.selectTask = [];
       axios.get("/api/project/task/w/".concat(id)).then(function (res) {
-        _this4.projectTask = res.data;
+        _this5.tasks = res.data;
+      });
+      this.selectTask = [];
+      axios.get("/api/project/task/w/".concat(id)).then(function (res) {
+        _this5.tasks = res.data;
+      });
+    },
+    getModuleTask: function getModuleTask(id) {
+      var _this6 = this;
+
+      axios.get("/api/module/task/w/".concat(id)).then(function (res) {
+        _this6.tasks = res.data;
       });
     }
   },
@@ -8649,20 +8674,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       all_projects: [],
-      all_modules: [],
+      projectModule: [],
       all_users: [],
       form: new vform__WEBPACK_IMPORTED_MODULE_0__["Form"]({
         project_id: 0,
         module_id: 0,
-        assign_to: 0,
+        type: null,
         name: '',
-        title: '',
         description: '<h4 class="text-muted">Task Details</h4>'
       })
     };
@@ -8679,7 +8716,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios.get("/api/product_modules/".concat(id)).then(function (response) {
-        _this2.all_modules = response.data;
+        _this2.projectModule = response.data;
       });
     },
     getUser: function getUser() {
@@ -8695,10 +8732,10 @@ __webpack_require__.r(__webpack_exports__);
       var id = this.$route.params.id;
       axios.get("/api/task/".concat(id, "/edit")).then(function (response) {
         _this4.form.name = response.data.name;
-        _this4.form.title = response.data.title;
         _this4.form.project_id = response.data.project_id;
         _this4.form.module_id = response.data.module_id;
         _this4.form.assign_to = response.data.assign_to;
+        _this4.form.type = response.data.type;
         _this4.form.description = response.data.description;
 
         _this4.getModule(response.data.project_id);
@@ -8709,7 +8746,6 @@ __webpack_require__.r(__webpack_exports__);
 
       this.form.post('/api/task').then(function (response) {
         _this5.form.name = '';
-        _this5.form.title = '';
         _this5.form.project_id = 0;
         _this5.form.description = '<h4 class="text-muted">task Details</h4>';
 
@@ -9869,12 +9905,12 @@ __webpack_require__.r(__webpack_exports__);
 
       var id = this.$route.params.id;
       axios.get("/api/user/".concat(id, "/edit")).then(function (response) {
-        _this.form.name = response.data.name;
-        _this.form.email = response.data.email;
-        _this.form.user_type = response.data.type_id;
-        _this.form.contact_no = response.data.contact_no;
-        _this.form.gender = response.data.gender;
-        _this.real_photo = response.data.photo;
+        _this.form.name = response.data[0].name;
+        _this.form.email = response.data[0].email;
+        _this.form.user_type = response.data[0].type_id;
+        _this.form.contact_no = response.data[0].contact_no;
+        _this.form.gender = response.data[0].gender;
+        _this.real_photo = response.data[0].photo;
         _this.form.roles = response.data[0].roles;
         _this.form.types = response.data[0].types;
       });
@@ -52087,686 +52123,493 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _vm.task_category === "independent_task"
-                          ? _c("div", [
-                              _c("div", { staticClass: "card" }, [
-                                _vm._m(1),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  { staticClass: "card-body row" },
-                                  _vm._l(_vm.allTask, function(task, index) {
-                                    return _vm.allTask
-                                      ? _c(
-                                          "div",
-                                          {
-                                            key: index,
-                                            staticClass: "col-md-4"
-                                          },
-                                          [
-                                            _c("div", { staticClass: "card" }, [
-                                              _c(
-                                                "div",
-                                                { staticClass: "card-body" },
-                                                [
-                                                  _c(
-                                                    "label",
-                                                    {
-                                                      attrs: {
-                                                        for: "task" + task.id
-                                                      }
-                                                    },
-                                                    [_vm._v(_vm._s(task.name))]
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c("input", {
-                                                    directives: [
-                                                      {
-                                                        name: "model",
-                                                        rawName: "v-model",
-                                                        value:
-                                                          _vm.form.tasks.id,
-                                                        expression:
-                                                          "form.tasks.id"
-                                                      }
-                                                    ],
-                                                    attrs: {
-                                                      type: "checkbox",
-                                                      name: "",
-                                                      id: "task" + task.id
-                                                    },
-                                                    domProps: {
-                                                      value: task.id,
-                                                      checked: Array.isArray(
-                                                        _vm.form.tasks.id
-                                                      )
-                                                        ? _vm._i(
-                                                            _vm.form.tasks.id,
-                                                            task.id
-                                                          ) > -1
-                                                        : _vm.form.tasks.id
-                                                    },
-                                                    on: {
-                                                      change: function($event) {
-                                                        var $$a =
-                                                            _vm.form.tasks.id,
-                                                          $$el = $event.target,
-                                                          $$c = $$el.checked
-                                                            ? true
-                                                            : false
-                                                        if (
-                                                          Array.isArray($$a)
-                                                        ) {
-                                                          var $$v = task.id,
-                                                            $$i = _vm._i(
-                                                              $$a,
-                                                              $$v
-                                                            )
-                                                          if ($$el.checked) {
-                                                            $$i < 0 &&
-                                                              _vm.$set(
-                                                                _vm.form.tasks,
-                                                                "id",
-                                                                $$a.concat([
-                                                                  $$v
-                                                                ])
-                                                              )
-                                                          } else {
-                                                            $$i > -1 &&
-                                                              _vm.$set(
-                                                                _vm.form.tasks,
-                                                                "id",
-                                                                $$a
-                                                                  .slice(0, $$i)
-                                                                  .concat(
-                                                                    $$a.slice(
-                                                                      $$i + 1
-                                                                    )
-                                                                  )
-                                                              )
-                                                          }
-                                                        } else {
-                                                          _vm.$set(
-                                                            _vm.form.tasks,
-                                                            "id",
-                                                            $$c
-                                                          )
-                                                        }
-                                                      }
-                                                    }
-                                                  }),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "div",
-                                                    {
-                                                      staticClass: "form-group"
-                                                    },
-                                                    [
-                                                      _c(
-                                                        "label",
-                                                        { attrs: { for: "" } },
-                                                        [_vm._v("Priority")]
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "div",
-                                                        {
-                                                          staticClass: "d-flex"
-                                                        },
-                                                        [
-                                                          _c(
-                                                            "span",
-                                                            {
-                                                              staticClass:
-                                                                "mx-2"
-                                                            },
-                                                            [
-                                                              _c(
-                                                                "div",
-                                                                {
-                                                                  staticClass:
-                                                                    "form-check"
-                                                                },
-                                                                [
-                                                                  _c(
-                                                                    "label",
-                                                                    {
-                                                                      staticClass:
-                                                                        "form-check-label"
-                                                                    },
-                                                                    [
-                                                                      _c(
-                                                                        "input",
-                                                                        {
-                                                                          directives: [
-                                                                            {
-                                                                              name:
-                                                                                "model",
-                                                                              rawName:
-                                                                                "v-model",
-                                                                              value:
-                                                                                _vm
-                                                                                  .form
-                                                                                  .priority,
-                                                                              expression:
-                                                                                "form.priority"
-                                                                            }
-                                                                          ],
-                                                                          staticClass:
-                                                                            "form-check-input",
-                                                                          attrs: {
-                                                                            type:
-                                                                              "radio",
-                                                                            name:
-                                                                              "priority",
-                                                                            value:
-                                                                              "low"
-                                                                          },
-                                                                          domProps: {
-                                                                            checked: _vm._q(
-                                                                              _vm
-                                                                                .form
-                                                                                .priority,
-                                                                              "low"
-                                                                            )
-                                                                          },
-                                                                          on: {
-                                                                            change: function(
-                                                                              $event
-                                                                            ) {
-                                                                              return _vm.$set(
-                                                                                _vm.form,
-                                                                                "priority",
-                                                                                "low"
-                                                                              )
-                                                                            }
-                                                                          }
-                                                                        }
-                                                                      ),
-                                                                      _vm._v(
-                                                                        "\n                                            low\n                                          "
-                                                                      )
-                                                                    ]
-                                                                  )
-                                                                ]
-                                                              )
-                                                            ]
-                                                          ),
-                                                          _vm._v(" "),
-                                                          _c(
-                                                            "span",
-                                                            {
-                                                              staticClass:
-                                                                "mx-2"
-                                                            },
-                                                            [
-                                                              _c(
-                                                                "div",
-                                                                {
-                                                                  staticClass:
-                                                                    "form-check"
-                                                                },
-                                                                [
-                                                                  _c(
-                                                                    "label",
-                                                                    {
-                                                                      staticClass:
-                                                                        "form-check-label"
-                                                                    },
-                                                                    [
-                                                                      _c(
-                                                                        "input",
-                                                                        {
-                                                                          directives: [
-                                                                            {
-                                                                              name:
-                                                                                "model",
-                                                                              rawName:
-                                                                                "v-model",
-                                                                              value:
-                                                                                _vm
-                                                                                  .form
-                                                                                  .priority,
-                                                                              expression:
-                                                                                "form.priority"
-                                                                            }
-                                                                          ],
-                                                                          staticClass:
-                                                                            "form-check-input",
-                                                                          attrs: {
-                                                                            type:
-                                                                              "radio",
-                                                                            name:
-                                                                              "priority",
-                                                                            value:
-                                                                              "Medium"
-                                                                          },
-                                                                          domProps: {
-                                                                            checked: _vm._q(
-                                                                              _vm
-                                                                                .form
-                                                                                .priority,
-                                                                              "Medium"
-                                                                            )
-                                                                          },
-                                                                          on: {
-                                                                            change: function(
-                                                                              $event
-                                                                            ) {
-                                                                              return _vm.$set(
-                                                                                _vm.form,
-                                                                                "priority",
-                                                                                "Medium"
-                                                                              )
-                                                                            }
-                                                                          }
-                                                                        }
-                                                                      ),
-                                                                      _vm._v(
-                                                                        "\n                                            Medium\n                                          "
-                                                                      )
-                                                                    ]
-                                                                  )
-                                                                ]
-                                                              )
-                                                            ]
-                                                          ),
-                                                          _vm._v(" "),
-                                                          _c(
-                                                            "span",
-                                                            {
-                                                              staticClass:
-                                                                "mx-2"
-                                                            },
-                                                            [
-                                                              _c(
-                                                                "div",
-                                                                {
-                                                                  staticClass:
-                                                                    "form-check"
-                                                                },
-                                                                [
-                                                                  _c(
-                                                                    "label",
-                                                                    {
-                                                                      staticClass:
-                                                                        "form-check-label"
-                                                                    },
-                                                                    [
-                                                                      _c(
-                                                                        "input",
-                                                                        {
-                                                                          directives: [
-                                                                            {
-                                                                              name:
-                                                                                "model",
-                                                                              rawName:
-                                                                                "v-model",
-                                                                              value:
-                                                                                _vm
-                                                                                  .form
-                                                                                  .priority,
-                                                                              expression:
-                                                                                "form.priority"
-                                                                            }
-                                                                          ],
-                                                                          staticClass:
-                                                                            "form-check-input",
-                                                                          attrs: {
-                                                                            type:
-                                                                              "radio",
-                                                                            name:
-                                                                              "priority",
-                                                                            value:
-                                                                              "High"
-                                                                          },
-                                                                          domProps: {
-                                                                            checked: _vm._q(
-                                                                              _vm
-                                                                                .form
-                                                                                .priority,
-                                                                              "High"
-                                                                            )
-                                                                          },
-                                                                          on: {
-                                                                            change: function(
-                                                                              $event
-                                                                            ) {
-                                                                              return _vm.$set(
-                                                                                _vm.form,
-                                                                                "priority",
-                                                                                "High"
-                                                                              )
-                                                                            }
-                                                                          }
-                                                                        }
-                                                                      ),
-                                                                      _vm._v(
-                                                                        "\n                                            High\n                                          "
-                                                                      )
-                                                                    ]
-                                                                  )
-                                                                ]
-                                                              )
-                                                            ]
-                                                          )
-                                                        ]
-                                                      )
-                                                    ]
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "div",
-                                                    {
-                                                      staticClass: "form-group"
-                                                    },
-                                                    [
-                                                      _c(
-                                                        "label",
-                                                        { attrs: { for: "" } },
-                                                        [_vm._v("Assigned To")]
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "select",
-                                                        {
-                                                          directives: [
-                                                            {
-                                                              name: "model",
-                                                              rawName:
-                                                                "v-model",
-                                                              value:
-                                                                _vm.form
-                                                                  .asigneTo,
-                                                              expression:
-                                                                "form.asigneTo"
-                                                            }
-                                                          ],
-                                                          staticClass:
-                                                            "form-control",
-                                                          attrs: {
-                                                            name: "",
-                                                            id: ""
-                                                          },
-                                                          on: {
-                                                            change: function(
-                                                              $event
-                                                            ) {
-                                                              var $$selectedVal = Array.prototype.filter
-                                                                .call(
-                                                                  $event.target
-                                                                    .options,
-                                                                  function(o) {
-                                                                    return o.selected
-                                                                  }
-                                                                )
-                                                                .map(function(
-                                                                  o
-                                                                ) {
-                                                                  var val =
-                                                                    "_value" in
-                                                                    o
-                                                                      ? o._value
-                                                                      : o.value
-                                                                  return val
-                                                                })
-                                                              _vm.$set(
-                                                                _vm.form,
-                                                                "asigneTo",
-                                                                $event.target
-                                                                  .multiple
-                                                                  ? $$selectedVal
-                                                                  : $$selectedVal[0]
-                                                              )
-                                                            }
-                                                          }
-                                                        },
-                                                        [
-                                                          _c(
-                                                            "option",
-                                                            {
-                                                              domProps: {
-                                                                value: null
-                                                              }
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                "\n                                        Select Member\n                                      "
-                                                              )
-                                                            ]
-                                                          ),
-                                                          _vm._v(" "),
-                                                          _vm._l(
-                                                            _vm.allUsers,
-                                                            function(
-                                                              user,
-                                                              index
-                                                            ) {
-                                                              return _c(
-                                                                "option",
-                                                                {
-                                                                  key: index,
-                                                                  staticClass:
-                                                                    "w-100",
-                                                                  domProps: {
-                                                                    value:
-                                                                      user.id
-                                                                  }
-                                                                },
-                                                                [
-                                                                  _c(
-                                                                    "div",
-                                                                    {
-                                                                      staticClass:
-                                                                        "w-100 d-flex"
-                                                                    },
-                                                                    [
-                                                                      _c(
-                                                                        "span",
-                                                                        [
-                                                                          _vm._v(
-                                                                            _vm._s(
-                                                                              user.name
-                                                                            )
-                                                                          )
-                                                                        ]
-                                                                      )
-                                                                    ]
-                                                                  )
-                                                                ]
-                                                              )
-                                                            }
-                                                          )
-                                                        ],
-                                                        2
-                                                      )
-                                                    ]
-                                                  )
-                                                ]
-                                              )
-                                            ])
-                                          ]
-                                        )
-                                      : _vm._e()
-                                  }),
-                                  0
-                                )
-                              ])
-                            ])
+                          ? _c("div", [_vm._m(1)])
                           : _vm._e(),
                         _vm._v(" "),
                         _vm.task_category === "module_task"
-                          ? _c(
-                              "div",
-                              [
-                                _c("div", { staticClass: "form-group" }, [
-                                  _c(
-                                    "label",
-                                    { attrs: { for: "project_input" } },
-                                    [_vm._v("Project")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "select",
-                                    {
-                                      staticClass: "form-control",
-                                      attrs: { name: "", id: "project_input" }
-                                    },
-                                    [
-                                      _c(
+                          ? _c("div", [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "project_input" } },
+                                  [_vm._v("Project")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "select",
+                                  {
+                                    staticClass: "form-control",
+                                    attrs: { name: "", id: "project_input" }
+                                  },
+                                  [
+                                    _c(
+                                      "option",
+                                      {
+                                        attrs: { valeu: null },
+                                        on: {
+                                          click: function($event) {
+                                            _vm.form.tasks = []
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                              Select Project\n                            "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _vm._l(_vm.allProject, function(
+                                      project,
+                                      index
+                                    ) {
+                                      return _c(
                                         "option",
                                         {
-                                          attrs: { valeu: null },
+                                          key: index,
+                                          domProps: { value: project.id },
                                           on: {
                                             click: function($event) {
-                                              _vm.form.tasks = []
+                                              return _vm.getProjectTask(
+                                                project.id
+                                              )
                                             }
                                           }
                                         },
                                         [
                                           _vm._v(
-                                            "\n                              Select Project\n                            "
+                                            "\n                              " +
+                                              _vm._s(project.name) +
+                                              "\n                            "
                                           )
                                         ]
+                                      )
+                                    })
+                                  ],
+                                  2
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _vm.projectModules
+                                ? _c("div", { staticClass: "form-group" }, [
+                                    _c(
+                                      "label",
+                                      { attrs: { for: "module_input" } },
+                                      [_vm._v("Module")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "select",
+                                      {
+                                        staticClass: "form-control",
+                                        attrs: { name: "", id: "module_input" }
+                                      },
+                                      [
+                                        _c(
+                                          "option",
+                                          { attrs: { valeu: null } },
+                                          [
+                                            _vm._v(
+                                              "\n                              Select Module\n                            "
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _vm._l(_vm.projectModules, function(
+                                          projectModule,
+                                          index
+                                        ) {
+                                          return _c(
+                                            "option",
+                                            {
+                                              key: index,
+                                              domProps: {
+                                                value: projectModule.id
+                                              },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.getModuleTask(
+                                                    projectModule.id
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                              " +
+                                                  _vm._s(projectModule.name) +
+                                                  "\n                            "
+                                              )
+                                            ]
+                                          )
+                                        })
+                                      ],
+                                      2
+                                    )
+                                  ])
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.tasks
+                                ? _c("div", { staticClass: "col-12" }, [
+                                    _c("h5", [_vm._v("Task List")])
+                                  ])
+                                : _vm._e()
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "row" },
+                          _vm._l(_vm.tasks, function(task, index) {
+                            return _vm.tasks
+                              ? _c(
+                                  "div",
+                                  { key: index, staticClass: "card col-4" },
+                                  [
+                                    _c("div", { staticClass: "card-body" }, [
+                                      _c(
+                                        "label",
+                                        { attrs: { for: "task" + task.id } },
+                                        [_vm._v(_vm._s(task.name))]
                                       ),
                                       _vm._v(" "),
-                                      _vm._l(_vm.allProject, function(
-                                        project,
-                                        index
-                                      ) {
-                                        return _c(
-                                          "option",
+                                      _c("input", {
+                                        directives: [
                                           {
-                                            key: index,
-                                            domProps: { value: project.id },
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.form.tasks.id,
+                                            expression: "form.tasks.id"
+                                          }
+                                        ],
+                                        attrs: {
+                                          type: "checkbox",
+                                          name: "",
+                                          id: "task" + task.id
+                                        },
+                                        domProps: {
+                                          value: task.id,
+                                          checked: Array.isArray(
+                                            _vm.form.tasks.id
+                                          )
+                                            ? _vm._i(
+                                                _vm.form.tasks.id,
+                                                task.id
+                                              ) > -1
+                                            : _vm.form.tasks.id
+                                        },
+                                        on: {
+                                          change: function($event) {
+                                            var $$a = _vm.form.tasks.id,
+                                              $$el = $event.target,
+                                              $$c = $$el.checked ? true : false
+                                            if (Array.isArray($$a)) {
+                                              var $$v = task.id,
+                                                $$i = _vm._i($$a, $$v)
+                                              if ($$el.checked) {
+                                                $$i < 0 &&
+                                                  _vm.$set(
+                                                    _vm.form.tasks,
+                                                    "id",
+                                                    $$a.concat([$$v])
+                                                  )
+                                              } else {
+                                                $$i > -1 &&
+                                                  _vm.$set(
+                                                    _vm.form.tasks,
+                                                    "id",
+                                                    $$a
+                                                      .slice(0, $$i)
+                                                      .concat(
+                                                        $$a.slice($$i + 1)
+                                                      )
+                                                  )
+                                              }
+                                            } else {
+                                              _vm.$set(
+                                                _vm.form.tasks,
+                                                "id",
+                                                $$c
+                                              )
+                                            }
+                                          }
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("div", { staticClass: "form-group" }, [
+                                        _c("label", { attrs: { for: "" } }, [
+                                          _vm._v("Priority")
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("div", { staticClass: "d-flex" }, [
+                                          _c("span", { staticClass: "mx-2" }, [
+                                            _c(
+                                              "div",
+                                              { staticClass: "form-check" },
+                                              [
+                                                _c(
+                                                  "label",
+                                                  {
+                                                    staticClass:
+                                                      "form-check-label"
+                                                  },
+                                                  [
+                                                    _c("input", {
+                                                      directives: [
+                                                        {
+                                                          name: "model",
+                                                          rawName: "v-model",
+                                                          value:
+                                                            _vm.form.priority,
+                                                          expression:
+                                                            "form.priority"
+                                                        }
+                                                      ],
+                                                      staticClass:
+                                                        "form-check-input",
+                                                      attrs: {
+                                                        type: "radio",
+                                                        name: "priority",
+                                                        value: "low"
+                                                      },
+                                                      domProps: {
+                                                        checked: _vm._q(
+                                                          _vm.form.priority,
+                                                          "low"
+                                                        )
+                                                      },
+                                                      on: {
+                                                        change: function(
+                                                          $event
+                                                        ) {
+                                                          return _vm.$set(
+                                                            _vm.form,
+                                                            "priority",
+                                                            "low"
+                                                          )
+                                                        }
+                                                      }
+                                                    }),
+                                                    _vm._v(
+                                                      "\n                                            low\n                                          "
+                                                    )
+                                                  ]
+                                                )
+                                              ]
+                                            )
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("span", { staticClass: "mx-2" }, [
+                                            _c(
+                                              "div",
+                                              { staticClass: "form-check" },
+                                              [
+                                                _c(
+                                                  "label",
+                                                  {
+                                                    staticClass:
+                                                      "form-check-label"
+                                                  },
+                                                  [
+                                                    _c("input", {
+                                                      directives: [
+                                                        {
+                                                          name: "model",
+                                                          rawName: "v-model",
+                                                          value:
+                                                            _vm.form.priority,
+                                                          expression:
+                                                            "form.priority"
+                                                        }
+                                                      ],
+                                                      staticClass:
+                                                        "form-check-input",
+                                                      attrs: {
+                                                        type: "radio",
+                                                        name: "priority",
+                                                        value: "Medium"
+                                                      },
+                                                      domProps: {
+                                                        checked: _vm._q(
+                                                          _vm.form.priority,
+                                                          "Medium"
+                                                        )
+                                                      },
+                                                      on: {
+                                                        change: function(
+                                                          $event
+                                                        ) {
+                                                          return _vm.$set(
+                                                            _vm.form,
+                                                            "priority",
+                                                            "Medium"
+                                                          )
+                                                        }
+                                                      }
+                                                    }),
+                                                    _vm._v(
+                                                      "\n                                            Medium\n                                          "
+                                                    )
+                                                  ]
+                                                )
+                                              ]
+                                            )
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("span", { staticClass: "mx-2" }, [
+                                            _c(
+                                              "div",
+                                              { staticClass: "form-check" },
+                                              [
+                                                _c(
+                                                  "label",
+                                                  {
+                                                    staticClass:
+                                                      "form-check-label"
+                                                  },
+                                                  [
+                                                    _c("input", {
+                                                      directives: [
+                                                        {
+                                                          name: "model",
+                                                          rawName: "v-model",
+                                                          value:
+                                                            _vm.form.priority,
+                                                          expression:
+                                                            "form.priority"
+                                                        }
+                                                      ],
+                                                      staticClass:
+                                                        "form-check-input",
+                                                      attrs: {
+                                                        type: "radio",
+                                                        name: "priority",
+                                                        value: "High"
+                                                      },
+                                                      domProps: {
+                                                        checked: _vm._q(
+                                                          _vm.form.priority,
+                                                          "High"
+                                                        )
+                                                      },
+                                                      on: {
+                                                        change: function(
+                                                          $event
+                                                        ) {
+                                                          return _vm.$set(
+                                                            _vm.form,
+                                                            "priority",
+                                                            "High"
+                                                          )
+                                                        }
+                                                      }
+                                                    }),
+                                                    _vm._v(
+                                                      "\n                                            High\n                                          "
+                                                    )
+                                                  ]
+                                                )
+                                              ]
+                                            )
+                                          ])
+                                        ])
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("div", { staticClass: "form-group" }, [
+                                        _c("label", { attrs: { for: "" } }, [
+                                          _vm._v("Assigned To")
+                                        ]),
+                                        _vm._v(" "),
+                                        _c(
+                                          "select",
+                                          {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value: _vm.form.asigneTo,
+                                                expression: "form.asigneTo"
+                                              }
+                                            ],
+                                            staticClass: "form-control",
+                                            attrs: { name: "", id: "" },
                                             on: {
-                                              click: function($event) {
-                                                return _vm.getProjectTask(
-                                                  project.id
+                                              change: function($event) {
+                                                var $$selectedVal = Array.prototype.filter
+                                                  .call(
+                                                    $event.target.options,
+                                                    function(o) {
+                                                      return o.selected
+                                                    }
+                                                  )
+                                                  .map(function(o) {
+                                                    var val =
+                                                      "_value" in o
+                                                        ? o._value
+                                                        : o.value
+                                                    return val
+                                                  })
+                                                _vm.$set(
+                                                  _vm.form,
+                                                  "asigneTo",
+                                                  $event.target.multiple
+                                                    ? $$selectedVal
+                                                    : $$selectedVal[0]
                                                 )
                                               }
                                             }
                                           },
                                           [
-                                            _vm._v(
-                                              "\n                              " +
-                                                _vm._s(project.name) +
-                                                "\n                            "
-                                            )
-                                          ]
-                                        )
-                                      })
-                                    ],
-                                    2
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _vm.projectTask
-                                  ? _c("div", { staticClass: "col-12" }, [
-                                      _c("h5", [_vm._v("Task List")])
-                                    ])
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _vm._l(_vm.projectTask, function(task, index) {
-                                  return _vm.projectTask
-                                    ? _c(
-                                        "div",
-                                        {
-                                          key: index,
-                                          staticClass: "col-md-4 col"
-                                        },
-                                        [
-                                          _c("div", { staticClass: "card" }, [
                                             _c(
-                                              "div",
-                                              { staticClass: "card-body" },
+                                              "option",
+                                              { domProps: { value: null } },
                                               [
-                                                _c(
-                                                  "label",
-                                                  {
-                                                    attrs: {
-                                                      for: "task" + task.id
-                                                    }
-                                                  },
-                                                  [_vm._v(_vm._s(task.name))]
-                                                ),
-                                                _vm._v(" "),
-                                                _c("input", {
-                                                  directives: [
-                                                    {
-                                                      name: "model",
-                                                      rawName: "v-model",
-                                                      value: _vm.form.tasks,
-                                                      expression: "form.tasks"
-                                                    }
-                                                  ],
-                                                  attrs: {
-                                                    type: "checkbox",
-                                                    name: "",
-                                                    id: "task" + task.id
-                                                  },
-                                                  domProps: {
-                                                    value: task.id,
-                                                    checked: Array.isArray(
-                                                      _vm.form.tasks
-                                                    )
-                                                      ? _vm._i(
-                                                          _vm.form.tasks,
-                                                          task.id
-                                                        ) > -1
-                                                      : _vm.form.tasks
-                                                  },
-                                                  on: {
-                                                    change: function($event) {
-                                                      var $$a = _vm.form.tasks,
-                                                        $$el = $event.target,
-                                                        $$c = $$el.checked
-                                                          ? true
-                                                          : false
-                                                      if (Array.isArray($$a)) {
-                                                        var $$v = task.id,
-                                                          $$i = _vm._i($$a, $$v)
-                                                        if ($$el.checked) {
-                                                          $$i < 0 &&
-                                                            _vm.$set(
-                                                              _vm.form,
-                                                              "tasks",
-                                                              $$a.concat([$$v])
-                                                            )
-                                                        } else {
-                                                          $$i > -1 &&
-                                                            _vm.$set(
-                                                              _vm.form,
-                                                              "tasks",
-                                                              $$a
-                                                                .slice(0, $$i)
-                                                                .concat(
-                                                                  $$a.slice(
-                                                                    $$i + 1
-                                                                  )
-                                                                )
-                                                            )
-                                                        }
-                                                      } else {
-                                                        _vm.$set(
-                                                          _vm.form,
-                                                          "tasks",
-                                                          $$c
-                                                        )
-                                                      }
-                                                    }
-                                                  }
-                                                })
+                                                _vm._v(
+                                                  "\n                                        Select Member\n                                      "
+                                                )
                                               ]
-                                            )
-                                          ])
-                                        ]
-                                      )
-                                    : _vm._e()
-                                })
-                              ],
-                              2
-                            )
-                          : _vm._e()
+                                            ),
+                                            _vm._v(" "),
+                                            _vm._l(_vm.allUsers, function(
+                                              user,
+                                              index
+                                            ) {
+                                              return _c(
+                                                "option",
+                                                {
+                                                  key: index,
+                                                  staticClass: "w-100",
+                                                  domProps: { value: user.id }
+                                                },
+                                                [
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "w-100 d-flex"
+                                                    },
+                                                    [
+                                                      _c("span", [
+                                                        _vm._v(
+                                                          _vm._s(user.name)
+                                                        )
+                                                      ])
+                                                    ]
+                                                  )
+                                                ]
+                                              )
+                                            })
+                                          ],
+                                          2
+                                        )
+                                      ])
+                                    ])
+                                  ]
+                                )
+                              : _vm._e()
+                          }),
+                          0
+                        )
                       ])
                     ])
                   ])
@@ -52820,13 +52663,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header d-flex" }, [
-      _c("h5", [_vm._v("Tasks List")]),
-      _vm._v(" "),
-      _c("button", { staticClass: "ml-auto btn-primary" }, [
-        _vm._v(
-          "\n                              Carate Task\n                            "
-        )
+    return _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "card-header d-flex" }, [
+        _c("h5", [_vm._v("Tasks List")]),
+        _vm._v(" "),
+        _c("button", { staticClass: "ml-auto btn-primary" }, [
+          _vm._v(
+            "\n                              Carate Task\n                            "
+          )
+        ])
       ])
     ])
   }
@@ -54694,7 +54539,7 @@ var render = function() {
                                 ],
                                 staticClass: "form-control custom-select",
                                 class: {
-                                  "is-invalid": _vm.form.errors.has("assign_to")
+                                  "is-invalid": _vm.form.errors.has("type")
                                 },
                                 on: {
                                   change: function($event) {
@@ -55482,56 +55327,6 @@ var render = function() {
                           "div",
                           { staticClass: "form-group" },
                           [
-                            _c("label", { attrs: { for: "task_title" } }, [
-                              _vm._v("Title")
-                            ]),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.title,
-                                  expression: "form.title"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              class: {
-                                "is-invalid": _vm.form.errors.has("title")
-                              },
-                              attrs: {
-                                type: "text",
-                                name: "title",
-                                placeholder: "Enter Title"
-                              },
-                              domProps: { value: _vm.form.title },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.form,
-                                    "title",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("has-error", {
-                              attrs: { form: _vm.form, field: "title" }
-                            })
-                          ],
-                          1
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6" }, [
-                        _c(
-                          "div",
-                          { staticClass: "form-group" },
-                          [
                             _c("label", { attrs: { for: "inputStatus" } }, [
                               _vm._v("Project")
                             ]),
@@ -55622,7 +55417,7 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _vm.all_modules.length
+                      _vm.projectModule.length
                         ? _c("div", { staticClass: "col-md-6" }, [
                             _c(
                               "div",
@@ -55677,7 +55472,7 @@ var render = function() {
                                       _vm._v("Select Module")
                                     ]),
                                     _vm._v(" "),
-                                    _vm._l(_vm.all_modules, function(
+                                    _vm._l(_vm.projectModule, function(
                                       module,
                                       index
                                     ) {
@@ -55709,7 +55504,7 @@ var render = function() {
                           { staticClass: "form-group" },
                           [
                             _c("label", { attrs: { for: "inputStatus" } }, [
-                              _vm._v("Assign To")
+                              _vm._v("Type")
                             ]),
                             _vm._v(" "),
                             _c(
@@ -55719,13 +55514,13 @@ var render = function() {
                                   {
                                     name: "model",
                                     rawName: "v-model",
-                                    value: _vm.form.assign_to,
-                                    expression: "form.assign_to"
+                                    value: _vm.form.type,
+                                    expression: "form.type"
                                   }
                                 ],
                                 staticClass: "form-control custom-select",
                                 class: {
-                                  "is-invalid": _vm.form.errors.has("assign_to")
+                                  "is-invalid": _vm.form.errors.has("type")
                                 },
                                 on: {
                                   change: function($event) {
@@ -55740,7 +55535,7 @@ var render = function() {
                                       })
                                     _vm.$set(
                                       _vm.form,
-                                      "assign_to",
+                                      "type",
                                       $event.target.multiple
                                         ? $$selectedVal
                                         : $$selectedVal[0]
@@ -55749,24 +55544,82 @@ var render = function() {
                                 }
                               },
                               [
-                                _c("option", { attrs: { value: "0" } }, [
-                                  _vm._v("Select User")
+                                _c("option", { domProps: { value: null } }, [
+                                  _vm._v("Task Type")
                                 ]),
                                 _vm._v(" "),
-                                _vm._l(_vm.all_users, function(user, index) {
-                                  return _vm.all_users.length
-                                    ? _c(
-                                        "option",
-                                        {
-                                          key: index,
-                                          domProps: { value: user.id }
-                                        },
-                                        [_vm._v(_vm._s(user.name))]
-                                      )
-                                    : _vm._e()
-                                })
-                              ],
-                              2
+                                _c("option", { attrs: { value: "Epic" } }, [
+                                  _vm._v("Epic")
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "Story" } }, [
+                                  _vm._v("Story")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "option",
+                                  { attrs: { value: "Development" } },
+                                  [_vm._v("Development")]
+                                ),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "Bug" } }, [
+                                  _vm._v("Bug")
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "Update" } }, [
+                                  _vm._v("Update")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "option",
+                                  { attrs: { value: "Change Request" } },
+                                  [_vm._v("Change Request")]
+                                ),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "Idea" } }, [
+                                  _vm._v("Idea")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "option",
+                                  { attrs: { value: "Enhancement" } },
+                                  [_vm._v("Enhancement")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "option",
+                                  { attrs: { value: "Research & Do" } },
+                                  [_vm._v("Research & Do")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "option",
+                                  { attrs: { value: "Maintenance" } },
+                                  [_vm._v("Maintenance")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "option",
+                                  { attrs: { value: "Quality Assurance" } },
+                                  [
+                                    _vm._v(
+                                      "\n                                        Quality Assurance\n                                    "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "option",
+                                  { attrs: { value: "Unit Testing" } },
+                                  [_vm._v("Unit Testing")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "option",
+                                  { attrs: { value: "Enhancement" } },
+                                  [_vm._v("Enhancement")]
+                                )
+                              ]
                             ),
                             _vm._v(" "),
                             _c("has-error", {
@@ -83306,8 +83159,8 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\sabbir\project mangaement\project-management\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\sabbir\project mangaement\project-management\resources\css\app.css */"./resources/css/app.css");
+__webpack_require__(/*! C:\Users\Sabbir\Desktop\project-management\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Sabbir\Desktop\project-management\resources\css\app.css */"./resources/css/app.css");
 
 
 /***/ })
