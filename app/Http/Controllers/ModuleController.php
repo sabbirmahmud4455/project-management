@@ -49,7 +49,6 @@ class ModuleController extends Controller
 
         Module::insert([
             'name'=>$request->name,
-            'title'=>$request->title,
             'project_id'=>$request->project_id,
             'description'=>$description,
             'status'=>'Pending',
@@ -102,7 +101,6 @@ class ModuleController extends Controller
 
         $module->update([
             'name'=>$request->name,
-            'title'=>$request->title,
             'project_id'=>$request->project_id,
             'description'=>$description,
             'status'=>'Pending',

@@ -45,7 +45,7 @@
                         <!-- /.card-header -->
                         <form   @submit.prevent="updateTask()" @keydown="form.onKeydown($event)">
                             <div class="card-body row">
-                                <div class="col-md-6">
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label for="task_name">Name *</label>
                                         <input v-model="form.name" type="text" name="name" class="form-control" placeholder="Enter Name" :class="{ 'is-invalid': form.errors.has('name') }">
@@ -53,25 +53,53 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="inputStatus">Project</label>
-                                        <select v-model="form.project_id" class="form-control custom-select" :class="{ 'is-invalid': form.errors.has('project_id') }">
-                                            <option @click="getModule(0)" value="0">Select Project</option>
-                                        <option v-if="all_projects.length" v-for="(project, index) in all_projects" :key="index" :value="project.id" @click="getModule(form.project_id)" >{{project.name}}</option>
-                                        </select>
-                                        <has-error :form="form" field="project_id"></has-error>
-                                    </div>
-                                </div>
-                                <div class="col-md-6" v-if="projectModule.length">
-                                    <div class="form-group">
-                                        <label for="inputStatus">Module</label>
-                                        <select v-model="form.module_id" class="form-control custom-select" :class="{ 'is-invalid': form.errors.has('module_id') }">
-                                            <option value="0">Select Module</option>
-                                            <option v-for="(module, index) in projectModule" :key="index" :value="module.id">{{module.name}}</option>
-                                        </select>
-                                        <has-error :form="form" field="project_id"></has-error>
-                                    </div>
-                                </div>
+                      <div class="form-group">
+                        <label for="inputStatus">Project</label>
+                        <select
+                          v-model="form.project_id"
+                          class="form-control custom-select"
+                          :class="{
+                            'is-invalid': form.errors.has('project_id'),
+                          }"
+                        >
+                          <option @click="projectModule=null, form.module_id=0" value="0">
+                            Select Project
+                          </option>
+                          <option
+                            v-if="all_projects.length"
+                            v-for="(project, index) in all_projects"
+                            :key="index"
+                            :value="project.id"
+                            @click="getModule(form.project_id)"
+                          >
+                            {{ project.name }}
+                          </option>
+                        </select>
+                        <has-error :form="form" field="project_id"></has-error>
+                      </div>
+                    </div>
+                    <div class="col-md-6" v-if="projectModule">
+                      <div class="form-group">
+                        <label for="inputStatus">Module</label>
+                        <select
+                          v-model="form.module_id"
+                          class="form-control custom-select"
+                          :class="{
+                            'is-invalid': form.errors.has('module_id'),
+                          }"
+                        >
+                          <option value="0">Select Module</option>
+                          <option
+                            v-for="(module, index) in projectModule"
+                            :key="index"
+                            :value="module.id"
+                          >
+                            {{ module.name }}
+                          </option>
+                        </select>
+                        <has-error :form="form" field="project_id"></has-error>
+                      </div>
+                    </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="inputStatus">Type</label>
@@ -136,7 +164,7 @@ export default {
     data() {
         return {
             all_projects:[],
-            projectModule:[],
+            projectModule:null,
             all_users:[],
             form: new Form({
                  project_id:0,

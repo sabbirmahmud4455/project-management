@@ -50,9 +50,6 @@
                                                 Name
                                             </th>
                                             <th>
-                                                Title
-                                            </th>
-                                            <th>
                                                Project
                                             </th>
                                             <th>
@@ -73,11 +70,6 @@
                                             </td>
                                             <td>
                                                 <span v-if="task.name">{{task.name}}</span>
-                                                <span v-else>Null</span>
-
-                                            </td>
-                                            <td>
-                                                <span v-if="task.title">{{task.title}}</span>
                                                 <span v-else>Null</span>
 
                                             </td>

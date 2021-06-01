@@ -44,7 +44,7 @@
                   @keydown="form.onKeydown($event)"
                 >
                   <div class="card-body row">
-                    <div class="col-md-6">
+                    <div class="col-12">
                       <div class="form-group">
                         <label for="task_name">Name *</label>
                         <input
@@ -60,22 +60,7 @@
                         <has-error :form="form" field="name"></has-error>
                       </div>
                     </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="task_title">Title</label>
-                        <input
-                          v-model="form.title"
-                          type="text"
-                          name="title"
-                          class="form-control"
-                          placeholder="Enter Title"
-                          :class="{
-                            'is-invalid': form.errors.has('title'),
-                          }"
-                        />
-                        <has-error :form="form" field="title"></has-error>
-                      </div>
-                    </div>
+                    
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="inputStatus">Project</label>
@@ -86,7 +71,7 @@
                             'is-invalid': form.errors.has('project_id'),
                           }"
                         >
-                          <option @click="getModule(0)" value="0">
+                          <option @click="all_modules=null, form.module_id=0" value="0">
                             Select Project
                           </option>
                           <option
@@ -102,7 +87,7 @@
                         <has-error :form="form" field="project_id"></has-error>
                       </div>
                     </div>
-                    <div class="col-md-6" v-if="all_modules.length">
+                    <div class="col-md-6" v-if="all_modules">
                       <div class="form-group">
                         <label for="inputStatus">Module</label>
                         <select
@@ -190,7 +175,7 @@ export default {
   data() {
     return {
       all_projects: [],
-      all_modules: [],
+      all_modules: null,
       all_users: [],
       form: new Form({
         project_id: 0,
@@ -198,7 +183,6 @@ export default {
         assign_to: 0,
         type: null,
         name: "",
-        title: "",
         description: '<h4 class="text-muted">Task Details</h4>',
       }),
     };
@@ -224,7 +208,6 @@ export default {
         .post("/api/task")
         .then((response) => {
           this.form.name = "";
-          this.form.title = "";
           this.form.project_id = 0;
           this.form.module_id = 0;
           this.form.assign_to = 0;

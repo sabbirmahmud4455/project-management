@@ -12,30 +12,12 @@
                     >
                         Create User
                     </router-link>
-                    <router-link
-                        :to="{ name: 'users' }"
-                        class="nav-link bg-info mx-1"
-                        active-class="active bg-white"
-                        >All Users</router-link
-                    >
-                    <router-link
-                        :to="{ name: 'users_admin' }"
-                        class="nav-link bg-info mx-1"
-                        active-class="active bg-white"
-                        >Admins</router-link
-                    >
-                    <router-link
-                        :to="{ name: 'users_member' }"
-                        class="nav-link bg-info mx-1"
-                        active-class="active bg-white"
-                        >Members</router-link
-                    >
                 </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
                 <table
-                    v-if="all_users.data.length"
+                    v-if="all_users.data"
                     class="table table-striped table-bordered projects"
                 >
                     <thead>

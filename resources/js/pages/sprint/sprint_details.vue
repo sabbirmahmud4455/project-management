@@ -119,9 +119,26 @@
                         </div>
 
                         <div class="ml-auto d-flex align-items-center">
-                          <button class="btn btn-danger">
+                          <ul>
+                            <li>
+                              <button class="btn btn-primary">
+                                stasut
+                              </button >
+                            </li>
+                            <li>
+<button  class="btn btn-success">
+                            <i class="fas fa-pencil-alt    "></i>
+                          </button>
+                            </li>
+                            <li>
+<button @click="delete_sprint_task(sprint_task.id, index)" class="btn btn-danger">
                             <i class="fas fa-trash-alt"></i>
                           </button>
+                            </li>
+                          </ul>
+                          
+                          
+                          
                         </div>
                       </div>
                     </div>
@@ -158,6 +175,16 @@ export default {
     };
   },
   methods: {
+    delete_sprint_task(id, index){
+      console.log(id);
+      axios.delete(`/api/sprint/sprint-task/${id}`).then(res=>{
+        this.SprintTask.splice(index, 1);
+        this.$toast.success({
+            title: "SUCCESS",
+            message: "Sprint-Task Delete Successfully",
+          });
+      })
+    },
     getSprint() {
       axios.get(`/api/sprint/${this.sprintID}`).then((response) => {
         this.name = response.data.name;

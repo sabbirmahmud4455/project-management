@@ -233,16 +233,6 @@ class UserController extends Controller
         return response()->json('image update successfully');
     }
 
-    public function get_admin()
-    {
-        $users = User::orderBy('id', 'desc')->where('type_id', 1)->paginate(10);
-        return response()->json($users);
-    }
-    public function get_member()
-    {
-        $users = User::orderBy('id', 'desc')->where('type_id', 0)->paginate(10);
-        return response()->json($users);
-    }
     public function get_all_users()
     {
         $users = User::orderBy('id', 'desc')->get();

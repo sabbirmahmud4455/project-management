@@ -29,22 +29,10 @@ use App\Http\Controllers\TaskController;
 //user
 Route::resource('/user', UserController::class);
 
-Route::get('/users/admin',  [UserController::class, 'get_admin']);
-Route::get('/users/member', [UserController::class, 'get_member']);
-
 Route::get('/all_users', [UserController::class, 'get_all_users']);
 
 Route::post('/users/update/{user}', [UserController::class, 'image_update']);
 //user
-
-//client
-Route::resource('/client', ClientController::class);
-
-Route::post('/clients/update/{client}', [ClientController::class, 'image_update']);
-
-Route::get('/all_clients', [ClientController::class, 'all_clients']);
-
-//client
 
 
 //project

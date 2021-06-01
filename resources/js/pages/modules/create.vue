@@ -75,29 +75,6 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="module_name"
-                                                    >Title</label
-                                                >
-                                                <input
-                                                    v-model="form.title"
-                                                    type="text"
-                                                    name="title"
-                                                    class="form-control"
-                                                    placeholder="Enter Title"
-                                                    :class="{
-                                                        'is-invalid': form.errors.has(
-                                                            'title'
-                                                        )
-                                                    }"
-                                                />
-                                                <has-error
-                                                    :form="form"
-                                                    field="title"
-                                                ></has-error>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
                                                 <label for="inputStatus"
                                                     >Project</label
                                                 >
@@ -177,7 +154,6 @@ export default {
             all_projects: [],
             form: new Form({
                 name: "",
-                title: "",
                 project_id: 0,
                 description: '<h4 class="text-muted">Module Details</h4>'
             })
@@ -194,7 +170,6 @@ export default {
                 .post("/api/module")
                 .then(response => {
                     this.form.name = "";
-                    this.form.title = "";
                     this.form.project_id = 0;
                     this.form.description =
                         '<h4 class="text-muted">Module Details</h4>';
@@ -227,4 +202,3 @@ export default {
     }
 };
 </script>
-<style lang=""></style>

@@ -207,7 +207,10 @@ export default {
           selectedTask: this.finalSelectedTask,
         })
         .then((res) => {
-          console.log(res.data);
+          this.$toast.success({
+            title: "SUCCESS",
+            message: "Sprint-Task Updated Successfully",
+          });
         });
     },
     getProjectModule(id) {

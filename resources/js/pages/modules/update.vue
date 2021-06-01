@@ -73,29 +73,7 @@
                                                 ></has-error>
                                             </div>
                                         </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="module_name"
-                                                    >Title</label
-                                                >
-                                                <input
-                                                    v-model="form.title"
-                                                    type="text"
-                                                    name="title"
-                                                    class="form-control"
-                                                    placeholder="Enter Title"
-                                                    :class="{
-                                                        'is-invalid': form.errors.has(
-                                                            'title'
-                                                        )
-                                                    }"
-                                                />
-                                                <has-error
-                                                    :form="form"
-                                                    field="title"
-                                                ></has-error>
-                                            </div>
-                                        </div>
+                                        
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="inputStatus"
@@ -177,7 +155,6 @@ export default {
             all_projects: [],
             form: new Form({
                 name: "",
-                title: "",
                 project_id: 0,
                 description: '<h4 class="text-muted">Module Details</h4>'
             })
@@ -193,7 +170,6 @@ export default {
             let id = this.$route.params.id;
             axios.get(`/api/module/${id}/edit`).then(response => {
                 this.form.name = response.data.name;
-                this.form.title = response.data.title;
                 this.form.project_id = response.data.project_id;
                 this.form.description = response.data.description;
             });
@@ -233,4 +209,3 @@ export default {
     }
 };
 </script>
-<style lang=""></style>

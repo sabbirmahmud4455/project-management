@@ -91,6 +91,7 @@ class SprintTaskController extends Controller
      */
     public function destroy(SprintTask $sprintTask)
     {
-        //
+        $sprintTask->delete();
+        return response()->json('deleted Successfully');
     }
 }

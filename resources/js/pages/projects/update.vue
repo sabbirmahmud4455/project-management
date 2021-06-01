@@ -73,7 +73,7 @@
                                                 ></has-error>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col">
+                                        <!-- <div class="col-md-6 col">
                                             <div class="form-group">
                                                 <label for="inputStatus"
                                                     >Client</label
@@ -108,7 +108,7 @@
                                                     field="client_id"
                                                 ></has-error>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="col-md-6 col">
                                             <div class="form-group">
                                                 <label>Start Date</label>
@@ -185,7 +185,7 @@
                                                 ></has-error>
                                             </div>
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-12 col-md-6">
                                             <div class="form-group">
                                                 <label for="profilePhoto"
                                                     >Photo</label
@@ -279,7 +279,7 @@ export default {
         return {
             real_time_photo: "",
             real_photo: "",
-            all_clients: [],
+            // all_clients: [],
             form: new Form({
                 client_id: 0,
                 name: "",
@@ -299,11 +299,11 @@ export default {
             document.getElementById("profilePhoto").value = "";
             this.real_time_photo = "";
         },
-        getClient() {
-            axios.get("/api/all_clients").then(response => {
-                this.all_clients = response.data;
-            });
-        },
+        // getClient() {
+        //     axios.get("/api/all_clients").then(response => {
+        //         this.all_clients = response.data;
+        //     });
+        // },
         editproject() {
             let id = this.$route.params.id;
             axios.get(`/api/project/${id}/edit`).then(response => {
@@ -386,11 +386,10 @@ export default {
     },
     mounted() {
         this.editproject();
-        this.getClient();
+        // this.getClient();
     },
     components: {
         VueDatePicker
     }
 };
 </script>
-<style lang=""></style>

@@ -50,9 +50,7 @@
                                             <th>
                                                 Name
                                             </th>
-                                            <th>
-                                                Title
-                                            </th>
+                                            
                                             <th>
                                                Project
                                             </th>
@@ -74,11 +72,7 @@
                                                 <span v-else>Null</span>
 
                                             </td>
-                                            <td>
-                                                <span v-if="module.title">{{module.title}}</span>
-                                                <span v-else>Null</span>
-
-                                            </td>
+                                           
                                             <td>
                                                 <span v-if="module.project">
                                                     <router-link  :to="{name:'project_view', params:{id: module.project.id}}">
