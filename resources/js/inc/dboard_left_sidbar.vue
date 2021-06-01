@@ -47,7 +47,7 @@
                         </li>
 
                         <!-- clients -->
-                        <li class="nav-item has-treeview ">
+                        <!-- <li class="nav-item has-treeview ">
                             <router-link
                                 :to="{ name: 'clients' }"
                                 class="nav-link"
@@ -58,7 +58,7 @@
                                     Clients
                                 </p>
                             </router-link>
-                        </li>
+                        </li> -->
 
                         <!-- project -->
 

@@ -40,7 +40,8 @@
                             <span class="mx-2">
                               <div class="form-check">
                                 <label
-                                  @click="form.tasks = []"
+                                  @click="getIndependentTask()"
+                                  C
                                   class="form-check-label"
                                 >
                                   <input
@@ -58,7 +59,9 @@
                             <span class="mx-2">
                               <div class="form-check">
                                 <label
-                                  @click="form.tasks = []"
+                                  @click="
+                                    (finalSelectedTask = []), (tasks = [])
+                                  "
                                   class="form-check-label"
                                 >
                                   <input
@@ -117,9 +120,7 @@
                               name=""
                               id="module_input"
                             >
-                              <option :valeu="null">
-                                Select Module
-                              </option>
+                              <option :valeu="null">Select Module</option>
                               <option
                                 v-for="(projectModule, index) in projectModules"
                                 :key="index"
@@ -135,107 +136,22 @@
                           </div>
                         </div>
 
-
-
-
-                              <div class="row" > 
-
-                                <div class="card col-4" v-if="tasks"   v-for="(task, index) in tasks"
-                                          :key="index">
-                                  <div class="card-body">
-                                    <label :for="'task' + task.id">{{
-                                      task.name
-                                    }}</label>
-                                    <input
-                                      v-model="form.tasks.id"
-                                      :value="task.id"
-                                      type="checkbox"
-                                      name=""
-                                      :id="'task' + task.id"
-                                    />
-
-                                    <div class="form-group">
-                                      <label for="">Priority</label>
-                                      <div class="d-flex">
-                                        <span class="mx-2">
-                                          <div class="form-check">
-                                            <label class="form-check-label">
-                                              <input
-                                                type="radio"
-                                                class="form-check-input"
-                                                name="priority"
-                                                v-model="form.priority"
-                                                value="low"
-                                              />
-                                              low
-                                            </label>
-                                          </div>
-                                        </span>
-                                        <span class="mx-2">
-                                          <div class="form-check">
-                                            <label class="form-check-label">
-                                              <input
-                                                type="radio"
-                                                class="form-check-input"
-                                                name="priority"
-                                                v-model="form.priority"
-                                                value="Medium"
-                                              />
-                                              Medium
-                                            </label>
-                                          </div>
-                                        </span>
-                                        <span class="mx-2">
-                                          <div class="form-check">
-                                            <label class="form-check-label">
-                                              <input
-                                                type="radio"
-                                                class="form-check-input"
-                                                name="priority"
-                                                v-model="form.priority"
-                                                value="High"
-                                              />
-                                              High
-                                            </label>
-                                          </div>
-                                        </span>
-                                      </div>
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="">Assigned To</label>
-
-                                      <select
-                                        v-model="form.asigneTo"
-                                        class="form-control"
-                                        name=""
-                                        id=""
-                                      >
-                                        <option :value="null">
-                                          Select Member
-                                        </option>
-                                        <option
-                                          class="w-100"
-                                          v-for="(user, index) in allUsers"
-                                          :key="index"
-                                          :value="user.id"
-                                        >
-                                          <div class="w-100 d-flex">
-                                            <span>{{ user.name }}</span>
-                                          </div>
-                                        </option>
-                                      </select>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-
-
-
-
-
-
-
-
+                        <div class="row">
+                          <div
+                            class="col-4"
+                            v-if="tasks"
+                            v-for="(task, index) in tasks"
+                            :key="index"
+                          >
+                            <allTaskList
+                              :updateAllTask="updateAllTask"
+                              :sprint="spritnID"
+                              :task="task"
+                              :users="allUsers"
+                              :index="index"
+                            ></allTaskList>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -244,8 +160,8 @@
                 <!-- /.card-body -->
                 <div class="card-footer">
                   <button
-                    @click="updateSprintTask"
-                    :disabled="!form.tasks.length"
+                    @click="updateSprintTask()"
+                    :disabled="!finalSelectedTask.length"
                     class="btn btn-block btn-primary"
                   >
                     Update
@@ -266,41 +182,53 @@
   </div>
 </template>
 <script>
+import allTaskList from "../../inc/sprint_tasks";
 export default {
   data() {
     return {
+      spritnID: this.$route.params.id,
+      allTasks: [],
+      finalSelectedTask: [],
       allUsers: null,
       allProject: null,
       tasks: null,
-      projectModules:null,
+      projectModules: null,
       task_category: null,
-      form: {
-        spritnID: this.$route.params.id,
-        priority: "low",
-        asigneTo: null,
-        tasks: [],
-      },
     };
   },
   methods: {
-    updateSprintTask() {
-      axios.post("/api/sprint/sprint-task", this.form).then((res) => {
-        console.log(res.data);
-      });
+    updateAllTask(index, task) {
+      this.allTasks[index] = task;
+      this.finalSelectedTask = this.allTasks.filter((task) => task.selectTasks);
     },
-    getProjectModule(id){
-        axios.get(`/api/product_modules/${id}`).then(response => {
-            this.projectModules = response.data;
+    updateSprintTask() {
+      axios
+        .post("/api/sprint/sprint-task", {
+          selectedTask: this.finalSelectedTask,
         })
+        .then((res) => {
+          console.log(res.data);
+        });
+    },
+    getProjectModule(id) {
+      axios.get(`/api/product_modules/${id}`).then((response) => {
+        this.projectModules = response.data;
+      });
     },
     getUsers() {
       axios.get("/api/all_users").then((res) => {
         this.allUsers = res.data;
       });
     },
-    getAllTask() {
-      axios.get("/api/tasks-list").then((res) => {
+    getIndependentTask() {
+      this.tasks = [];
+      this.finalSelectedTask = [];
+
+      axios.get("/api/tasks/independent-task").then((res) => {
         this.tasks = res.data;
+        this.allTasks = res.data.map((task) => {
+          return { ...task, selectTasks: false };
+        });
       });
     },
     getProject() {
@@ -309,7 +237,8 @@ export default {
       });
     },
     getProjectTask(id) {
-      this.getProjectModule(id)
+      this.finalSelectedTask = [];
+      this.getProjectModule(id);
 
       this.selectTask = [];
       axios.get(`/api/project/task/w/${id}`).then((res) => {
@@ -320,16 +249,21 @@ export default {
         this.tasks = res.data;
       });
     },
-    getModuleTask(id){
+    getModuleTask(id) {
+      this.finalSelectedTask = [];
       axios.get(`/api/module/task/w/${id}`).then((res) => {
         this.tasks = res.data;
       });
-    }
+    },
   },
   mounted() {
     this.getUsers();
     this.getProject();
-    this.getAllTask();
+    this.getIndependentTask();
+  },
+
+  components: {
+    allTaskList,
   },
 };
 </script>

@@ -112,7 +112,9 @@
                           </p>
                           <p>
                             <strong>Asign To :</strong>
-                            {{ sprint_task.user }}
+                            <span v-if="sprint_task.user">{{
+                              sprint_task.user.name
+                            }}</span>
                           </p>
                         </div>
 
@@ -140,6 +142,7 @@
 export default {
   data() {
     return {
+      tasks: [],
       sprintID: this.$route.params.id,
 
       allUsers: null,

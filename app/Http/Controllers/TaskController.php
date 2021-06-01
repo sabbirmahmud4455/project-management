@@ -168,4 +168,9 @@ class TaskController extends Controller
         $tasks = Task::where('module_id', $id)->orderBy('id', 'desc')->get();
         return response()->json($tasks);
     }
+    public function independent_tasks()
+    {
+        $tasks = Task::where('project_id', 0)->where('module_id', 0)->orderBy('id', 'desc')->get();
+        return response()->json($tasks);
+    }
 }

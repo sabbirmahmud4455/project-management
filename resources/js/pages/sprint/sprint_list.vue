@@ -1,4 +1,4 @@
-<template lang="">
+<template>
     <div>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -157,38 +157,39 @@
 </template>
 <script>
 export default {
-    data() {
-        return {
-            all_sprints:{},
-            delete_data:{
-                id:null,
-                index:null
-            }
-        }
+  data() {
+    return {
+      tasks: [],
+      all_sprints: {},
+      delete_data: {
+        id: null,
+        index: null,
+      },
+    };
+  },
+  methods: {
+    getSprint(page) {
+      if (typeof page === "undefined") {
+        page = 1;
+      }
+      axios.get("/api/sprint?page=" + page).then((response) => {
+        this.all_sprints = response.data;
+      });
     },
-    methods:{
-        getSprint(page){
-                    if (typeof page === 'undefined') {
-                    page = 1;
-                }
-            axios.get('/api/sprint?page=' + page).then(response => {
-                this.all_sprints = response.data;
-            })
-        },
-        sprintDelete(id, index){
-            axios.delete(`/api/sprint/${id}`).then( res=>{
-                $('#delete_modal').modal('hide');
-                this.all_sprints.data.splice(index, 1);
+    sprintDelete(id, index) {
+      axios.delete(`/api/sprint/${id}`).then((res) => {
+        $("#delete_modal").modal("hide");
+        this.all_sprints.data.splice(index, 1);
 
-                  this.$toast.success({
-                  title:'SUCCESS',
-                  message: "Sprint Deleted Successfully",
-                  })
-                })
-        }
+        this.$toast.success({
+          title: "SUCCESS",
+          message: "Sprint Deleted Successfully",
+        });
+      });
     },
-    mounted() {
-        this.getSprint();
-    },
-}
+  },
+  mounted() {
+    this.getSprint();
+  },
+};
 </script>

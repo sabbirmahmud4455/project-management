@@ -84,6 +84,9 @@ Route::get('/project/task/{id}', [TaskController::class, 'project_task_paginatio
 Route::get('/project/task/w/{id}', [TaskController::class, 'project_task']);
 Route::get('/module/task/{id}', [TaskController::class, 'module_tasks']);
 Route::get('/module/task/w/{id}', [TaskController::class, 'Wmodule_tasks']);
+Route::get('/tasks/independent-task', [TaskController::class, 'independent_tasks']);
+
+
 
 
 //profile
