@@ -1,4 +1,5 @@
-<template lang="">
+<template>
+
 <div>
         <div class="app-title">
             <div>
@@ -7,9 +8,13 @@
             </div>
             <ul class="app-breadcrumb breadcrumb">
                 <li class="breadcrumb-item">
-                    <i class="fa fa-home fa-lg"></i>
+                    <router-link :to="{ name: 'home' }">
+                        <i class="fa fa-home fa-lg"></i>
+                    </router-link>
                 </li>
-                <li class="breadcrumb-item"><a href="#">Blank Page</a></li>
+                <li class="breadcrumb-item active">
+                    Tasks
+                </li>
             </ul>
         </div>
         <div class="row">
@@ -17,7 +22,8 @@
                 <div class="tile">
                     <div class="tile-body">
 
-        <table class="table table-hover table-bordered" id="sampleTable">
+
+<table class="table table-hover table-bordered" id="sampleTable">
                 <thead>
                   <tr>
                     <th>Sl</th>
@@ -64,18 +70,18 @@
                                     <i class="fas fa-pencil-alt"> </i>
                                     Edit
                                 </router-link>
-                                <a
+                                <button
                                     class="btn btn-danger btn-sm"
                                     href="#delete_modal"
                                     data-toggle="modal"
                                     @click="
-                                        (delete_data.data = user),
+                                        (delete_data.id = task.id),
                                             (delete_data.index = index)
                                     "
                                 >
                                     <i class="fas fa-trash"> </i>
                                     Delete
-                                </a>
+                                </button>
                     </td>
 
                   </tr>
@@ -84,44 +90,33 @@
               </table>
 
 
-
                     </div>
                 </div>
             </div>
         </div>
+
         <!-- delete Modal HTML -->
-                        <div id="delete_modal" class="modal fade">
-                            <div class="modal-dialog modal-confirm">
-                                <div class="modal-content">
-                                    <div class="modal-header flex-column">
-                                        <div class="icon-box">
-                                            <i class="fas fa-trash-alt material-icons"></i>
-                                        </div>
-                                        <h4 class="modal-title w-100">Are you sure?</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>Do you really want to delete these records? This process cannot be undone.</p>
-                                    </div>
-                                    <div class="modal-footer justify-content-center">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                        <button type="button" class="btn btn-danger"  data-dismiss='modal' @click="taskDelete(delete_data.data , delete_data.index)">Delete</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <dataDeleteModal :id="delete_data.id" :index="delete_data.index" :deleteFunction="taskDelete"></dataDeleteModal>
+
+                        
+
+
     </div>
+
+
+
 
 
 </template>
 <script>
+import dataDeleteModal from '../../inc/delete_modal'
 export default {
   data() {
     return {
       all_tasks: null,
       delete_data: {
-        data: [],
-        index: [],
+        id: null,
+        index: null,
       },
     };
   },
@@ -134,10 +129,10 @@ export default {
         }, 1000);
       });
     },
-    taskDelete(data, index) {
-      axios.delete(`/api/task/${data.id}`).then((res) => {
-        this.all_tasks.data.splice(index, 1);
-
+    taskDelete(id, index) {
+      axios.delete(`/api/task/${id}`).then((res) => {
+        $("#delete_modal").modal('hide');
+        this.all_tasks.splice(index, 1);
         this.$toast.success({
           title: "SUCCESS",
           message: res.data,
@@ -148,5 +143,8 @@ export default {
   mounted() {
     this.getTask();
   },
+  components:{
+    dataDeleteModal
+  }
 };
 </script>

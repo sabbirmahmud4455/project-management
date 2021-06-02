@@ -14,7 +14,7 @@ class SprintController extends Controller
      */
     public function index()
     {
-        $sprints = Sprint::orderBy('id', 'desc')->paginate(10);
+        $sprints = Sprint::orderBy('id', 'desc')->get();
         return response()->json($sprints);
     }
 

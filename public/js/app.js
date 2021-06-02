@@ -2641,6 +2641,45 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/inc/delete_modal.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/inc/delete_modal.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['id', 'index', 'deleteFunction']
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/inc/sprint_tasks.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/inc/sprint_tasks.vue?vue&type=script&lang=js& ***!
@@ -3017,6 +3056,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
 //
 //
 //
@@ -3971,6 +4014,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _inc_delete_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../inc/delete_modal */ "./resources/js/inc/delete_modal.vue");
 //
 //
 //
@@ -4078,38 +4122,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       all_projects: null,
       delete_data: {
-        data: [],
-        index: []
+        id: null,
+        index: null
       }
     };
   },
@@ -4124,11 +4144,13 @@ __webpack_require__.r(__webpack_exports__);
         }, 1000);
       });
     },
-    projectDelete: function projectDelete(data, index) {
+    projectDelete: function projectDelete(id, index) {
       var _this2 = this;
 
-      axios["delete"]("/api/project/".concat(data.id)).then(function (res) {
-        _this2.all_projects.data.splice(index, 1);
+      axios["delete"]("/api/project/".concat(id)).then(function (res) {
+        $("#delete_modal").modal('hide');
+
+        _this2.all_projects.splice(index, 1);
 
         _this2.$toast.success({
           title: "SUCCESS",
@@ -4139,6 +4161,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getProject();
+  },
+  components: {
+    dataDeleteModal: _inc_delete_modal__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -5987,6 +6012,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _inc_delete_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../inc/delete_modal */ "./resources/js/inc/delete_modal.vue");
 //
 //
 //
@@ -6111,44 +6137,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      tasks: [],
-      all_sprints: {},
+      all_sprints: null,
       delete_data: {
         id: null,
         index: null
@@ -6156,15 +6149,14 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    getSprint: function getSprint(page) {
+    getSprint: function getSprint() {
       var _this = this;
 
-      if (typeof page === "undefined") {
-        page = 1;
-      }
-
-      axios.get("/api/sprint?page=" + page).then(function (response) {
+      axios.get("/api/sprint").then(function (response) {
         _this.all_sprints = response.data;
+        setTimeout(function () {
+          window.loadDataTable();
+        }, 1000);
       });
     },
     sprintDelete: function sprintDelete(id, index) {
@@ -6173,7 +6165,7 @@ __webpack_require__.r(__webpack_exports__);
       axios["delete"]("/api/sprint/".concat(id)).then(function (res) {
         $("#delete_modal").modal("hide");
 
-        _this2.all_sprints.data.splice(index, 1);
+        _this2.all_sprints.splice(index, 1);
 
         _this2.$toast.success({
           title: "SUCCESS",
@@ -6184,6 +6176,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getSprint();
+  },
+  components: {
+    dataDeleteModal: _inc_delete_modal__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -6705,6 +6700,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _inc_delete_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../inc/delete_modal */ "./resources/js/inc/delete_modal.vue");
 //
 //
 //
@@ -6815,19 +6811,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       all_tasks: null,
       delete_data: {
-        data: [],
-        index: []
+        id: null,
+        index: null
       }
     };
   },
@@ -6842,11 +6833,13 @@ __webpack_require__.r(__webpack_exports__);
         }, 1000);
       });
     },
-    taskDelete: function taskDelete(data, index) {
+    taskDelete: function taskDelete(id, index) {
       var _this2 = this;
 
-      axios["delete"]("/api/task/".concat(data.id)).then(function (res) {
-        _this2.all_tasks.data.splice(index, 1);
+      axios["delete"]("/api/task/".concat(id)).then(function (res) {
+        $("#delete_modal").modal('hide');
+
+        _this2.all_tasks.splice(index, 1);
 
         _this2.$toast.success({
           title: "SUCCESS",
@@ -6857,6 +6850,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getTask();
+  },
+  components: {
+    dataDeleteModal: _inc_delete_modal__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -8372,6 +8368,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _inc_delete_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../inc/delete_modal */ "./resources/js/inc/delete_modal.vue");
 //
 //
 //
@@ -8447,21 +8444,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       all_users: null,
       delete_data: {
-        data: [],
-        index: []
+        id: null,
+        index: null
       }
     };
   },
@@ -8476,11 +8466,13 @@ __webpack_require__.r(__webpack_exports__);
         }, 1000);
       });
     },
-    userDelete: function userDelete(data, index) {
+    userDelete: function userDelete(id, index) {
       var _this2 = this;
 
-      axios["delete"]("/api/user/".concat(data.id)).then(function (res) {
-        _this2.all_users.data.splice(index, 1);
+      axios["delete"]("/api/user/".concat(id)).then(function (res) {
+        $("#delete_modal").modal('hide');
+
+        _this2.all_users.splice(index, 1);
 
         _this2.$toast.success({
           title: "SUCCESS",
@@ -8491,6 +8483,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getUser();
+  },
+  components: {
+    dataDeleteModal: _inc_delete_modal__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -43905,6 +43900,103 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/inc/delete_modal.vue?vue&type=template&id=2579cdb0&":
+/*!********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/inc/delete_modal.vue?vue&type=template&id=2579cdb0& ***!
+  \********************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "modal fade", attrs: { id: "delete_modal" } }, [
+      _c("div", { staticClass: "modal-dialog modal-confirm" }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _vm._m(1),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-footer justify-content-center" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-secondary",
+                attrs: { type: "button", "data-dismiss": "modal" }
+              },
+              [_vm._v("Cancel")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-danger",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.deleteFunction(_vm.id, _vm.index)
+                  }
+                }
+              },
+              [_vm._v("Delete")]
+            )
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header flex-column" }, [
+      _c("div", { staticClass: "icon-box" }, [
+        _c("i", { staticClass: "fas fa-trash-alt material-icons" })
+      ]),
+      _vm._v(" "),
+      _c("h4", { staticClass: "modal-title w-100" }, [_vm._v("Are you sure?")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-hidden": "true"
+          }
+        },
+        [_vm._v("×")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-body" }, [
+      _c("p", [
+        _vm._v(
+          "Do you really want to delete these records? This process cannot be undone."
+        )
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/inc/sprint_tasks.vue?vue&type=template&id=1c373f38&":
 /*!********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/inc/sprint_tasks.vue?vue&type=template&id=1c373f38& ***!
@@ -44514,7 +44606,26 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("div", { staticClass: "app-title" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("ul", { staticClass: "app-breadcrumb breadcrumb" }, [
+        _c(
+          "li",
+          { staticClass: "breadcrumb-item" },
+          [
+            _c("router-link", { attrs: { to: { name: "home" } } }, [
+              _c("i", { staticClass: "fa fa-home fa-lg" })
+            ])
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("li", { staticClass: "breadcrumb-item active" }, [
+          _vm._v("\r\n                    Modules\r\n                ")
+        ])
+      ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-12" }, [
@@ -44543,11 +44654,11 @@ var render = function() {
                           _c("td", [
                             _c("span", [
                               _vm._v(
-                                "\n                        " +
+                                "\r\n                        " +
                                   _vm._s(
                                     modul.project ? modul.project.name : "N/A"
                                   ) +
-                                  "\n                        "
+                                  "\r\n                        "
                               )
                             ])
                           ]),
@@ -44580,7 +44691,7 @@ var render = function() {
                                 [
                                   _c("i", { staticClass: "fas fa-folder" }),
                                   _vm._v(
-                                    "\n                                    View\n                                "
+                                    "\r\n                                    View\r\n                                "
                                   )
                                 ]
                               ),
@@ -44599,7 +44710,7 @@ var render = function() {
                                 [
                                   _c("i", { staticClass: "fas fa-pencil-alt" }),
                                   _vm._v(
-                                    "\n                                    Edit\n                                "
+                                    "\r\n                                    Edit\r\n                                "
                                   )
                                 ]
                               ),
@@ -44622,7 +44733,7 @@ var render = function() {
                                 [
                                   _c("i", { staticClass: "fas fa-trash" }),
                                   _vm._v(
-                                    "\n                                    Delete\n                                "
+                                    "\r\n                                    Delete\r\n                                "
                                   )
                                 ]
                               )
@@ -44685,25 +44796,13 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "app-title" }, [
-      _c("div", [
-        _c("h1", [
-          _c("i", { staticClass: "fa fa-dashboard" }),
-          _vm._v(" Blank Page")
-        ]),
-        _vm._v(" "),
-        _c("p", [_vm._v("Start a beautiful journey here")])
+    return _c("div", [
+      _c("h1", [
+        _c("i", { staticClass: "fa fa-dashboard" }),
+        _vm._v(" Modules Page")
       ]),
       _vm._v(" "),
-      _c("ul", { staticClass: "app-breadcrumb breadcrumb" }, [
-        _c("li", { staticClass: "breadcrumb-item" }, [
-          _c("i", { staticClass: "fa fa-home fa-lg" })
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "breadcrumb-item" }, [
-          _c("a", { attrs: { href: "#" } }, [_vm._v("Blank Page")])
-        ])
-      ])
+      _c("p", [_vm._v("Start a beautiful journey here")])
     ])
   },
   function() {
@@ -45780,180 +45879,158 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "app-title" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("ul", { staticClass: "app-breadcrumb breadcrumb" }, [
-        _c(
-          "li",
-          { staticClass: "breadcrumb-item" },
-          [
-            _c("router-link", { attrs: { to: { name: "home" } } }, [
-              _c("i", { staticClass: "fa fa-home fa-lg" })
-            ])
-          ],
-          1
-        ),
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "app-title" }, [
+        _vm._m(0),
         _vm._v(" "),
-        _c("li", { staticClass: "breadcrumb-item active" }, [
-          _vm._v("\n                    Users\n                ")
+        _c("ul", { staticClass: "app-breadcrumb breadcrumb" }, [
+          _c(
+            "li",
+            { staticClass: "breadcrumb-item" },
+            [
+              _c("router-link", { attrs: { to: { name: "home" } } }, [
+                _c("i", { staticClass: "fa fa-home fa-lg" })
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("li", { staticClass: "breadcrumb-item active" }, [
+            _vm._v("\n                    Project\n                ")
+          ])
         ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("div", { staticClass: "tile" }, [
-          _c("div", { staticClass: "tile-body" }, [
-            _c(
-              "table",
-              {
-                staticClass: "table table-hover table-bordered",
-                attrs: { id: "sampleTable" }
-              },
-              [
-                _vm._m(1),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.all_projects, function(project, index) {
-                    return _vm.all_projects
-                      ? _c("tr", { key: index }, [
-                          _c("td", [_vm._v(_vm._s(project.name))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(project.type))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(project.start_date))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(project.end_date))]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              "\n                        " +
-                                _vm._s(project.status) +
-                                "\n                    "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(project.development_cost))]),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            [
-                              _c(
-                                "router-link",
-                                {
-                                  staticClass: "btn btn-info btn-sm",
-                                  attrs: {
-                                    to: {
-                                      name: "project_view",
-                                      params: { id: project.id }
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", { staticClass: "fas fa-folder" }),
-                                  _vm._v(
-                                    "\n                                                    View\n                                                "
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "router-link",
-                                {
-                                  staticClass: "btn btn-info btn-sm",
-                                  attrs: {
-                                    to: {
-                                      name: "project_update",
-                                      params: { id: project.id }
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", { staticClass: "fas fa-pencil-alt" }),
-                                  _vm._v(
-                                    "\n                                                    Edit\n                                                "
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-danger btn-sm",
-                                  attrs: {
-                                    href: "#delete_modal",
-                                    "data-toggle": "modal"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      ;(_vm.delete_data.data = project),
-                                        (_vm.delete_data.index = index)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", { staticClass: "fas fa-trash" }),
-                                  _vm._v(
-                                    "\n                                                    Delete\n                                                "
-                                  )
-                                ]
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-12" }, [
+          _c("div", { staticClass: "tile" }, [
+            _c("div", { staticClass: "tile-body" }, [
+              _c(
+                "table",
+                {
+                  staticClass: "table table-hover table-bordered",
+                  attrs: { id: "sampleTable" }
+                },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.all_projects, function(project, index) {
+                      return _vm.all_projects
+                        ? _c("tr", { key: index }, [
+                            _c("td", [_vm._v(_vm._s(project.name))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(project.type))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(project.start_date))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(project.end_date))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                "\n                        " +
+                                  _vm._s(project.status) +
+                                  "\n                    "
                               )
-                            ],
-                            1
-                          )
-                        ])
-                      : _vm._e()
-                  }),
-                  0
-                )
-              ]
-            )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(project.development_cost))
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    staticClass: "btn btn-info btn-sm",
+                                    attrs: {
+                                      to: {
+                                        name: "project_view",
+                                        params: { id: project.id }
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", { staticClass: "fas fa-folder" }),
+                                    _vm._v(
+                                      "\n                                                    View\n                                                "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "router-link",
+                                  {
+                                    staticClass: "btn btn-info btn-sm",
+                                    attrs: {
+                                      to: {
+                                        name: "project_update",
+                                        params: { id: project.id }
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "fas fa-pencil-alt"
+                                    }),
+                                    _vm._v(
+                                      "\n                                                    Edit\n                                                "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-danger btn-sm",
+                                    attrs: {
+                                      href: "#delete_modal",
+                                      "data-toggle": "modal"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        ;(_vm.delete_data.id = project.id),
+                                          (_vm.delete_data.index = index)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", { staticClass: "fas fa-trash" }),
+                                    _vm._v(
+                                      "\n                                                    Delete\n                                                "
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
+                            )
+                          ])
+                        : _vm._e()
+                    }),
+                    0
+                  )
+                ]
+              )
+            ])
           ])
         ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "modal fade", attrs: { id: "delete_modal" } }, [
-      _c("div", { staticClass: "modal-dialog modal-confirm" }, [
-        _c("div", { staticClass: "modal-content" }, [
-          _vm._m(2),
-          _vm._v(" "),
-          _vm._m(3),
-          _vm._v(" "),
-          _c("div", { staticClass: "modal-footer justify-content-center" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-secondary",
-                attrs: { type: "button", "data-dismiss": "modal" }
-              },
-              [_vm._v("Cancel")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-danger",
-                attrs: { type: "button", "data-dismiss": "modal" },
-                on: {
-                  click: function($event) {
-                    return _vm.projectDelete(
-                      _vm.delete_data.data,
-                      _vm.delete_data.index
-                    )
-                  }
-                }
-              },
-              [_vm._v("Delete")]
-            )
-          ])
-        ])
-      ])
-    ])
-  ])
+      ]),
+      _vm._v(" "),
+      _c("dataDeleteModal", {
+        attrs: {
+          id: _vm.delete_data.id,
+          index: _vm.delete_data.index,
+          deleteFunction: _vm.projectDelete
+        }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -45988,43 +46065,6 @@ var staticRenderFns = [
         _c("th", [_vm._v(" Dev Cost ")]),
         _vm._v(" "),
         _c("th", [_vm._v("Action")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header flex-column" }, [
-      _c("div", { staticClass: "icon-box" }, [
-        _c("i", { staticClass: "fas fa-trash-alt material-icons" })
-      ]),
-      _vm._v(" "),
-      _c("h4", { staticClass: "modal-title w-100" }, [_vm._v("Are you sure?")]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-hidden": "true"
-          }
-        },
-        [_vm._v("×")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-body" }, [
-      _c("p", [
-        _vm._v(
-          "Do you really want to delete these records? This process cannot be undone."
-        )
       ])
     ])
   }
@@ -48493,309 +48533,165 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "content-wrapper" }, [
-      _c("div", { staticClass: "content-header" }, [
-        _c("div", { staticClass: "container-fluid" }, [
-          _c("div", { staticClass: "row mb-2" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-6" }, [
-              _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
-                _c(
-                  "li",
-                  { staticClass: "breadcrumb-item" },
-                  [
-                    _c("router-link", { attrs: { to: { name: "home" } } }, [
-                      _vm._v(
-                        "\n                                Home\n                            "
-                      )
-                    ])
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("li", { staticClass: "breadcrumb-item active" }, [
-                  _vm._v(
-                    "\n                            Sprints\n                        "
-                  )
-                ])
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "app-title" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("ul", { staticClass: "app-breadcrumb breadcrumb" }, [
+          _c(
+            "li",
+            { staticClass: "breadcrumb-item" },
+            [
+              _c("router-link", { attrs: { to: { name: "home" } } }, [
+                _c("i", { staticClass: "fa fa-home fa-lg" })
               ])
-            ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("li", { staticClass: "breadcrumb-item active" }, [
+            _vm._v("\r\n                    Sprint\r\n                ")
           ])
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "content" }, [
-        _c("div", { staticClass: "container-fluid" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col" }, [
-              _c("div", { staticClass: "card card-primary" }, [
-                _c(
-                  "div",
-                  { staticClass: "card-header d-flex" },
-                  [
-                    _c(
-                      "h3",
-                      {
-                        staticClass:
-                          "card-title title d-flex align-items-center"
-                      },
-                      [_vm._v("All Sprints")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "router-link",
-                      {
-                        staticClass: " btn btn-info ml-auto",
-                        attrs: { to: { name: "sprint_create" } }
-                      },
-                      [
-                        _vm._v(
-                          "\n                                Create Sprint\n                            "
-                        )
-                      ]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "card-body" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-12" }, [
+          _c("div", { staticClass: "tile" }, [
+            _c("div", { staticClass: "tile-body" }, [
+              _c(
+                "table",
+                {
+                  staticClass: "table table-hover table-bordered",
+                  attrs: { id: "sampleTable" }
+                },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
                   _c(
-                    "table",
-                    {
-                      staticClass: "table table-striped table-bordered projects"
-                    },
-                    [
-                      _vm._m(1),
-                      _vm._v(" "),
-                      _c(
-                        "tbody",
-                        _vm._l(_vm.all_sprints.data, function(sprint, index) {
-                          return _vm.all_sprints.data.length
-                            ? _c("tr", { key: index }, [
-                                _c("td", [
-                                  _vm._v(
-                                    "\n                                            " +
-                                      _vm._s(index + 1) +
-                                      "\n                                        "
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  sprint.name
-                                    ? _c("span", [_vm._v(_vm._s(sprint.name))])
-                                    : _c("span", [_vm._v("Null")])
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _c("span", [_vm._v(_vm._s(sprint.type))])
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _c("span", [
-                                    _vm._v(_vm._s(sprint.start_date))
-                                  ])
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _c("span", [_vm._v(_vm._s(sprint.end_date))])
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  sprint.status
-                                    ? _c(
-                                        "span",
-                                        { staticClass: "badge badge-success" },
-                                        [_vm._v(_vm._s(sprint.status))]
-                                      )
-                                    : _c(
-                                        "span",
-                                        { staticClass: " badge badge-danger" },
-                                        [_vm._v("null")]
-                                      )
-                                ]),
+                    "tbody",
+                    _vm._l(_vm.all_sprints, function(sprint, index) {
+                      return _vm.all_sprints
+                        ? _c("tr", { key: index }, [
+                            _c("td", [_vm._v(_vm._s(index + 1))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(sprint.name))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(sprint.type))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(sprint.start_date))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(sprint.end_date))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(sprint.status))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(sprint.purposes))]),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    staticClass: "btn btn-info btn-sm",
+                                    attrs: {
+                                      to: {
+                                        name: "user_profile",
+                                        params: { id: sprint.id }
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", { staticClass: "fas fa-folder" }),
+                                    _vm._v(
+                                      "\r\n                                    View\r\n                                "
+                                    )
+                                  ]
+                                ),
                                 _vm._v(" "),
                                 _c(
-                                  "td",
-                                  { staticClass: "project-actions text-right" },
+                                  "router-link",
+                                  {
+                                    staticClass: "btn btn-info btn-sm",
+                                    attrs: {
+                                      to: {
+                                        name: "user_update",
+                                        params: { id: sprint.id }
+                                      }
+                                    }
+                                  },
                                   [
-                                    _c(
-                                      "router-link",
-                                      {
-                                        staticClass: "btn btn-info btn-sm",
-                                        attrs: {
-                                          to: {
-                                            name: "sprint_details",
-                                            params: { id: sprint.id }
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "fas fa-folder"
-                                        }),
-                                        _vm._v(
-                                          "\n                                                View\n                                            "
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "router-link",
-                                      {
-                                        staticClass: "btn btn-info btn-sm",
-                                        attrs: {
-                                          to: {
-                                            name: "sprint_update",
-                                            params: { id: sprint.id }
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "fas fa-pencil-alt"
-                                        }),
-                                        _vm._v(
-                                          "\n                                                Edit\n                                            "
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "btn btn-danger btn-sm",
-                                        attrs: {
-                                          href: "#delete_modal",
-                                          "data-toggle": "modal"
-                                        },
-                                        on: {
-                                          click: function($event) {
-                                            ;(_vm.delete_data.id = sprint.id),
-                                              (_vm.delete_data.index = index)
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "fas fa-trash"
-                                        }),
-                                        _vm._v(
-                                          "\n                                                Delete\n                                            "
-                                        )
-                                      ]
+                                    _c("i", {
+                                      staticClass: "fas fa-pencil-alt"
+                                    }),
+                                    _vm._v(
+                                      "\r\n                                    Edit\r\n                                "
                                     )
-                                  ],
-                                  1
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-danger btn-sm",
+                                    attrs: {
+                                      href: "#delete_modal",
+                                      "data-toggle": "modal"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        ;(_vm.delete_data.id = sprint.id),
+                                          (_vm.delete_data.index = index)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", { staticClass: "fas fa-trash" }),
+                                    _vm._v(
+                                      "\r\n                                    Delete\r\n                                "
+                                    )
+                                  ]
                                 )
-                              ])
-                            : _vm._e()
-                        }),
-                        0
-                      )
-                    ]
+                              ],
+                              1
+                            )
+                          ])
+                        : _vm._e()
+                    }),
+                    0
                   )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "card-footer clearfix" },
-                  [
-                    _c(
-                      "pagination",
-                      {
-                        attrs: {
-                          data: _vm.all_sprints,
-                          limit: 2,
-                          align: "center"
-                        },
-                        on: { "pagination-change-page": _vm.getSprint }
-                      },
-                      [
-                        _c(
-                          "span",
-                          { attrs: { slot: "prev-nav" }, slot: "prev-nav" },
-                          [
-                            _vm._v("Previous "),
-                            _c("i", { staticClass: "fas fa-arrow-left " })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          { attrs: { slot: "next-nav" }, slot: "next-nav" },
-                          [
-                            _c("i", { staticClass: "fas fa-arrow-right " }),
-                            _vm._v(" Next")
-                          ]
-                        )
-                      ]
-                    )
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "modal fade", attrs: { id: "delete_modal" } },
-                [
-                  _c("div", { staticClass: "modal-dialog modal-confirm" }, [
-                    _c("div", { staticClass: "modal-content" }, [
-                      _vm._m(2),
-                      _vm._v(" "),
-                      _vm._m(3),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "modal-footer justify-content-center" },
-                        [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-secondary",
-                              attrs: { type: "button", "data-dismiss": "modal" }
-                            },
-                            [_vm._v("Cancel")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-danger",
-                              attrs: { type: "button" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.sprintDelete(
-                                    _vm.delete_data.id,
-                                    _vm.delete_data.index
-                                  )
-                                }
-                              }
-                            },
-                            [_vm._v("Delete")]
-                          )
-                        ]
-                      )
-                    ])
-                  ])
                 ]
               )
             ])
           ])
         ])
-      ])
-    ])
-  ])
+      ]),
+      _vm._v(" "),
+      _c("dataDeleteModal", {
+        attrs: {
+          id: _vm.delete_data.id,
+          index: _vm.delete_data.index,
+          deleteFunction: _vm.sprintDelete
+        }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-sm-6" }, [
-      _c("h1", { staticClass: "m-0 text-dark" }, [_vm._v("Sprints")])
+    return _c("div", [
+      _c("h1", [
+        _c("i", { staticClass: "fa fa-dashboard" }),
+        _vm._v(" Blank Page")
+      ]),
+      _vm._v(" "),
+      _c("p", [_vm._v("Start a beautiful journey here")])
     ])
   },
   function() {
@@ -48804,84 +48700,21 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { staticStyle: { width: "1%" } }, [
-          _vm._v(
-            "\n                                            #\n                                        "
-          )
-        ]),
+        _c("th", [_vm._v("Sl")]),
         _vm._v(" "),
-        _c("th", [
-          _vm._v(
-            "\n                                            Name\n                                        "
-          )
-        ]),
+        _c("th", [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", [
-          _vm._v(
-            "\n                                            Type\n                                        "
-          )
-        ]),
+        _c("th", [_vm._v("Type")]),
         _vm._v(" "),
-        _c("th", [
-          _vm._v(
-            "\n                                           Start Date\n                                        "
-          )
-        ]),
+        _c("th", [_vm._v("start_date")]),
         _vm._v(" "),
-        _c("th", [
-          _vm._v(
-            "\n                                           End Date\n                                        "
-          )
-        ]),
+        _c("th", [_vm._v("end_date")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center", staticStyle: { width: "7%" } }, [
-          _vm._v(
-            "\n                                            Status\n                                        "
-          )
-        ]),
+        _c("th", [_vm._v("status")]),
         _vm._v(" "),
-        _c("th", { staticStyle: { width: "20%" } }, [
-          _vm._v(
-            "\n                                            Action\n                                        "
-          )
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header flex-column" }, [
-      _c("div", { staticClass: "icon-box" }, [
-        _c("i", { staticClass: "fas fa-trash-alt material-icons" })
-      ]),
-      _vm._v(" "),
-      _c("h4", { staticClass: "modal-title w-100" }, [_vm._v("Are you sure?")]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-hidden": "true"
-          }
-        },
-        [_vm._v("×")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-body" }, [
-      _c("p", [
-        _vm._v(
-          "Do you really want to delete these records? This process cannot be undone."
-        )
+        _c("th", [_vm._v("purposes")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Action")])
       ])
     ])
   }
@@ -49796,10 +49629,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/tasks/index.vue?vue&type=template&id=4db8e7b8&lang=true&":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/tasks/index.vue?vue&type=template&id=4db8e7b8&lang=true& ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/tasks/index.vue?vue&type=template&id=4db8e7b8&":
+/*!*********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/tasks/index.vue?vue&type=template&id=4db8e7b8& ***!
+  \*********************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -49811,189 +49644,174 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("div", { staticClass: "tile" }, [
-          _c("div", { staticClass: "tile-body" }, [
-            _c(
-              "table",
-              {
-                staticClass: "table table-hover table-bordered",
-                attrs: { id: "sampleTable" }
-              },
-              [
-                _vm._m(1),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.all_tasks, function(task, index) {
-                    return _vm.all_tasks
-                      ? _c("tr", { key: index }, [
-                          _c("td", [_vm._v(_vm._s(index + 1))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(task.name))]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              "  " +
-                                _vm._s(task.project ? task.project.name : "N/A")
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              _vm._s(task.module ? task.module.name : "N/A")
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(task.type))]),
-                          _vm._v(" "),
-                          _vm._m(2, true),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            [
-                              _c(
-                                "router-link",
-                                {
-                                  staticClass: "btn btn-info btn-sm",
-                                  attrs: {
-                                    to: {
-                                      name: "user_profile",
-                                      params: { id: task.id }
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", { staticClass: "fas fa-folder" }),
-                                  _vm._v(
-                                    "\n                                    View\n                                "
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "app-title" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("ul", { staticClass: "app-breadcrumb breadcrumb" }, [
+          _c(
+            "li",
+            { staticClass: "breadcrumb-item" },
+            [
+              _c("router-link", { attrs: { to: { name: "home" } } }, [
+                _c("i", { staticClass: "fa fa-home fa-lg" })
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("li", { staticClass: "breadcrumb-item active" }, [
+            _vm._v("\r\n                    Tasks\r\n                ")
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-12" }, [
+          _c("div", { staticClass: "tile" }, [
+            _c("div", { staticClass: "tile-body" }, [
+              _c(
+                "table",
+                {
+                  staticClass: "table table-hover table-bordered",
+                  attrs: { id: "sampleTable" }
+                },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.all_tasks, function(task, index) {
+                      return _vm.all_tasks
+                        ? _c("tr", { key: index }, [
+                            _c("td", [_vm._v(_vm._s(index + 1))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(task.name))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                "  " +
+                                  _vm._s(
+                                    task.project ? task.project.name : "N/A"
                                   )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "router-link",
-                                {
-                                  staticClass: "btn btn-info btn-sm",
-                                  attrs: {
-                                    to: {
-                                      name: "user_update",
-                                      params: { id: task.id }
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", { staticClass: "fas fa-pencil-alt" }),
-                                  _vm._v(
-                                    "\n                                    Edit\n                                "
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-danger btn-sm",
-                                  attrs: {
-                                    href: "#delete_modal",
-                                    "data-toggle": "modal"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      ;(_vm.delete_data.data = _vm.user),
-                                        (_vm.delete_data.index = index)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", { staticClass: "fas fa-trash" }),
-                                  _vm._v(
-                                    "\n                                    Delete\n                                "
-                                  )
-                                ]
                               )
-                            ],
-                            1
-                          )
-                        ])
-                      : _vm._e()
-                  }),
-                  0
-                )
-              ]
-            )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(task.module ? task.module.name : "N/A")
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(task.type))]),
+                            _vm._v(" "),
+                            _vm._m(2, true),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    staticClass: "btn btn-info btn-sm",
+                                    attrs: {
+                                      to: {
+                                        name: "user_profile",
+                                        params: { id: task.id }
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", { staticClass: "fas fa-folder" }),
+                                    _vm._v(
+                                      "\r\n                                    View\r\n                                "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "router-link",
+                                  {
+                                    staticClass: "btn btn-info btn-sm",
+                                    attrs: {
+                                      to: {
+                                        name: "user_update",
+                                        params: { id: task.id }
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "fas fa-pencil-alt"
+                                    }),
+                                    _vm._v(
+                                      "\r\n                                    Edit\r\n                                "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-danger btn-sm",
+                                    attrs: {
+                                      href: "#delete_modal",
+                                      "data-toggle": "modal"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        ;(_vm.delete_data.id = task.id),
+                                          (_vm.delete_data.index = index)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", { staticClass: "fas fa-trash" }),
+                                    _vm._v(
+                                      "\r\n                                    Delete\r\n                                "
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
+                            )
+                          ])
+                        : _vm._e()
+                    }),
+                    0
+                  )
+                ]
+              )
+            ])
           ])
         ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "modal fade", attrs: { id: "delete_modal" } }, [
-      _c("div", { staticClass: "modal-dialog modal-confirm" }, [
-        _c("div", { staticClass: "modal-content" }, [
-          _vm._m(3),
-          _vm._v(" "),
-          _vm._m(4),
-          _vm._v(" "),
-          _c("div", { staticClass: "modal-footer justify-content-center" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-secondary",
-                attrs: { type: "button", "data-dismiss": "modal" }
-              },
-              [_vm._v("Cancel")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-danger",
-                attrs: { type: "button", "data-dismiss": "modal" },
-                on: {
-                  click: function($event) {
-                    return _vm.taskDelete(
-                      _vm.delete_data.data,
-                      _vm.delete_data.index
-                    )
-                  }
-                }
-              },
-              [_vm._v("Delete")]
-            )
-          ])
-        ])
-      ])
-    ])
-  ])
+      ]),
+      _vm._v(" "),
+      _c("dataDeleteModal", {
+        attrs: {
+          id: _vm.delete_data.id,
+          index: _vm.delete_data.index,
+          deleteFunction: _vm.taskDelete
+        }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "app-title" }, [
-      _c("div", [
-        _c("h1", [
-          _c("i", { staticClass: "fa fa-dashboard" }),
-          _vm._v(" Blank Page")
-        ]),
-        _vm._v(" "),
-        _c("p", [_vm._v("Start a beautiful journey here")])
+    return _c("div", [
+      _c("h1", [
+        _c("i", { staticClass: "fa fa-dashboard" }),
+        _vm._v(" Blank Page")
       ]),
       _vm._v(" "),
-      _c("ul", { staticClass: "app-breadcrumb breadcrumb" }, [
-        _c("li", { staticClass: "breadcrumb-item" }, [
-          _c("i", { staticClass: "fa fa-home fa-lg" })
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "breadcrumb-item" }, [
-          _c("a", { attrs: { href: "#" } }, [_vm._v("Blank Page")])
-        ])
-      ])
+      _c("p", [_vm._v("Start a beautiful journey here")])
     ])
   },
   function() {
@@ -50023,43 +49841,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("td", [_c("span")])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header flex-column" }, [
-      _c("div", { staticClass: "icon-box" }, [
-        _c("i", { staticClass: "fas fa-trash-alt material-icons" })
-      ]),
-      _vm._v(" "),
-      _c("h4", { staticClass: "modal-title w-100" }, [_vm._v("Are you sure?")]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-hidden": "true"
-          }
-        },
-        [_vm._v("×")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-body" }, [
-      _c("p", [
-        _vm._v(
-          "Do you really want to delete these records? This process cannot be undone."
-        )
-      ])
-    ])
   }
 ]
 render._withStripped = true
@@ -52164,123 +51945,135 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "table",
-      {
-        staticClass: "table table-hover table-bordered",
-        attrs: { id: "sampleTable" }
-      },
-      [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "tbody",
-          _vm._l(_vm.all_users, function(user, index) {
-            return _vm.all_users
-              ? _c("tr", { key: index }, [
-                  _c("td", [_vm._v(_vm._s(user.name))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(user.email))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(user.name))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(user.name))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(user.contact_no))]),
-                  _vm._v(" "),
-                  _c("td", {
-                    domProps: {
-                      innerHTML: _vm._s(
-                        [
-                          "<span class='badge badge-danger'>In Active</span>",
-                          "<span class='badge badge-success'>Active</span>"
-                        ][user.status]
-                      )
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("img", {
-                      staticStyle: { width: "50px" },
-                      attrs: { src: user.photo, alt: "" }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "td",
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "btn btn-info btn-sm",
-                          attrs: {
-                            to: {
-                              name: "user_profile",
-                              params: { id: user.id }
+  return _c(
+    "div",
+    [
+      _c(
+        "table",
+        {
+          staticClass: "table table-hover table-bordered",
+          attrs: { id: "sampleTable" }
+        },
+        [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.all_users, function(user, index) {
+              return _vm.all_users
+                ? _c("tr", { key: index }, [
+                    _c("td", [_vm._v(_vm._s(user.name))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(user.email))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(user.name))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(user.name))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(user.contact_no))]),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: {
+                        innerHTML: _vm._s(
+                          [
+                            "<span class='badge badge-danger'>In Active</span>",
+                            "<span class='badge badge-success'>Active</span>"
+                          ][user.status]
+                        )
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("img", {
+                        staticStyle: { width: "50px" },
+                        attrs: { src: user.photo, alt: "" }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "btn btn-info btn-sm",
+                            attrs: {
+                              to: {
+                                name: "user_profile",
+                                params: { id: user.id }
+                              }
                             }
-                          }
-                        },
-                        [
-                          _c("i", { staticClass: "fas fa-folder" }),
-                          _vm._v(
-                            "\n                                    View\n                                "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "btn btn-info btn-sm",
-                          attrs: {
-                            to: {
-                              name: "user_update",
-                              params: { id: user.id }
-                            }
-                          }
-                        },
-                        [
-                          _c("i", { staticClass: "fas fa-pencil-alt" }),
-                          _vm._v(
-                            "\n                                    Edit\n                                "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticClass: "btn btn-danger btn-sm",
-                          attrs: {
-                            href: "#delete_modal",
-                            "data-toggle": "modal"
                           },
-                          on: {
-                            click: function($event) {
-                              ;(_vm.delete_data.data = user),
-                                (_vm.delete_data.index = index)
+                          [
+                            _c("i", { staticClass: "fas fa-folder" }),
+                            _vm._v(
+                              "\n                                    View\n                                "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "btn btn-info btn-sm",
+                            attrs: {
+                              to: {
+                                name: "user_update",
+                                params: { id: user.id }
+                              }
                             }
-                          }
-                        },
-                        [
-                          _c("i", { staticClass: "fas fa-trash" }),
-                          _vm._v(
-                            "\n                                    Delete\n                                "
-                          )
-                        ]
-                      )
-                    ],
-                    1
-                  )
-                ])
-              : _vm._e()
-          }),
-          0
-        )
-      ]
-    )
-  ])
+                          },
+                          [
+                            _c("i", { staticClass: "fas fa-pencil-alt" }),
+                            _vm._v(
+                              "\n                                    Edit\n                                "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "btn btn-danger btn-sm",
+                            attrs: {
+                              href: "#delete_modal",
+                              "data-toggle": "modal"
+                            },
+                            on: {
+                              click: function($event) {
+                                ;(_vm.delete_data.id = user.id),
+                                  (_vm.delete_data.index = index)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", { staticClass: "fas fa-trash" }),
+                            _vm._v(
+                              "\n                                    Delete\n                                "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  ])
+                : _vm._e()
+            }),
+            0
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("dataDeleteModal", {
+        attrs: {
+          id: _vm.delete_data.id,
+          index: _vm.delete_data.index,
+          deleteFunction: _vm.userDelete
+        }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -73975,6 +73768,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/inc/delete_modal.vue":
+/*!*******************************************!*\
+  !*** ./resources/js/inc/delete_modal.vue ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _delete_modal_vue_vue_type_template_id_2579cdb0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./delete_modal.vue?vue&type=template&id=2579cdb0& */ "./resources/js/inc/delete_modal.vue?vue&type=template&id=2579cdb0&");
+/* harmony import */ var _delete_modal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./delete_modal.vue?vue&type=script&lang=js& */ "./resources/js/inc/delete_modal.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _delete_modal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _delete_modal_vue_vue_type_template_id_2579cdb0___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _delete_modal_vue_vue_type_template_id_2579cdb0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/inc/delete_modal.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/inc/delete_modal.vue?vue&type=script&lang=js&":
+/*!********************************************************************!*\
+  !*** ./resources/js/inc/delete_modal.vue?vue&type=script&lang=js& ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_delete_modal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./delete_modal.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/inc/delete_modal.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_delete_modal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/inc/delete_modal.vue?vue&type=template&id=2579cdb0&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/inc/delete_modal.vue?vue&type=template&id=2579cdb0& ***!
+  \**************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_delete_modal_vue_vue_type_template_id_2579cdb0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./delete_modal.vue?vue&type=template&id=2579cdb0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/inc/delete_modal.vue?vue&type=template&id=2579cdb0&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_delete_modal_vue_vue_type_template_id_2579cdb0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_delete_modal_vue_vue_type_template_id_2579cdb0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/inc/sprint_tasks.vue":
 /*!*******************************************!*\
   !*** ./resources/js/inc/sprint_tasks.vue ***!
@@ -75366,7 +75228,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _index_vue_vue_type_template_id_4db8e7b8_lang_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.vue?vue&type=template&id=4db8e7b8&lang=true& */ "./resources/js/pages/tasks/index.vue?vue&type=template&id=4db8e7b8&lang=true&");
+/* harmony import */ var _index_vue_vue_type_template_id_4db8e7b8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.vue?vue&type=template&id=4db8e7b8& */ "./resources/js/pages/tasks/index.vue?vue&type=template&id=4db8e7b8&");
 /* harmony import */ var _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.vue?vue&type=script&lang=js& */ "./resources/js/pages/tasks/index.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -75378,8 +75240,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _index_vue_vue_type_template_id_4db8e7b8_lang_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _index_vue_vue_type_template_id_4db8e7b8_lang_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _index_vue_vue_type_template_id_4db8e7b8___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _index_vue_vue_type_template_id_4db8e7b8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -75408,19 +75270,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/pages/tasks/index.vue?vue&type=template&id=4db8e7b8&lang=true&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/pages/tasks/index.vue?vue&type=template&id=4db8e7b8&lang=true& ***!
-  \*************************************************************************************/
+/***/ "./resources/js/pages/tasks/index.vue?vue&type=template&id=4db8e7b8&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/pages/tasks/index.vue?vue&type=template&id=4db8e7b8& ***!
+  \***************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_4db8e7b8_lang_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=template&id=4db8e7b8&lang=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/tasks/index.vue?vue&type=template&id=4db8e7b8&lang=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_4db8e7b8_lang_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_4db8e7b8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=template&id=4db8e7b8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/tasks/index.vue?vue&type=template&id=4db8e7b8&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_4db8e7b8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_4db8e7b8_lang_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_4db8e7b8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -76361,8 +76223,8 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\sabbir\project mangaement\project-management\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\sabbir\project mangaement\project-management\resources\css\app.css */"./resources/css/app.css");
+__webpack_require__(/*! C:\Users\Sabbir\Desktop\project-management\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Sabbir\Desktop\project-management\resources\css\app.css */"./resources/css/app.css");
 
 
 /***/ })

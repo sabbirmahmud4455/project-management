@@ -14,7 +14,7 @@
                     </router-link>
                 </li>
                 <li class="breadcrumb-item active">
-                    Users
+                    Project
                 </li>
 
                 <!-- <li class="breadcrumb-item">
@@ -63,11 +63,11 @@
                                                     </i>
                                                     Edit
                                                 </router-link>
-                                                <a class="btn btn-danger btn-sm" href="#delete_modal"  data-toggle="modal" @click="delete_data.data=project, delete_data.index=index">
+                                                <button class="btn btn-danger btn-sm" href="#delete_modal"  data-toggle="modal" @click="delete_data.id=project.id, delete_data.index=index">
                                                     <i class="fas fa-trash">
                                                     </i>
                                                     Delete
-                                                </a>
+                                                </button>
                     </td>
 
                   </tr>
@@ -92,34 +92,9 @@
 
 
 
-
-
-
-
-
-
-
-                        <!-- delete Modal HTML -->
-                        <div id="delete_modal" class="modal fade">
-                            <div class="modal-dialog modal-confirm">
-                                <div class="modal-content">
-                                    <div class="modal-header flex-column">
-                                        <div class="icon-box">
-                                            <i class="fas fa-trash-alt material-icons"></i>
-                                        </div>
-                                        <h4 class="modal-title w-100">Are you sure?</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>Do you really want to delete these records? This process cannot be undone.</p>
-                                    </div>
-                                    <div class="modal-footer justify-content-center">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                        <button type="button" class="btn btn-danger"  data-dismiss='modal' @click="projectDelete(delete_data.data , delete_data.index)">Delete</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<!-- delete Modal HTML -->
+        <dataDeleteModal :id="delete_data.id" :index="delete_data.index" :deleteFunction="projectDelete"></dataDeleteModal>
+                       
                     </div>
                 </div>
                 <!-- /.row -->
@@ -131,13 +106,14 @@
     </div>
 </template>
 <script>
+import dataDeleteModal from '../../inc/delete_modal'
 export default {
   data() {
     return {
       all_projects: null,
       delete_data: {
-        data: [],
-        index: [],
+        id: null,
+        index: null,
       },
     };
   },
@@ -150,10 +126,11 @@ export default {
         }, 1000);
       });
     },
-    projectDelete(data, index) {
-      axios.delete(`/api/project/${data.id}`).then((res) => {
-        this.all_projects.data.splice(index, 1);
+    projectDelete(id, index) {
+      axios.delete(`/api/project/${id}`).then((res) => {
+                $("#delete_modal").modal('hide');
 
+        this.all_projects.splice(index, 1);
         this.$toast.success({
           title: "SUCCESS",
           message: res.data,
@@ -164,5 +141,8 @@ export default {
   mounted() {
     this.getProject();
   },
+  components:{
+    dataDeleteModal
+  }
 };
 </script>

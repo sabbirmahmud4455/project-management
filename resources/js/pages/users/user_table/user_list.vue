@@ -54,7 +54,7 @@
                                     href="#delete_modal"
                                     data-toggle="modal"
                                     @click="
-                                        (delete_data.data = user),
+                                        (delete_data.id = user.id),
                                             (delete_data.index = index)
                                     "
                                 >
@@ -68,27 +68,22 @@
                 </tbody>
               </table>
 
-
-
-
-
-
-
-
-
-
-
+        <!-- delete Modal HTML -->
+        <dataDeleteModal :id="delete_data.id" :index="delete_data.index" :deleteFunction="userDelete"></dataDeleteModal>
 
     </div>
 </template>
 <script>
+
+import dataDeleteModal from '../../../inc/delete_modal'
+
 export default {
   data() {
     return {
       all_users: null,
       delete_data: {
-        data: [],
-        index: [],
+        id: null,
+        index: null,
       },
     };
   },
@@ -101,9 +96,11 @@ export default {
         }, 1000);
       });
     },
-    userDelete(data, index) {
-      axios.delete(`/api/user/${data.id}`).then((res) => {
-        this.all_users.data.splice(index, 1);
+    userDelete(id, index) {
+      axios.delete(`/api/user/${id}`).then((res) => {
+                $("#delete_modal").modal('hide');
+
+        this.all_users.splice(index, 1);
 
         this.$toast.success({
           title: "SUCCESS",
@@ -115,5 +112,8 @@ export default {
   mounted() {
     this.getUser();
   },
+  components:{
+    dataDeleteModal
+  }
 };
 </script>

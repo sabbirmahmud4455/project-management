@@ -4,14 +4,18 @@
 <div>
         <div class="app-title">
             <div>
-                <h1><i class="fa fa-dashboard"></i> Blank Page</h1>
+                <h1><i class="fa fa-dashboard"></i> Modules Page</h1>
                 <p>Start a beautiful journey here</p>
             </div>
             <ul class="app-breadcrumb breadcrumb">
-                <li class="breadcrumb-item">
-                    <i class="fa fa-home fa-lg"></i>
+               <li class="breadcrumb-item">
+                    <router-link :to="{ name: 'home' }">
+                        <i class="fa fa-home fa-lg"></i>
+                    </router-link>
                 </li>
-                <li class="breadcrumb-item"><a href="#">Blank Page</a></li>
+                <li class="breadcrumb-item active">
+                    Modules
+                </li>
             </ul>
         </div>
         <div class="row">

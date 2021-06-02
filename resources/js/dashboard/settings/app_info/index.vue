@@ -296,7 +296,6 @@
 </template>
 <script>
 import { objectToFormData } from "object-to-formdata";
-
 export default {
     data() {
         return {
@@ -372,13 +371,11 @@ export default {
                     }
                 });
         },
-
         onImageChange(event) {
             //object to form data
             const file = event.target.files[0];
             // Do some project side validation...
             this.form.logo = file;
-
             var input = event.target;
             // Ensure that you have a file before attempting to read it
             if (input.files && input.files[0]) {
@@ -399,7 +396,6 @@ export default {
             const file = event.target.files[0];
             // Do some project side validation...
             this.form.favicon = file;
-
             var input = event.target;
             // Ensure that you have a file before attempting to read it
             if (input.files && input.files[0]) {
@@ -416,7 +412,6 @@ export default {
             }
         }
     },
-
     mounted() {
         this.getAppInfo();
     }
