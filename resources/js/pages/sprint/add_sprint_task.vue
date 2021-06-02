@@ -95,17 +95,18 @@
                           <div class="form-group">
                             <label for="project_input">Project</label>
                             <select
+                            @change="getProjectTask()"
                               class="form-control"
                               name=""
+                              v-model="projectID"
                               id="project_input"
                             >
-                              <option @click="form.tasks = []" :valeu="null">
+                              <option selected @click="form.tasks = []" :value="-1">
                                 Select Project
                               </option>
                               <option
                                 v-for="(project, index) in allProject"
                                 :key="index"
-                                @click="getProjectTask(project.id)"
                                 :value="project.id"
                               >
                                 {{ project.name }}
@@ -118,13 +119,14 @@
                             <select
                               class="form-control"
                               name=""
+                              @change="getModuleTask()"
                               id="module_input"
+                              v-model="moduleId"
                             >
-                              <option :valeu="null">Select Module</option>
+                              <option selected :value="-1">Select Module</option>
                               <option
                                 v-for="(projectModule, index) in projectModules"
                                 :key="index"
-                                @click="getModuleTask(projectModule.id)"
                                 :value="projectModule.id"
                               >
                                 {{ projectModule.name }}
@@ -194,9 +196,18 @@ export default {
       tasks: null,
       projectModules: null,
       task_category: null,
+      projectID:null,
+      moduleId:null,
+      existingId:[],
+
     };
   },
   methods: {
+    getExistingTasksId(){
+      axios.get(`/api/sprint/${this.$route.params.id}`).then((response) => {
+          this.existingId=response.data.sprint_task.map(task=>task.task_id);
+      });
+    },
     updateAllTask(index, task) {
       this.allTasks[index] = task;
       this.finalSelectedTask = this.allTasks.filter((task) => task.selectTasks);
@@ -228,8 +239,8 @@ export default {
       this.finalSelectedTask = [];
 
       axios.get("/api/tasks/independent-task").then((res) => {
-        this.tasks = res.data;
-        this.allTasks = res.data.map((task) => {
+        this.tasks = res.data.filter(task=>!this.existingId.includes(task.id));
+        this.allTasks = this.tasks .map((task) => {
           return { ...task, selectTasks: false };
         });
       });
@@ -239,27 +250,28 @@ export default {
         this.allProject = res.data;
       });
     },
-    getProjectTask(id) {
+    getProjectTask() {
       this.finalSelectedTask = [];
-      this.getProjectModule(id);
+      this.getProjectModule(this.projectID);
 
       this.selectTask = [];
-      axios.get(`/api/project/task/w/${id}`).then((res) => {
-        this.tasks = res.data;
+      axios.get(`/api/project/task/w/${this.projectID}`).then((res) => {
+        this.tasks = res.data.filter(task=>!this.existingId.includes(task.id));
       });
       this.selectTask = [];
-      axios.get(`/api/project/task/w/${id}`).then((res) => {
-        this.tasks = res.data;
+      axios.get(`/api/project/task/w/${this.projectID}`).then((res) => {
+        this.tasks = res.data.filter(task=>!this.existingId.includes(task.id));
       });
     },
-    getModuleTask(id) {
+    getModuleTask() {
       this.finalSelectedTask = [];
-      axios.get(`/api/module/task/w/${id}`).then((res) => {
-        this.tasks = res.data;
+      axios.get(`/api/module/task/w/${this.moduleId}`).then((res) => {
+        this.tasks = res.data.filter(task=>!this.existingId.includes(task.id));
       });
     },
   },
   mounted() {
+    this.getExistingTasksId();
     this.getUsers();
     this.getProject();
     this.getIndependentTask();

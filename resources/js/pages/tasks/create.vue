@@ -66,6 +66,7 @@
                         <label for="inputStatus">Project</label>
                         <select
                           v-model="form.project_id"
+                          @change="getModule()"
                           class="form-control custom-select"
                           :class="{
                             'is-invalid': form.errors.has('project_id'),
@@ -79,7 +80,7 @@
                             v-for="(project, index) in all_projects"
                             :key="index"
                             :value="project.id"
-                            @click="getModule(form.project_id)"
+                            
                           >
                             {{ project.name }}
                           </option>
@@ -193,8 +194,8 @@ export default {
         this.all_projects = response.data;
       });
     },
-    getModule(id) {
-      axios.get(`/api/product_modules/${id}`).then((response) => {
+    getModule() {
+      axios.get(`/api/product_modules/${this.form.project_id}`).then((response) => {
         this.all_modules = response.data;
       });
     },
