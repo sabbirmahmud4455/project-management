@@ -17,7 +17,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::with(["project", "module"])->orderBy('id', 'desc')->paginate(10);
+        $tasks = Task::with(["project", "module"])->orderBy('id', 'desc')->get();
         return response()->json($tasks);
     }
 

@@ -16,7 +16,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects= Project::orderBy('id', 'desc')->paginate(10);
+        $projects = Project::orderBy('id', 'desc')->get();
         return response()->json($projects);
     }
 
@@ -39,27 +39,27 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required',
-            'photo'=>'image|nullable'
+            'name' => 'required',
+            'photo' => 'image|nullable'
         ]);
-        if ($request->photo==null) {
-            $image_path='/images/projects/default/project_default.jpg';
+        if ($request->photo == null) {
+            $image_path = '/images/projects/default/project_default.jpg';
         } else {
             $imageName = time() . '_' . uniqid() . '.' . $request->photo->getClientOriginalExtension();
             $request->photo->move(public_path('images/projects'), $imageName);
-            $image_path= '/images/projects/'.$imageName;
+            $image_path = '/images/projects/' . $imageName;
         }
-        
+
         Project::insert([
-            'name'=>$request->name,
-            'client_id'=>$request->client_id,
-            'type'=>$request->type,
-            'photo'=>$image_path,
-            'start_date'=>$request->start_date,
-            'end_date'=>$request->end_date,
-            'development_cost'=>$request->development_cost,
-            'status'=>'Pending',
-            'created_at'=>Carbon::now(),
+            'name' => $request->name,
+            'client_id' => $request->client_id,
+            'type' => $request->type,
+            'photo' => $image_path,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'development_cost' => $request->development_cost,
+            'status' => 'Pending',
+            'created_at' => Carbon::now(),
         ]);
         return response()->json('Project Store successfully');
     }
@@ -96,19 +96,19 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         $request->validate([
-            'name'=>'required',
-            'photo'=>'image|nullable'
+            'name' => 'required',
+            'photo' => 'image|nullable'
         ]);
-        
+
         $project->update([
-            'name'=>$request->name,
-            'client_id'=>$request->client_id,
-            'type'=>$request->type,
-            'start_date'=>$request->start_date,
-            'end_date'=>$request->end_date,
-            'development_cost'=>$request->development_cost,
-            'status'=>'Pending',
-            'updated_at'=>Carbon::now(),
+            'name' => $request->name,
+            'client_id' => $request->client_id,
+            'type' => $request->type,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'development_cost' => $request->development_cost,
+            'status' => 'Pending',
+            'updated_at' => Carbon::now(),
         ]);
         return response()->json('Project Update successfully');
     }
@@ -129,19 +129,19 @@ class ProjectController extends Controller
 
     public function client_pending_project($id)
     {
-        $project= Project::where('client_id', $id)->where('status', 'Pending')->orderBy('id', 'desc')->paginate(10);
+        $project = Project::where('client_id', $id)->where('status', 'Pending')->orderBy('id', 'desc')->paginate(10);
         return response()->json($project);
     }
 
     public function client_active_project($id)
     {
-        $project= Project::where('client_id', $id)->where('status', 'Active')->orderBy('id', 'desc')->paginate(10);
+        $project = Project::where('client_id', $id)->where('status', 'Active')->orderBy('id', 'desc')->paginate(10);
         return response()->json($project);
     }
 
     public function client_complete_project($id)
     {
-        $project= Project::where('client_id', $id)->where('status', 'Complete')->orderBy('id', 'desc')->paginate(10);
+        $project = Project::where('client_id', $id)->where('status', 'Complete')->orderBy('id', 'desc')->paginate(10);
         return response()->json($project);
     }
 
@@ -149,20 +149,20 @@ class ProjectController extends Controller
     public function image_update(Request $request, Project $project)
     {
         $request->validate([
-            "photo"=>"image"
+            "photo" => "image"
         ]);
         if ($request->photo) {
             $imageName = time() . '_' . uniqid() . '.' . $request->photo->getClientOriginalExtension();
             $request->photo->move(public_path('images/projects'), $imageName);
-            $image_path= '/images/projects/'.$imageName;
-            if (!$project->photo =='/images/projects/default/project_default.jpg') {
+            $image_path = '/images/projects/' . $imageName;
+            if (!$project->photo == '/images/projects/default/project_default.jpg') {
                 if (File::exists($project->image)) {
                     File::delete($project->image);
                     //unlink($image_path);
                 }
             }
             $project->update([
-                'photo'=>$image_path
+                'photo' => $image_path
             ]);
         }
         return response()->json('image update successfully');
@@ -170,9 +170,7 @@ class ProjectController extends Controller
 
     public function all_project()
     {
-        $projects= Project::orderBy('id', 'desc')->get();
+        $projects = Project::orderBy('id', 'desc')->get();
         return response()->json($projects);
     }
-
-    
 }

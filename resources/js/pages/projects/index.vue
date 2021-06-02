@@ -1,111 +1,59 @@
 <template lang="">
     <div>
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Projects</h1>
-                    </div><!-- /.col -->
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item">
-                                <router-link :to="{ name: 'home' }">
-                                    Home
-                                </router-link>
-                            </li>
-                            <li class="breadcrumb-item active">
-                                Projects
-                            </li>
-                        </ol>
-                    </div><!-- /.col -->
-                    </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
+
+
+<div class="app-title">
+            <div>
+                <h1><i class="fa fa-dashboard"></i>projects</h1>
+                <p>Start a beautiful journey here</p>
             </div>
-            <!-- /.content-header -->
+            <ul class="app-breadcrumb breadcrumb">
+                <li class="breadcrumb-item">
+                    <router-link :to="{ name: 'home' }">
+                        <i class="fa fa-home fa-lg"></i>
+                    </router-link>
+                </li>
+                <li class="breadcrumb-item active">
+                    Users
+                </li>
 
-            <!-- Main content -->
-            <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col">
-                        <div class="card card-primary">
-                            <div class="card-header d-flex">
-                                <h3 class="card-title title d-flex align-items-center">All Projects</h3>
+                <!-- <li class="breadcrumb-item">
+                    <i class="fa fa-home fa-lg"></i>
+                </li>
+                <li class="breadcrumb-item"><a href="#">Blank Page</a></li> -->
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <div class="tile-body">
 
-                                <router-link  :to="{name:'project_create'}" class=" btn btn-info ml-auto">
-                                    Create Project
-                                </router-link>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <table class="table table-striped table-bordered projects">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 1%">
-                                                #
-                                            </th>
-                                            <th>
-                                                Name
-                                            </th>
-                                            <th>
-                                                Type
-                                            </th>
-                                            <th>
-                                                Start Date
-                                            </th>
-                                            <th>
-                                                End Date
-                                            </th>
-                                            <th  style="width: 7%" class="text-center">
-                                                Status
-                                            </th>
-                                            <th>
-                                                Dev Cost
-                                            </th>
 
-                                            <th style="width: 20%">
-                                                Action
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr v-if="all_projects.data.length" v-for="(project, index) in all_projects.data" :key="index">
-                                            <td>
-                                                {{index+1}}
-                                            </td>
-                                            <td>
-                                                <span v-if="project.name">{{project.name}}</span>
-                                                <span v-else>Null</span>
 
-                                            </td>
-                                            <td>
-                                                <span v-if="project.type">{{project.type}}</span>
-                                                <span v-else>Null</span>
-                                            </td>
-                                            <td>
-                                                <span v-if="project.start_date">{{project.start_date}}</span>
-                                                <span v-else>Null</span>
-                                            </td>
-                                            <td>
-                                                <span v-if="project.end_date">{{project.end_date}}</span>
-                                                <span v-else>Null</span>
-                                            </td>
-                                            <td>
-                                                <span v-if="project.status" class="badge badge-success">{{project.status}}</span>
-                                                <span v-else class=" badge badge-danger">null</span>
-                                            </td>
-                                            <td>
-                                                <span v-if="project.development_cost">
-                                                    <i class="fas fa-dollar-sign    "></i> {{project.development_cost}}
-                                                </span>
-                                                <span v-else>Null</span>
-                                            </td>
-
-                                            <td class="project-actions text-right">
-                                                <router-link  :to="{name:'project_view', params:{id: project.id}}" class="btn btn-info btn-sm">
+      <table class="table table-hover table-bordered" id="sampleTable">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th> Start Date </th>
+                    <th> End Date </th>
+                    <th>Status</th>
+                    <th> Dev Cost </th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr  v-if="all_projects" v-for="(project, index) in all_projects" :key="index">
+                    <td>{{project.name}}</td>
+                    <td>{{project.type}}</td>
+                    <td>{{project.start_date}}</td>
+                    <td>{{project.end_date}}</td>
+                    <td >
+                        {{project.status}}
+                    </td>
+                    <td>{{project.development_cost}}</td>
+                    <td>
+                         <router-link  :to="{name:'project_view', params:{id: project.id}}" class="btn btn-info btn-sm">
                                                     <i class="fas fa-folder">
                                                     </i>
                                                     View
@@ -120,20 +68,36 @@
                                                     </i>
                                                     Delete
                                                 </a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
-                            <div class="card-footer clearfix">
-                                <pagination :data="all_projects" :limit=2 align='center'  @pagination-change-page="getProject">
-                                    <span slot="prev-nav">Previous <i class="fas fa-arrow-left "></i></span>
-                                    <span slot="next-nav"><i class="fas fa-arrow-right "></i> Next</span>
-                                </pagination>
-                                </ul>
-                            </div>
-                        </div>
+                    </td>
+
+                  </tr>
+
+                </tbody>
+              </table>
+
+
+
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                         <!-- delete Modal HTML -->
                         <div id="delete_modal" class="modal fade">
@@ -168,38 +132,37 @@
 </template>
 <script>
 export default {
-    data() {
-        return {
-            all_projects:{},
-            delete_data:{
-                data:[],
-                index:[]
-            }
-        }
+  data() {
+    return {
+      all_projects: null,
+      delete_data: {
+        data: [],
+        index: [],
+      },
+    };
+  },
+  methods: {
+    getProject() {
+      axios.get("/api/project").then((response) => {
+        this.all_projects = response.data;
+        setTimeout(function () {
+          window.loadDataTable();
+        }, 1000);
+      });
     },
-    methods:{
-        getProject(page){
-                    if (typeof page === 'undefined') {
-                    page = 1;
-                }
-            axios.get('/api/project?page=' + page).then(response => {
-                this.all_projects = response.data;
-            })
-        },
-        projectDelete(data, index){
-            axios.delete(`/api/project/${data.id}`).then( res=>{
+    projectDelete(data, index) {
+      axios.delete(`/api/project/${data.id}`).then((res) => {
+        this.all_projects.data.splice(index, 1);
 
-                this.all_projects.data.splice(index, 1);
-
-                  this.$toast.success({
-                  title:'SUCCESS',
-                  message: res.data,
-                  })
-                })
-        }
+        this.$toast.success({
+          title: "SUCCESS",
+          message: res.data,
+        });
+      });
     },
-    mounted() {
-        this.getProject();
-    },
-}
+  },
+  mounted() {
+    this.getProject();
+  },
+};
 </script>

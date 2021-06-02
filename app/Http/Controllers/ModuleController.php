@@ -15,7 +15,7 @@ class ModuleController extends Controller
      */
     public function index()
     {
-        $modules= Module::with(["project"])->orderBy('id', 'desc')->paginate(10);
+        $modules = Module::with(["project"])->orderBy('id', 'desc')->get();
         return response()->json($modules);
     }
 
@@ -38,21 +38,21 @@ class ModuleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required',
-            'project_id'=>'integer'
+            'name' => 'required',
+            'project_id' => 'integer'
         ]);
-        if ($request->description=='<h4 class="text-muted">Client Details</h4>') {
-            $description= '';
-        }else{
-            $description= $request->description;
+        if ($request->description == '<h4 class="text-muted">Client Details</h4>') {
+            $description = '';
+        } else {
+            $description = $request->description;
         }
 
         Module::insert([
-            'name'=>$request->name,
-            'project_id'=>$request->project_id,
-            'description'=>$description,
-            'status'=>'Pending',
-            'created_at'=>Carbon::now(),
+            'name' => $request->name,
+            'project_id' => $request->project_id,
+            'description' => $description,
+            'status' => 'Pending',
+            'created_at' => Carbon::now(),
         ]);
         return response()->json('Module Store successfully');
     }
@@ -65,7 +65,7 @@ class ModuleController extends Controller
      */
     public function show(Module $module)
     {
-        $get_module= Module::where('id', $module->id)->with(['project'])->get();
+        $get_module = Module::where('id', $module->id)->with(['project'])->get();
         return response()->json($get_module);
     }
 
@@ -90,21 +90,21 @@ class ModuleController extends Controller
     public function update(Request $request, Module $module)
     {
         $request->validate([
-            'name'=>'required',
-            'project_id'=>'integer'
+            'name' => 'required',
+            'project_id' => 'integer'
         ]);
-        if ($request->description=='<h4 class="text-muted">Client Details</h4>') {
-            $description= '';
-        }else{
-            $description= $request->description;
+        if ($request->description == '<h4 class="text-muted">Client Details</h4>') {
+            $description = '';
+        } else {
+            $description = $request->description;
         }
 
         $module->update([
-            'name'=>$request->name,
-            'project_id'=>$request->project_id,
-            'description'=>$description,
-            'status'=>'Pending',
-            'updated_at'=>Carbon::now(),
+            'name' => $request->name,
+            'project_id' => $request->project_id,
+            'description' => $description,
+            'status' => 'Pending',
+            'updated_at' => Carbon::now(),
         ]);
         return response()->json('Module Update successfully');
     }
@@ -125,14 +125,13 @@ class ModuleController extends Controller
 
     public function project_modules_pag($id)
     {
-        $module= Module::where('project_id', $id)->orderBy('id', 'desc')->paginate(10);
+        $module = Module::where('project_id', $id)->orderBy('id', 'desc')->paginate(10);
         return response()->json($module);
     }
 
     public function project_modules($id)
     {
-        $projects= Module::orderBy('id', 'desc')->where('project_id', $id)->get();
+        $projects = Module::orderBy('id', 'desc')->where('project_id', $id)->get();
         return response()->json($projects);
     }
-    
 }

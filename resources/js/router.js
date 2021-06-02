@@ -8,8 +8,6 @@ import Home from './pages/home.vue'
 
 //user pager
 import Users from './pages/users/index.vue'
-//all users
-import Users_all from './pages/users/user_table/all.vue'
 //user create
 import User_create from './pages/users/create.vue'
 //user update
@@ -93,12 +91,7 @@ const routes = new VueRouter({
         {
             path: '/users',
             component: Users,
-            children: [
-                { path: '',
-                component: Users_all,
-                name: 'users',
-                }
-            ]
+            name: 'users',
 
         },
         {
@@ -130,7 +123,7 @@ const routes = new VueRouter({
             name: 'user_update',
         },
 
-    
+
 
 
         //project route
@@ -245,7 +238,7 @@ const routes = new VueRouter({
             name: 'sprint_task',
         },
 
-        
+
 
         //app info
         {

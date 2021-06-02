@@ -1,141 +1,105 @@
 <template lang="">
     <div>
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
+        <aside class="app-sidebar">
+            <div class="app-sidebar__user">
                 <img
-                    src="/template/dist/img/AdminLTELogo.png"
-                    alt="AdminLTE Logo"
-                    class="brand-image img-circle elevation-3"
-                    style="opacity: .8"
+                    class="app-sidebar__user-avatar"
+                    src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg"
+                    alt="User Image"
                 />
-                <span class="brand-text font-weight-light">AdminLTE 3</span>
-            </a>
-
-            <div class="sidebar">
-                <!-- Sidebar Menu -->
-                <nav class="mt-2">
-                    <ul
-                        class="nav nav-pills nav-sidebar flex-column"
-                        data-widget="treeview"
-                        role="menu"
-                        data-accordion="false"
-                    >
-                        <li class="nav-item has-treeview ">
-                            <router-link
-                                :to="{ name: 'home' }"
-                                class="nav-link"
-                                active-class="active"
-                            >
-                                <i class="nav-icon fas fa-home "></i>
-                                <p>Home</p>
-                            </router-link>
-                        </li>
-
-                        <!-- user -->
-                        <li class="nav-item has-treeview ">
-                            <router-link
-                                :to="{ name: 'users' }"
-                                class="nav-link"
-                                active-class="active"
-                            >
-                                <i class="fas fa-users nav-icon"></i>
-                                <p>
-                                    Users
-                                </p>
-                            </router-link>
-                        </li>
-
-                        <!-- clients -->
-                        <!-- <li class="nav-item has-treeview ">
-                            <router-link
-                                :to="{ name: 'clients' }"
-                                class="nav-link"
-                                active-class="active"
-                            >
-                                <i class="fas fa-users nav-icon"></i>
-                                <p>
-                                    Clients
-                                </p>
-                            </router-link>
-                        </li> -->
-
-                        <!-- project -->
-
-                        <li class="nav-item has-treeview ">
-                            <router-link
-                                :to="{ name: 'projects' }"
-                                class="nav-link"
-                                active-class="active"
-                            >
-                                <i class="fas fa-project-diagram nav-icon"></i>
-                                <p>
-                                    Projects
-                                </p>
-                            </router-link>
-                        </li>
-
-                        <!-- modules -->
-                        <li class="nav-item has-treeview ">
-                            <router-link
-                                :to="{ name: 'modules' }"
-                                class="nav-link"
-                                active-class="active"
-                            >
-                                <i class="fas fa-project-diagram nav-icon"></i>
-                                <p>
-                                    Modules
-                                </p>
-                            </router-link>
-                        </li>
-
-                        <!-- tasks -->
-                        <li class="nav-item has-treeview ">
-                            <router-link
-                                :to="{ name: 'tasks' }"
-                                class="nav-link"
-                                active-class="active"
-                            >
-                                <i class="fas fa-tasks  nav-icon"></i>
-                                <p>
-                                    Tasks
-                                </p>
-                            </router-link>
-                        </li>
-
-                        <!-- sprint -->
-                        <li class="nav-item has-treeview ">
-                            <router-link
-                                :to="{ name: 'sprints' }"
-                                class="nav-link"
-                                active-class="active"
-                            >
-                                <i class="fas fa-tasks  nav-icon"></i>
-                                <p>
-                                    Sprints
-                                </p>
-                            </router-link>
-                        </li>
-
-
-                        <!-- app info -->
-                        <li class="nav-item has-treeview ">
-                            <router-link
-                                :to="{ name: 'app_info' }"
-                                class="nav-link"
-                                active-class="active"
-                            >
-                                <i class="fas fa-info-circle"></i>
-                                <p>
-                                    App Info
-                                </p>
-                            </router-link>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- /.sidebar-menu -->
+                <div>
+                    <p class="app-sidebar__user-name">John Doe</p>
+                    <p class="app-sidebar__user-designation">
+                        Frontend Developer
+                    </p>
+                </div>
             </div>
-            <!-- /.sidebar -->
+            <ul class="app-menu">
+                <li class="nav-item has-treeview ">
+                    <router-link
+                        :to="{ name: 'home' }"
+                        class="app-menu__item"
+                        active-class="active"
+                    >
+                        <i class="app-menu__icon fa fa-dashboard"></i
+                        ><span class="app-menu__label">Dashboard</span>
+                    </router-link>
+                </li>
+
+                <li class="nav-item has-treeview ">
+                    <router-link
+                        :to="{ name: 'users' }"
+                        class="app-menu__item"
+                        active-class="active"
+                    >
+                        <i class="app-menu__icon fa fa-dashboard"></i
+                        ><span class="app-menu__label">Users</span>
+                    </router-link>
+                </li>
+
+                <!-- project -->
+
+                <li class="nav-item has-treeview ">
+                    <router-link
+                        :to="{ name: 'projects' }"
+                        class="app-menu__item"
+                        active-class="active"
+                    >
+                        <i class="app-menu__icon fa fa-dashboard"></i
+                        ><span class="app-menu__label">Projects</span>
+                    </router-link>
+                </li>
+
+                <!-- modules -->
+                <li class="nav-item has-treeview ">
+                    <router-link
+                        :to="{ name: 'modules' }"
+                        class="app-menu__item"
+                        active-class="active"
+                    >
+                        <i class="app-menu__icon fa fa-dashboard"></i
+                        ><span class="app-menu__label">Modules</span>
+                    </router-link>
+                </li>
+
+                <!-- tasks -->
+                <li class="nav-item has-treeview ">
+                    <router-link
+                        :to="{ name: 'tasks' }"
+                        class="app-menu__item"
+                        active-class="active"
+                    >
+                        <i class="app-menu__icon fa fa-dashboard"></i
+                        ><span class="app-menu__label">Tasks</span>
+                    </router-link>
+                </li>
+
+                <!-- sprint -->
+                <li class="nav-item has-treeview ">
+                    <router-link
+                        :to="{ name: 'sprints' }"
+                        class="app-menu__item"
+                        active-class="active"
+                    >
+                        <i class="app-menu__icon fa fa-dashboard"></i
+                        ><span class="app-menu__label">Sprints</span>
+                    </router-link>
+                </li>
+
+                <!-- app info -->
+                <li class="nav-item has-treeview ">
+                    <router-link
+                        :to="{ name: 'app_info' }"
+                        class="app-menu__item"
+                        active-class="active"
+                    >
+                        <i class="app-menu__icon fa fa-dashboard"></i
+                        ><span class="app-menu__label">App Info</span>
+                    </router-link>
+                </li>
+
+
+            </ul>
         </aside>
     </div>
 </template>

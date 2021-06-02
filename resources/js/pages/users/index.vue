@@ -1,54 +1,47 @@
 <template lang="">
     <div>
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Users</h1>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item">
-                                    <router-link :to="{ name: 'home' }">
-                                        Home
-                                    </router-link>
-                                </li>
-                                <li class="breadcrumb-item active">
-                                    Users
-                                </li>
-                            </ol>
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                    <!-- /.row -->
-                </div>
-                <!-- /.container-fluid -->
+        <div class="app-title">
+            <div>
+                <h1><i class="fa fa-dashboard"></i>Users</h1>
+                <p>Start a beautiful journey here</p>
             </div>
-            <!-- /.content-header -->
+            <ul class="app-breadcrumb breadcrumb">
+                <li class="breadcrumb-item">
+                    <router-link :to="{ name: 'home' }">
+                        <i class="fa fa-home fa-lg"></i>
+                    </router-link>
+                </li>
+                <li class="breadcrumb-item active">
+                    Users
+                </li>
 
-            <!-- Main content -->
-            <div class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col">
-                            <!-- vue route view -->
-                            <router-view></router-view>
-                        </div>
-                    </div>
-                    <!-- /.row -->
-                </div>
-                <!-- /.container-fluid -->
-            </div>
-            <!-- /.content -->
+                <!-- <li class="breadcrumb-item">
+                    <i class="fa fa-home fa-lg"></i>
+                </li>
+                <li class="breadcrumb-item"><a href="#">Blank Page</a></li> -->
+            </ul>
         </div>
-        <!-- /.content-wrapper -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <div class="tile-body">  <!-- vue route view -->
+                <userList></userList></div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+
     </div>
 </template>
 <script>
-export default {};
+import userList from "./user_table/user_list";
+export default {
+  components: {
+    userList,
+  },
+};
 </script>
 <style lang=""></style>

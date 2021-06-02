@@ -21,7 +21,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with(['types', 'roles'])->orderBy('id', 'desc')->paginate(10);
+        $users = User::with(['types', 'roles'])->orderBy('id', 'desc')->get();
         return response()->json($users);
     }
 
@@ -163,15 +163,15 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'contact_no' => $request->contact_no,
-            
+
             'gender' => $request->gender,
             'updated_at' => Carbon::now(),
         ]);
 
-        $user_type=  UserType::where('user_id', $user->id);
+        $user_type =  UserType::where('user_id', $user->id);
         $user_type->delete();
         if ($request->types) {
-           
+
             foreach ($request->types as $key => $type) {
 
                 $user_type = UserType::create([
@@ -180,8 +180,8 @@ class UserController extends Controller
                 ]);
             }
         }
-        $user_role=  UserRole::where('user_id', $user->id);
-           $user_role->delete();
+        $user_role =  UserRole::where('user_id', $user->id);
+        $user_role->delete();
         if ($request->roles) {
             foreach ($request->roles as $key => $role) {
                 $role_name = strval($role['name']);

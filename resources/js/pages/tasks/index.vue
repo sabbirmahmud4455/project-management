@@ -1,133 +1,95 @@
 <template lang="">
-    <div>
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Tasks</h1>
-                    </div><!-- /.col -->
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item">
-                                <router-link :to="{ name: 'home' }">
-                                    Home
-                                </router-link>
-                            </li>
-                            <li class="breadcrumb-item active">
-                                Tasks
-                            </li>
-                        </ol>
-                    </div><!-- /.col -->
-                    </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
+<div>
+        <div class="app-title">
+            <div>
+                <h1><i class="fa fa-dashboard"></i> Blank Page</h1>
+                <p>Start a beautiful journey here</p>
             </div>
-            <!-- /.content-header -->
+            <ul class="app-breadcrumb breadcrumb">
+                <li class="breadcrumb-item">
+                    <i class="fa fa-home fa-lg"></i>
+                </li>
+                <li class="breadcrumb-item"><a href="#">Blank Page</a></li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <div class="tile-body">
 
-            <!-- Main content -->
-            <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col">
-                        <div class="card card-primary">
-                            <div class="card-header d-flex">
-                                <h3 class="card-title title d-flex align-items-center">All Tasks</h3>
-                                <router-link  :to="{name:'task_create'}" class=" btn btn-info ml-auto">
-                                    Create Task
+        <table class="table table-hover table-bordered" id="sampleTable">
+                <thead>
+                  <tr>
+                    <th>Sl</th>
+                    <th>Name</th>
+                    <th>Project</th>
+                    <th>Module</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr  v-if="all_tasks"
+                            v-for="(task, index) in all_tasks"
+                            :key="index">
+                    <td>{{index +1}}</td>
+                    <td>{{task.name}}</td>
+                    <td>  {{task.project?task.project.name:"N/A"}}</td>
+                    <td>{{task.module?task.module.name:"N/A"}}</td>
+                    <td>{{task.type}}</td>
+                    <td><span>
+
+                        </span>
+                    </td>
+                    <!-- <td v-html="[`<span class='badge badge-danger'>In Active</span>`,`<span class='badge badge-success'>Active</span>`][task.status]"></td> -->
+                    <td>
+                        <router-link
+                                    :to="{
+                                        name: 'user_profile',
+                                        params: { id: task.id }
+                                    }"
+                                    class="btn btn-info btn-sm"
+                                >
+                                    <i class="fas fa-folder"> </i>
+                                    View
                                 </router-link>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <table class="table table-striped table-bordered projects">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 1%">
-                                                #
-                                            </th>
-                                            <th>
-                                                Name
-                                            </th>
-                                            <th>
-                                               Project
-                                            </th>
-                                            <th>
-                                               Module
-                                            </th>
-                                            <th  style="width: 7%" class="text-center">
-                                                Status
-                                            </th>
-                                            <th style="width: 20%">
-                                                Action
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr v-if="all_tasks.data.length" v-for="(task, index) in all_tasks.data" :key="index">
-                                            <td>
-                                                {{index+1}}
-                                            </td>
-                                            <td>
-                                                <span v-if="task.name">{{task.name}}</span>
-                                                <span v-else>Null</span>
+                                <router-link
+                                    :to="{
+                                        name: 'user_update',
+                                        params: { id: task.id }
+                                    }"
+                                    class="btn btn-info btn-sm"
+                                >
+                                    <i class="fas fa-pencil-alt"> </i>
+                                    Edit
+                                </router-link>
+                                <a
+                                    class="btn btn-danger btn-sm"
+                                    href="#delete_modal"
+                                    data-toggle="modal"
+                                    @click="
+                                        (delete_data.data = user),
+                                            (delete_data.index = index)
+                                    "
+                                >
+                                    <i class="fas fa-trash"> </i>
+                                    Delete
+                                </a>
+                    </td>
 
-                                            </td>
-                                            <td>
-                                                <span v-if="task.project">
-                                                    <router-link  :to="{name:'project_view', params:{id: task.project.id}}">
-                                                      {{task.project.name}}
-                                                    </router-link>
+                  </tr>
+
+                </tbody>
+              </table>
 
 
-                                                    </span>
-                                                <span v-else>Null</span>
-                                            </td>
-                                            <td>
-                                                <span v-if="task.module">
-                                                    <router-link  :to="{name:'module_view', params:{id: task.module.id}}">
-                                                      {{task.module.name}}
-                                                    </router-link>
 
-                                                    </span>
-                                                <span v-else>Null</span>
-                                            </td>
-                                            <td>
-                                                <span v-if="task.status" class="badge badge-success">{{task.status}}</span>
-                                                <span v-else class=" badge badge-danger">null</span>
-                                            </td>
-                                            <td class="project-actions text-right">
-                                                <router-link  :to="{name:'task_view', params:{id: task.id}}" class="btn btn-info btn-sm">
-                                                    <i class="fas fa-folder">
-                                                    </i>
-                                                    View
-                                                </router-link>
-                                                <router-link  :to="{name:'task_update', params:{id: task.id}}" class="btn btn-info btn-sm">
-                                                <i class="fas fa-pencil-alt">
-                                                    </i>
-                                                    Edit
-                                                </router-link>
-                                                <a class="btn btn-danger btn-sm" href="#delete_modal"  data-toggle="modal" @click="delete_data.data=task, delete_data.index=index">
-                                                    <i class="fas fa-trash">
-                                                    </i>
-                                                    Delete
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
-                            <div class="card-footer clearfix">
-                                <pagination :data="all_tasks" :limit=2 align='center'  @pagination-change-page="getTask">
-                                    <span slot="prev-nav">Previous <i class="fas fa-arrow-left "></i></span>
-                                    <span slot="next-nav"><i class="fas fa-arrow-right "></i> Next</span>
-                                </pagination>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- delete Modal HTML -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- delete Modal HTML -->
                         <div id="delete_modal" class="modal fade">
                             <div class="modal-dialog modal-confirm">
                                 <div class="modal-content">
@@ -148,50 +110,43 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <!-- /.row -->
-            </div><!-- /.container-fluid -->
-            </div>
-            <!-- /.content -->
-        </div>
-        <!-- /.content-wrapper -->
     </div>
+
+
 </template>
 <script>
 export default {
-    data() {
-        return {
-            all_tasks:{},
-            delete_data:{
-                data:[],
-                index:[]
-            }
-        }
+  data() {
+    return {
+      all_tasks: null,
+      delete_data: {
+        data: [],
+        index: [],
+      },
+    };
+  },
+  methods: {
+    getTask() {
+      axios.get("/api/task").then((response) => {
+        this.all_tasks = response.data;
+        setTimeout(function () {
+          window.loadDataTable();
+        }, 1000);
+      });
     },
-    methods:{
-        getTask(page){
-                    if (typeof page === 'undefined') {
-                    page = 1;
-                }
-            axios.get('/api/task?page=' + page).then(response => {
-                this.all_tasks = response.data;
-            })
-        },
-        taskDelete(data, index){
-            axios.delete(`/api/task/${data.id}`).then( res=>{
+    taskDelete(data, index) {
+      axios.delete(`/api/task/${data.id}`).then((res) => {
+        this.all_tasks.data.splice(index, 1);
 
-                this.all_tasks.data.splice(index, 1);
-
-                  this.$toast.success({
-                  title:'SUCCESS',
-                  message: res.data,
-                  })
-                })
-        }
+        this.$toast.success({
+          title: "SUCCESS",
+          message: res.data,
+        });
+      });
     },
-    mounted() {
-        this.getTask();
-    },
-}
+  },
+  mounted() {
+    this.getTask();
+  },
+};
 </script>
