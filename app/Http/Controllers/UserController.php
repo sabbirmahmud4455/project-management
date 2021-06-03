@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Profile;
 use Carbon\Carbon;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use App\Models\UserRole;
 use App\Models\UserType;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
-
+use Session;
 class UserController extends Controller
 {
     /**
@@ -237,5 +238,58 @@ class UserController extends Controller
     {
         $users = User::orderBy('id', 'desc')->get();
         return response()->json($users);
+    }
+
+        /**
+     * Login
+     */
+    public function login(Request $request)
+    {
+        $credentials = [
+            'email' => $request->email,
+            'password' => $request->password,
+        ];
+
+        if (Auth::attempt($credentials)) {
+            $success = true;
+            $message = 'User login successfully';
+            return [
+                "user"=>Auth::user(),
+                "success"=>true,
+                "token"=>Auth::user()->createToken('MyApp')->plainTextToken
+            ];
+        } else {
+            $success = false;
+            $message = 'Unauthorised';
+        }
+
+        // response
+        $response = [
+            'success' => $success,
+            'message' => $message,
+        ];
+        return response()->json($response);
+    }
+
+    /**
+     * Logout
+     */
+    public function logout()
+    {
+        try {
+            Session::flush();
+            $success = true;
+            $message = 'Successfully logged out';
+        } catch (\Illuminate\Database\QueryException $ex) {
+            $success = false;
+            $message = $ex->getMessage();
+        }
+
+        // response
+        $response = [
+            'success' => $success,
+            'message' => $message,
+        ];
+        return response()->json($response);
     }
 }

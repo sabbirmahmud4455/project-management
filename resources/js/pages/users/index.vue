@@ -32,17 +32,25 @@
 
             </div>
         </div>
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 3e202d377ba0b03612255026068d3e8754774ee6
 
     </div>
 </template>
 <script>
+
 import userList from "./user_table/user_list";
 
 export default {
   components: {
     userList,
   },
+  mounted(){
+      console.log("user list");
+  }
 };
 </script>
 <style lang=""></style>

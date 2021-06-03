@@ -159,7 +159,7 @@
                                                                 v-model="
                                                                     form.email
                                                                 "
-                                                                type="text"
+                                                                type="email"
                                                                 class="form-control"
                                                                 name="email"
                                                                 placeholder="No Email Added"
@@ -417,3 +417,8 @@ export default {
     }
 };
 </script>
+<style scoped>
+.content-wrapper{
+    margin-left: 0px !important;
+}
+</style>
