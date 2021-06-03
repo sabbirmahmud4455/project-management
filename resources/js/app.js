@@ -3,11 +3,11 @@ require('./bootstrap');
 import Vue from 'vue'
 import routers from './router'
 
-//vfrom 
+//vfrom
 import { HasError, AlertError } from 'vform'
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
-//vfrom 
+//vfrom
 
 
 //vue2 editor
@@ -42,7 +42,7 @@ import 'cxlt-vue2-toastr/dist/css/cxlt-vue2-toastr.css'
 
 
 //main app component
-if(window.Laravel.user.type=="Member"){
+if(window.Laravel.user.role=="Admin"){
     Vue.component('app-main', require('./component/user.vue').default);
 }
 else{

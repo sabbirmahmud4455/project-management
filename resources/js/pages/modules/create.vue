@@ -1,27 +1,24 @@
 <template lang="">
     <div>
-
-
-
-<div class="app-title">
+        <div class="app-title">
             <div>
                 <h1><i class="fa fa-dashboard"></i> Blank Page</h1>
                 <p>Start a beautiful journey here</p>
             </div>
             <ul class="app-breadcrumb breadcrumb">
                 <li class="breadcrumb-item">
-                                    <router-link :to="{ name: 'home' }">
-                                        <i class="fa fa-home" aria-hidden="true"></i>
-                                    </router-link>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <router-link :to="{ name: 'modules' }">
-                                        Modules
-                                    </router-link>
-                                </li>
-                                <li class="breadcrumb-item active">
-                                    Create Module
-                                </li>
+                    <router-link :to="{ name: 'home' }">
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                    </router-link>
+                </li>
+                <li class="breadcrumb-item">
+                    <router-link :to="{ name: 'modules' }">
+                        Modules
+                    </router-link>
+                </li>
+                <li class="breadcrumb-item active">
+                    Create Module
+                </li>
             </ul>
         </div>
         <div class="row">
@@ -29,115 +26,83 @@
                 <div class="tile">
                     <h3 class="tile-title">Module Create</h3>
                     <div class="tile-body">
-
-<form
-                                    @submit.prevent="createModule()"
-                                    @keydown="form.onKeydown($event)"
-                                >
-                                    <div class="card-body row">
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="module_name"
-                                                    >Name *</label
-                                                >
-                                                <input
-                                                    v-model="form.name"
-                                                    type="text"
-                                                    name="name"
-                                                    class="form-control"
-                                                    placeholder="Enter Name"
-                                                    :class="{
-                                                        'is-invalid': form.errors.has(
-                                                            'name'
-                                                        )
-                                                    }"
-                                                />
-                                                <has-error
-                                                    :form="form"
-                                                    field="name"
-                                                ></has-error>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="inputStatus"
-                                                    >Project</label
-                                                >
-                                                <select
-                                                    v-model="form.project_id"
-                                                    class="form-control custom-select"
-                                                    :class="{
-                                                        'is-invalid': form.errors.has(
-                                                            'project_id'
-                                                        )
-                                                    }"
-                                                >
-                                                    <option value="0"
-                                                        >Select Project</option
-                                                    >
-                                                    <option
-                                                        v-if="
-                                                            all_projects.length
-                                                        "
-                                                        v-for="(project,
-                                                        index) in all_projects"
-                                                        :key="index"
-                                                        :value="project.id"
-                                                        >{{
-                                                            project.name
-                                                        }}</option
-                                                    >
-                                                </select>
-                                                <has-error
-                                                    :form="form"
-                                                    field="project_id"
-                                                ></has-error>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="address"
-                                                    >Description</label
-                                                >
-                                                <vue-editor
-                                                    v-model="form.description"
-                                                />
-                                            </div>
-                                        </div>
+                        <form
+                            @submit.prevent="createModule()"
+                            @keydown="form.onKeydown($event)"
+                        >
+                            <div class="card-body row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="module_name">Name *</label>
+                                        <input
+                                            v-model="form.name"
+                                            type="text"
+                                            name="name"
+                                            class="form-control"
+                                            placeholder="Enter Name"
+                                            :class="{
+                                                'is-invalid': form.errors.has(
+                                                    'name'
+                                                )
+                                            }"
+                                        />
+                                        <has-error
+                                            :form="form"
+                                            field="name"
+                                        ></has-error>
                                     </div>
-                                    <!-- /.card-body -->
-
-                                    <div class="tile-footer">
-                                        <button
-                                            type="submit"
-                                            class="btn btn-primary"
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="inputStatus">Project</label>
+                                        <select
+                                            v-model="form.project_id"
+                                            class="form-control custom-select"
+                                            :class="{
+                                                'is-invalid': form.errors.has(
+                                                    'project_id'
+                                                )
+                                            }"
                                         >
-                                            Create Module
-                                        </button>
+                                            <option value="0"
+                                                >Select Project</option
+                                            >
+                                            <option
+                                                v-if="all_projects.length"
+                                                v-for="(project,
+                                                index) in all_projects"
+                                                :key="index"
+                                                :value="project.id"
+                                                >{{ project.name }}</option
+                                            >
+                                        </select>
+                                        <has-error
+                                            :form="form"
+                                            field="project_id"
+                                        ></has-error>
                                     </div>
-                                </form>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="address">Description</label>
+                                        <vue-editor
+                                            v-model="form.description"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
 
-
+                            <div class="tile-footer">
+                                <button type="submit" class="btn btn-primary">
+                                    Create Module
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </div>
 </template>
 <script>
@@ -145,55 +110,56 @@ import { Form } from "vform";
 import { VueEditor } from "vue2-editor";
 
 export default {
-  data() {
-    return {
-      all_projects: [],
-      form: new Form({
-        name: "",
-        project_id: 0,
-        description: '<h4 class="text-muted">Module Details</h4>',
-      }),
-    };
-  },
-  methods: {
-    getProject() {
-      axios.get("/api/all_projects").then((response) => {
-        this.all_projects = response.data;
-      });
+    data() {
+        return {
+            all_projects: [],
+            form: new Form({
+                name: "",
+                project_id: 0,
+                description: '<h4 class="text-muted">Module Details</h4>'
+            })
+        };
     },
-    createModule() {
-      this.form
-        .post("/api/module")
-        .then((response) => {
-          this.form.name = "";
-          this.form.project_id = 0;
-          this.form.description = '<h4 class="text-muted">Module Details</h4>';
-          this.$toast.success({
-            title: "SUCCESS",
-            message: "Module Created Successfully",
-          });
-        })
-        .catch((error) => {
-          if (error.response.data.errors.name) {
-            this.$toast.error({
-              title: "! ERRORS",
-              message: error.response.data.errors.name[0],
+    methods: {
+        getProject() {
+            axios.get("/api/all_projects").then(response => {
+                this.all_projects = response.data;
             });
-          }
-          if (error.response.data.errors.project_id) {
-            this.$toast.error({
-              title: "! ERRORS",
-              message: error.response.data.errors.project_id[0],
-            });
-          }
-        });
+        },
+        createModule() {
+            this.form
+                .post("/api/module")
+                .then(response => {
+                    this.form.name = "";
+                    this.form.project_id = 0;
+                    this.form.description =
+                        '<h4 class="text-muted">Module Details</h4>';
+                    this.$toast.success({
+                        title: "SUCCESS",
+                        message: "Module Created Successfully"
+                    });
+                })
+                .catch(error => {
+                    if (error.response.data.errors.name) {
+                        this.$toast.error({
+                            title: "! ERRORS",
+                            message: error.response.data.errors.name[0]
+                        });
+                    }
+                    if (error.response.data.errors.project_id) {
+                        this.$toast.error({
+                            title: "! ERRORS",
+                            message: error.response.data.errors.project_id[0]
+                        });
+                    }
+                });
+        }
     },
-  },
-  mounted() {
-    this.getProject();
-  },
-  components: {
-    VueEditor,
-  },
+    mounted() {
+        this.getProject();
+    },
+    components: {
+        VueEditor
+    }
 };
 </script>
