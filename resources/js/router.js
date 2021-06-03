@@ -74,6 +74,9 @@ import SprintTask from './pages/sprint/add_sprint_task'
 import appInfo from './dashboard/settings/app_info/index'
 
 
+//user routes
+
+import MyTask from './pages/user/task/index';
 
 const routes = new VueRouter({
     mode: 'history',
@@ -245,6 +248,14 @@ const routes = new VueRouter({
             path: '/app-info',
             component: appInfo,
             name: 'app_info',
+        },
+
+        //user routes
+
+        {
+            path: '/my-task',
+            component: MyTask,
+            name: 'my_task',
         },
 
     ]

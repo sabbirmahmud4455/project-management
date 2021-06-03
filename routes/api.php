@@ -9,6 +9,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SprintController;
 use App\Http\Controllers\SprintTaskController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\User\TaskController as UserTaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,3 +100,14 @@ Route::resource('/sprint', SprintController::class);
 
 // sprint task
 Route::resource('/sprint/sprint-task', SprintTaskController::class);
+
+//auth routes
+
+Route::post('logout', [UserController::class, 'logout'])->middleware('auth:sanctum');
+
+//user routes
+
+Route::group([ 'middleware' => 'auth:sanctum'], function () {
+    Route::get('/get-profile',[UserController::class, 'getProfile']);
+    Route::get('/my-task',[UserTaskController::class,'myTask']);
+});

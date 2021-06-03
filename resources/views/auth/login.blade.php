@@ -20,15 +20,17 @@
         <h1>Vali</h1>
       </div>
       <div class="login-box">
-        <form class="login-form" action="index.html">
+        <form method="post" class="login-form" action="{{route('login')}}">
+          @csrf
+         
           <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN IN</h3>
           <div class="form-group">
-            <label class="control-label">USERNAME</label>
-            <input class="form-control" type="text" placeholder="Email" autofocus>
+            <label class="control-label">Email</label>
+            <input name="email" required class="form-control" type="email" placeholder="Email" autofocus>
           </div>
           <div class="form-group">
             <label class="control-label">PASSWORD</label>
-            <input class="form-control" type="password" placeholder="Password">
+            <input name="password" required class="form-control" type="password" placeholder="Password">
           </div>
           <div class="form-group">
             <div class="utility">
@@ -43,6 +45,11 @@
           <div class="form-group btn-container">
             <button class="btn btn-primary btn-block"><i class="fa fa-sign-in fa-lg fa-fw"></i>SIGN IN</button>
           </div>
+          @if(Session::has('error'))
+          <div class="text text-danger">
+              {{ Session::get('error') }}
+          </div>
+          @endif
         </form>
         <form class="forget-form" action="index.html">
           <h3 class="login-head"><i class="fa fa-lg fa-fw fa-lock"></i>Forgot Password ?</h3>
@@ -52,7 +59,9 @@
           </div>
           <div class="form-group btn-container">
             <button class="btn btn-primary btn-block"><i class="fa fa-unlock fa-lg fa-fw"></i>RESET</button>
+         
           </div>
+         
           <div class="form-group mt-3">
             <p class="semibold-text mb-0"><a href="#" data-toggle="flip"><i class="fa fa-angle-left fa-fw"></i> Back to Login</a></p>
           </div>

@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Session;
+
 class UserController extends Controller
 {
     /**
@@ -25,7 +26,9 @@ class UserController extends Controller
         $users = User::with(['types', 'roles'])->orderBy('id', 'desc')->get();
         return response()->json($users);
     }
-
+    public function getProfile(){
+        return Auth::user();
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -240,7 +243,7 @@ class UserController extends Controller
         return response()->json($users);
     }
 
-        /**
+    /**
      * Login
      */
     public function login(Request $request)
@@ -253,22 +256,14 @@ class UserController extends Controller
         if (Auth::attempt($credentials)) {
             $success = true;
             $message = 'User login successfully';
-            return [
-                "user"=>Auth::user(),
-                "success"=>true,
-                "token"=>Auth::user()->createToken('MyApp')->plainTextToken
-            ];
+            return redirect('/user');
         } else {
-            $success = false;
-            $message = 'Unauthorised';
+            return back()->with([
+                'error'=>'Invalid email or password',
+            ]);
         }
 
-        // response
-        $response = [
-            'success' => $success,
-            'message' => $message,
-        ];
-        return response()->json($response);
+        
     }
 
     /**

@@ -3,12 +3,13 @@
         <aside class="app-sidebar">
             <div class="app-sidebar__user">
                 <img
+                style="max-width:70px"
                     class="app-sidebar__user-avatar"
-                    src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg"
+                    :src="user&&user.photo"
                     alt="User Image"
                 />
                 <div>
-                    <p class="app-sidebar__user-name">John Doe</p>
+                    <p class="app-sidebar__user-name">{{user&&user.name}}</p>
                     <p class="app-sidebar__user-designation">
                         Frontend Developer
                     </p>
@@ -104,6 +105,24 @@
     </div>
 </template>
 <script>
-export default {};
+export default {
+    data() {
+    return {
+      user:null
+    };
+  },
+  methods: {
+      getUser(){
+          axios.get('/sanctum/csrf-cookie').then(response => {
+                axios.get("/api/get-profile").then((response) => {
+                    this.user=response.data;
+                });
+          });
+      }
+  },
+    mounted(){
+         this.getUser();
+    }
+};
 </script>
 <style lang=""></style>

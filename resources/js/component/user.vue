@@ -112,7 +112,7 @@
     </div>
 </template>
 <script>
-import leftSideBar from "../inc/dboard_left_sidbar";
+import leftSideBar from "../inc/user_left_sidbar";
 export default {
   components: {
     leftSideBar,
