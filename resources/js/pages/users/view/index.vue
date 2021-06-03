@@ -3,9 +3,14 @@
         <div class="row user">
         <div class="col-md-12">
           <div class="profile">
-            <div class="info"><img class="user-img" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg"  v-if="photo.length"  :src="photo"  alt="User Profile picture">
-              <h4>John Doe</h4>
-              <p>FrontEnd Developer</p>
+            <div class="info"><img class="user-img" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg"  v-if="user.photo"  :src="user.photo"  alt="User Profile picture">
+              <h3     v-if="user.name"       class="mt-2 profile-username text-center"
+                                    >
+                                        {{ user.name }}
+                                    </h3>
+              <p v-if="user.types">
+                  <span v-for="(type, index) in user.types" :key="index">{{type.name}}</span>
+              </p>
             </div>
             <div class="cover-image"></div>
           </div>
@@ -91,9 +96,9 @@
 
 
 
-        <div class="content-wrapper" style="min-height: 1416.81px;">
+        <!-- <div class="content-wrapper" style="min-height: 1416.81px;"> -->
             <!-- Content Header (Page header) -->
-            <section class="content-header">
+            <!-- <section class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
@@ -118,17 +123,17 @@
                             </ol>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- /.container-fluid -->
-            </section>
+            <!-- </section> -->
 
             <!-- Main content -->
-            <section class="content">
+            <!-- <section class="content">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-3">
                             <!-- Profile Image -->
-                            <div class="card card-primary card-outline">
+                            <!-- <div class="card card-primary card-outline">
                                 <div class="card-body box-profile">
                                     <div class="text-center">
                                         <img
@@ -156,14 +161,14 @@
                                     <ul
                                         class="list-group list-group-unbordered mb-3"
                                     >
-                                        <li class="list-group-item">
-                                            <b>Type</b>
+                                        <li class="list-group-item"> -->
+                                            <!-- <b>Type</b> -->
                                             <!-- <span
                                                 v-if="types"
                                                 class="float-right"
                                                 >{{ type }}</span
                                             > -->
-                                        </li>
+                                        <!-- </li>
                                         <li class="list-group-item">
                                             <b>Email</b>
                                             <span
@@ -240,13 +245,13 @@
                                             >
                                         </li>
                                     </ul>
-                                </div>
+                                </div> -->
                                 <!-- /.card-body -->
-                            </div>
+                            <!-- </div> -->
                             <!-- /.card -->
-                        </div>
+                        <!-- </div> -->
                         <!-- /.col -->
-                        <div class="col-md-9">
+                        <!-- <div class="col-md-9">
                             <div class="card">
                                 <div class="card-header p-2">
                                     <ul class="nav nav-pills">
@@ -285,27 +290,27 @@
                                             >
                                         </li>
                                     </ul>
-                                </div>
+                                </div> -->
                                 <!-- /.card-header -->
-                                <div class="card-body">
-                                    <div class="tab-content">
+                                <!-- <div class="card-body">
+                                    <div class="tab-content"> -->
                                         <!-- vue route view -->
-                                        <router-view></router-view>
-                                    </div>
+                                        <!-- <router-view></router-view> -->
+                                    <!-- </div> -->
                                     <!-- /.tab-content -->
-                                </div>
+                                <!-- </div> -->
                                 <!-- /.card-body -->
-                            </div>
+                            <!-- </div> -->
                             <!-- /.nav-tabs-custom -->
-                        </div>
+                        <!-- </div> -->
                         <!-- /.col -->
-                    </div>
+                    <!-- </div> -->
                     <!-- /.row -->
-                </div>
+                <!-- </div> -->
                 <!-- /.container-fluid -->
-            </section>
+            <!-- </section> -->
             <!-- /.content -->
-        </div>
+        <!-- </div> -->
     </div>
 </template>
 <script>
@@ -314,6 +319,7 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
+      user: null,
       name: "",
       bio: "",
       email: "",
@@ -333,12 +339,13 @@ export default {
     getUser() {
       let id = this.$route.params.id;
       axios.get(`/api/user/${id}`).then((response) => {
-        this.name = response.data[0].name;
-        this.email = response.data[0].email;
-        this.type = response.data[0].type;
-        this.contact_no = response.data[0].contact_no;
-        this.gender = response.data[0].gender;
-        this.photo = response.data[0].photo;
+        this.user = response.data;
+        // this.name = response.data[0].name;
+        // this.email = response.data[0].email;
+        // this.type = response.data[0].type;
+        // this.contact_no = response.data[0].contact_no;
+        // this.gender = response.data[0].gender;
+        // this.photo = response.data[0].photo;
         // this.bio= response.data[0].profile.bio;
 
         if (response.data[0].profile) {

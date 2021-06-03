@@ -1,20 +1,16 @@
 <template lang="">
     <div>
 
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Update Task</h1>
-                    </div><!-- /.col -->
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item">
+
+<div class="app-title">
+            <div>
+                <h1><i class="fa fa-dashboard"></i> Update Task Page</h1>
+                <p>Start a beautiful journey here</p>
+            </div>
+            <ul class="app-breadcrumb breadcrumb">
+               <li class="breadcrumb-item">
                                 <router-link :to="{ name: 'home' }">
-                                    Home
+                                    <i class="fa fa-home" aria-hidden="true"></i>
                                 </router-link>
                             </li>
                             <li class="breadcrumb-item">
@@ -25,25 +21,19 @@
                             <li class="breadcrumb-item active">
                                 Update Task
                             </li>
-                        </ol>
-                    </div><!-- /.col -->
-                    </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
-            </div>
-            <!-- /.content-header -->
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <h3 class="tile-title">Task Update</h3>
+                    <div class="tile-body">
 
-            <!-- Main content -->
-            <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                <div class="col">
 
-                    <div class="card card-primary">
-                        <div class="card-header d-flex">
-                            <h3 class="card-title">Task</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <form   @submit.prevent="updateTask()" @keydown="form.onKeydown($event)">
+
+
+
+<form   @submit.prevent="updateTask()" @keydown="form.onKeydown($event)">
                             <div class="card-body row">
                                 <div class="col-12">
                                     <div class="form-group">
@@ -140,111 +130,115 @@
                                 </div>
                                 <!-- /.card-body -->
 
-                                <div class="card-footer">
+                                <div class="tile-footer">
                                 <button type="submit" class="btn btn-primary">Update Task</button>
                             </div>
                         </form>
+
+
+
+
                     </div>
                 </div>
-                <!-- /.col-md-6 -->
-                </div>
-                <!-- /.row -->
-            </div><!-- /.container-fluid -->
             </div>
-            <!-- /.content -->
         </div>
-        <!-- /.content-wrapper -->
+
+
+
+
+
+
+
+
+
+
     </div>
 </template>
 <script>
-import { Form } from 'vform'
+import { Form } from "vform";
 import { VueEditor } from "vue2-editor";
 
 export default {
-    data() {
-        return {
-            all_projects:[],
-            projectModule:null,
-            all_users:[],
-            form: new Form({
-                 project_id:0,
-                 module_id:0,
-                 type:null,
-                 name:'',
-                description:'<h4 class="text-muted">Task Details</h4>',
-            })
-        }
+  data() {
+    return {
+      all_projects: [],
+      projectModule: null,
+      all_users: [],
+      form: new Form({
+        project_id: 0,
+        module_id: 0,
+        type: null,
+        name: "",
+        description: '<h4 class="text-muted">Task Details</h4>',
+      }),
+    };
+  },
+  methods: {
+    getProject() {
+      axios.get("/api/all_projects").then((response) => {
+        this.all_projects = response.data;
+      });
     },
-    methods:{
-        getProject(){
-            axios.get('/api/all_projects').then(response => {
-                this.all_projects = response.data;
-            })
-        },
-        getModule(id){
-            axios.get(`/api/product_modules/${id}`).then(response => {
-                this.projectModule = response.data;
-            })
-        },
-        getUser(){
-            axios.get('/api/all_users').then(response => {
-                this.all_users = response.data;
-            })
-        },
-        editTask(){
-            let id = this.$route.params.id;
-            axios.get(`/api/task/${id}/edit`)
-            .then(response => {
-                this.form.name= response.data.name;
-                this.form.project_id= response.data.project_id;
-                this.form.module_id= response.data.module_id;
-                this.form.assign_to= response.data.assign_to;
-                this.form.type= response.data.type;
-                this.form.description= response.data.description;
-
-                this.getModule(response.data.project_id)
-            })
-        },
-        updateTask(){
-        this.form.post('/api/task')
-            .then(response => {
-                this.form.name= '';
-                this.form.project_id= 0;
-                this.form.description= '<h4 class="text-muted">task Details</h4>';
-                this.$toast.success({
-                    title:'SUCCESS',
-                    message:'task Updated Successfully'
-                })
-        }).catch(error => {
-                if (error.response.data.errors.name) {
-                  this.$toast.error({
-                  title:'! ERRORS',
-                  message: error.response.data.errors.name[0],
-                  })
-                }
-                if (error.response.data.errors.project_id) {
-                  this.$toast.error({
-                  title:'! ERRORS',
-                  message: error.response.data.errors.project_id[0],
-                  })
-                }
-            })
-      },
-
+    getModule(id) {
+      axios.get(`/api/product_modules/${id}`).then((response) => {
+        this.projectModule = response.data;
+      });
     },
-    mounted(){
-       this.getProject();
-       this.getUser();
-       this.editTask();
-
+    getUser() {
+      axios.get("/api/all_users").then((response) => {
+        this.all_users = response.data;
+      });
     },
-    components: {
-        VueEditor
+    editTask() {
+      let id = this.$route.params.id;
+      axios.get(`/api/task/${id}/edit`).then((response) => {
+        this.form.name = response.data.name;
+        this.form.project_id = response.data.project_id;
+        this.form.module_id = response.data.module_id;
+        this.form.assign_to = response.data.assign_to;
+        this.form.type = response.data.type;
+        this.form.description = response.data.description;
+
+        this.getModule(response.data.project_id);
+      });
     },
-
-
-}
+    updateTask() {
+      this.form
+        .post("/api/task")
+        .then((response) => {
+          this.form.name = "";
+          this.form.project_id = 0;
+          this.form.description = '<h4 class="text-muted">task Details</h4>';
+          this.$toast.success({
+            title: "SUCCESS",
+            message: "task Updated Successfully",
+          });
+        })
+        .catch((error) => {
+          if (error.response.data.errors.name) {
+            this.$toast.error({
+              title: "! ERRORS",
+              message: error.response.data.errors.name[0],
+            });
+          }
+          if (error.response.data.errors.project_id) {
+            this.$toast.error({
+              title: "! ERRORS",
+              message: error.response.data.errors.project_id[0],
+            });
+          }
+        });
+    },
+  },
+  mounted() {
+    this.getProject();
+    this.getUser();
+    this.editTask();
+  },
+  components: {
+    VueEditor,
+  },
+};
 </script>
 <style lang="">
-
 </style>

@@ -18,9 +18,6 @@ import UserProfile from './pages/users/view/index.vue'
 import UserProfile_Activ_task from './pages/users/view/active_task.vue'
 //user profile complete task
 import UserProfile_Complete_task from './pages/users/view/complete_task.vue'
-//user profile details
-import UserProfile_details from './pages/users/view/details.vue'
-
 
 
 
@@ -105,11 +102,7 @@ const routes = new VueRouter({
                 { path: '/user-view/module/:id',
                 component: UserProfile_Complete_task,
                 name:'user_view_complete_task'
-                },
-                { path: '/user-view/details/:id',
-                component: UserProfile_details,
-                name:'user_view_details'
-                },
+                }
             ]
         },
         {

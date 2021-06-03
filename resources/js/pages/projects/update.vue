@@ -1,20 +1,18 @@
 <template lang="">
     <div>
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Update Project</h1>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item">
+
+
+
+
+        <div class="app-title">
+            <div>
+                <h1><i class="fa fa-dashboard"></i> Blank Page</h1>
+                <p>Start a beautiful journey here</p>
+            </div>
+            <ul class="app-breadcrumb breadcrumb">
+                <li class="breadcrumb-item">
                                     <router-link :to="{ name: 'home' }">
-                                        Home
+                                        <i class="fa fa-home" aria-hidden="true"></i>
                                     </router-link>
                                 </li>
                                 <li class="breadcrumb-item">
@@ -25,27 +23,17 @@
                                 <li class="breadcrumb-item active">
                                     Update Project
                                 </li>
-                            </ol>
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                    <!-- /.row -->
-                </div>
-                <!-- /.container-fluid -->
-            </div>
-            <!-- /.content-header -->
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <h3 class="tile-title">Project Update</h3>
+                    <div class="tile-body">
 
-            <!-- Main content -->
-            <div class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col">
-                            <div class="card card-primary">
-                                <div class="card-header d-flex">
-                                    <h3 class="card-title">Update Project</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <form
+
+
+<form
                                     @submit.prevent="updateProject()"
                                     @keydown="form.onKeydown($event)"
                                 >
@@ -254,17 +242,26 @@
                                         </button>
                                     </div>
                                 </form>
-                            </div>
-                        </div>
-                        <!-- /.col-md-6 -->
+
+
+
+
                     </div>
-                    <!-- /.row -->
                 </div>
-                <!-- /.container-fluid -->
             </div>
-            <!-- /.content -->
         </div>
-        <!-- /.content-wrapper -->
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
 </template>
 <script>
@@ -275,121 +272,121 @@ import { VueDatePicker } from "@mathieustan/vue-datepicker";
 import "@mathieustan/vue-datepicker/dist/vue-datepicker.min.css";
 
 export default {
-    data() {
-        return {
-            real_time_photo: "",
-            real_photo: "",
-            // all_clients: [],
-            form: new Form({
-                client_id: 0,
-                name: "",
-                type: "",
-                photo: "",
-                start_date: null,
-                end_date: null,
-                development_cost: ""
-            }),
-            img: new Form({
-                photo: ""
-            })
+  data() {
+    return {
+      real_time_photo: "",
+      real_photo: "",
+      // all_clients: [],
+      form: new Form({
+        client_id: 0,
+        name: "",
+        type: "",
+        photo: "",
+        start_date: null,
+        end_date: null,
+        development_cost: "",
+      }),
+      img: new Form({
+        photo: "",
+      }),
+    };
+  },
+  methods: {
+    img_x() {
+      document.getElementById("profilePhoto").value = "";
+      this.real_time_photo = "";
+    },
+    // getClient() {
+    //     axios.get("/api/all_clients").then(response => {
+    //         this.all_clients = response.data;
+    //     });
+    // },
+    editproject() {
+      let id = this.$route.params.id;
+      axios.get(`/api/project/${id}/edit`).then((response) => {
+        this.form.name = response.data.name;
+        this.form.client_id = response.data.client_id;
+        this.form.type = response.data.type;
+        this.form.start_date = response.data.start_date;
+        this.form.end_date = response.data.end_date;
+        this.form.development_cost = response.data.development_cost;
+        this.real_photo = response.data.photo;
+      });
+    },
+    updateProject() {
+      let id = this.$route.params.id;
+
+      if (!this.img.photo == "") {
+        this.img
+          .post(`/api/projects/update/${id}`, {
+            transformRequest: [
+              function (data, headers) {
+                return objectToFormData(data);
+              },
+            ],
+          })
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            if (error.response.data.errors.photo) {
+              this.$toast.error({
+                title: "! ERRORS",
+                message: error.response.data.errors.photo[0],
+              });
+            }
+          });
+      }
+      this.form
+        .put(`/api/project/${id}`)
+        .then((response) => {
+          this.$toast.success({
+            title: "SUCCESS",
+            message: "project Created Successfully",
+          });
+        })
+        .catch((error) => {
+          if (error) {
+            if (error.response.data.errors.name) {
+              this.$toast.error({
+                title: "! ERRORS",
+                message: error.response.data.errors.name[0],
+              });
+            }
+          }
+        });
+    },
+
+    //form img feld on chang
+    onImageChange(event) {
+      //object to form data
+      const file = event.target.files[0];
+      // Do some client side validation...
+      this.img.photo = file;
+
+      // show uploading file
+      var input = event.target;
+      // Ensure that you have a file before attempting to read it
+      if (input.files && input.files[0]) {
+        // create a new FileReader to read this image and convert to base64 format
+        var reader = new FileReader();
+        // Define a callback function to run, when FileReader finishes its job
+        reader.onload = (e) => {
+          // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
+          // Read image as base64 and set to imageData
+          this.real_time_photo = e.target.result;
         };
+        // Start the reader job - read file as a data url (base64 format)
+        reader.readAsDataURL(input.files[0]);
+      }
     },
-    methods: {
-        img_x() {
-            document.getElementById("profilePhoto").value = "";
-            this.real_time_photo = "";
-        },
-        // getClient() {
-        //     axios.get("/api/all_clients").then(response => {
-        //         this.all_clients = response.data;
-        //     });
-        // },
-        editproject() {
-            let id = this.$route.params.id;
-            axios.get(`/api/project/${id}/edit`).then(response => {
-                this.form.name = response.data.name;
-                this.form.client_id = response.data.client_id;
-                this.form.type = response.data.type;
-                this.form.start_date = response.data.start_date;
-                this.form.end_date = response.data.end_date;
-                this.form.development_cost = response.data.development_cost;
-                this.real_photo = response.data.photo;
-            });
-        },
-        updateProject() {
-            let id = this.$route.params.id;
-
-            if (!this.img.photo == "") {
-                this.img
-                    .post(`/api/projects/update/${id}`, {
-                        transformRequest: [
-                            function(data, headers) {
-                                return objectToFormData(data);
-                            }
-                        ]
-                    })
-                    .then(response => {
-                        console.log(response);
-                    })
-                    .catch(error => {
-                        if (error.response.data.errors.photo) {
-                            this.$toast.error({
-                                title: "! ERRORS",
-                                message: error.response.data.errors.photo[0]
-                            });
-                        }
-                    });
-            }
-            this.form
-                .put(`/api/project/${id}`)
-                .then(response => {
-                    this.$toast.success({
-                        title: "SUCCESS",
-                        message: "project Created Successfully"
-                    });
-                })
-                .catch(error => {
-                    if (error) {
-                        if (error.response.data.errors.name) {
-                            this.$toast.error({
-                                title: "! ERRORS",
-                                message: error.response.data.errors.name[0]
-                            });
-                        }
-                    }
-                });
-        },
-
-        //form img feld on chang
-        onImageChange(event) {
-            //object to form data
-            const file = event.target.files[0];
-            // Do some client side validation...
-            this.img.photo = file;
-
-            // show uploading file
-            var input = event.target;
-            // Ensure that you have a file before attempting to read it
-            if (input.files && input.files[0]) {
-                // create a new FileReader to read this image and convert to base64 format
-                var reader = new FileReader();
-                // Define a callback function to run, when FileReader finishes its job
-                reader.onload = e => {
-                    // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
-                    // Read image as base64 and set to imageData
-                    this.real_time_photo = e.target.result;
-                };
-                // Start the reader job - read file as a data url (base64 format)
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-    },
-    mounted() {
-        this.editproject();
-        // this.getClient();
-    },
-    components: {
-        VueDatePicker
-    }
+  },
+  mounted() {
+    this.editproject();
+    // this.getClient();
+  },
+  components: {
+    VueDatePicker,
+  },
 };
 </script>

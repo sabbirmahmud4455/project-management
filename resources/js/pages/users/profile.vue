@@ -41,18 +41,18 @@
                                 <div class="card-body box-profile">
                                     <div class="text-center">
                                         <img
-                                            v-if="photo.length"
+                                            v-if="user.photo"
                                             class="profile-user-img img-fluid img-circle"
-                                            :src="photo"
+                                            :src="user.photo"
                                             alt="User profile picture"
                                         />
                                     </div>
 
                                     <h3
-                                        v-if="name.length"
+                                        v-if="user.name"
                                         class="profile-username text-center"
                                     >
-                                        {{ name }}
+                                        {{ user.name }} hhhhhhhhhhhhh
                                     </h3>
 
                                     <p
@@ -671,25 +671,27 @@ import UserSetting from "./view/details";
 export default {
   data() {
     return {
-      name: "",
-      bio: "",
-      email: "",
-      contact_no: "",
-      type: "",
-      gender: "",
-      photo: "",
+      user: null,
+      //   name: "",
+      //   bio: "",
+      //   email: "",
+      //   contact_no: "",
+      //   type: "",
+      //   gender: "",
+      //   photo: "",
     };
   },
   methods: {
     getUser() {
       let id = this.$route.params.id;
       axios.get(`/api/user/${id}`).then((response) => {
-        this.name = response.data.name;
-        this.email = response.data.email;
-        this.type = response.data.type_id;
-        this.contact_no = response.data.contact_no;
-        this.gender = response.data.gender;
-        this.photo = response.data.photo;
+        this.user = response.data;
+        // this.name = response.data.name;
+        // this.email = response.data.email;
+        // // this.type = response.data.type_id;
+        // this.contact_no = response.data.contact_no;
+        // this.gender = response.data.gender;
+        // this.photo = response.data.photo;
       });
     },
   },

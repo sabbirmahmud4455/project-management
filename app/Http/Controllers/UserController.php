@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Session;
+
 class UserController extends Controller
 {
     /**
@@ -110,7 +111,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $user_pro = User::where('id', $user->id)->with(['profile'])->get();
+        $user_pro = User::where('id', $user->id)->with(['profile', 'types', 'roles'])->first();
         return response()->json($user_pro);
     }
 
@@ -240,7 +241,7 @@ class UserController extends Controller
         return response()->json($users);
     }
 
-        /**
+    /**
      * Login
      */
     public function login(Request $request)
@@ -254,9 +255,9 @@ class UserController extends Controller
             $success = true;
             $message = 'User login successfully';
             return [
-                "user"=>Auth::user(),
-                "success"=>true,
-                "token"=>Auth::user()->createToken('MyApp')->plainTextToken
+                "user" => Auth::user(),
+                "success" => true,
+                "token" => Auth::user()->createToken('MyApp')->plainTextToken
             ];
         } else {
             $success = false;

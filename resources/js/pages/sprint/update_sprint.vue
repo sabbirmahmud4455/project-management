@@ -1,159 +1,135 @@
 <template>
   <div>
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
-      <div class="content-header">
-        <div class="container-fluid">
-          <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Update Sprint</h1>
-            </div>
-            <!-- /.col -->
-            <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item">
-                  <router-link :to="{ name: 'home' }"> Home </router-link>
-                </li>
-                <li class="breadcrumb-item">
-                  <router-link :to="{ name: 'Sprints' }"> Sprints </router-link>
-                </li>
-                <li class="breadcrumb-item active">Update Sprint</li>
-              </ol>
-            </div>
-            <!-- /.col -->
-          </div>
-          <!-- /.row -->
-        </div>
-        <!-- /.container-fluid -->
+    <div class="app-title">
+      <div>
+        <h1><i class="fa fa-dashboard"></i> Sprint Update Page</h1>
+        <p>Start a beautiful journey here</p>
       </div>
-      <!-- /.content-header -->
-
-      <!-- Main content -->
-      <div class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col">
-              <div class="card card-primary">
-                <div class="card-header d-flex">
-                  <h3 class="card-title">Update Sprint</h3>
-                </div>
-                <!-- /.card-header -->
-                <form
-                  @submit.prevent="UpdateSprint()"
-                  @keydown="form.onKeydown($event)"
-                >
-                  <div class="card-body row">
-                    <div class="col-md-6 col">
-                      <div class="form-group">
-                        <label for="Sprint_name">Name *</label>
-                        <input
-                          v-model="form.name"
-                          type="text"
-                          name="name"
-                          class="form-control"
-                          placeholder="Enter Name"
-                          :class="{
-                            'is-invalid': form.errors.has('name'),
-                          }"
-                        />
-                        <has-error :form="form" field="name"></has-error>
-                      </div>
-                    </div>
-                    <div class="col-md-6 col">
-                      <div class="form-group">
-                        <label for="Sprint_type">Type</label>
-                        <input
-                          v-model="form.type"
-                          type="text"
-                          name="type"
-                          class="form-control"
-                          id="Sprint_type"
-                          placeholder="Enter type"
-                          :class="{
-                            'is-invalid': form.errors.has('type'),
-                          }"
-                        />
-                        <has-error :form="form" field="type"></has-error>
-                      </div>
-                    </div>
-
-                    <div class="col-md-6 col">
-                      <div class="form-group">
-                        <label>Start Date</label>
-                        <div class="form-control">
-                          <VueDatePicker
-                            v-model="form.start_date"
-                            placeholder="Choose date"
-                            clearable
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6 col">
-                      <div class="form-group">
-                        <label>End Date</label>
-                        <div class="form-control">
-                          <VueDatePicker
-                            v-model="form.end_date"
-                            placeholder="Choose date"
-                            clearable
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="form-group">
-                        <label for="">Duration</label>
-                        <input
-                          v-model="form.duration"
-                          type="text"
-                          name=""
-                          id=""
-                          class="form-control"
-                          placeholder="Duration"
-                          aria-describedby="helpId"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="form-group">
-                        <label for="">Purposes</label>
-                        <input
-                          v-model="form.purposes"
-                          type="text"
-                          class="form-control"
-                          placeholder="Purposes"
-                          aria-describedby="helpId"
-                        />
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="form-group">
-                        <label for="">Description</label>
-                        <vue-editor v-model="form.description" />
-                      </div>
-                    </div>
-                  </div>
-                  <!-- /.card-body -->
-
-                  <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">
-                      Update Sprint
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-            <!-- /.col-md-6 -->
-          </div>
-          <!-- /.row -->
-        </div>
-        <!-- /.container-fluid -->
-      </div>
-      <!-- /.content -->
+      <ul class="app-breadcrumb breadcrumb">
+        <li class="breadcrumb-item">
+          <router-link :to="{ name: 'home' }">
+            <i class="fa fa-home" aria-hidden="true"></i>
+          </router-link>
+        </li>
+        <li class="breadcrumb-item">
+          <router-link :to="{ name: 'sprints' }"> Sprints </router-link>
+        </li>
+        <li class="breadcrumb-item active">Update Sprint</li>
+      </ul>
     </div>
-    <!-- /.content-wrapper -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="tile">
+          <h3 class="tile-title">Sprint Create</h3>
+          <div class="tile-body">
+            <form
+              @submit.prevent="UpdateSprint()"
+              @keydown="form.onKeydown($event)"
+            >
+              <div class="card-body row">
+                <div class="col-md-6 col">
+                  <div class="form-group">
+                    <label for="Sprint_name">Name *</label>
+                    <input
+                      v-model="form.name"
+                      type="text"
+                      name="name"
+                      class="form-control"
+                      placeholder="Enter Name"
+                      :class="{
+                        'is-invalid': form.errors.has('name'),
+                      }"
+                    />
+                    <has-error :form="form" field="name"></has-error>
+                  </div>
+                </div>
+                <div class="col-md-6 col">
+                  <div class="form-group">
+                    <label for="Sprint_type">Type</label>
+                    <input
+                      v-model="form.type"
+                      type="text"
+                      name="type"
+                      class="form-control"
+                      id="Sprint_type"
+                      placeholder="Enter type"
+                      :class="{
+                        'is-invalid': form.errors.has('type'),
+                      }"
+                    />
+                    <has-error :form="form" field="type"></has-error>
+                  </div>
+                </div>
+
+                <div class="col-md-6 col">
+                  <div class="form-group">
+                    <label>Start Date</label>
+                    <div class="form-control">
+                      <VueDatePicker
+                        v-model="form.start_date"
+                        placeholder="Choose date"
+                        clearable
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col">
+                  <div class="form-group">
+                    <label>End Date</label>
+                    <div class="form-control">
+                      <VueDatePicker
+                        v-model="form.end_date"
+                        placeholder="Choose date"
+                        clearable
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="">Duration</label>
+                    <input
+                      v-model="form.duration"
+                      type="text"
+                      name=""
+                      id=""
+                      class="form-control"
+                      placeholder="Duration"
+                      aria-describedby="helpId"
+                    />
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="">Purposes</label>
+                    <input
+                      v-model="form.purposes"
+                      type="text"
+                      class="form-control"
+                      placeholder="Purposes"
+                      aria-describedby="helpId"
+                    />
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label for="">Description</label>
+                    <vue-editor v-model="form.description" />
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+
+              <div class="tile-footer">
+                <button type="submit" class="btn btn-primary">
+                  Update Sprint
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>

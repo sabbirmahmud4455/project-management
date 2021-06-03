@@ -25,11 +25,11 @@
                        <router-link
                                     :to="{
                                         name: 'module_create',
-                                        
+
                                     }"
                                     class="btn btn-outline-success"
                                 >
-                                    
+
                                     Create New
                                 </router-link>
                         <table class="table table-hover table-bordered" id="sampleTable">
@@ -59,7 +59,7 @@
                     <td>
                         <router-link
                                     :to="{
-                                        name: 'user_profile',
+                                        name: 'module_view',
                                         params: { id: modul.id }
                                     }"
                                     class="btn btn-info btn-sm"
@@ -69,7 +69,7 @@
                                 </router-link>
                                 <router-link
                                     :to="{
-                                        name: 'user_update',
+                                        name: 'module_update',
                                         params: { id: modul.id }
                                     }"
                                     class="btn btn-info btn-sm"
@@ -82,7 +82,7 @@
                                     href="#delete_modal"
                                     data-toggle="modal"
                                     @click="
-                                        (delete_data.data = user),
+                                        (delete_data.id = modul.id),
                                             (delete_data.index = index)
                                     "
                                 >
@@ -101,39 +101,23 @@
             </div>
         </div>
         <!-- delete Modal HTML -->
-                        <div id="delete_modal" class="modal fade">
-                            <div class="modal-dialog modal-confirm">
-                                <div class="modal-content">
-                                    <div class="modal-header flex-column">
-                                        <div class="icon-box">
-                                            <i class="fas fa-trash-alt material-icons"></i>
-                                        </div>
-                                        <h4 class="modal-title w-100">Are you sure?</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>Do you really want to delete these records? This process cannot be undone.</p>
-                                    </div>
-                                    <div class="modal-footer justify-content-center">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                        <button type="button" class="btn btn-danger"  data-dismiss='modal' @click="moduleDelete(delete_data.data , delete_data.index)">Delete</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+         <dataDeleteModal :id="delete_data.id" :index="delete_data.index" :deleteFunction="moduleDelete"></dataDeleteModal>
+
     </div>
 
 
 
 </template>
 <script>
+import dataDeleteModal from "../../inc/delete_modal";
+
 export default {
   data() {
     return {
       all_modules: null,
       delete_data: {
-        data: [],
-        index: [],
+        id: null,
+        index: null,
       },
     };
   },
@@ -146,9 +130,9 @@ export default {
         }, 1000);
       });
     },
-    moduleDelete(data, index) {
-      axios.delete(`/api/module/${data.id}`).then((res) => {
-        this.all_modules.data.splice(index, 1);
+    moduleDelete(id, index) {
+      axios.delete(`/api/module/${id}`).then((res) => {
+        this.all_modules.splice(index, 1);
 
         this.$toast.success({
           title: "SUCCESS",
@@ -159,6 +143,9 @@ export default {
   },
   mounted() {
     this.getModule();
+  },
+  components: {
+    dataDeleteModal,
   },
 };
 </script>
