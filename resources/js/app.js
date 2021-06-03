@@ -42,7 +42,12 @@ import 'cxlt-vue2-toastr/dist/css/cxlt-vue2-toastr.css'
 
 
 //main app component
-Vue.component('app-main', require('./component/main.vue').default);
+if(window.Laravel.user.type=="Member"){
+    Vue.component('app-main', require('./component/user.vue').default);
+}
+else{
+    Vue.component('app-main', require('./component/main.vue').default);
+}
 
 //pagination component
 Vue.component('pagination', require('laravel-vue-pagination'));

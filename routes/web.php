@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,12 +16,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect('/home');
+    if(Auth::check()){
+        return redirect('/home');
+    }
+    else{
+        return redirect('/login');
+    }
+});
+Route::get('/logout', function () {
+    Auth::logout();
+    return redirect('/login');
 });
 Route::get('/login', function () {
+    
     return view('auth.login');
-});
-
+})->name('login');
+Route::post('login', [UserController::class, 'login']);
 Route::get('/{any}', function () {
     return view('main');
 })->where('any', '.*');

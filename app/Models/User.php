@@ -62,4 +62,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(Profile::class);
     }
+    public function sprintTasks(){
+        return $this->hasMany(SprintTask::class,'assigned_to');
+    }
+    public function tasks(){
+        return $this->belongsToMany(Task::class,SprintTask::class, 'assigned_to');
+    }
 }

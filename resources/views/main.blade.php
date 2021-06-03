@@ -44,7 +44,20 @@
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body class="app sidebar-mini rtl">
-
+    @if (Auth::check())
+    <script>
+        window.Laravel = {!!json_encode([
+               'isLoggedin' => true,
+               'user' => Auth::user()
+           ])!!}
+    </script>
+      @else
+          <script>
+              window.Laravel = {!!json_encode([
+                      'isLoggedin' => false
+                  ])!!}
+          </script>
+      @endif
 
     <div id="app">
         <app-main class="mb-4"></app-main>
