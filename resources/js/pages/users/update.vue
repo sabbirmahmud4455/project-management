@@ -1,20 +1,18 @@
 <template lang="">
     <div>
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Update User</h1>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item">
+
+
+
+        <div class="app-title">
+            <div>
+                <h1><i class="fa fa-dashboard"></i> Blank Page</h1>
+                <p>Start a beautiful journey here</p>
+            </div>
+            <ul class="app-breadcrumb breadcrumb">
+
+                <li class="breadcrumb-item">
                                     <router-link :to="{ name: 'home' }">
-                                        Home
+                                        <i class="fa fa-home fa-lg"></i>
                                     </router-link>
                                 </li>
                                 <li class="breadcrumb-item">
@@ -26,27 +24,26 @@
                                 <li class="breadcrumb-item active">
                                     User Update
                                 </li>
-                            </ol>
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                    <!-- /.row -->
-                </div>
-                <!-- /.container-fluid -->
-            </div>
-            <!-- /.content-header -->
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <h3 class="tile-title">Update User</h3>
+                    <div class="tile-body">
 
-            <!-- Main content -->
-            <div class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col">
-                            <div class="card card-primary">
-                                <div class="card-header d-flex">
-                                    <h3 class="card-title">Update User</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <form
+
+
+
+
+
+
+
+
+
+
+
+<form
                                     @submit.prevent="updateUser()"
                                     @keydown="form.onKeydown($event)"
                                 >
@@ -318,7 +315,7 @@
                                     </div>
                                     <!-- /.card-body -->
 
-                                    <div class="card-footer">
+                                    <div class="tile-footer">
                                         <button
                                             type="submit"
                                             class="btn btn-primary"
@@ -327,17 +324,24 @@
                                         </button>
                                     </div>
                                 </form>
-                            </div>
-                        </div>
-                        <!-- /.col-md-6 -->
+
+
+
+
                     </div>
-                    <!-- /.row -->
+
+
+
+
+
+
                 </div>
-                <!-- /.container-fluid -->
             </div>
-            <!-- /.content -->
         </div>
-        <!-- /.content-wrapper -->
+
+
+
+
     </div>
 </template>
 <script>

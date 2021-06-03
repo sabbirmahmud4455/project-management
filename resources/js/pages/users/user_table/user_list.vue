@@ -81,7 +81,6 @@ import dataDeleteModal from "../../../inc/delete_modal";
 export default {
   data() {
     return {
-      showFloatingButton: true,
       all_users: null,
       delete_data: {
         id: null,
@@ -91,7 +90,6 @@ export default {
   },
   methods: {
     getUser() {
-      this.showFloatingButton = true;
       axios.get("/api/user").then((response) => {
         this.all_users = response.data;
         setTimeout(function () {
