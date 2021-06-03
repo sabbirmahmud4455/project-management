@@ -71,15 +71,17 @@
         <!-- delete Modal HTML -->
         <dataDeleteModal :id="delete_data.id" :index="delete_data.index" :deleteFunction="userDelete"></dataDeleteModal>
 
+
+
     </div>
 </template>
 <script>
-
-import dataDeleteModal from '../../../inc/delete_modal'
+import dataDeleteModal from "../../../inc/delete_modal";
 
 export default {
   data() {
     return {
+      showFloatingButton: true,
       all_users: null,
       delete_data: {
         id: null,
@@ -89,6 +91,7 @@ export default {
   },
   methods: {
     getUser() {
+      this.showFloatingButton = true;
       axios.get("/api/user").then((response) => {
         this.all_users = response.data;
         setTimeout(function () {
@@ -98,7 +101,7 @@ export default {
     },
     userDelete(id, index) {
       axios.delete(`/api/user/${id}`).then((res) => {
-                $("#delete_modal").modal('hide');
+        $("#delete_modal").modal("hide");
 
         this.all_users.splice(index, 1);
 
@@ -112,8 +115,8 @@ export default {
   mounted() {
     this.getUser();
   },
-  components:{
-    dataDeleteModal
-  }
+  components: {
+    dataDeleteModal,
+  },
 };
 </script>

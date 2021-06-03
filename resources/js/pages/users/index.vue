@@ -33,12 +33,20 @@
             </div>
         </div>
 
+        <floatingButton></floatingButton>
 
     </div>
 </template>
 <script>
 import userList from "./user_table/user_list";
+import floatingButton from "../../inc/floating_button";
+
 export default {
+  data() {
+    return {
+      showFloatingButton: true,
+    };
+  },
   components: {
     userList,
   },
