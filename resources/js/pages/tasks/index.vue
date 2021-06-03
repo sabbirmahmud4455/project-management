@@ -22,7 +22,16 @@
                 <div class="tile">
                     <div class="tile-body">
 
-
+ <router-link
+                                    :to="{
+                                        name: 'task_create',
+                                        
+                                    }"
+                                    class="btn btn-outline-success"
+                                >
+                                    
+                                    Create New
+                                </router-link>
 <table class="table table-hover table-bordered" id="sampleTable">
                 <thead>
                   <tr>

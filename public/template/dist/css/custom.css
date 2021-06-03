@@ -1,3 +1,6 @@
+.content-wrapper{
+    margin-left: 0px !important;
+}
 .modal-confirm {		
 	color: #636363;
 	width: 400px;

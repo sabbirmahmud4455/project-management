@@ -29,7 +29,16 @@
                     <div class="tile-body">
 
 
-
+ <router-link
+                                    :to="{
+                                        name: 'project_create',
+                                        
+                                    }"
+                                    class="btn btn-outline-success"
+                                >
+                                    
+                                    Create New
+                                </router-link>
       <table class="table table-hover table-bordered" id="sampleTable">
                 <thead>
                   <tr>

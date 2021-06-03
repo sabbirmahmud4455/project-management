@@ -159,7 +159,7 @@
                                                                 v-model="
                                                                     form.email
                                                                 "
-                                                                type="text"
+                                                                type="email"
                                                                 class="form-control"
                                                                 name="email"
                                                                 placeholder="No Email Added"

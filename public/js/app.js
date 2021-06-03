@@ -3173,6 +3173,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4014,6 +4024,15 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inc_delete_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../inc/delete_modal */ "./resources/js/inc/delete_modal.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6136,6 +6155,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -6700,6 +6728,15 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inc_delete_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../inc/delete_modal */ "./resources/js/inc/delete_modal.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -43649,7 +43686,7 @@ var render = function() {
                                 staticClass: "form-control",
                                 attrs: {
                                   id: "email",
-                                  type: "text",
+                                  type: "email",
                                   name: "email",
                                   placeholder: "No Email Added"
                                 },
@@ -44747,124 +44784,148 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "tile" }, [
-          _c("div", { staticClass: "tile-body" }, [
-            _c(
-              "table",
-              {
-                staticClass: "table table-hover table-bordered",
-                attrs: { id: "sampleTable" }
-              },
-              [
-                _vm._m(1),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.all_modules, function(modul, index) {
-                    return _vm.all_modules
-                      ? _c("tr", { key: index }, [
-                          _c("td", [_vm._v(_vm._s(modul.name))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(modul.name))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(modul.title))]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c("span", [
-                              _vm._v(
-                                "\n                        " +
-                                  _vm._s(
-                                    modul.project ? modul.project.name : "N/A"
-                                  ) +
-                                  "\n                        "
-                              )
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              innerHTML: _vm._s(
-                                [
-                                  "<span class='badge badge-danger'>In Active</span>",
-                                  "<span class='badge badge-success'>Active</span>"
-                                ][modul.status]
-                              )
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            [
-                              _c(
-                                "router-link",
-                                {
-                                  staticClass: "btn btn-info btn-sm",
-                                  attrs: {
-                                    to: {
-                                      name: "user_profile",
-                                      params: { id: modul.id }
+          _c(
+            "div",
+            { staticClass: "tile-body" },
+            [
+              _c(
+                "router-link",
+                {
+                  staticClass: "btn btn-outline-success",
+                  attrs: {
+                    to: {
+                      name: "module_create"
+                    }
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n                                    \n                                    Create New\n                                "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "table",
+                {
+                  staticClass: "table table-hover table-bordered",
+                  attrs: { id: "sampleTable" }
+                },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.all_modules, function(modul, index) {
+                      return _vm.all_modules
+                        ? _c("tr", { key: index }, [
+                            _c("td", [_vm._v(_vm._s(modul.name))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(modul.name))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(modul.title))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c("span", [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(
+                                      modul.project ? modul.project.name : "N/A"
+                                    ) +
+                                    "\n                        "
+                                )
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                innerHTML: _vm._s(
+                                  [
+                                    "<span class='badge badge-danger'>In Active</span>",
+                                    "<span class='badge badge-success'>Active</span>"
+                                  ][modul.status]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    staticClass: "btn btn-info btn-sm",
+                                    attrs: {
+                                      to: {
+                                        name: "user_profile",
+                                        params: { id: modul.id }
+                                      }
                                     }
-                                  }
-                                },
-                                [
-                                  _c("i", { staticClass: "fas fa-folder" }),
-                                  _vm._v(
-                                    "\n                                    View\n                                "
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "router-link",
-                                {
-                                  staticClass: "btn btn-info btn-sm",
-                                  attrs: {
-                                    to: {
-                                      name: "user_update",
-                                      params: { id: modul.id }
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", { staticClass: "fas fa-pencil-alt" }),
-                                  _vm._v(
-                                    "\n                                    Edit\n                                "
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-danger btn-sm",
-                                  attrs: {
-                                    href: "#delete_modal",
-                                    "data-toggle": "modal"
                                   },
-                                  on: {
-                                    click: function($event) {
-                                      ;(_vm.delete_data.data = _vm.user),
-                                        (_vm.delete_data.index = index)
+                                  [
+                                    _c("i", { staticClass: "fas fa-folder" }),
+                                    _vm._v(
+                                      "\n                                    View\n                                "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "router-link",
+                                  {
+                                    staticClass: "btn btn-info btn-sm",
+                                    attrs: {
+                                      to: {
+                                        name: "user_update",
+                                        params: { id: modul.id }
+                                      }
                                     }
-                                  }
-                                },
-                                [
-                                  _c("i", { staticClass: "fas fa-trash" }),
-                                  _vm._v(
-                                    "\n                                    Delete\n                                "
-                                  )
-                                ]
-                              )
-                            ],
-                            1
-                          )
-                        ])
-                      : _vm._e()
-                  }),
-                  0
-                )
-              ]
-            )
-          ])
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "fas fa-pencil-alt"
+                                    }),
+                                    _vm._v(
+                                      "\n                                    Edit\n                                "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "btn btn-danger btn-sm",
+                                    attrs: {
+                                      href: "#delete_modal",
+                                      "data-toggle": "modal"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        ;(_vm.delete_data.data = _vm.user),
+                                          (_vm.delete_data.index = index)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", { staticClass: "fas fa-trash" }),
+                                    _vm._v(
+                                      "\n                                    Delete\n                                "
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
+                            )
+                          ])
+                        : _vm._e()
+                    }),
+                    0
+                  )
+                ]
+              )
+            ],
+            1
+          )
         ])
       ])
     ]),
@@ -46023,117 +46084,139 @@ var render = function() {
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-12" }, [
           _c("div", { staticClass: "tile" }, [
-            _c("div", { staticClass: "tile-body" }, [
-              _c(
-                "table",
-                {
-                  staticClass: "table table-hover table-bordered",
-                  attrs: { id: "sampleTable" }
-                },
-                [
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.all_projects, function(project, index) {
-                      return _vm.all_projects
-                        ? _c("tr", { key: index }, [
-                            _c("td", [_vm._v(_vm._s(project.name))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(project.type))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(project.start_date))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(project.end_date))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(
-                                "\n                        " +
-                                  _vm._s(project.status) +
-                                  "\n                    "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(project.development_cost))
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              [
-                                _c(
-                                  "router-link",
-                                  {
-                                    staticClass: "btn btn-info btn-sm",
-                                    attrs: {
-                                      to: {
-                                        name: "project_view",
-                                        params: { id: project.id }
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("i", { staticClass: "fas fa-folder" }),
-                                    _vm._v(
-                                      "\n                                                    View\n                                                "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "router-link",
-                                  {
-                                    staticClass: "btn btn-info btn-sm",
-                                    attrs: {
-                                      to: {
-                                        name: "project_update",
-                                        params: { id: project.id }
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("i", {
-                                      staticClass: "fas fa-pencil-alt"
-                                    }),
-                                    _vm._v(
-                                      "\n                                                    Edit\n                                                "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-danger btn-sm",
-                                    attrs: {
-                                      href: "#delete_modal",
-                                      "data-toggle": "modal"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        ;(_vm.delete_data.id = project.id),
-                                          (_vm.delete_data.index = index)
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("i", { staticClass: "fas fa-trash" }),
-                                    _vm._v(
-                                      "\n                                                    Delete\n                                                "
-                                    )
-                                  ]
+            _c(
+              "div",
+              { staticClass: "tile-body" },
+              [
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-outline-success",
+                    attrs: {
+                      to: {
+                        name: "project_create"
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                                    \n                                    Create New\n                                "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "table",
+                  {
+                    staticClass: "table table-hover table-bordered",
+                    attrs: { id: "sampleTable" }
+                  },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.all_projects, function(project, index) {
+                        return _vm.all_projects
+                          ? _c("tr", { key: index }, [
+                              _c("td", [_vm._v(_vm._s(project.name))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(project.type))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(project.start_date))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(project.end_date))]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(project.status) +
+                                    "\n                    "
                                 )
-                              ],
-                              1
-                            )
-                          ])
-                        : _vm._e()
-                    }),
-                    0
-                  )
-                ]
-              )
-            ])
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(_vm._s(project.development_cost))
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass: "btn btn-info btn-sm",
+                                      attrs: {
+                                        to: {
+                                          name: "project_view",
+                                          params: { id: project.id }
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", { staticClass: "fas fa-folder" }),
+                                      _vm._v(
+                                        "\n                                                    View\n                                                "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass: "btn btn-info btn-sm",
+                                      attrs: {
+                                        to: {
+                                          name: "project_update",
+                                          params: { id: project.id }
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-pencil-alt"
+                                      }),
+                                      _vm._v(
+                                        "\n                                                    Edit\n                                                "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-danger btn-sm",
+                                      attrs: {
+                                        href: "#delete_modal",
+                                        "data-toggle": "modal"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          ;(_vm.delete_data.id = project.id),
+                                            (_vm.delete_data.index = index)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", { staticClass: "fas fa-trash" }),
+                                      _vm._v(
+                                        "\n                                                    Delete\n                                                "
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            ])
+                          : _vm._e()
+                      }),
+                      0
+                    )
+                  ]
+                )
+              ],
+              1
+            )
           ])
         ])
       ]),
@@ -48677,111 +48760,133 @@ var render = function() {
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-12" }, [
           _c("div", { staticClass: "tile" }, [
-            _c("div", { staticClass: "tile-body" }, [
-              _c(
-                "table",
-                {
-                  staticClass: "table table-hover table-bordered",
-                  attrs: { id: "sampleTable" }
-                },
-                [
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.all_sprints, function(sprint, index) {
-                      return _vm.all_sprints
-                        ? _c("tr", { key: index }, [
-                            _c("td", [_vm._v(_vm._s(index + 1))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(sprint.name))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(sprint.type))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(sprint.start_date))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(sprint.end_date))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(sprint.status))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(sprint.purposes))]),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              [
-                                _c(
-                                  "router-link",
-                                  {
-                                    staticClass: "btn btn-info btn-sm",
-                                    attrs: {
-                                      to: {
-                                        name: "user_profile",
-                                        params: { id: sprint.id }
+            _c(
+              "div",
+              { staticClass: "tile-body" },
+              [
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-outline-success",
+                    attrs: {
+                      to: {
+                        name: "sprint_create"
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                                    \n                                    Create New\n                                "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "table",
+                  {
+                    staticClass: "table table-hover table-bordered",
+                    attrs: { id: "sampleTable" }
+                  },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.all_sprints, function(sprint, index) {
+                        return _vm.all_sprints
+                          ? _c("tr", { key: index }, [
+                              _c("td", [_vm._v(_vm._s(index + 1))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(sprint.name))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(sprint.type))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(sprint.start_date))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(sprint.end_date))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(sprint.status))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(sprint.purposes))]),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass: "btn btn-info btn-sm",
+                                      attrs: {
+                                        to: {
+                                          name: "user_profile",
+                                          params: { id: sprint.id }
+                                        }
                                       }
-                                    }
-                                  },
-                                  [
-                                    _c("i", { staticClass: "fas fa-folder" }),
-                                    _vm._v(
-                                      "\n                                    View\n                                "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "router-link",
-                                  {
-                                    staticClass: "btn btn-info btn-sm",
-                                    attrs: {
-                                      to: {
-                                        name: "user_update",
-                                        params: { id: sprint.id }
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("i", {
-                                      staticClass: "fas fa-pencil-alt"
-                                    }),
-                                    _vm._v(
-                                      "\n                                    Edit\n                                "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-danger btn-sm",
-                                    attrs: {
-                                      href: "#delete_modal",
-                                      "data-toggle": "modal"
                                     },
-                                    on: {
-                                      click: function($event) {
-                                        ;(_vm.delete_data.id = sprint.id),
-                                          (_vm.delete_data.index = index)
+                                    [
+                                      _c("i", { staticClass: "fas fa-folder" }),
+                                      _vm._v(
+                                        "\n                                    View\n                                "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass: "btn btn-info btn-sm",
+                                      attrs: {
+                                        to: {
+                                          name: "user_update",
+                                          params: { id: sprint.id }
+                                        }
                                       }
-                                    }
-                                  },
-                                  [
-                                    _c("i", { staticClass: "fas fa-trash" }),
-                                    _vm._v(
-                                      "\n                                    Delete\n                                "
-                                    )
-                                  ]
-                                )
-                              ],
-                              1
-                            )
-                          ])
-                        : _vm._e()
-                    }),
-                    0
-                  )
-                ]
-              )
-            ])
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-pencil-alt"
+                                      }),
+                                      _vm._v(
+                                        "\n                                    Edit\n                                "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-danger btn-sm",
+                                      attrs: {
+                                        href: "#delete_modal",
+                                        "data-toggle": "modal"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          ;(_vm.delete_data.id = sprint.id),
+                                            (_vm.delete_data.index = index)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", { staticClass: "fas fa-trash" }),
+                                      _vm._v(
+                                        "\n                                    Delete\n                                "
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            ])
+                          : _vm._e()
+                      }),
+                      0
+                    )
+                  ]
+                )
+              ],
+              1
+            )
           ])
         ])
       ]),
@@ -49788,120 +49893,142 @@ var render = function() {
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-12" }, [
           _c("div", { staticClass: "tile" }, [
-            _c("div", { staticClass: "tile-body" }, [
-              _c(
-                "table",
-                {
-                  staticClass: "table table-hover table-bordered",
-                  attrs: { id: "sampleTable" }
-                },
-                [
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.all_tasks, function(task, index) {
-                      return _vm.all_tasks
-                        ? _c("tr", { key: index }, [
-                            _c("td", [_vm._v(_vm._s(index + 1))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(task.name))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(
-                                "  " +
-                                  _vm._s(
-                                    task.project ? task.project.name : "N/A"
-                                  )
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(
-                                _vm._s(task.module ? task.module.name : "N/A")
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(task.type))]),
-                            _vm._v(" "),
-                            _vm._m(2, true),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              [
-                                _c(
-                                  "router-link",
-                                  {
-                                    staticClass: "btn btn-info btn-sm",
-                                    attrs: {
-                                      to: {
-                                        name: "user_profile",
-                                        params: { id: task.id }
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("i", { staticClass: "fas fa-folder" }),
-                                    _vm._v(
-                                      "\n                                    View\n                                "
+            _c(
+              "div",
+              { staticClass: "tile-body" },
+              [
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-outline-success",
+                    attrs: {
+                      to: {
+                        name: "task_create"
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                                    \n                                    Create New\n                                "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "table",
+                  {
+                    staticClass: "table table-hover table-bordered",
+                    attrs: { id: "sampleTable" }
+                  },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.all_tasks, function(task, index) {
+                        return _vm.all_tasks
+                          ? _c("tr", { key: index }, [
+                              _c("td", [_vm._v(_vm._s(index + 1))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(task.name))]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(
+                                  "  " +
+                                    _vm._s(
+                                      task.project ? task.project.name : "N/A"
                                     )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "router-link",
-                                  {
-                                    staticClass: "btn btn-info btn-sm",
-                                    attrs: {
-                                      to: {
-                                        name: "user_update",
-                                        params: { id: task.id }
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("i", {
-                                      staticClass: "fas fa-pencil-alt"
-                                    }),
-                                    _vm._v(
-                                      "\n                                    Edit\n                                "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-danger btn-sm",
-                                    attrs: {
-                                      href: "#delete_modal",
-                                      "data-toggle": "modal"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        ;(_vm.delete_data.id = task.id),
-                                          (_vm.delete_data.index = index)
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("i", { staticClass: "fas fa-trash" }),
-                                    _vm._v(
-                                      "\n                                    Delete\n                                "
-                                    )
-                                  ]
                                 )
-                              ],
-                              1
-                            )
-                          ])
-                        : _vm._e()
-                    }),
-                    0
-                  )
-                ]
-              )
-            ])
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(
+                                  _vm._s(task.module ? task.module.name : "N/A")
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(task.type))]),
+                              _vm._v(" "),
+                              _vm._m(2, true),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass: "btn btn-info btn-sm",
+                                      attrs: {
+                                        to: {
+                                          name: "user_profile",
+                                          params: { id: task.id }
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", { staticClass: "fas fa-folder" }),
+                                      _vm._v(
+                                        "\n                                    View\n                                "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass: "btn btn-info btn-sm",
+                                      attrs: {
+                                        to: {
+                                          name: "user_update",
+                                          params: { id: task.id }
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-pencil-alt"
+                                      }),
+                                      _vm._v(
+                                        "\n                                    Edit\n                                "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-danger btn-sm",
+                                      attrs: {
+                                        href: "#delete_modal",
+                                        "data-toggle": "modal"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          ;(_vm.delete_data.id = task.id),
+                                            (_vm.delete_data.index = index)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", { staticClass: "fas fa-trash" }),
+                                      _vm._v(
+                                        "\n                                    Delete\n                                "
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            ])
+                          : _vm._e()
+                      }),
+                      0
+                    )
+                  ]
+                )
+              ],
+              1
+            )
           ])
         ])
       ]),
