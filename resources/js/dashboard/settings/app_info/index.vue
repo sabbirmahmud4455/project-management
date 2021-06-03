@@ -417,3 +417,8 @@ export default {
     }
 };
 </script>
+<style scoped>
+.content-wrapper{
+    margin-left: 0px !important;
+}
+</style>

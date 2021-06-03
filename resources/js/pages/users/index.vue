@@ -32,14 +32,13 @@
 
             </div>
         </div>
-
-        <floatingButton></floatingButton>
+        
 
     </div>
 </template>
 <script>
+
 import userList from "./user_table/user_list";
-import floatingButton from "../../inc/floating_button";
 
 export default {
   data() {
@@ -50,6 +49,9 @@ export default {
   components: {
     userList,
   },
+  mounted(){
+      console.log("user list");
+  }
 };
 </script>
 <style lang=""></style>
