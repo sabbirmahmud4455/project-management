@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\app_info;
 use App\Models\User;
+use App\Models\Profile;
+use App\Models\app_info;
 use App\Models\UserRole;
 use Illuminate\Database\Seeder;
 
@@ -24,6 +25,10 @@ class DatabaseSeeder extends Seeder
             'status' => 1,
             'password' => bcrypt($passSystem),
             //'remember_token' => str_random(10),
+        ]);
+        
+        $user_profile= Profile::create([
+            "user_id"=> $userSystem->id
         ]);
 
         $user_role = UserRole::create([

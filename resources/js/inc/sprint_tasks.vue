@@ -23,7 +23,7 @@
                     class="form-check-input"
                     :name="'priority' + task.id"
                     v-model="form.priority"
-                    value="low"
+                    value="Low"
                   />
                   low
                 </label>
@@ -89,7 +89,7 @@ export default {
         sprintID: this.sprint,
         taskId: this.task.id,
         asigneTo: null,
-        priority: null,
+        priority: 'Low',
         selectTasks: null,
       },
     };

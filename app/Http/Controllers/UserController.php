@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Profile;
 use Carbon\Carbon;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Profile;
 use App\Models\UserRole;
 use App\Models\UserType;
-use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
+use GuzzleHttp\Promise\Create;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -80,6 +80,9 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+
+        
+
         if ($request->types) {
             foreach ($request->types as $key => $type) {
 
@@ -99,6 +102,12 @@ class UserController extends Controller
                 ]);
             }
         }
+
+        
+        Profile::insert([
+            'user_id' => $user->id,
+            'created_at'=>Carbon::now()
+        ]);
 
 
 
@@ -208,7 +217,12 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $user_profile= Profile::where('user_id', $user->id)->first();
+        
         if ($user) {
+            if ($user_profile) {
+                $user_profile->delete();
+            }
             $user->delete();
             return response()->json('Delete Successfully');
         }
@@ -257,7 +271,7 @@ class UserController extends Controller
             $success = true;
             $message = 'User login successfully';
 
-            return redirect('/user');
+            return redirect('/home');
 
         } else {
             return back()->with([

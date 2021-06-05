@@ -4,7 +4,7 @@
 <div>
         <div class="app-title">
             <div>
-                <h1><i class="fa fa-dashboard"></i> Modules Page</h1>
+                <h1><i class="fa fa-dashboard"></i> Modules</h1>
                 <p>Start a beautiful journey here</p>
             </div>
             <ul class="app-breadcrumb breadcrumb">

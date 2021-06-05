@@ -84,7 +84,8 @@
                           <div class="card">
                             <div class="card-header d-flex">
                               <h5>Tasks List</h5>
-                              <button class="ml-auto btn-primary">
+                                  
+                              <button type="button" class="ml-auto btn-primary" data-toggle="modal" data-target="#create_task_with_sprint">
                                 Carate Task
                               </button>
                             </div>
@@ -181,6 +182,109 @@
       <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="create_task_with_sprint" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label for="task_name">Task Name</label>
+                <input type="text" name="" v-model="newTask.task_name" id="task_name" class="form-control" placeholder="Enter Task Name" aria-describedby="helpId">
+                <small id="helpId" class="text-muted">Help text</small>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="assigned_to">Assigned To</label>
+                <select class="form-control" v-model="newTask.assigned_to" id="assigned_to">
+                  <option :value="null">Assigned</option>
+                  <option v-if="allUsers" v-for="(user, index) in allUsers" :key="index" :value="user.id">{{user.name}}</option>
+                  
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6 col">
+              <div class="form-group">
+          <label for="">Priority</label>
+          <div class="d-flex">
+            <span class="mx-2">
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input
+                    type="radio"
+                    class="form-check-input"
+                    name="priority"
+                    v-model="newTask.priority"
+                    value="Low"
+                  />
+                  low
+                </label>
+              </div>
+            </span>
+            <span class="mx-2">
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input
+                    type="radio"
+                    class="form-check-input"
+                    name="priority"
+                    v-model="newTask.priority"
+                    value="Medium"
+                  />
+                  Medium
+                </label>
+              </div>
+            </span>
+            <span class="mx-2">
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input
+                    type="radio"
+                    class="form-check-input"
+                    name="priority"
+                    v-model="newTask.priority"
+                    value="High"
+                  />
+                  High
+                </label>
+              </div>
+            </span>
+          </div>
+        </div>
+            </div>
+           
+          </div>
+
+            
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" @click="createTaskWithSprint()">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
   </div>
 </template>
 <script>
@@ -199,10 +303,25 @@ export default {
       projectID:null,
       moduleId:null,
       existingId:[],
+      newTask:{
+        sprint_id: this.$route.params.id,
+        task_name:null,
+        priority:null,
+        assigned_to:null,
+        status:null,
+      }
 
     };
   },
   methods: {
+    createTaskWithSprint(){
+      axios.put('/api/task_sprint', this.newTask).then(res=>{
+        this.$toast.success({
+            title: "SUCCESS",
+            message: "Task And Sprint-Task Created Successfully",
+          });
+      })
+    },
     getExistingTasksId(){
       axios.get(`/api/sprint/${this.$route.params.id}`).then((response) => {
           this.existingId=response.data.sprint_task.map(task=>task.task_id);

@@ -2,7 +2,7 @@
   <div>
     <div class="app-title">
       <div>
-        <h1><i class="fa fa-dashboard"></i> Sprint Details Page</h1>
+        <h1><i class="fa fa-dashboard"></i> Sprint Details</h1>
         <p>Start a beautiful journey here</p>
       </div>
       <ul class="app-breadcrumb breadcrumb">
@@ -102,23 +102,21 @@
                             sprint_task.user.name
                           }}</span>
                         </p>
+                        <p>
+                          <strong>Status :</strong>
+                          <span v-if="sprint_task.status">{{
+                            sprint_task.status
+                          }}</span>
+                        </p>
                       </div>
 
                       <div class="ml-auto d-flex align-items-center">
-                        <ul>
+                        <ul class="" style="list-style: none;">
+                         
                           <li>
-                            <button class="btn btn-primary">Status</button>
-                          </li>
-                          <li>
-                            <!-- Button trigger modal -->
-                            <button
-                              type="button"
-                              class="btn btn-success"
-                              data-toggle="modal"
-                              data-target="#sprint_task_update"
-                            >
-                              <i class="fas fa-pencil-alt"></i>
-                            </button>
+                              <button type="button" class="btn btn-primary" @click="edit_sprint_task(sprint_task.id)">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                              </button>
                           </li>
                           <li>
                             <button
@@ -139,6 +137,112 @@
         </div>
       </div>
     </div>
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="edit_sprint_task" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Sprint Task Update</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="assigned_to">Assigned To</label>
+                <select class="form-control" v-model="sprint_task_edit.assigned_to" id="assigned_to">
+                  <option :value="null">Assigned</option>
+                  <option v-if="allUsers" v-for="(user, index) in allUsers" :key="index" :value="user.id">{{user.name}}</option>
+                  
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6 col">
+              <div class="form-group">
+          <label for="">Priority</label>
+          <div class="d-flex">
+            <span class="mx-2">
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input
+                    type="radio"
+                    class="form-check-input"
+                    name="priority"
+                    v-model="sprint_task_edit.priority"
+                    value="Low"
+                  />
+                  low
+                </label>
+              </div>
+            </span>
+            <span class="mx-2">
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input
+                    type="radio"
+                    class="form-check-input"
+                    name="priority"
+                    v-model="sprint_task_edit.priority"
+                    value="Medium"
+                  />
+                  Medium
+                </label>
+              </div>
+            </span>
+            <span class="mx-2">
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input
+                    type="radio"
+                    class="form-check-input"
+                    name="priority"
+                    v-model="sprint_task_edit.priority"
+                    value="High"
+                  />
+                  High
+                </label>
+              </div>
+            </span>
+          </div>
+        </div>
+            </div>
+            <div class="col-md-6 col">
+              <div class="form-group">
+                <label for="status">Status</label>
+                <select class="form-control" v-model="sprint_task_edit.status" name="" id="status">
+                  <option :value="null">Status</option>
+                  <option value="New">New</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Resolved">Resolved</option>
+                  <option class="Closed">Closed</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+            
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" @click="updateSprintTask()">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
   </div>
 </template>
 <script>
@@ -147,6 +251,13 @@ export default {
     return {
       tasks: [],
       sprintID: this.$route.params.id,
+
+      sprint_task_edit:{
+        id:null,
+        priority:null,
+        assigned_to:null,
+        status:null,
+      },
 
       allUsers: null,
       allProject: null,
@@ -161,6 +272,25 @@ export default {
     };
   },
   methods: {
+    edit_sprint_task(id){
+      axios.get(`/api/sprint/sprint-task/${id}/edit`).then(res=>{
+        $('#edit_sprint_task').modal('show');
+        this.sprint_task_edit.id=res.data.id;
+        this.sprint_task_edit.priority=res.data.priority;
+        this.sprint_task_edit.assigned_to=res.data.assigned_to;
+        this.sprint_task_edit.status=res.data.status;
+      })
+    },
+    updateSprintTask(){
+
+      axios.put(`/api/sprint/sprint-task/${this.sprint_task_edit.id}`,this.sprint_task_edit).then(res=>{
+        this.$toast.success({
+          title: "SUCCESS",
+          message: "Sprint-Task Updated Successfully",
+        });
+        this.getSprint();
+      })
+    },
     delete_sprint_task(id, index) {
       console.log(id);
       axios.delete(`/api/sprint/sprint-task/${id}`).then((res) => {
@@ -170,6 +300,11 @@ export default {
           message: "Sprint-Task Delete Successfully",
         });
       });
+    },
+    getUsers(){
+      axios.get("/api/user").then(res=>{
+        this.allUsers=res.data
+      })
     },
     getSprint() {
       axios.get(`/api/sprint/${this.sprintID}`).then((response) => {
@@ -188,6 +323,7 @@ export default {
   },
   mounted() {
     this.getSprint();
+    this.getUsers();
   },
 };
 </script>

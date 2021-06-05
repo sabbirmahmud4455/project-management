@@ -2931,7 +2931,7 @@ __webpack_require__.r(__webpack_exports__);
         sprintID: this.sprint,
         taskId: this.task.id,
         asigneTo: null,
-        priority: null,
+        priority: 'Low',
         selectTasks: null
       }
     };
@@ -5544,6 +5544,110 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -5558,15 +5662,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       task_category: null,
       projectID: null,
       moduleId: null,
-      existingId: []
+      existingId: [],
+      newTask: {
+        sprint_id: this.$route.params.id,
+        task_name: null,
+        priority: null,
+        assigned_to: null,
+        status: null
+      }
     };
   },
   methods: {
-    getExistingTasksId: function getExistingTasksId() {
+    createTaskWithSprint: function createTaskWithSprint() {
       var _this = this;
 
+      axios.put('/api/task_sprint', this.newTask).then(function (res) {
+        _this.$toast.success({
+          title: "SUCCESS",
+          message: "Task And Sprint-Task Created Successfully"
+        });
+      });
+    },
+    getExistingTasksId: function getExistingTasksId() {
+      var _this2 = this;
+
       axios.get("/api/sprint/".concat(this.$route.params.id)).then(function (response) {
-        _this.existingId = response.data.sprint_task.map(function (task) {
+        _this2.existingId = response.data.sprint_task.map(function (task) {
           return task.task_id;
         });
       });
@@ -5578,41 +5699,41 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     updateSprintTask: function updateSprintTask() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.post("/api/sprint/sprint-task", {
         selectedTask: this.finalSelectedTask
       }).then(function (res) {
-        _this2.$toast.success({
+        _this3.$toast.success({
           title: "SUCCESS",
           message: "Sprint-Task Updated Successfully"
         });
       });
     },
     getProjectModule: function getProjectModule(id) {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get("/api/product_modules/".concat(id)).then(function (response) {
-        _this3.projectModules = response.data;
+        _this4.projectModules = response.data;
       });
     },
     getUsers: function getUsers() {
-      var _this4 = this;
+      var _this5 = this;
 
       axios.get("/api/all_users").then(function (res) {
-        _this4.allUsers = res.data;
+        _this5.allUsers = res.data;
       });
     },
     getIndependentTask: function getIndependentTask() {
-      var _this5 = this;
+      var _this6 = this;
 
       this.tasks = [];
       this.finalSelectedTask = [];
       axios.get("/api/tasks/independent-task").then(function (res) {
-        _this5.tasks = res.data.filter(function (task) {
-          return !_this5.existingId.includes(task.id);
+        _this6.tasks = res.data.filter(function (task) {
+          return !_this6.existingId.includes(task.id);
         });
-        _this5.allTasks = _this5.tasks.map(function (task) {
+        _this6.allTasks = _this6.tasks.map(function (task) {
           return _objectSpread(_objectSpread({}, task), {}, {
             selectTasks: false
           });
@@ -5620,37 +5741,37 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     getProject: function getProject() {
-      var _this6 = this;
+      var _this7 = this;
 
       axios.get("/api/all_projects").then(function (res) {
-        _this6.allProject = res.data;
+        _this7.allProject = res.data;
       });
     },
     getProjectTask: function getProjectTask() {
-      var _this7 = this;
+      var _this8 = this;
 
       this.finalSelectedTask = [];
       this.getProjectModule(this.projectID);
       this.selectTask = [];
       axios.get("/api/project/task/w/".concat(this.projectID)).then(function (res) {
-        _this7.tasks = res.data.filter(function (task) {
-          return !_this7.existingId.includes(task.id);
+        _this8.tasks = res.data.filter(function (task) {
+          return !_this8.existingId.includes(task.id);
         });
       });
       this.selectTask = [];
       axios.get("/api/project/task/w/".concat(this.projectID)).then(function (res) {
-        _this7.tasks = res.data.filter(function (task) {
-          return !_this7.existingId.includes(task.id);
+        _this8.tasks = res.data.filter(function (task) {
+          return !_this8.existingId.includes(task.id);
         });
       });
     },
     getModuleTask: function getModuleTask() {
-      var _this8 = this;
+      var _this9 = this;
 
       this.finalSelectedTask = [];
       axios.get("/api/module/task/w/".concat(this.moduleId)).then(function (res) {
-        _this8.tasks = res.data.filter(function (task) {
-          return !_this8.existingId.includes(task.id);
+        _this9.tasks = res.data.filter(function (task) {
+          return !_this9.existingId.includes(task.id);
         });
       });
     }
@@ -6022,11 +6143,121 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       tasks: [],
       sprintID: this.$route.params.id,
+      sprint_task_edit: {
+        id: null,
+        priority: null,
+        assigned_to: null,
+        status: null
+      },
       allUsers: null,
       allProject: null,
       SprintTask: null,
@@ -6040,39 +6271,70 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    delete_sprint_task: function delete_sprint_task(id, index) {
+    edit_sprint_task: function edit_sprint_task(id) {
       var _this = this;
+
+      axios.get("/api/sprint/sprint-task/".concat(id, "/edit")).then(function (res) {
+        $('#edit_sprint_task').modal('show');
+        _this.sprint_task_edit.id = res.data.id;
+        _this.sprint_task_edit.priority = res.data.priority;
+        _this.sprint_task_edit.assigned_to = res.data.assigned_to;
+        _this.sprint_task_edit.status = res.data.status;
+      });
+    },
+    updateSprintTask: function updateSprintTask() {
+      var _this2 = this;
+
+      axios.put("/api/sprint/sprint-task/".concat(this.sprint_task_edit.id), this.sprint_task_edit).then(function (res) {
+        _this2.$toast.success({
+          title: "SUCCESS",
+          message: "Sprint-Task Updated Successfully"
+        });
+
+        _this2.getSprint();
+      });
+    },
+    delete_sprint_task: function delete_sprint_task(id, index) {
+      var _this3 = this;
 
       console.log(id);
       axios["delete"]("/api/sprint/sprint-task/".concat(id)).then(function (res) {
-        _this.SprintTask.splice(index, 1);
+        _this3.SprintTask.splice(index, 1);
 
-        _this.$toast.success({
+        _this3.$toast.success({
           title: "SUCCESS",
           message: "Sprint-Task Delete Successfully"
         });
       });
     },
+    getUsers: function getUsers() {
+      var _this4 = this;
+
+      axios.get("/api/user").then(function (res) {
+        _this4.allUsers = res.data;
+      });
+    },
     getSprint: function getSprint() {
-      var _this2 = this;
+      var _this5 = this;
 
       axios.get("/api/sprint/".concat(this.sprintID)).then(function (response) {
-        _this2.name = response.data.name;
-        _this2.type = response.data.type;
-        _this2.start_date = response.data.start_date;
-        _this2.end_date = response.data.end_date;
-        _this2.purposes = response.data.purposes;
-        _this2.description = response.data.description;
-        _this2.status = response.data.status;
+        _this5.name = response.data.name;
+        _this5.type = response.data.type;
+        _this5.start_date = response.data.start_date;
+        _this5.end_date = response.data.end_date;
+        _this5.purposes = response.data.purposes;
+        _this5.description = response.data.description;
+        _this5.status = response.data.status;
 
         if (response.data.sprint_task.length) {
-          _this2.SprintTask = response.data.sprint_task;
+          _this5.SprintTask = response.data.sprint_task;
         }
       });
     }
   },
   mounted: function mounted() {
     this.getSprint();
+    this.getUsers();
   }
 });
 
@@ -8819,6 +9081,36 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _user_setting__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user_setting */ "./resources/js/pages/users/view/user_setting.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -44776,12 +45068,12 @@ var render = function() {
                         attrs: {
                           type: "radio",
                           name: "priority" + _vm.task.id,
-                          value: "low"
+                          value: "Low"
                         },
-                        domProps: { checked: _vm._q(_vm.form.priority, "low") },
+                        domProps: { checked: _vm._q(_vm.form.priority, "Low") },
                         on: {
                           change: function($event) {
-                            return _vm.$set(_vm.form, "priority", "low")
+                            return _vm.$set(_vm.form, "priority", "Low")
                           }
                         }
                       }),
@@ -45045,7 +45337,7 @@ var staticRenderFns = [
         _c("div", [
           _c("h1", [
             _c("i", { staticClass: "fa fa-dashboard" }),
-            _vm._v(" Blank Page")
+            _vm._v(" Dashboard")
           ]),
           _vm._v(" "),
           _c("p", [_vm._v("Start a beautiful journey here")])
@@ -45054,10 +45346,6 @@ var staticRenderFns = [
         _c("ul", { staticClass: "app-breadcrumb breadcrumb" }, [
           _c("li", { staticClass: "breadcrumb-item" }, [
             _c("i", { staticClass: "fa fa-home fa-lg" })
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "breadcrumb-item" }, [
-            _c("a", { attrs: { href: "#" } }, [_vm._v("Blank Page")])
           ])
         ])
       ]),
@@ -45375,7 +45663,7 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("li", { staticClass: "breadcrumb-item active" }, [
-            _vm._v("\n                    Modules\n                ")
+            _vm._v("\r\n                    Modules\r\n                ")
           ])
         ])
       ]),
@@ -45399,7 +45687,7 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n\n                                    Create New\n                                "
+                      "\r\n\r\n                                    Create New\r\n                                "
                     )
                   ]
                 ),
@@ -45427,13 +45715,13 @@ var render = function() {
                               _c("td", [
                                 _c("span", [
                                   _vm._v(
-                                    "\n                        " +
+                                    "\r\n                        " +
                                       _vm._s(
                                         modul.project
                                           ? modul.project.name
                                           : "N/A"
                                       ) +
-                                      "\n                        "
+                                      "\r\n                        "
                                   )
                                 ])
                               ]),
@@ -45466,7 +45754,7 @@ var render = function() {
                                     [
                                       _c("i", { staticClass: "fas fa-folder" }),
                                       _vm._v(
-                                        "\n                                    View\n                                "
+                                        "\r\n                                    View\r\n                                "
                                       )
                                     ]
                                   ),
@@ -45487,7 +45775,7 @@ var render = function() {
                                         staticClass: "fas fa-pencil-alt"
                                       }),
                                       _vm._v(
-                                        "\n                                    Edit\n                                "
+                                        "\r\n                                    Edit\r\n                                "
                                       )
                                     ]
                                   ),
@@ -45510,7 +45798,7 @@ var render = function() {
                                     [
                                       _c("i", { staticClass: "fas fa-trash" }),
                                       _vm._v(
-                                        "\n                                    Delete\n                                "
+                                        "\r\n                                    Delete\r\n                                "
                                       )
                                     ]
                                   )
@@ -45550,7 +45838,7 @@ var staticRenderFns = [
     return _c("div", [
       _c("h1", [
         _c("i", { staticClass: "fa fa-dashboard" }),
-        _vm._v(" Modules Page")
+        _vm._v(" Modules")
       ]),
       _vm._v(" "),
       _c("p", [_vm._v("Start a beautiful journey here")])
@@ -45819,7 +46107,7 @@ var staticRenderFns = [
     return _c("div", [
       _c("h1", [
         _c("i", { staticClass: "fa fa-dashboard" }),
-        _vm._v(" Update Module Page")
+        _vm._v(" Update Module")
       ]),
       _vm._v(" "),
       _c("p", [_vm._v("Start a beautiful journey here")])
@@ -46502,7 +46790,7 @@ var staticRenderFns = [
     return _c("div", [
       _c("h1", [
         _c("i", { staticClass: "fa fa-dashboard" }),
-        _vm._v(" Project Create Page")
+        _vm._v(" Project Create")
       ]),
       _vm._v(" "),
       _c("p", [_vm._v("Start a beautiful journey here")])
@@ -46729,7 +47017,7 @@ var staticRenderFns = [
     return _c("div", [
       _c("h1", [
         _c("i", { staticClass: "fa fa-dashboard" }),
-        _vm._v("projects")
+        _vm._v("Projects")
       ]),
       _vm._v(" "),
       _c("p", [_vm._v("Start a beautiful journey here")])
@@ -47129,7 +47417,7 @@ var staticRenderFns = [
     return _c("div", [
       _c("h1", [
         _c("i", { staticClass: "fa fa-dashboard" }),
-        _vm._v(" Blank Page")
+        _vm._v(" Project Update")
       ]),
       _vm._v(" "),
       _c("p", [_vm._v("Start a beautiful journey here")])
@@ -48030,7 +48318,7 @@ var render = function() {
                                       }
                                     }),
                                     _vm._v(
-                                      "\n                                independent Task\n                              "
+                                      "\n                                  independent Task\n                                "
                                     )
                                   ]
                                 )
@@ -48081,7 +48369,7 @@ var render = function() {
                                       }
                                     }),
                                     _vm._v(
-                                      "\n                                Prject/Module Task\n                              "
+                                      "\n                                  Prject/Module Task\n                                "
                                     )
                                   ]
                                 )
@@ -48157,7 +48445,7 @@ var render = function() {
                                       },
                                       [
                                         _vm._v(
-                                          "\n                              Select Project\n                            "
+                                          "\n                                Select Project\n                              "
                                         )
                                       ]
                                     ),
@@ -48174,9 +48462,9 @@ var render = function() {
                                         },
                                         [
                                           _vm._v(
-                                            "\n                              " +
+                                            "\n                                " +
                                               _vm._s(project.name) +
-                                              "\n                            "
+                                              "\n                              "
                                           )
                                         ]
                                       )
@@ -48259,9 +48547,9 @@ var render = function() {
                                             },
                                             [
                                               _vm._v(
-                                                "\n                              " +
+                                                "\n                                " +
                                                   _vm._s(projectModule.name) +
-                                                  "\n                            "
+                                                  "\n                              "
                                               )
                                             ]
                                           )
@@ -48322,7 +48610,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("\n                  Update\n                ")]
+                    [_vm._v("\n                    Update\n                  ")]
                   )
                 ])
               ])
@@ -48330,7 +48618,307 @@ var render = function() {
           ])
         ])
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "create_task_with_sprint",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalCenterTitle",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("form", { attrs: { action: "" } }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-12" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "task_name" } }, [
+                          _vm._v("Task Name")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.newTask.task_name,
+                              expression: "newTask.task_name"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            name: "",
+                            id: "task_name",
+                            placeholder: "Enter Task Name",
+                            "aria-describedby": "helpId"
+                          },
+                          domProps: { value: _vm.newTask.task_name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.newTask,
+                                "task_name",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "small",
+                          {
+                            staticClass: "text-muted",
+                            attrs: { id: "helpId" }
+                          },
+                          [_vm._v("Help text")]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "assigned_to" } }, [
+                          _vm._v("Assigned To")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.newTask.assigned_to,
+                                expression: "newTask.assigned_to"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { id: "assigned_to" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.newTask,
+                                  "assigned_to",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("option", { domProps: { value: null } }, [
+                              _vm._v("Assigned")
+                            ]),
+                            _vm._v(" "),
+                            _vm._l(_vm.allUsers, function(user, index) {
+                              return _vm.allUsers
+                                ? _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: user.id }
+                                    },
+                                    [_vm._v(_vm._s(user.name))]
+                                  )
+                                : _vm._e()
+                            })
+                          ],
+                          2
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6 col" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Priority")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "d-flex" }, [
+                          _c("span", { staticClass: "mx-2" }, [
+                            _c("div", { staticClass: "form-check" }, [
+                              _c("label", { staticClass: "form-check-label" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.newTask.priority,
+                                      expression: "newTask.priority"
+                                    }
+                                  ],
+                                  staticClass: "form-check-input",
+                                  attrs: {
+                                    type: "radio",
+                                    name: "priority",
+                                    value: "Low"
+                                  },
+                                  domProps: {
+                                    checked: _vm._q(_vm.newTask.priority, "Low")
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      return _vm.$set(
+                                        _vm.newTask,
+                                        "priority",
+                                        "Low"
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(
+                                  "\n                  low\n                "
+                                )
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "mx-2" }, [
+                            _c("div", { staticClass: "form-check" }, [
+                              _c("label", { staticClass: "form-check-label" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.newTask.priority,
+                                      expression: "newTask.priority"
+                                    }
+                                  ],
+                                  staticClass: "form-check-input",
+                                  attrs: {
+                                    type: "radio",
+                                    name: "priority",
+                                    value: "Medium"
+                                  },
+                                  domProps: {
+                                    checked: _vm._q(
+                                      _vm.newTask.priority,
+                                      "Medium"
+                                    )
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      return _vm.$set(
+                                        _vm.newTask,
+                                        "priority",
+                                        "Medium"
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(
+                                  "\n                  Medium\n                "
+                                )
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "mx-2" }, [
+                            _c("div", { staticClass: "form-check" }, [
+                              _c("label", { staticClass: "form-check-label" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.newTask.priority,
+                                      expression: "newTask.priority"
+                                    }
+                                  ],
+                                  staticClass: "form-check-input",
+                                  attrs: {
+                                    type: "radio",
+                                    name: "priority",
+                                    value: "High"
+                                  },
+                                  domProps: {
+                                    checked: _vm._q(
+                                      _vm.newTask.priority,
+                                      "High"
+                                    )
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      return _vm.$set(
+                                        _vm.newTask,
+                                        "priority",
+                                        "High"
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(
+                                  "\n                  High\n                "
+                                )
+                              ])
+                            ])
+                          ])
+                        ])
+                      ])
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Close")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.createTaskWithSprint()
+                      }
+                    }
+                  },
+                  [_vm._v("Create")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -48366,12 +48954,48 @@ var staticRenderFns = [
       _c("div", { staticClass: "card-header d-flex" }, [
         _c("h5", [_vm._v("Tasks List")]),
         _vm._v(" "),
-        _c("button", { staticClass: "ml-auto btn-primary" }, [
-          _vm._v(
-            "\n                              Carate Task\n                            "
-          )
-        ])
+        _c(
+          "button",
+          {
+            staticClass: "ml-auto btn-primary",
+            attrs: {
+              type: "button",
+              "data-toggle": "modal",
+              "data-target": "#create_task_with_sprint"
+            }
+          },
+          [
+            _vm._v(
+              "\n                                Carate Task\n                              "
+            )
+          ]
+        )
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLongTitle" } },
+        [_vm._v("Modal title")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
     ])
   }
 ]
@@ -48707,7 +49331,7 @@ var staticRenderFns = [
     return _c("div", [
       _c("h1", [
         _c("i", { staticClass: "fa fa-dashboard" }),
-        _vm._v(" Create Sprint Page")
+        _vm._v(" Create Sprint")
       ]),
       _vm._v(" "),
       _c("p", [_vm._v("Start a beautiful journey here")])
@@ -48829,7 +49453,7 @@ var render = function() {
                       _vm.end_date
                         ? _c("span", { staticClass: "float-right" }, [
                             _vm._v(
-                              "\n                    " + _vm._s(_vm.end_date)
+                              "\n                      " + _vm._s(_vm.end_date)
                             )
                           ])
                         : _vm._e()
@@ -48841,7 +49465,7 @@ var render = function() {
                       _vm.purposes
                         ? _c("span", { staticClass: "float-right" }, [
                             _vm._v(
-                              "\n                    " + _vm._s(_vm.purposes)
+                              "\n                      " + _vm._s(_vm.purposes)
                             )
                           ])
                         : _vm._e()
@@ -48911,9 +49535,9 @@ var render = function() {
                               _c("h6", { staticClass: "card-title" }, [
                                 _c("strong", [_vm._v("Task Name :")]),
                                 _vm._v(
-                                  "\n                        " +
+                                  "\n                          " +
                                     _vm._s(sprint_task.task.name) +
-                                    "\n                      "
+                                    "\n                        "
                                 )
                               ]),
                               _vm._v(" "),
@@ -48922,9 +49546,9 @@ var render = function() {
                               _c("p", [
                                 _c("strong", [_vm._v("Priority :")]),
                                 _vm._v(
-                                  "\n                        " +
+                                  "\n                          " +
                                     _vm._s(sprint_task.priority) +
-                                    "\n                      "
+                                    "\n                        "
                                 )
                               ]),
                               _vm._v(" "),
@@ -48936,6 +49560,16 @@ var render = function() {
                                       _vm._v(_vm._s(sprint_task.user.name))
                                     ])
                                   : _vm._e()
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [
+                                _c("strong", [_vm._v("Status :")]),
+                                _vm._v(" "),
+                                sprint_task.status
+                                  ? _c("span", [
+                                      _vm._v(_vm._s(sprint_task.status))
+                                    ])
+                                  : _vm._e()
                               ])
                             ]),
                             _vm._v(" "),
@@ -48945,33 +49579,56 @@ var render = function() {
                                 staticClass: "ml-auto d-flex align-items-center"
                               },
                               [
-                                _c("ul", [
-                                  _vm._m(1, true),
-                                  _vm._v(" "),
-                                  _vm._m(2, true),
-                                  _vm._v(" "),
-                                  _c("li", [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass: "btn btn-danger",
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.delete_sprint_task(
-                                              sprint_task.id,
-                                              index
-                                            )
+                                _c(
+                                  "ul",
+                                  { staticStyle: { "list-style": "none" } },
+                                  [
+                                    _c("li", [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass: "btn btn-primary",
+                                          attrs: { type: "button" },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.edit_sprint_task(
+                                                sprint_task.id
+                                              )
+                                            }
                                           }
-                                        }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "fas fa-trash-alt"
-                                        })
-                                      ]
-                                    )
-                                  ])
-                                ])
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fa fa-pencil",
+                                            attrs: { "aria-hidden": "true" }
+                                          })
+                                        ]
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("li", [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass: "btn btn-danger",
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.delete_sprint_task(
+                                                sprint_task.id,
+                                                index
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-trash-alt"
+                                          })
+                                        ]
+                                      )
+                                    ])
+                                  ]
+                                )
                               ]
                             )
                           ])
@@ -48985,7 +49642,324 @@ var render = function() {
           ])
         ])
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "edit_sprint_task",
+          role: "dialog",
+          "aria-labelledby": "exampleModalCenterTitle",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("form", { attrs: { action: "" } }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "assigned_to" } }, [
+                          _vm._v("Assigned To")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.sprint_task_edit.assigned_to,
+                                expression: "sprint_task_edit.assigned_to"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { id: "assigned_to" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.sprint_task_edit,
+                                  "assigned_to",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("option", { domProps: { value: null } }, [
+                              _vm._v("Assigned")
+                            ]),
+                            _vm._v(" "),
+                            _vm._l(_vm.allUsers, function(user, index) {
+                              return _vm.allUsers
+                                ? _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: user.id }
+                                    },
+                                    [_vm._v(_vm._s(user.name))]
+                                  )
+                                : _vm._e()
+                            })
+                          ],
+                          2
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6 col" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Priority")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "d-flex" }, [
+                          _c("span", { staticClass: "mx-2" }, [
+                            _c("div", { staticClass: "form-check" }, [
+                              _c("label", { staticClass: "form-check-label" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.sprint_task_edit.priority,
+                                      expression: "sprint_task_edit.priority"
+                                    }
+                                  ],
+                                  staticClass: "form-check-input",
+                                  attrs: {
+                                    type: "radio",
+                                    name: "priority",
+                                    value: "Low"
+                                  },
+                                  domProps: {
+                                    checked: _vm._q(
+                                      _vm.sprint_task_edit.priority,
+                                      "Low"
+                                    )
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      return _vm.$set(
+                                        _vm.sprint_task_edit,
+                                        "priority",
+                                        "Low"
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(
+                                  "\n                  low\n                "
+                                )
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "mx-2" }, [
+                            _c("div", { staticClass: "form-check" }, [
+                              _c("label", { staticClass: "form-check-label" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.sprint_task_edit.priority,
+                                      expression: "sprint_task_edit.priority"
+                                    }
+                                  ],
+                                  staticClass: "form-check-input",
+                                  attrs: {
+                                    type: "radio",
+                                    name: "priority",
+                                    value: "Medium"
+                                  },
+                                  domProps: {
+                                    checked: _vm._q(
+                                      _vm.sprint_task_edit.priority,
+                                      "Medium"
+                                    )
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      return _vm.$set(
+                                        _vm.sprint_task_edit,
+                                        "priority",
+                                        "Medium"
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(
+                                  "\n                  Medium\n                "
+                                )
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "mx-2" }, [
+                            _c("div", { staticClass: "form-check" }, [
+                              _c("label", { staticClass: "form-check-label" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.sprint_task_edit.priority,
+                                      expression: "sprint_task_edit.priority"
+                                    }
+                                  ],
+                                  staticClass: "form-check-input",
+                                  attrs: {
+                                    type: "radio",
+                                    name: "priority",
+                                    value: "High"
+                                  },
+                                  domProps: {
+                                    checked: _vm._q(
+                                      _vm.sprint_task_edit.priority,
+                                      "High"
+                                    )
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      return _vm.$set(
+                                        _vm.sprint_task_edit,
+                                        "priority",
+                                        "High"
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(
+                                  "\n                  High\n                "
+                                )
+                              ])
+                            ])
+                          ])
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6 col" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "status" } }, [
+                          _vm._v("Status")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.sprint_task_edit.status,
+                                expression: "sprint_task_edit.status"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { name: "", id: "status" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.sprint_task_edit,
+                                  "status",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("option", { domProps: { value: null } }, [
+                              _vm._v("Status")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "New" } }, [
+                              _vm._v("New")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "In Progress" } }, [
+                              _vm._v("In Progress")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "Resolved" } }, [
+                              _vm._v("Resolved")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { staticClass: "Closed" }, [
+                              _vm._v("Closed")
+                            ])
+                          ]
+                        )
+                      ])
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Close")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.updateSprintTask()
+                      }
+                    }
+                  },
+                  [_vm._v("Update")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -48996,7 +49970,7 @@ var staticRenderFns = [
     return _c("div", [
       _c("h1", [
         _c("i", { staticClass: "fa fa-dashboard" }),
-        _vm._v(" Sprint Details Page")
+        _vm._v(" Sprint Details")
       ]),
       _vm._v(" "),
       _c("p", [_vm._v("Start a beautiful journey here")])
@@ -49006,26 +49980,24 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Status")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLongTitle" } },
+        [_vm._v("Sprint Task Update")]
+      ),
+      _vm._v(" "),
       _c(
         "button",
         {
-          staticClass: "btn btn-success",
+          staticClass: "close",
           attrs: {
             type: "button",
-            "data-toggle": "modal",
-            "data-target": "#sprint_task_update"
+            "data-dismiss": "modal",
+            "aria-label": "Close"
           }
         },
-        [_c("i", { staticClass: "fas fa-pencil-alt" })]
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
     ])
   }
@@ -49224,7 +50196,7 @@ var staticRenderFns = [
     return _c("div", [
       _c("h1", [
         _c("i", { staticClass: "fa fa-dashboard" }),
-        _vm._v(" Blank Page")
+        _vm._v("Sprints")
       ]),
       _vm._v(" "),
       _c("p", [_vm._v("Start a beautiful journey here")])
@@ -49587,7 +50559,7 @@ var staticRenderFns = [
     return _c("div", [
       _c("h1", [
         _c("i", { staticClass: "fa fa-dashboard" }),
-        _vm._v(" Sprint Update Page")
+        _vm._v(" Sprint Update")
       ]),
       _vm._v(" "),
       _c("p", [_vm._v("Start a beautiful journey here")])
@@ -50074,7 +51046,7 @@ var staticRenderFns = [
     return _c("div", [
       _c("h1", [
         _c("i", { staticClass: "fa fa-dashboard" }),
-        _vm._v(" Create Task Page")
+        _vm._v(" Create Task")
       ]),
       _vm._v(" "),
       _c("p", [_vm._v("Start a beautiful journey here")])
@@ -50291,10 +51263,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", [
-      _c("h1", [
-        _c("i", { staticClass: "fa fa-dashboard" }),
-        _vm._v(" Blank Page")
-      ]),
+      _c("h1", [_c("i", { staticClass: "fa fa-dashboard" }), _vm._v(" Tasks")]),
       _vm._v(" "),
       _c("p", [_vm._v("Start a beautiful journey here")])
     ])
@@ -50799,7 +51768,7 @@ var staticRenderFns = [
     return _c("div", [
       _c("h1", [
         _c("i", { staticClass: "fa fa-dashboard" }),
-        _vm._v(" Update Task Page")
+        _vm._v(" Update Task")
       ]),
       _vm._v(" "),
       _c("p", [_vm._v("Start a beautiful journey here")])
@@ -51007,7 +51976,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-sm-6" }, [
-      _c("h1", { staticClass: "m-0 text-dark" }, [_vm._v("Module")])
+      _c("h1", { staticClass: "m-0 text-dark" }, [_vm._v("Task")])
     ])
   },
   function() {
@@ -51163,10 +52132,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", [
-      _c("h1", [
-        _c("i", { staticClass: "fa fa-dashboard" }),
-        _vm._v(" Blank Page")
-      ]),
+      _c("h1", [_c("i", { staticClass: "fa fa-dashboard" }), _vm._v("Tasks")]),
       _vm._v(" "),
       _c("p", [_vm._v("Start a beautiful journey here")])
     ])
@@ -51732,7 +52698,7 @@ var staticRenderFns = [
     return _c("div", [
       _c("h1", [
         _c("i", { staticClass: "fa fa-dashboard" }),
-        _vm._v("User Create Page")
+        _vm._v("User Create")
       ]),
       _vm._v(" "),
       _c("p", [_vm._v("Start a beautiful journey here")])
@@ -52452,7 +53418,7 @@ var staticRenderFns = [
     return _c("div", [
       _c("h1", [
         _c("i", { staticClass: "fa fa-dashboard" }),
-        _vm._v(" Blank Page")
+        _vm._v(" User Update")
       ]),
       _vm._v(" "),
       _c("p", [_vm._v("Start a beautiful journey here")])
@@ -53055,7 +54021,11 @@ var render = function() {
                 1
               )
             ]
-          )
+          ),
+          _vm._v(" "),
+          _vm._m(2),
+          _vm._v(" "),
+          _vm._m(3)
         ])
       ])
     ])
@@ -53077,6 +54047,28 @@ var staticRenderFns = [
                 attrs: { href: "#user-timeline", "data-toggle": "tab" }
               },
               [_vm._v("Timeline")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link",
+                attrs: { href: "#user-active-tasks", "data-toggle": "tab" }
+              },
+              [_vm._v("Active Tasks")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link",
+                attrs: { href: "#user-complite-tasks", "data-toggle": "tab" }
+              },
+              [_vm._v("Complite Tasks")]
             )
           ]),
           _vm._v(" "),
@@ -53204,6 +54196,199 @@ var staticRenderFns = [
               _vm._v(" 5 Comments")
             ])
           ])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "tab-pane fade", attrs: { id: "user-active-tasks" } },
+      [
+        _c("div", { staticClass: "tile user-settings" }, [
+          _c("h4", { staticClass: "line-head" }, [_vm._v("Settings")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-6" }, [
+              _c("div", { staticClass: "timeline-post" }, [
+                _c("div", { staticClass: "post-media" }, [
+                  _c("a", { attrs: { href: "#" } }, [
+                    _c("img", {
+                      attrs: {
+                        src:
+                          "https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg"
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "content" }, [
+                    _c("h5", [
+                      _c("a", { attrs: { href: "#" } }, [_vm._v("John Doe")])
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "text-muted" }, [
+                      _c("small", [_vm._v("2 January at 9:30")])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "post-content" }, [
+                  _c("p", [
+                    _vm._v(
+                      "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\tquis tion ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\tproident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("ul", { staticClass: "post-utility" }, [
+                  _c("li", { staticClass: "likes" }, [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _c("i", { staticClass: "fa fa-fw fa-lg fa-thumbs-o-up" }),
+                      _vm._v("Like")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", { staticClass: "shares" }, [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _c("i", { staticClass: "fa fa-fw fa-lg fa-share" }),
+                      _vm._v("Share")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", { staticClass: "comments" }, [
+                    _c("i", { staticClass: "fa fa-fw fa-lg fa-comment-o" }),
+                    _vm._v(" 5 Comments")
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-6" }, [
+              _c("div", { staticClass: "timeline-post" }, [
+                _c("div", { staticClass: "post-media" }, [
+                  _c("a", { attrs: { href: "#" } }, [
+                    _c("img", {
+                      attrs: {
+                        src:
+                          "https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg"
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "content" }, [
+                    _c("h5", [
+                      _c("a", { attrs: { href: "#" } }, [_vm._v("John Doe")])
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "text-muted" }, [
+                      _c("small", [_vm._v("2 January at 9:30")])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "post-content" }, [
+                  _c("p", [
+                    _vm._v(
+                      "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\tquis tion ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\tproident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("ul", { staticClass: "post-utility" }, [
+                  _c("li", { staticClass: "likes" }, [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _c("i", { staticClass: "fa fa-fw fa-lg fa-thumbs-o-up" }),
+                      _vm._v("Like")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", { staticClass: "shares" }, [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _c("i", { staticClass: "fa fa-fw fa-lg fa-share" }),
+                      _vm._v("Share")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", { staticClass: "comments" }, [
+                    _c("i", { staticClass: "fa fa-fw fa-lg fa-comment-o" }),
+                    _vm._v(" 5 Comments")
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-6" }, [
+              _c("div", { staticClass: "timeline-post" }, [
+                _c("div", { staticClass: "post-media" }, [
+                  _c("a", { attrs: { href: "#" } }, [
+                    _c("img", {
+                      attrs: {
+                        src:
+                          "https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg"
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "content" }, [
+                    _c("h5", [
+                      _c("a", { attrs: { href: "#" } }, [_vm._v("John Doe")])
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "text-muted" }, [
+                      _c("small", [_vm._v("2 January at 9:30")])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "post-content" }, [
+                  _c("p", [
+                    _vm._v(
+                      "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\tquis tion ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\tproident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("ul", { staticClass: "post-utility" }, [
+                  _c("li", { staticClass: "likes" }, [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _c("i", { staticClass: "fa fa-fw fa-lg fa-thumbs-o-up" }),
+                      _vm._v("Like")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", { staticClass: "shares" }, [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _c("i", { staticClass: "fa fa-fw fa-lg fa-share" }),
+                      _vm._v("Share")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", { staticClass: "comments" }, [
+                    _c("i", { staticClass: "fa fa-fw fa-lg fa-comment-o" }),
+                    _vm._v(" 5 Comments")
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "tab-pane fade", attrs: { id: "user-complite-tasks" } },
+      [
+        _c("div", { staticClass: "tile user-settings" }, [
+          _c("h4", { staticClass: "line-head" }, [_vm._v("Settings")]),
+          _vm._v("\n\n                Completed tasks\n\n\n\n          ")
         ])
       ]
     )
@@ -76590,8 +77775,8 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\sabbir\project mangaement\project-management\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\sabbir\project mangaement\project-management\resources\css\app.css */"./resources/css/app.css");
+__webpack_require__(/*! C:\Users\Sabbir\Desktop\project-management\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Sabbir\Desktop\project-management\resources\css\app.css */"./resources/css/app.css");
 
 
 /***/ })

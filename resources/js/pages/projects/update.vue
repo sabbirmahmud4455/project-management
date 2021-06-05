@@ -6,7 +6,7 @@
 
         <div class="app-title">
             <div>
-                <h1><i class="fa fa-dashboard"></i> Blank Page</h1>
+                <h1><i class="fa fa-dashboard"></i> Project Update</h1>
                 <p>Start a beautiful journey here</p>
             </div>
             <ul class="app-breadcrumb breadcrumb">

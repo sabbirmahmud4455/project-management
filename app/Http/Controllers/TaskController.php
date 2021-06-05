@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Module;
 use App\Models\Project;
+use App\Models\SprintTask;
 use Carbon\Carbon;
 use App\Models\Task;
 use Illuminate\Http\Request;
@@ -172,5 +173,22 @@ class TaskController extends Controller
     {
         $tasks = Task::where('project_id', 0)->where('module_id', 0)->orderBy('id', 'desc')->get();
         return response()->json($tasks);
+    }
+    public function task_sprint_create(Request $request)
+    {
+        $request->validate([
+            'task_name'=> 'required',
+        ]);
+        $task= Task::create([
+            'name'=>$request->task_name
+        ]);
+        $sprint_task= SprintTask::create([
+            'sprint_id'=> $request->sprint_id,
+            'task_id'=> $task->id,
+            'assigned_to'=> $request->assigned_to,
+            'priority'=> $request->priority,
+            'status'=> 'New'
+        ]);
+        return response()->json('created successfully');
     }
 }

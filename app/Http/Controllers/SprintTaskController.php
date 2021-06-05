@@ -42,6 +42,7 @@ class SprintTaskController extends Controller
             $sprintTask = SprintTask::create([
                 'sprint_id' => $task['sprintID'],
                 'priority' =>  $task['priority'],
+                'status'=>'New',
                 'assigned_to' =>  $task['asigneTo'],
                 'task_id' => $task['taskId'],
             ]);
@@ -68,7 +69,7 @@ class SprintTaskController extends Controller
      */
     public function edit(SprintTask $sprintTask)
     {
-        //
+        return response()->json($sprintTask);
     }
 
     /**
@@ -80,7 +81,12 @@ class SprintTaskController extends Controller
      */
     public function update(Request $request, SprintTask $sprintTask)
     {
-        //
+        $sprintTask->update([
+            'priority'=>$request->priority,
+            'assigned_to'=>$request->assigned_to,
+            'status'=>$request->status,
+        ]);
+        return response()->json('updated');
     }
 
     /**
