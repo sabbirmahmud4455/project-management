@@ -3,16 +3,15 @@
   <head>
 
 
-
 <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="{{asset('template/plugins/fontawesome-free/css/all.min.css')}}">
+  {{-- <link rel="stylesheet" href="{{asset('template/plugins/fontawesome-free/css/all.min.css')}}"> --}}
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{asset('template/dist/css/adminlte.min.css')}}">
+  {{-- <link rel="stylesheet" href="{{asset('template/dist/css/adminlte.min.css')}}"> --}}
   <!-- Google Font: Source Sans Pro -->
   {{-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet"> --}}
 
   {{-- custom css --}}
-  <link rel="stylesheet" href="{{asset('template/dist/css/custom.css')}}">
+  {{-- <link rel="stylesheet" href="{{asset('template/dist/css/custom.css')}}"> --}}
 
 
   {{-- -------------------------- --}}
@@ -108,14 +107,14 @@
 
 
 <!-- AdminLTE App -->
-<script src="{{asset('template/dist/js/adminlte.min.js')}}"></script>
-<script src="{{asset('template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
+{{-- <script src="{{asset('template/dist/js/adminlte.min.js')}}"></script> --}}
+{{-- <script src="{{asset('template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script> --}}
 <script src="{{asset('js/app.js')}}"></script>
-<script>
+{{-- <script>
   $(document).ready(function () {
     bsCustomFileInput.init()
   })
-</script>
+</script> --}}
 
 
 

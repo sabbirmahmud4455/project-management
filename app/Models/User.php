@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable,HasApiTokens;
+    use HasFactory, Notifiable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -62,10 +62,20 @@ class User extends Authenticatable
     {
         return $this->hasOne(Profile::class);
     }
-    public function sprintTasks(){
-        return $this->hasMany(SprintTask::class,'assigned_to');
+    public function sprintTasks()
+    {
+        return $this->hasMany(SprintTask::class, 'assigned_to', 'id');
     }
-    public function tasks(){
-        return $this->belongsToMany(Task::class,SprintTask::class, 'assigned_to');
+    public function activeSprintTasks()
+    {
+        return $this->hasMany(SprintTask::class, 'assigned_to', 'id')->where('status', '!=', 'Closed')->with('task');
+    }
+    public function closedSprintTasks()
+    {
+        return $this->hasMany(SprintTask::class, 'assigned_to', 'id')->where('status', '=', 'Closed')->with('task');
+    }
+    public function tasks()
+    {
+        return $this->belongsToMany(Task::class, SprintTask::class, 'assigned_to');
     }
 }

@@ -1,58 +1,66 @@
 <template lang="">
-    <div>
+    <div class="col-12">
         <div class="row">
-            <div v-if="active_tasks.data" v-for="(task, index) in active_tasks.data" :key="index" class="col-6">
-                <div class="card card-widget">
-                <div class="card-body">
-                    <h6>
-                        <span>
-                            <router-link :to="{name:'task_view', params:{id: task.id}}" class=" text-dark">
-                            {{task.name}}
-                            </router-link>
-                        </span>
-                    </h6>
-                    <h5>
-                        <span>
-                            <router-link :to="{name:'task_view', params:{id: task.id}}" class=" text-dark">
-                            {{task.title}}
-                            </router-link>
-                        </span>
-                    </h5>
-                    <span class=" bg-primary px-2">{{task.status}}</span>
+            <div
+                class="col-6"
+                v-if="activeTask.length"
+                v-for="(activTask, index) in activeTask"
+                :key="index"
+            >
+                <div class="timeline-post">
+                    <div class="post-media">
+                        <div class="content">
+                            <h5>
+                                <a href="#">{{ activTask.task.name }}</a>
+                            </h5>
+                            <p class="text-muted">
+                                <small>2 January at 9:30</small>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <div class="card-body">
+                            <h6>
+                                <span>
+                                    <router-link
+                                        :to="{
+                                            name: 'task_view',
+                                            params: { id: activTask.task.id }
+                                        }"
+                                        class=" text-dark"
+                                    >
+                                        {{ activTask.task.name }}
+                                    </router-link>
+                                </span>
+                            </h6>
+                            <h5>
+                                <span>
+                                    <router-link
+                                        :to="{
+                                            name: 'task_view',
+                                            params: { id: activTask.task.id }
+                                        }"
+                                        class=" text-dark"
+                                    >
+                                        {{ activTask.task.name }}
+                                    </router-link>
+                                </span>
+                            </h5>
+                            <span class=" bg-primary px-2">{{
+                                activTask.status
+                            }}</span>
+                        </div>
+                    </div>
                 </div>
-                <!-- /.card-body -->
-                
-                </div>
-                <pagination :data="active_tasks" :limit=2 align='center'  @pagination-change-page="getActive_task">
-                    <span slot="prev-nav">Previous <i class="fas fa-arrow-left "></i></span>
-                    <span slot="next-nav"><i class="fas fa-arrow-right "></i> Next</span>
-                </pagination>
+            </div>
+            <div v-if="!activeTask.length" class="col-12">
+                <h5 class="py-2 text-center text-muted">Data Not Found</h5>
             </div>
         </div>
-
     </div>
 </template>
 <script>
 export default {
-    data() {
-        return {
-            id: this.$route.params.id,
-            active_tasks:{},
-        }
-    },
-    methods:{
-        getActive_task(page){
-            if (typeof page === 'undefined') {
-            page = 1;
-            }
-            axios.get(`/api/user_active/task/${this.id}?page=` + page).then(response => {
-                this.active_tasks = response.data;
-            })
-        },
-        
-    },
-    mounted() {
-        this.getActive_task();
-    },
-}
+    props: ["activeTask"]
+};
 </script>
