@@ -8973,29 +8973,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      id: this.$route.params.id,
-      active_tasks: {}
-    };
-  },
-  methods: {
-    getActive_task: function getActive_task(page) {
-      var _this = this;
-
-      if (typeof page === 'undefined') {
-        page = 1;
-      }
-
-      axios.get("/api/user_active/task/".concat(this.id, "?page=") + page).then(function (response) {
-        _this.active_tasks = response.data;
-      });
-    }
-  },
-  mounted: function mounted() {
-    this.getActive_task();
-  }
+  props: ["activeTask"]
 });
 
 /***/ }),
@@ -9044,29 +9050,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      id: this.$route.params.id,
-      complete_tasks: {}
-    };
-  },
-  methods: {
-    getComplete_task: function getComplete_task(page) {
-      var _this = this;
-
-      if (typeof page === 'undefined') {
-        page = 1;
-      }
-
-      axios.get("/api/user_complete/task/".concat(this.id, "?page=") + page).then(function (response) {
-        _this.complete_tasks = response.data;
-      });
-    }
-  },
-  mounted: function mounted() {
-    this.getComplete_task();
-  }
+  props: ["completedTask"]
 });
 
 /***/ }),
@@ -9080,7 +9091,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _user_setting__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user_setting */ "./resources/js/pages/users/view/user_setting.vue");
+/* harmony import */ var _active_task__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./active_task */ "./resources/js/pages/users/view/active_task.vue");
+/* harmony import */ var _complete_task__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./complete_task */ "./resources/js/pages/users/view/complete_task.vue");
+/* harmony import */ var _user_setting__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./user_setting */ "./resources/js/pages/users/view/user_setting.vue");
 //
 //
 //
@@ -9236,196 +9249,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -9453,23 +9278,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var id = this.$route.params.id;
       axios.get("/api/user/".concat(id)).then(function (response) {
-        _this.user = response.data; // this.name = response.data[0].name;
-        // this.email = response.data[0].email;
-        // this.type = response.data[0].type;
-        // this.contact_no = response.data[0].contact_no;
-        // this.gender = response.data[0].gender;
-        // this.photo = response.data[0].photo;
-        // this.bio= response.data[0].profile.bio;
-
-        if (response.data[0].profile) {
-          _this.skills = JSON.parse(response.data[0].profile.skills);
-          _this.bio = response.data[0].profile.bio;
-          _this.nid = response.data[0].profile.nid;
-          _this.date_of_birth = response.data[0].profile.date_of_birth;
-          _this.present_address = response.data[0].profile.present_address;
-          _this.permanent_address = response.data[0].profile.permanent_address;
-          _this.emergency_contact_person = response.data[0].profile.emergency_contact_person;
-        }
+        _this.user = response.data;
       });
     }
   },
@@ -9477,7 +9286,9 @@ __webpack_require__.r(__webpack_exports__);
     this.getUser();
   },
   components: {
-    UserSetting: _user_setting__WEBPACK_IMPORTED_MODULE_0__["default"]
+    UserSetting: _user_setting__WEBPACK_IMPORTED_MODULE_2__["default"],
+    userActiveTask: _active_task__WEBPACK_IMPORTED_MODULE_0__["default"],
+    userCompetedTask: _complete_task__WEBPACK_IMPORTED_MODULE_1__["default"]
   }
 });
 
@@ -53686,120 +53497,117 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "col-12" }, [
     _c(
       "div",
       { staticClass: "row" },
-      _vm._l(_vm.active_tasks.data, function(task, index) {
-        return _vm.active_tasks.data
-          ? _c(
-              "div",
-              { key: index, staticClass: "col-6" },
-              [
-                _c("div", { staticClass: "card card-widget" }, [
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("h6", [
-                      _c(
-                        "span",
-                        [
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: " text-dark",
-                              attrs: {
-                                to: {
-                                  name: "task_view",
-                                  params: { id: task.id }
+      [
+        _vm._l(_vm.activeTask, function(activTask, index) {
+          return _vm.activeTask.length
+            ? _c("div", { key: index, staticClass: "col-6" }, [
+                _c("div", { staticClass: "timeline-post" }, [
+                  _c("div", { staticClass: "post-media" }, [
+                    _c("div", { staticClass: "content" }, [
+                      _c("h5", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v(_vm._s(activTask.task.name))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(0, true)
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "post-content" }, [
+                    _c("div", { staticClass: "card-body" }, [
+                      _c("h6", [
+                        _c(
+                          "span",
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: " text-dark",
+                                attrs: {
+                                  to: {
+                                    name: "task_view",
+                                    params: { id: activTask.task.id }
+                                  }
                                 }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                        " +
-                                  _vm._s(task.name) +
-                                  "\n                        "
-                              )
-                            ]
-                          )
-                        ],
-                        1
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h5", [
-                      _c(
-                        "span",
-                        [
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: " text-dark",
-                              attrs: {
-                                to: {
-                                  name: "task_view",
-                                  params: { id: task.id }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(activTask.task.name) +
+                                    "\n                                "
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("h5", [
+                        _c(
+                          "span",
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: " text-dark",
+                                attrs: {
+                                  to: {
+                                    name: "task_view",
+                                    params: { id: activTask.task.id }
+                                  }
                                 }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                        " +
-                                  _vm._s(task.title) +
-                                  "\n                        "
-                              )
-                            ]
-                          )
-                        ],
-                        1
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: " bg-primary px-2" }, [
-                      _vm._v(_vm._s(task.status))
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(activTask.task.name) +
+                                    "\n                                "
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: " bg-primary px-2" }, [
+                        _vm._v(_vm._s(activTask.status))
+                      ])
                     ])
                   ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "pagination",
-                  {
-                    attrs: {
-                      data: _vm.active_tasks,
-                      limit: 2,
-                      align: "center"
-                    },
-                    on: { "pagination-change-page": _vm.getActive_task }
-                  },
-                  [
-                    _c(
-                      "span",
-                      { attrs: { slot: "prev-nav" }, slot: "prev-nav" },
-                      [
-                        _vm._v("Previous "),
-                        _c("i", { staticClass: "fas fa-arrow-left " })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      { attrs: { slot: "next-nav" }, slot: "next-nav" },
-                      [
-                        _c("i", { staticClass: "fas fa-arrow-right " }),
-                        _vm._v(" Next")
-                      ]
-                    )
-                  ]
-                )
-              ],
-              1
-            )
+                ])
+              ])
+            : _vm._e()
+        }),
+        _vm._v(" "),
+        !_vm.activeTask.length
+          ? _c("div", { staticClass: "col-12" }, [
+              _c("h5", { staticClass: "py-2 text-center text-muted" }, [
+                _vm._v("Data Not Found")
+              ])
+            ])
           : _vm._e()
-      }),
-      0
+      ],
+      2
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "text-muted" }, [
+      _c("small", [_vm._v("2 January at 9:30")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -53821,120 +53629,117 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "col-12" }, [
     _c(
       "div",
       { staticClass: "row" },
-      _vm._l(_vm.complete_tasks.data, function(task, index) {
-        return _vm.complete_tasks.data
-          ? _c(
-              "div",
-              { key: index, staticClass: "col-4" },
-              [
-                _c("div", { staticClass: "card card-widget" }, [
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("h6", [
-                      _c(
-                        "span",
-                        [
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: " text-dark",
-                              attrs: {
-                                to: {
-                                  name: "task_view",
-                                  params: { id: task.id }
+      [
+        _vm._l(_vm.completedTask, function(comTask, index) {
+          return _vm.completedTask
+            ? _c("div", { key: index, staticClass: "col-6" }, [
+                _c("div", { staticClass: "timeline-post" }, [
+                  _c("div", { staticClass: "post-media" }, [
+                    _c("div", { staticClass: "content" }, [
+                      _c("h5", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v(_vm._s(comTask.task.name))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(0, true)
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "post-content" }, [
+                    _c("div", { staticClass: "card-body" }, [
+                      _c("h6", [
+                        _c(
+                          "span",
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: " text-dark",
+                                attrs: {
+                                  to: {
+                                    name: "task_view",
+                                    params: { id: comTask.task.id }
+                                  }
                                 }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                        " +
-                                  _vm._s(task.name) +
-                                  "\n                        "
-                              )
-                            ]
-                          )
-                        ],
-                        1
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("h5", [
-                      _c(
-                        "span",
-                        [
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: " text-dark",
-                              attrs: {
-                                to: {
-                                  name: "task_view",
-                                  params: { id: task.id }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(comTask.task.name) +
+                                    "\n                                "
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("h5", [
+                        _c(
+                          "span",
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: " text-dark",
+                                attrs: {
+                                  to: {
+                                    name: "task_view",
+                                    params: { id: comTask.task.id }
+                                  }
                                 }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                        " +
-                                  _vm._s(task.title) +
-                                  "\n                        "
-                              )
-                            ]
-                          )
-                        ],
-                        1
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "bg-success" }, [
-                      _vm._v(_vm._s(task.status))
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(comTask.task.name) +
+                                    "\n                                "
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: " bg-primary px-2" }, [
+                        _vm._v(_vm._s(comTask.status))
+                      ])
                     ])
                   ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "pagination",
-                  {
-                    attrs: {
-                      data: _vm.complete_tasks,
-                      limit: 2,
-                      align: "center"
-                    },
-                    on: { "pagination-change-page": _vm.getComplete_task }
-                  },
-                  [
-                    _c(
-                      "span",
-                      { attrs: { slot: "prev-nav" }, slot: "prev-nav" },
-                      [
-                        _vm._v("Previous "),
-                        _c("i", { staticClass: "fas fa-arrow-left " })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      { attrs: { slot: "next-nav" }, slot: "next-nav" },
-                      [
-                        _c("i", { staticClass: "fas fa-arrow-right " }),
-                        _vm._v(" Next")
-                      ]
-                    )
-                  ]
-                )
-              ],
-              1
-            )
+                ])
+              ])
+            : _vm._e()
+        }),
+        _vm._v(" "),
+        !_vm.completedTask.length
+          ? _c("div", { staticClass: "col-12" }, [
+              _c("h5", { staticClass: "py-2 text-center text-muted" }, [
+                _vm._v("Data Not Found")
+              ])
+            ])
           : _vm._e()
-      }),
-      0
+      ],
+      2
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "text-muted" }, [
+      _c("small", [_vm._v("2 January at 9:30")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -53976,9 +53781,9 @@ var render = function() {
             _vm.user.name
               ? _c("h3", { staticClass: "mt-2 profile-username text-center" }, [
                   _vm._v(
-                    "\n                                    " +
+                    "\n                        " +
                       _vm._s(_vm.user.name) +
-                      "\n                                "
+                      "\n                    "
                   )
                 ])
               : _vm._e(),
@@ -54004,8 +53809,6 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "col-md-9" }, [
         _c("div", { staticClass: "tab-content" }, [
-          _vm._m(1),
-          _vm._v(" "),
           _c(
             "div",
             { staticClass: "tab-pane fade", attrs: { id: "user-settings" } },
@@ -54023,9 +53826,55 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm._m(2),
+          _c(
+            "div",
+            {
+              staticClass: "tab-pane active ",
+              attrs: { id: "user-active-tasks" }
+            },
+            [
+              _c("div", { staticClass: "tile user-settings" }, [
+                _c("h4", { staticClass: "line-head" }, [_vm._v("Active Task")]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "row" },
+                  [
+                    _c("userActiveTask", {
+                      attrs: { activeTask: _vm.user.active_sprint_tasks }
+                    })
+                  ],
+                  1
+                )
+              ])
+            ]
+          ),
           _vm._v(" "),
-          _vm._m(3)
+          _c(
+            "div",
+            {
+              staticClass: "tab-pane fade",
+              attrs: { id: "user-complete-tasks" }
+            },
+            [
+              _c("div", { staticClass: "tile user-settings" }, [
+                _c("h4", { staticClass: "line-head" }, [
+                  _vm._v("completed Task")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "row" },
+                  [
+                    _c("userCompetedTask", {
+                      attrs: { completedTask: _vm.user.closed_sprint_tasks }
+                    })
+                  ],
+                  1
+                )
+              ])
+            ]
+          )
         ])
       ])
     ])
@@ -54044,17 +53893,6 @@ var staticRenderFns = [
               "a",
               {
                 staticClass: "nav-link active",
-                attrs: { href: "#user-timeline", "data-toggle": "tab" }
-              },
-              [_vm._v("Timeline")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
                 attrs: { href: "#user-active-tasks", "data-toggle": "tab" }
               },
               [_vm._v("Active Tasks")]
@@ -54065,10 +53903,10 @@ var staticRenderFns = [
             _c(
               "a",
               {
-                staticClass: "nav-link",
-                attrs: { href: "#user-complite-tasks", "data-toggle": "tab" }
+                staticClass: "nav-link ",
+                attrs: { href: "#user-complete-tasks", "data-toggle": "tab" }
               },
-              [_vm._v("Complite Tasks")]
+              [_vm._v("complete Tasks")]
             )
           ]),
           _vm._v(" "),
@@ -54085,313 +53923,6 @@ var staticRenderFns = [
         ])
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "tab-pane active", attrs: { id: "user-timeline" } },
-      [
-        _c("div", { staticClass: "timeline-post" }, [
-          _c("div", { staticClass: "post-media" }, [
-            _c("a", { attrs: { href: "#" } }, [
-              _c("img", {
-                attrs: {
-                  src:
-                    "https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg"
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "content" }, [
-              _c("h5", [
-                _c("a", { attrs: { href: "#" } }, [_vm._v("John Doe")])
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "text-muted" }, [
-                _c("small", [_vm._v("2 January at 9:30")])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "post-content" }, [
-            _c("p", [
-              _vm._v(
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\tquis tion ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\tproident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("ul", { staticClass: "post-utility" }, [
-            _c("li", { staticClass: "likes" }, [
-              _c("a", { attrs: { href: "#" } }, [
-                _c("i", { staticClass: "fa fa-fw fa-lg fa-thumbs-o-up" }),
-                _vm._v("Like")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "shares" }, [
-              _c("a", { attrs: { href: "#" } }, [
-                _c("i", { staticClass: "fa fa-fw fa-lg fa-share" }),
-                _vm._v("Share")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "comments" }, [
-              _c("i", { staticClass: "fa fa-fw fa-lg fa-comment-o" }),
-              _vm._v(" 5 Comments")
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "timeline-post" }, [
-          _c("div", { staticClass: "post-media" }, [
-            _c("a", { attrs: { href: "#" } }, [
-              _c("img", {
-                attrs: {
-                  src:
-                    "https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg"
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "content" }, [
-              _c("h5", [
-                _c("a", { attrs: { href: "#" } }, [_vm._v("John Doe")])
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "text-muted" }, [
-                _c("small", [_vm._v("2 January at 9:30")])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "post-content" }, [
-            _c("p", [
-              _vm._v(
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\tquis tion ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\tproident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("ul", { staticClass: "post-utility" }, [
-            _c("li", { staticClass: "likes" }, [
-              _c("a", { attrs: { href: "#" } }, [
-                _c("i", { staticClass: "fa fa-fw fa-lg fa-thumbs-o-up" }),
-                _vm._v("Like")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "shares" }, [
-              _c("a", { attrs: { href: "#" } }, [
-                _c("i", { staticClass: "fa fa-fw fa-lg fa-share" }),
-                _vm._v("Share")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "comments" }, [
-              _c("i", { staticClass: "fa fa-fw fa-lg fa-comment-o" }),
-              _vm._v(" 5 Comments")
-            ])
-          ])
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "tab-pane fade", attrs: { id: "user-active-tasks" } },
-      [
-        _c("div", { staticClass: "tile user-settings" }, [
-          _c("h4", { staticClass: "line-head" }, [_vm._v("Settings")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-6" }, [
-              _c("div", { staticClass: "timeline-post" }, [
-                _c("div", { staticClass: "post-media" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("img", {
-                      attrs: {
-                        src:
-                          "https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg"
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "content" }, [
-                    _c("h5", [
-                      _c("a", { attrs: { href: "#" } }, [_vm._v("John Doe")])
-                    ]),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "text-muted" }, [
-                      _c("small", [_vm._v("2 January at 9:30")])
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "post-content" }, [
-                  _c("p", [
-                    _vm._v(
-                      "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\tquis tion ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\tproident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("ul", { staticClass: "post-utility" }, [
-                  _c("li", { staticClass: "likes" }, [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _c("i", { staticClass: "fa fa-fw fa-lg fa-thumbs-o-up" }),
-                      _vm._v("Like")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("li", { staticClass: "shares" }, [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _c("i", { staticClass: "fa fa-fw fa-lg fa-share" }),
-                      _vm._v("Share")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("li", { staticClass: "comments" }, [
-                    _c("i", { staticClass: "fa fa-fw fa-lg fa-comment-o" }),
-                    _vm._v(" 5 Comments")
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-6" }, [
-              _c("div", { staticClass: "timeline-post" }, [
-                _c("div", { staticClass: "post-media" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("img", {
-                      attrs: {
-                        src:
-                          "https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg"
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "content" }, [
-                    _c("h5", [
-                      _c("a", { attrs: { href: "#" } }, [_vm._v("John Doe")])
-                    ]),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "text-muted" }, [
-                      _c("small", [_vm._v("2 January at 9:30")])
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "post-content" }, [
-                  _c("p", [
-                    _vm._v(
-                      "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\tquis tion ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\tproident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("ul", { staticClass: "post-utility" }, [
-                  _c("li", { staticClass: "likes" }, [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _c("i", { staticClass: "fa fa-fw fa-lg fa-thumbs-o-up" }),
-                      _vm._v("Like")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("li", { staticClass: "shares" }, [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _c("i", { staticClass: "fa fa-fw fa-lg fa-share" }),
-                      _vm._v("Share")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("li", { staticClass: "comments" }, [
-                    _c("i", { staticClass: "fa fa-fw fa-lg fa-comment-o" }),
-                    _vm._v(" 5 Comments")
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-6" }, [
-              _c("div", { staticClass: "timeline-post" }, [
-                _c("div", { staticClass: "post-media" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("img", {
-                      attrs: {
-                        src:
-                          "https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg"
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "content" }, [
-                    _c("h5", [
-                      _c("a", { attrs: { href: "#" } }, [_vm._v("John Doe")])
-                    ]),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "text-muted" }, [
-                      _c("small", [_vm._v("2 January at 9:30")])
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "post-content" }, [
-                  _c("p", [
-                    _vm._v(
-                      "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\tquis tion ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\tproident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("ul", { staticClass: "post-utility" }, [
-                  _c("li", { staticClass: "likes" }, [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _c("i", { staticClass: "fa fa-fw fa-lg fa-thumbs-o-up" }),
-                      _vm._v("Like")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("li", { staticClass: "shares" }, [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _c("i", { staticClass: "fa fa-fw fa-lg fa-share" }),
-                      _vm._v("Share")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("li", { staticClass: "comments" }, [
-                    _c("i", { staticClass: "fa fa-fw fa-lg fa-comment-o" }),
-                    _vm._v(" 5 Comments")
-                  ])
-                ])
-              ])
-            ])
-          ])
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "tab-pane fade", attrs: { id: "user-complite-tasks" } },
-      [
-        _c("div", { staticClass: "tile user-settings" }, [
-          _c("h4", { staticClass: "line-head" }, [_vm._v("Settings")]),
-          _vm._v("\n\n                Completed tasks\n\n\n\n          ")
-        ])
-      ]
-    )
   }
 ]
 render._withStripped = true
@@ -77775,8 +77306,8 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Sabbir\Desktop\project-management\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Sabbir\Desktop\project-management\resources\css\app.css */"./resources/css/app.css");
+__webpack_require__(/*! E:\sabbir\project mangaement\project-management\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\sabbir\project mangaement\project-management\resources\css\app.css */"./resources/css/app.css");
 
 
 /***/ })

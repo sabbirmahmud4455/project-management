@@ -23,10 +23,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with(['types', 'roles'])->orderBy('id', 'desc')->get();
+        $users = User::with(['types', 'roles', 'tasks'])->orderBy('id', 'desc')->get();
         return response()->json($users);
     }
-    public function getProfile(){
+    public function getProfile()
+    {
         return Auth::user();
     }
     /**
@@ -81,7 +82,7 @@ class UserController extends Controller
         ]);
 
 
-        
+
 
         if ($request->types) {
             foreach ($request->types as $key => $type) {
@@ -103,10 +104,10 @@ class UserController extends Controller
             }
         }
 
-        
+
         Profile::insert([
             'user_id' => $user->id,
-            'created_at'=>Carbon::now()
+            'created_at' => Carbon::now()
         ]);
 
 
@@ -122,7 +123,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $user_pro = User::where('id', $user->id)->with(['profile', 'types', 'roles'])->first();
+        $user_pro = User::where('id', $user->id)->with(['profile', 'types', 'roles', 'activeSprintTasks', 'closedSprintTasks'])->first();
         return response()->json($user_pro);
     }
 
@@ -217,8 +218,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $user_profile= Profile::where('user_id', $user->id)->first();
-        
+        $user_profile = Profile::where('user_id', $user->id)->first();
+
         if ($user) {
             if ($user_profile) {
                 $user_profile->delete();
@@ -272,14 +273,11 @@ class UserController extends Controller
             $message = 'User login successfully';
 
             return redirect('/home');
-
         } else {
             return back()->with([
-                'error'=>'Invalid email or password',
+                'error' => 'Invalid email or password',
             ]);
         }
-
-        
     }
 
     /**
