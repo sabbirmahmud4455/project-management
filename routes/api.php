@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CustomController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SprintController;
@@ -112,3 +113,5 @@ Route::group([ 'middleware' => 'auth:sanctum'], function () {
     Route::get('/get-profile',[UserController::class, 'getProfile']);
     Route::get('/my-task',[UserTaskController::class,'myTask']);
 });
+
+Route::post('upload-image',[ImageController::class,'upload']);

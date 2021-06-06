@@ -23,7 +23,7 @@
           <h3 class="tile-title">Task Create</h3>
           <div class="tile-body">
             <form
-              @submit.prevent="createTask()"
+              @submit.prevent="uploadImage()"
               @keydown="form.onKeydown($event)"
             >
               <div class="card-body row">
@@ -126,6 +126,9 @@
                   </div>
                 </div>
                 <div class="col-12">
+                   <vue-dropzone v-on:vdropzone-queue-complete="createTask" ref="myVueDropzone" v-on:vdropzone-removed-file="removeImage" v-on:vdropzone-success="uploadSuccess" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
+                </div>
+                <div class="col-12">
                   <div class="form-group">
                     <label for="address">Description</label>
                     <vue-editor v-model="form.description" />
@@ -149,15 +152,25 @@
 <script>
 import { Form } from "vform";
 import { VueEditor } from "vue2-editor";
-
+import vue2Dropzone from 'vue2-dropzone'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 export default {
   data() {
     return {
       all_projects: [],
       all_modules: null,
+      dropzoneOptions: {
+              url: '/api/upload-image',
+                 maxFiles: 1000,
+                timeout: 100000,
+                maxFilesize: 100,
+                addRemoveLinks: true,
+                autoProcessQueue: false,
+          },
       all_users: [],
       form: new Form({
         project_id: 0,
+         images:[],
         module_id: 0,
         assign_to: 0,
         type: null,
@@ -167,6 +180,13 @@ export default {
     };
   },
   methods: {
+    uploadSuccess: function(file, response) {
+      this.form.images.push(response.imageName);
+    },
+    removeImage(file, error, xhr){
+      console.log(file);
+      
+    },
     getProject() {
       axios.get("/api/all_projects").then((response) => {
         this.all_projects = response.data;
@@ -184,7 +204,24 @@ export default {
         this.all_users = response.data;
       });
     },
-    createTask() {
+    uploadImage () {
+     if (!this.form.name) {
+            this.$toast.error({
+              title: "! ERRORS",
+              message: "Task name is required",
+            });
+            return
+          }
+          if(this.$refs.myVueDropzone.getQueuedFiles().length>0){
+
+            this.$refs.myVueDropzone.processQueue();
+          }
+          else{
+            this.createTask();
+          }
+      
+    },
+    createTask(){
       this.form
         .post("/api/task")
         .then((response) => {
@@ -212,7 +249,7 @@ export default {
             });
           }
         });
-    },
+    }
   },
   mounted() {
     this.getProject();
@@ -220,6 +257,7 @@ export default {
   },
   components: {
     VueEditor,
+    vueDropzone: vue2Dropzone
   },
 };
 </script>
