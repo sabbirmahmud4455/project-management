@@ -31,4 +31,7 @@ class Task extends Model
     {
         return $this->belongsTo(Module::class);
     }
+    public function images(){
+        return $this->hasMany(TaskImage::class);
+    }
 }

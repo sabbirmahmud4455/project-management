@@ -42,11 +42,12 @@ import 'cxlt-vue2-toastr/dist/css/cxlt-vue2-toastr.css'
 
 
 //main app component
-if(window.Laravel.user.role=="Admin"){
-    Vue.component('app-main', require('./component/user.vue').default);
+const roles=window.Laravel.user.roles.map(role=>role.name);
+if(roles.includes("Admin")){
+    Vue.component('app-main', require('./component/main.vue').default);
 }
 else{
-    Vue.component('app-main', require('./component/main.vue').default);
+    Vue.component('app-main', require('./component/user.vue').default);
 }
 
 //pagination component
