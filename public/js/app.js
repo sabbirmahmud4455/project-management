@@ -3360,6 +3360,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4190,6 +4191,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inc_delete_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../inc/delete_modal */ "./resources/js/inc/delete_modal.vue");
+//
 //
 //
 //
@@ -6464,6 +6466,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -7022,6 +7025,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inc_delete_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../inc/delete_modal */ "./resources/js/inc/delete_modal.vue");
+//
 //
 //
 //
@@ -8837,6 +8841,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inc_delete_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../inc/delete_modal */ "./resources/js/inc/delete_modal.vue");
+//
 //
 //
 //
@@ -45549,6 +45554,7 @@ var render = function() {
                   "router-link",
                   {
                     staticClass: "btn btn-outline-success",
+                    staticStyle: { float: "right" },
                     attrs: {
                       to: {
                         name: "module_create"
@@ -46739,6 +46745,7 @@ var render = function() {
                   "router-link",
                   {
                     staticClass: "btn btn-outline-success",
+                    staticStyle: { float: "right" },
                     attrs: {
                       to: {
                         name: "project_create"
@@ -49928,6 +49935,7 @@ var render = function() {
                   "router-link",
                   {
                     staticClass: "btn btn-outline-success",
+                    staticStyle: { float: "right" },
                     attrs: {
                       to: {
                         name: "sprint_create"
@@ -51006,6 +51014,7 @@ var render = function() {
                   "router-link",
                   {
                     staticClass: "btn btn-outline-success",
+                    staticStyle: { float: "right" },
                     attrs: {
                       to: {
                         name: "task_create"
@@ -53356,6 +53365,7 @@ var render = function() {
         "router-link",
         {
           staticClass: "btn btn-outline-success",
+          staticStyle: { float: "right" },
           attrs: {
             to: {
               name: "user_create"
@@ -77429,13 +77439,8 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
 __webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/project-management/resources/js/app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/project-management/resources/css/app.css */"./resources/css/app.css");
-=======
-__webpack_require__(/*! E:\sabbir\project mangaement\project-management\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\sabbir\project mangaement\project-management\resources\css\app.css */"./resources/css/app.css");
->>>>>>> 94768f8045b087f9d461ec7012cc9e8f6c91025f
 
 
 /***/ })

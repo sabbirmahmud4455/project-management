@@ -27,6 +27,7 @@
                                         name: 'module_create',
 
                                     }"
+                                    style="float:right"
                                     class="btn btn-outline-success"
                                 >
 

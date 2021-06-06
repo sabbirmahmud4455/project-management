@@ -8,6 +8,7 @@
 
                                     }"
                                     class="btn btn-outline-success"
+                                    style="float:right"
                                 >
 
                                     Create New

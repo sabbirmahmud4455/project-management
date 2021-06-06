@@ -34,6 +34,7 @@
                                         name: 'project_create',
                                         
                                     }"
+                                    style="float:right"
                                     class="btn btn-outline-success"
                                 >
                                     

@@ -23,6 +23,7 @@
                 name: 'sprint_create',
               }"
               class="btn btn-outline-success"
+              style="float:right"
             >
               Create New
             </router-link>
