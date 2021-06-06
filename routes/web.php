@@ -40,3 +40,5 @@ Route::get('/{any}', function () {
 
 
 // Route::get('/download/{id}', [CustomController::class, 'download']);
+
+//dropzone url

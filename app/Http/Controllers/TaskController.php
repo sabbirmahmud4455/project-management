@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\SprintTask;
 use Carbon\Carbon;
 use App\Models\Task;
+use App\Models\TaskImage;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -40,6 +41,7 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
+       
         $request->validate([
             'name' => 'required',
             'project_id' => 'integer',
@@ -52,7 +54,7 @@ class TaskController extends Controller
             $description = $request->description;
         }
 
-        Task::insert([
+        $task=Task::insert([
             'name' => $request->name,
             'project_id' => $request->project_id,
             'module_id' => $request->module_id,
@@ -62,6 +64,12 @@ class TaskController extends Controller
             'status' => 'Active',
             'created_at' => Carbon::now(),
         ]);
+        foreach($request->images as $image){
+            TaskImage::create([
+                "task_id"=>$task->id,
+                "image"=>$image,
+            ]);
+        }
         if ($request->module_id) {
             Module::where('id', $request->module_id)->update([
                 "status" => "Active"
