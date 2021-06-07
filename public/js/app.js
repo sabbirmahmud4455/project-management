@@ -11654,7 +11654,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.content-wrapper[data-v-52860372]{\n    margin-left: 0px !important;\n}\n", ""]);
+exports.push([module.i, "\n.content-wrapper[data-v-52860372]{\r\n    margin-left: 0px !important;\n}\r\n", ""]);
 
 // exports
 
@@ -45538,7 +45538,7 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("li", { staticClass: "breadcrumb-item active" }, [
-            _vm._v("\n                    Modules\n                ")
+            _vm._v("\r\n                    Modules\r\n                ")
           ])
         ])
       ]),
@@ -45563,7 +45563,7 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n\n                                    Create New\n                                "
+                      "\r\n\r\n                                    Create New\r\n                                "
                     )
                   ]
                 ),
@@ -45591,13 +45591,13 @@ var render = function() {
                               _c("td", [
                                 _c("span", [
                                   _vm._v(
-                                    "\n                        " +
+                                    "\r\n                        " +
                                       _vm._s(
                                         modul.project
                                           ? modul.project.name
                                           : "N/A"
                                       ) +
-                                      "\n                        "
+                                      "\r\n                        "
                                   )
                                 ])
                               ]),
@@ -45630,7 +45630,7 @@ var render = function() {
                                     [
                                       _c("i", { staticClass: "fas fa-folder" }),
                                       _vm._v(
-                                        "\n                                    View\n                                "
+                                        "\r\n                                    View\r\n                                "
                                       )
                                     ]
                                   ),
@@ -45651,7 +45651,7 @@ var render = function() {
                                         staticClass: "fas fa-pencil-alt"
                                       }),
                                       _vm._v(
-                                        "\n                                    Edit\n                                "
+                                        "\r\n                                    Edit\r\n                                "
                                       )
                                     ]
                                   ),
@@ -45674,7 +45674,7 @@ var render = function() {
                                     [
                                       _c("i", { staticClass: "fas fa-trash" }),
                                       _vm._v(
-                                        "\n                                    Delete\n                                "
+                                        "\r\n                                    Delete\r\n                                "
                                       )
                                     ]
                                   )
@@ -51922,7 +51922,7 @@ var render = function() {
         ),
         _vm._v(" "),
         _c("li", { staticClass: "breadcrumb-item active" }, [
-          _vm._v("\n                    My Tasks\n                ")
+          _vm._v("\r\n                    My Tasks\r\n                ")
         ])
       ])
     ]),
@@ -51983,7 +51983,7 @@ var render = function() {
                                 [
                                   _c("i", { staticClass: "fas fa-folder" }),
                                   _vm._v(
-                                    "\n                                    View\n                                "
+                                    "\r\n                                    View\r\n                                "
                                   )
                                 ]
                               ),
@@ -52002,7 +52002,7 @@ var render = function() {
                                 [
                                   _c("i", { staticClass: "fas fa-pencil-alt" }),
                                   _vm._v(
-                                    "\n                                    Edit\n                                "
+                                    "\r\n                                    Edit\r\n                                "
                                   )
                                 ]
                               )
@@ -77439,8 +77439,8 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/project-management/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/project-management/resources/css/app.css */"./resources/css/app.css");
+__webpack_require__(/*! E:\sabbir\project mangaement\project-management\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\sabbir\project mangaement\project-management\resources\css\app.css */"./resources/css/app.css");
 
 
 /***/ })
