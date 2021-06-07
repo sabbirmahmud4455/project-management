@@ -54,7 +54,7 @@ class TaskController extends Controller
             $description = $request->description;
         }
 
-        $task=Task::insert([
+        $task=Task::create([
             'name' => $request->name,
             'project_id' => $request->project_id,
             'module_id' => $request->module_id,
@@ -95,7 +95,7 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        $task = Task::where('id', $task->id)->with(['project', 'module'])->get();
+        $task = Task::where('id', $task->id)->with(['project', 'module','images'])->first();
         return response()->json($task);
     }
 

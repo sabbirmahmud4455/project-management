@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class TaskImage extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'task_id',
+        'image',
+    ];
 }

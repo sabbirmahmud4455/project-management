@@ -102,6 +102,17 @@
                                                 v-html="description"
                                             ></div>
                                         </li>
+                                        <li class="list-group-item">
+                                            <b class="d-block">Attachments</b>
+                                            <div
+                                               v-if="images.length>0"
+                  v-for="(image, index) in images"
+                  :key="index"
+                                            >
+                                            <img :src="'/images/'+image.image">
+                                            </div>
+                                        </li>
+                                        
                                     </ul>
                                 </div>
                             </div>
@@ -128,23 +139,26 @@ export default {
             project_id: "",
             module_name: "",
             module_id: "",
-            description: ""
+            description: "",
+            images:[]
         };
     },
     methods: {
         getUser() {
             let id = this.$route.params.id;
             axios.get(`/api/task/${id}`).then(response => {
-                this.name = response.data[0].name;
-                this.title = response.data[0].title;
-                this.description = response.data[0].description;
-                if (response.data[0].project) {
-                    this.project_name = response.data[0].project.name;
-                    this.project_id = response.data[0].project.id;
+                this.name = response.data.name;
+                this.title = response.data.title;
+                this.description = response.data.description;
+                this.images = response.data.images;
+                console.log(this.images);
+                if (response.data.project) {
+                    this.project_name = response.data.project.name;
+                    this.project_id = response.data.project.id;
                 }
-                if (response.data[0].module) {
-                    this.module_name = response.data[0].module.name;
-                    this.module_id = response.data[0].module.id;
+                if (response.data.module) {
+                    this.module_name = response.data.module.name;
+                    this.module_id = response.data.module.id;
                 }
             });
         }

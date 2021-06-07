@@ -7567,6 +7567,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -7576,7 +7587,8 @@ __webpack_require__.r(__webpack_exports__);
       project_id: "",
       module_name: "",
       module_id: "",
-      description: ""
+      description: "",
+      images: []
     };
   },
   methods: {
@@ -7585,18 +7597,20 @@ __webpack_require__.r(__webpack_exports__);
 
       var id = this.$route.params.id;
       axios.get("/api/task/".concat(id)).then(function (response) {
-        _this.name = response.data[0].name;
-        _this.title = response.data[0].title;
-        _this.description = response.data[0].description;
+        _this.name = response.data.name;
+        _this.title = response.data.title;
+        _this.description = response.data.description;
+        _this.images = response.data.images;
+        console.log(_this.images);
 
-        if (response.data[0].project) {
-          _this.project_name = response.data[0].project.name;
-          _this.project_id = response.data[0].project.id;
+        if (response.data.project) {
+          _this.project_name = response.data.project.name;
+          _this.project_id = response.data.project.id;
         }
 
-        if (response.data[0].module) {
-          _this.module_name = response.data[0].module.name;
-          _this.module_id = response.data[0].module.id;
+        if (response.data.module) {
+          _this.module_name = response.data.module.name;
+          _this.module_id = response.data.module.id;
         }
       });
     }
@@ -51854,7 +51868,28 @@ var render = function() {
                               domProps: { innerHTML: _vm._s(_vm.description) }
                             })
                           : _vm._e()
-                      ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "li",
+                        { staticClass: "list-group-item" },
+                        [
+                          _c("b", { staticClass: "d-block" }, [
+                            _vm._v("Attachments")
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.images, function(image, index) {
+                            return _vm.images.length > 0
+                              ? _c("div", { key: index }, [
+                                  _c("img", {
+                                    attrs: { src: "/images/" + image.image }
+                                  })
+                                ])
+                              : _vm._e()
+                          })
+                        ],
+                        2
+                      )
                     ]
                   )
                 ])
