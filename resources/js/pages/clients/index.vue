@@ -99,20 +99,23 @@
                                                 <span v-else class=" badge badge-danger">Null</span>
                                             </td>
                                             <td class="project-actions text-right">
-                                                <router-link  :to="{name:'client_profile', params:{id: client.id}}" class="btn btn-info btn-sm">
-                                                    <i class="fas fa-folder">
-                                                    </i>
-                                                    View
+                                                <router-link  :to="{name:'client_profile', params:{id: client.id}}" class="btn btn-link px-1">
+                                                    <i
+                                                    class=" text-primary fa fa-eye"
+                                                    aria-hidden="true"
+                                                ></i>
                                                 </router-link>
-                                                <router-link  :to="{name:'client_update', params:{id: client.id}}" class="btn btn-info btn-sm">
-                                                <i class="fas fa-pencil-alt">
-                                                    </i>
-                                                    Edit
+                                                <router-link  :to="{name:'client_update', params:{id: client.id}}" class="btn btn-link px-1">
+                                                <i
+                                                    class=" text-secondary fa fa-pencil"
+                                                    aria-hidden="true"
+                                                ></i>
                                                 </router-link>
-                                                <a class="btn btn-danger btn-sm" href="#delete_modal"  data-toggle="modal" @click="delete_data.data=client, delete_data.index=index">
-                                                    <i class="fas fa-trash">
-                                                    </i>
-                                                    Delete
+                                                <a class="btn btn-link px-1" href="#delete_modal"  data-toggle="modal" @click="delete_data.data=client, delete_data.index=index">
+                                                    <i
+                                                    class=" text-danger fa fa-trash"
+                                                    aria-hidden="true"
+                                                ></i>
                                                 </a>
                                             </td>
                                         </tr>

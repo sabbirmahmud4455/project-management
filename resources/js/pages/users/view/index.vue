@@ -1,37 +1,44 @@
 <template lang="">
     <div>
-        <div class="row user">
-            <div class="col-md-12">
-                <div class="profile">
-                    <div class="info">
-                        <img
-                            class="user-img"
-                            src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg"
-                            v-if="user.photo"
-                            :src="user.photo"
-                            alt="User Profile picture"
-                        />
-                        <h3
-                            v-if="user.name"
-                            class="mt-2 profile-username text-center"
-                        >
-                            {{ user.name }}
-                        </h3>
-                        <p v-if="user.types">
-                            <span
-                                v-for="(type, index) in user.types"
-                                :key="index"
-                                >{{ type.name }}</span
-                            >
-                        </p>
-                    </div>
-                    <div class="cover-image"></div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="tile p-0">
-                    <ul class="nav flex-column nav-tabs user-tabs">
-                        <!-- <li class="nav-item">
+        <div class="row user" style="margin: 0px -30px;">
+            <div class="col-md-12 px-0">
+                <div class="tile">
+                    <div class="tile-body">
+                        <div class="row">
+                            <div class="col-md-12 details_col">
+                                <div class="profile ">
+                                    <div class="info">
+                                        <img
+                                            class="user-img"
+                                            src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg"
+                                            v-if="user.photo"
+                                            :src="user.photo"
+                                            alt="User Profile picture"
+                                        />
+                                        <h3
+                                            v-if="user.name"
+                                            class="mt-2 profile-username text-center"
+                                        >
+                                            {{ user.name }}
+                                        </h3>
+                                        <p v-if="user.types">
+                                            <span
+                                                v-for="(type,
+                                                index) in user.types"
+                                                :key="index"
+                                                >{{ type.name }}</span
+                                            >
+                                        </p>
+                                    </div>
+                                    <div class="cover-image"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 details_col">
+                                <div class="tile">
+                                    <ul
+                                        class="nav flex-column nav-tabs user-tabs"
+                                    >
+                                        <!-- <li class="nav-item">
                             <a
                                 class="nav-link active"
                                 href="#user-timeline"
@@ -39,36 +46,36 @@
                                 >Timeline</a
                             >
                         </li> -->
-                        <li class="nav-item">
-                            <a
-                                class="nav-link active"
-                                href="#user-active-tasks"
-                                data-toggle="tab"
-                                >Active Tasks</a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a
-                                class="nav-link "
-                                href="#user-complete-tasks"
-                                data-toggle="tab"
-                                >complete Tasks</a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a
-                                class="nav-link"
-                                href="#user-settings"
-                                data-toggle="tab"
-                                >Settings</a
-                            >
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-9">
-                <div class="tab-content">
-                    <!-- <div class="tab-pane active" id="user-timeline">
+                                        <li class="nav-item">
+                                            <a
+                                                class="nav-link active"
+                                                href="#user-active-tasks"
+                                                data-toggle="tab"
+                                                >Active Tasks</a
+                                            >
+                                        </li>
+                                        <li class="nav-item">
+                                            <a
+                                                class="nav-link "
+                                                href="#user-complete-tasks"
+                                                data-toggle="tab"
+                                                >complete Tasks</a
+                                            >
+                                        </li>
+                                        <li class="nav-item">
+                                            <a
+                                                class="nav-link"
+                                                href="#user-settings"
+                                                data-toggle="tab"
+                                                >Settings</a
+                                            >
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-9 details_col">
+                                <div class="tab-content">
+                                    <!-- <div class="tab-pane active" id="user-timeline">
                         <div class="timeline-post">
                             <div class="post-media">
                                 <a href="#"
@@ -119,32 +126,53 @@
                             </ul>
                         </div>
                     </div> -->
-                    <div class="tab-pane fade" id="user-settings">
-                        <div class="tile user-settings">
-                            <h4 class="line-head">Settings</h4>
+                                    <div
+                                        class="tab-pane fade"
+                                        id="user-settings"
+                                    >
+                                        <div class="tile user-settings">
+                                            <h4 class="line-head">Settings</h4>
 
-                            <UserSetting></UserSetting>
-                        </div>
-                    </div>
-                    <div class="tab-pane active " id="user-active-tasks">
-                        <div class="tile user-settings">
-                            <h4 class="line-head">Active Task</h4>
+                                            <UserSetting></UserSetting>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="tab-pane active "
+                                        id="user-active-tasks"
+                                    >
+                                        <div class="tile user-settings">
+                                            <h4 class="line-head">
+                                                Active Task
+                                            </h4>
 
-                            <div class="row">
-                                <userActiveTask
-                                    :activeTask="user.active_sprint_tasks"
-                                ></userActiveTask>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="user-complete-tasks">
-                        <div class="tile user-settings">
-                            <h4 class="line-head">completed Task</h4>
+                                            <div class="row">
+                                                <userActiveTask
+                                                    :activeTask="
+                                                        user.active_sprint_tasks
+                                                    "
+                                                ></userActiveTask>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="tab-pane fade"
+                                        id="user-complete-tasks"
+                                    >
+                                        <div class="tile user-settings">
+                                            <h4 class="line-head">
+                                                completed Task
+                                            </h4>
 
-                            <div class="row">
-                                <userCompetedTask
-                                    :completedTask="user.closed_sprint_tasks"
-                                ></userCompetedTask>
+                                            <div class="row">
+                                                <userCompetedTask
+                                                    :completedTask="
+                                                        user.closed_sprint_tasks
+                                                    "
+                                                ></userCompetedTask>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

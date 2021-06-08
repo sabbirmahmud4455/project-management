@@ -1,21 +1,14 @@
-<template lang="">
+<template>
     <div>
-        <div class="app-title">
-            <div>
-                <h1><i class="fa fa-dashboard"></i> Dashboard</h1>
-                <p>Start a beautiful journey here</p>
-            </div>
-            <ul class="app-breadcrumb breadcrumb">
-                <li class="breadcrumb-item">
-                    <i class="fa fa-home fa-lg"></i>
-                </li>
-                
-            </ul>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
+        <div class="row " style="margin: 0px -30px;">
+            <div class="col-md-12 px-0">
                 <div class="tile">
-                    <div class="tile-body">Create a beautiful dashboard</div>
+                    <div class="tile-body">
+                        <div class="details_col">
+                            <h4 class="title">Project Update</h4>
+                            Create a beautiful dashboard
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -41,10 +41,10 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-       
+
         $request->validate([
             'name' => 'required',
-            'project_id' => 'integer',
+            'project_id' => 'required|integer',
             'module_id' => 'integer',
             'assign_to' => 'integer',
         ]);
@@ -54,7 +54,7 @@ class TaskController extends Controller
             $description = $request->description;
         }
 
-        $task=Task::insert([
+        $task = Task::create([
             'name' => $request->name,
             'project_id' => $request->project_id,
             'module_id' => $request->module_id,
@@ -64,12 +64,15 @@ class TaskController extends Controller
             'status' => 'Active',
             'created_at' => Carbon::now(),
         ]);
-        foreach($request->images as $image){
-            TaskImage::create([
-                "task_id"=>$task->id,
-                "image"=>$image,
-            ]);
+        if ($request->images) {
+            foreach ($request->images as $image) {
+                TaskImage::create([
+                    "task_id" => $task->id,
+                    "image" => $image,
+                ]);
+            }
         }
+
         if ($request->module_id) {
             Module::where('id', $request->module_id)->update([
                 "status" => "Active"
@@ -84,7 +87,19 @@ class TaskController extends Controller
             ]);
         }
 
-        return response()->json('Module Store successfully');
+
+
+        if ($request->sprint_id) {
+            $sprint_task = SprintTask::create([
+                'sprint_id' => $request->sprint_id,
+                'task_id' => $task->id,
+                'assign_to' => $request->assigned_to,
+                'priority' => $request->priority,
+                'status' => 'New'
+            ]);
+        }
+
+        return response()->json('Task Store successfully');
     }
 
     /**
@@ -181,22 +196,5 @@ class TaskController extends Controller
     {
         $tasks = Task::where('project_id', 0)->where('module_id', 0)->orderBy('id', 'desc')->get();
         return response()->json($tasks);
-    }
-    public function task_sprint_create(Request $request)
-    {
-        $request->validate([
-            'task_name'=> 'required',
-        ]);
-        $task= Task::create([
-            'name'=>$request->task_name
-        ]);
-        $sprint_task= SprintTask::create([
-            'sprint_id'=> $request->sprint_id,
-            'task_id'=> $task->id,
-            'assigned_to'=> $request->assigned_to,
-            'priority'=> $request->priority,
-            'status'=> 'New'
-        ]);
-        return response()->json('created successfully');
     }
 }

@@ -37,10 +37,23 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    {{-- fonts --}}
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
     <!-- Main CSS-->
     <link rel="stylesheet" href="{{asset('template/css/main.css')}}">
     <!-- Font-icon css-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
   </head>
   <body class="app sidebar-mini rtl">
     @if (Auth::check())
@@ -119,7 +132,7 @@
 
 <script>
     $(function(){
-        $('[data-toggle="sidebar"]').click(function(event) {
+        $('.app-sidebar__toggle').click(function(event) {
         event.preventDefault();
         $('.app').toggleClass('sidenav-toggled');
     });

@@ -3,13 +3,15 @@
         <aside class="app-sidebar">
             <div class="app-sidebar__user">
                 <img
-                style="max-width:70px"
+                    style="max-width:70px"
                     class="app-sidebar__user-avatar"
-                    :src="user&&user.photo"
+                    :src="user && user.photo"
                     alt="User Image"
                 />
                 <div>
-                    <p class="app-sidebar__user-name">{{user&&user.name}}</p>
+                    <p class="app-sidebar__user-name">
+                        {{ user && user.name }}
+                    </p>
                     <p class="app-sidebar__user-designation">
                         Frontend Developer
                     </p>
@@ -22,7 +24,7 @@
                         class="app-menu__item"
                         active-class="active"
                     >
-                        <i class="app-menu__icon fa fa-dashboard"></i
+                        <i class="ri-dashboard-line "></i
                         ><span class="app-menu__label">Dashboard</span>
                     </router-link>
                 </li>
@@ -33,8 +35,8 @@
                         class="app-menu__item"
                         active-class="active"
                     >
-                        <i class="app-menu__icon fa fa-dashboard"></i
-                        ><span class="app-menu__label">Users</span>
+                        <i class="ri-user-3-line"></i>
+                        <span class="app-menu__label">Users</span>
                     </router-link>
                 </li>
 
@@ -46,8 +48,8 @@
                         class="app-menu__item"
                         active-class="active"
                     >
-                        <i class="app-menu__icon fa fa-dashboard"></i
-                        ><span class="app-menu__label">Projects</span>
+                        <i class="ri-profile-line"></i>
+                        <span class="app-menu__label">Projects</span>
                     </router-link>
                 </li>
 
@@ -58,8 +60,8 @@
                         class="app-menu__item"
                         active-class="active"
                     >
-                        <i class="app-menu__icon fa fa-dashboard"></i
-                        ><span class="app-menu__label">Modules</span>
+                        <i class="ri-stackshare-line"></i>
+                        <span class="app-menu__label">Modules</span>
                     </router-link>
                 </li>
 
@@ -70,8 +72,8 @@
                         class="app-menu__item"
                         active-class="active"
                     >
-                        <i class="app-menu__icon fa fa-dashboard"></i
-                        ><span class="app-menu__label">Tasks</span>
+                        <i class="ri-task-line"></i>
+                        <span class="app-menu__label">Tasks</span>
                     </router-link>
                 </li>
 
@@ -82,8 +84,8 @@
                         class="app-menu__item"
                         active-class="active"
                     >
-                        <i class="app-menu__icon fa fa-dashboard"></i
-                        ><span class="app-menu__label">Sprints</span>
+                        <i class="ri-flow-chart"></i>
+                        <span class="app-menu__label">Sprints</span>
                     </router-link>
                 </li>
 
@@ -98,8 +100,6 @@
                         ><span class="app-menu__label">App Info</span>
                     </router-link>
                 </li>
-
-
             </ul>
         </aside>
     </div>
@@ -107,21 +107,21 @@
 <script>
 export default {
     data() {
-    return {
-      user:null
-    };
-  },
-  methods: {
-      getUser(){
-          axios.get('/sanctum/csrf-cookie').then(response => {
-                axios.get("/api/get-profile").then((response) => {
-                    this.user=response.data;
+        return {
+            user: null
+        };
+    },
+    methods: {
+        getUser() {
+            axios.get("/sanctum/csrf-cookie").then(response => {
+                axios.get("/api/get-profile").then(response => {
+                    this.user = response.data;
                 });
-          });
-      }
-  },
-    mounted(){
-         this.getUser();
+            });
+        }
+    },
+    mounted() {
+        this.getUser();
     }
 };
 </script>

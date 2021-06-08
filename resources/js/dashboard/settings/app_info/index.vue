@@ -1,280 +1,205 @@
 <template>
     <div>
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">App Info</h1>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item">
-                                    <router-link :to="{ name: 'home' }">
-                                        Home
-                                    </router-link>
-                                </li>
+        <div class="row " style="margin: 0px -30px;">
+            <div class="col-md-12 px-0">
+                <div class="tile">
+                    <div class="tile-body">
+                        <div class="details_col">
+                            <h4 class="title">App Info</h4>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label
+                                            for="name"
+                                            class="col-sm-12 control-label"
+                                            >App Name</label
+                                        >
+                                        <div class="col-sm-12">
+                                            <input
+                                                v-model="form.app_name"
+                                                id="name"
+                                                type="text"
+                                                class="form-control"
+                                                name="name"
+                                                placeholder="No Shop Name Added"
+                                                required="true"
+                                            />
+                                        </div>
+                                    </div>
 
-                                <li class="breadcrumb-item active">
-                                    App Info
-                                </li>
-                            </ol>
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                    <!-- /.row -->
-                </div>
-                <!-- /.container-fluid -->
-            </div>
-            <!-- /.content-header -->
+                                    <div class="form-group">
+                                        <label
+                                            for="address"
+                                            class="col-sm-12 control-label"
+                                            >Address</label
+                                        >
+                                        <div class="col-sm-12">
+                                            <textarea
+                                                v-model="form.address"
+                                                name="address"
+                                                id="address"
+                                                cols="1"
+                                                rows="1"
+                                                class="form-control"
+                                                placeholder="No Address Added"
+                                            ></textarea>
+                                        </div>
+                                    </div>
 
-            <!-- Main content -->
-            <div class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col">
-                            <div class="card card-primary card-outline">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label
-                                                            for="name"
-                                                            class="col-sm-12 control-label"
-                                                            >App Name</label
-                                                        >
-                                                        <div class="col-sm-12">
-                                                            <input
-                                                                v-model="
-                                                                    form.app_name
-                                                                "
-                                                                id="name"
-                                                                type="text"
-                                                                class="form-control"
-                                                                name="name"
-                                                                placeholder="No Shop Name Added"
-                                                                required="true"
-                                                            />
-                                                        </div>
-                                                    </div>
+                                    <div class="form-group">
+                                        <label
+                                            for="copy_right"
+                                            class="col-sm-12 control-label"
+                                            >Copy right text</label
+                                        >
+                                        <div class="col-sm-12">
+                                            <textarea
+                                                v-model="form.copy_right_text"
+                                                name="copy_right"
+                                                id="details"
+                                                cols="1"
+                                                rows="1"
+                                                class="form-control"
+                                                placeholder="No Copy Right Text  Added"
+                                            ></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label
+                                            for="details"
+                                            class="col-sm-12 control-label"
+                                            >Details</label
+                                        >
+                                        <div class="col-sm-12">
+                                            <textarea
+                                                v-model="form.details"
+                                                name="details"
+                                                id="details"
+                                                cols="1"
+                                                rows="2"
+                                                class="form-control"
+                                                placeholder="No Details Added"
+                                            ></textarea>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                                    <div class="form-group">
-                                                        <label
-                                                            for="address"
-                                                            class="col-sm-12 control-label"
-                                                            >Address</label
-                                                        >
-                                                        <div class="col-sm-12">
-                                                            <textarea
-                                                                v-model="
-                                                                    form.address
-                                                                "
-                                                                name="address"
-                                                                id="address"
-                                                                cols="1"
-                                                                rows="1"
-                                                                class="form-control"
-                                                                placeholder="No Address Added"
-                                                            ></textarea>
-                                                        </div>
-                                                    </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label
+                                            for="subtitle"
+                                            class="col-sm-12 control-label"
+                                            >Subtitle</label
+                                        >
+                                        <div class="col-sm-12">
+                                            <input
+                                                v-model="form.app_subtitle"
+                                                id="subtitle"
+                                                type="text"
+                                                class="form-control"
+                                                name="subtitle"
+                                                placeholder="No Subtitle Added"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label
+                                            for="email"
+                                            class="col-sm-12 control-label"
+                                            >Email</label
+                                        >
+                                        <div class="col-sm-12">
+                                            <input
+                                                id="email"
+                                                v-model="form.email"
+                                                type="email"
+                                                class="form-control"
+                                                name="email"
+                                                placeholder="No Email Added"
+                                            />
+                                            <!-- <div class="text-danger"  v-if="$page.props.errors.email">{{$page.props.errors.email}}</div> -->
+                                        </div>
+                                    </div>
 
-                                                    <div class="form-group">
-                                                        <label
-                                                            for="copy_right"
-                                                            class="col-sm-12 control-label"
-                                                            >Copy right
-                                                            text</label
-                                                        >
-                                                        <div class="col-sm-12">
-                                                            <textarea
-                                                                v-model="
-                                                                    form.copy_right_text
-                                                                "
-                                                                name="copy_right"
-                                                                id="details"
-                                                                cols="1"
-                                                                rows="1"
-                                                                class="form-control"
-                                                                placeholder="No Copy Right Text  Added"
-                                                            ></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label
-                                                            for="details"
-                                                            class="col-sm-12 control-label"
-                                                            >Details</label
-                                                        >
-                                                        <div class="col-sm-12">
-                                                            <textarea
-                                                                v-model="
-                                                                    form.details
-                                                                "
-                                                                name="details"
-                                                                id="details"
-                                                                cols="1"
-                                                                rows="2"
-                                                                class="form-control"
-                                                                placeholder="No Details Added"
-                                                            ></textarea>
-                                                        </div>
-                                                    </div>
+                                    <div class="form-group">
+                                        <label
+                                            for="logo"
+                                            class="col-sm-12 control-label"
+                                            >Logo</label
+                                        >
+                                        <div class="col-sm-8">
+                                            <input
+                                                name="logo"
+                                                @change="onImageChange"
+                                                type="file"
+                                                @input="
+                                                    form.logo =
+                                                        $event.target.files[0]
+                                                "
+                                            />
+                                            <!-- <div class="text-danger" v-if="$page.props.errors.logo">{{$page.props.errors.logo}}</div> -->
+
+                                            <div class="mt-3 mb-3">
+                                                <img
+                                                    v-if="real_time_photo"
+                                                    id="logo_preview"
+                                                    :src="real_time_photo"
+                                                    alt="LOGO"
+                                                    class=" img-responsive img-thumbnail"
+                                                />
+                                                <div v-else>
+                                                    <img
+                                                        v-if="app_logo"
+                                                        id="logo_preview"
+                                                        :src="app_logo"
+                                                        alt="Logo"
+                                                        class=" img-responsive img-thumbnail"
+                                                    />
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label
-                                                            for="subtitle"
-                                                            class="col-sm-12 control-label"
-                                                            >Subtitle</label
-                                                        >
-                                                        <div class="col-sm-12">
-                                                            <input
-                                                                v-model="
-                                                                    form.app_subtitle
-                                                                "
-                                                                id="subtitle"
-                                                                type="text"
-                                                                class="form-control"
-                                                                name="subtitle"
-                                                                placeholder="No Subtitle Added"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label
-                                                            for="email"
-                                                            class="col-sm-12 control-label"
-                                                            >Email</label
-                                                        >
-                                                        <div class="col-sm-12">
-                                                            <input
-                                                                id="email"
-                                                                v-model="
-                                                                    form.email
-                                                                "
-                                                                type="email"
-                                                                class="form-control"
-                                                                name="email"
-                                                                placeholder="No Email Added"
-                                                            />
-                                                            <!-- <div class="text-danger"  v-if="$page.props.errors.email">{{$page.props.errors.email}}</div> -->
-                                                        </div>
-                                                    </div>
+                                    <div class="form-group">
+                                        <label
+                                            for="favicon"
+                                            class="col-sm-12 control-label"
+                                            >favicon</label
+                                        >
+                                        <div class="col-sm-8">
+                                            <input
+                                                name="favicon"
+                                                @change="onImageChangefavicon"
+                                                type="file"
+                                                @input="
+                                                    form.favicon =
+                                                        $event.target.files[0]
+                                                "
+                                            />
+                                            <!-- <div class="text-danger" v-if="$page.props.errors.favicon">{{$page.props.errors.favicon}}</div> -->
 
-                                                    <div class="form-group">
-                                                        <label
-                                                            for="logo"
-                                                            class="col-sm-12 control-label"
-                                                            >Logo</label
-                                                        >
-                                                        <div class="col-sm-8">
-                                                            <input
-                                                                name="logo"
-                                                                @change="
-                                                                    onImageChange
-                                                                "
-                                                                type="file"
-                                                                @input="
-                                                                    form.logo =
-                                                                        $event.target.files[0]
-                                                                "
-                                                            />
-                                                            <!-- <div class="text-danger" v-if="$page.props.errors.logo">{{$page.props.errors.logo}}</div> -->
-
-                                                            <div
-                                                                class="mt-3 mb-3"
-                                                            >
-                                                                <img
-                                                                    v-if="
-                                                                        real_time_photo
-                                                                    "
-                                                                    id="logo_preview"
-                                                                    :src="
-                                                                        real_time_photo
-                                                                    "
-                                                                    alt="LOGO"
-                                                                    class=" img-responsive img-thumbnail"
-                                                                />
-                                                                <div v-else>
-                                                                    <img
-                                                                        v-if="
-                                                                            app_logo
-                                                                        "
-                                                                        id="logo_preview"
-                                                                        :src="
-                                                                            app_logo
-                                                                        "
-                                                                        alt="Logo"
-                                                                        class=" img-responsive img-thumbnail"
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label
-                                                            for="favicon"
-                                                            class="col-sm-12 control-label"
-                                                            >favicon</label
-                                                        >
-                                                        <div class="col-sm-8">
-                                                            <input
-                                                                name="favicon"
-                                                                @change="
-                                                                    onImageChangefavicon
-                                                                "
-                                                                type="file"
-                                                                @input="
-                                                                    form.favicon =
-                                                                        $event.target.files[0]
-                                                                "
-                                                            />
-                                                            <!-- <div class="text-danger" v-if="$page.props.errors.favicon">{{$page.props.errors.favicon}}</div> -->
-
-                                                            <div
-                                                                class="mt-3 mb-3"
-                                                            >
-                                                                <img
-                                                                    v-if="
-                                                                        real_time_favicon
-                                                                    "
-                                                                    id="favicon_preview"
-                                                                    :src="
-                                                                        real_time_favicon
-                                                                    "
-                                                                    alt="favicon"
-                                                                    class=" img-responsive img-thumbnail"
-                                                                />
-                                                                <div v-else>
-                                                                    <img
-                                                                        v-if="
-                                                                            app_favicon
-                                                                        "
-                                                                        id="favicon_preview"
-                                                                        :src="
-                                                                            app_favicon
-                                                                        "
-                                                                        alt="favicon"
-                                                                        class=" img-responsive img-thumbnail"
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                            <div class="mt-3 mb-3">
+                                                <img
+                                                    v-if="real_time_favicon"
+                                                    id="favicon_preview"
+                                                    :src="real_time_favicon"
+                                                    alt="favicon"
+                                                    class=" img-responsive img-thumbnail"
+                                                />
+                                                <div v-else>
+                                                    <img
+                                                        v-if="app_favicon"
+                                                        id="favicon_preview"
+                                                        :src="app_favicon"
+                                                        alt="favicon"
+                                                        class=" img-responsive img-thumbnail"
+                                                    />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-footer clearfix">
+                                <div class="col-12">
                                     <button
                                         @click="submit()"
                                         class="btn  btn-primary"
@@ -285,13 +210,9 @@
                             </div>
                         </div>
                     </div>
-                    <!-- /.row -->
                 </div>
-                <!-- /.container-fluid -->
             </div>
-            <!-- /.content -->
         </div>
-        <!-- /.content-wrapper -->
     </div>
 </template>
 <script>
@@ -418,7 +339,7 @@ export default {
 };
 </script>
 <style scoped>
-.content-wrapper{
+.content-wrapper {
     margin-left: 0px !important;
 }
 </style>

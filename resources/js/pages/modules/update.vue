@@ -1,141 +1,99 @@
 <template lang="">
     <div>
-
-
-
-
-
-
-
-        <div class="app-title">
-            <div>
-                <h1><i class="fa fa-dashboard"></i> Update Module</h1>
-                <p>Start a beautiful journey here</p>
-            </div>
-            <ul class="app-breadcrumb breadcrumb">
-               <li class="breadcrumb-item">
-                                    <router-link :to="{ name: 'home' }">
-                                        <i class="fa fa-home" aria-hidden="true"></i>
-                                    </router-link>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <router-link :to="{ name: 'modules' }">
-                                        Modules
-                                    </router-link>
-                                </li>
-                                <li class="breadcrumb-item active">
-                                    Update Module
-                                </li>
-            </ul>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
+        <div class="row" style="margin: 0px -30px;">
+            <div class="col-md-12 px-0">
                 <div class="tile">
-                    <h3 class="tile-title">Module Update</h3>
                     <div class="tile-body">
-
-<form
-                                    @submit.prevent="updateModule()"
-                                    @keydown="form.onKeydown($event)"
-                                >
-                                    <div class="card-body row">
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="module_name"
-                                                    >Name *</label
-                                                >
-                                                <input
-                                                    v-model="form.name"
-                                                    type="text"
-                                                    name="name"
-                                                    class="form-control"
-                                                    placeholder="Enter Name"
-                                                    :class="{
-                                                        'is-invalid': form.errors.has(
-                                                            'name'
-                                                        )
-                                                    }"
-                                                />
-                                                <has-error
-                                                    :form="form"
-                                                    field="name"
-                                                ></has-error>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="inputStatus"
-                                                    >Project</label
-                                                >
-                                                <select
-                                                    v-model="form.project_id"
-                                                    class="form-control custom-select"
-                                                    :class="{
-                                                        'is-invalid': form.errors.has(
-                                                            'project_id'
-                                                        )
-                                                    }"
-                                                >
-                                                    <option value="0"
-                                                        >Select Project</option
-                                                    >
-                                                    <option
-                                                        v-if="
-                                                            all_projects.length
-                                                        "
-                                                        v-for="(project,
-                                                        index) in all_projects"
-                                                        :key="index"
-                                                        :value="project.id"
-                                                        >{{
-                                                            project.name
-                                                        }}</option
-                                                    >
-                                                </select>
-                                                <has-error
-                                                    :form="form"
-                                                    field="project_id"
-                                                ></has-error>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="address"
-                                                    >Description</label
-                                                >
-                                                <vue-editor
-                                                    v-model="form.description"
-                                                />
-                                            </div>
+                        <div class="details_col">
+                            <h4 class="title">Module Update</h4>
+                            <form
+                                @submit.prevent="updateModule()"
+                                @keydown="form.onKeydown($event)"
+                            >
+                                <div class="card-body row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="module_name"
+                                                >Name *</label
+                                            >
+                                            <input
+                                                v-model="form.name"
+                                                type="text"
+                                                name="name"
+                                                class="form-control"
+                                                placeholder="Enter Name"
+                                                :class="{
+                                                    'is-invalid': form.errors.has(
+                                                        'name'
+                                                    )
+                                                }"
+                                            />
+                                            <has-error
+                                                :form="form"
+                                                field="name"
+                                            ></has-error>
                                         </div>
                                     </div>
-                                    <!-- /.card-body -->
 
-                                    <div class="tile-footer">
-                                        <button
-                                            type="submit"
-                                            class="btn btn-primary"
-                                        >
-                                            Update Module
-                                        </button>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="inputStatus"
+                                                >Project</label
+                                            >
+                                            <select
+                                                v-model="form.project_id"
+                                                class="form-control custom-select"
+                                                :class="{
+                                                    'is-invalid': form.errors.has(
+                                                        'project_id'
+                                                    )
+                                                }"
+                                            >
+                                                <option value="0"
+                                                    >Select Project</option
+                                                >
+                                                <option
+                                                    v-if="all_projects.length"
+                                                    v-for="(project,
+                                                    index) in all_projects"
+                                                    :key="index"
+                                                    :value="project.id"
+                                                    >{{ project.name }}</option
+                                                >
+                                            </select>
+                                            <has-error
+                                                :form="form"
+                                                field="project_id"
+                                            ></has-error>
+                                        </div>
                                     </div>
-                                </form>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="address"
+                                                >Description</label
+                                            >
+                                            <vue-editor
+                                                v-model="form.description"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
 
+                                <div class="tile-footer">
+                                    <button
+                                        type="submit"
+                                        class="btn btn-primary"
+                                    >
+                                        Update Module
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-
-
-
-
-
-
-
-
     </div>
 </template>
 <script>
@@ -143,62 +101,62 @@ import { Form } from "vform";
 import { VueEditor } from "vue2-editor";
 
 export default {
-  data() {
-    return {
-      all_projects: [],
-      form: new Form({
-        name: "",
-        project_id: 0,
-        description: '<h4 class="text-muted">Module Details</h4>',
-      }),
-    };
-  },
-  methods: {
-    getProject() {
-      axios.get("/api/all_projects").then((response) => {
-        this.all_projects = response.data;
-      });
+    data() {
+        return {
+            all_projects: [],
+            form: new Form({
+                name: "",
+                project_id: 0,
+                description: '<h4 class="text-muted">Module Details</h4>'
+            })
+        };
     },
-    editModule() {
-      let id = this.$route.params.id;
-      axios.get(`/api/module/${id}/edit`).then((response) => {
-        this.form.name = response.data.name;
-        this.form.project_id = response.data.project_id;
-        this.form.description = response.data.description;
-      });
-    },
-    updateModule() {
-      let id = this.$route.params.id;
-      this.form
-        .put(`/api/module/${id}`)
-        .then((response) => {
-          this.$toast.success({
-            title: "SUCCESS",
-            message: "Module Updated Successfully",
-          });
-        })
-        .catch((error) => {
-          if (error.response.data.errors.name) {
-            this.$toast.error({
-              title: "! ERRORS",
-              message: error.response.data.errors.name[0],
+    methods: {
+        getProject() {
+            axios.get("/api/all_projects").then(response => {
+                this.all_projects = response.data;
             });
-          }
-          if (error.response.data.errors.project_id) {
-            this.$toast.error({
-              title: "! ERRORS",
-              message: error.response.data.errors.project_id[0],
+        },
+        editModule() {
+            let id = this.$route.params.id;
+            axios.get(`/api/module/${id}/edit`).then(response => {
+                this.form.name = response.data.name;
+                this.form.project_id = response.data.project_id;
+                this.form.description = response.data.description;
             });
-          }
-        });
+        },
+        updateModule() {
+            let id = this.$route.params.id;
+            this.form
+                .put(`/api/module/${id}`)
+                .then(response => {
+                    this.$toast.success({
+                        title: "SUCCESS",
+                        message: "Module Updated Successfully"
+                    });
+                })
+                .catch(error => {
+                    if (error.response.data.errors.name) {
+                        this.$toast.error({
+                            title: "! ERRORS",
+                            message: error.response.data.errors.name[0]
+                        });
+                    }
+                    if (error.response.data.errors.project_id) {
+                        this.$toast.error({
+                            title: "! ERRORS",
+                            message: error.response.data.errors.project_id[0]
+                        });
+                    }
+                });
+        }
     },
-  },
-  mounted() {
-    this.editModule();
-    this.getProject();
-  },
-  components: {
-    VueEditor,
-  },
+    mounted() {
+        this.editModule();
+        this.getProject();
+    },
+    components: {
+        VueEditor
+    }
 };
 </script>

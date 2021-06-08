@@ -75,7 +75,7 @@ Route::get('/project/task/w/{id}', [TaskController::class, 'project_task']);
 Route::get('/module/task/{id}', [TaskController::class, 'module_tasks']);
 Route::get('/module/task/w/{id}', [TaskController::class, 'Wmodule_tasks']);
 Route::get('/tasks/independent-task', [TaskController::class, 'independent_tasks']);
-Route::put('/task_sprint', [TaskController::class, 'task_sprint_create']);
+
 
 
 
@@ -109,9 +109,9 @@ Route::post('logout', [UserController::class, 'logout'])->middleware('auth:sanct
 
 //user routes
 
-Route::group([ 'middleware' => 'auth:sanctum'], function () {
-    Route::get('/get-profile',[UserController::class, 'getProfile']);
-    Route::get('/my-task',[UserTaskController::class,'myTask']);
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::get('/get-profile', [UserController::class, 'getProfile']);
+    Route::get('/my-task', [UserTaskController::class, 'myTask']);
 });
 
-Route::post('upload-image',[ImageController::class,'upload']);
+Route::post('upload-image', [ImageController::class, 'upload']);
