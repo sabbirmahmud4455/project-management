@@ -2198,10 +2198,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      appInfo: null
+    };
+  },
+  methods: {
+    getAppInfo: function getAppInfo() {
+      var _this = this;
+
+      axios.get("api/app_info").then(function (res) {
+        _this.appInfo = res.data;
+      });
+    }
+  },
   components: {
     leftSideBar: _inc_dboard_left_sidbar__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  mounted: function mounted() {
+    this.getAppInfo();
   }
 });
 
@@ -2809,7 +2829,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2867,8 +2886,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id', 'index', 'deleteFunction']
+  props: ["id", "index", "deleteFunction"]
 });
 
 /***/ }),
@@ -3039,9 +3072,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3052,7 +3082,7 @@ __webpack_require__.r(__webpack_exports__);
     getUser: function getUser() {
       var _this = this;
 
-      axios.get('/sanctum/csrf-cookie').then(function (response) {
+      axios.get("/sanctum/csrf-cookie").then(function (response) {
         axios.get("/api/get-profile").then(function (response) {
           _this.user = response.data;
         });
@@ -43530,7 +43560,28 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("header", { staticClass: "app-header" }, [
+      _c(
+        "a",
+        { staticClass: "app-header__logo", attrs: { href: "index.html" } },
+        [
+          _vm.appInfo.name
+            ? _c("span", [_vm._v(_vm._s(_vm.appInfo.name))])
+            : _c("span", [_vm._v("App Name")])
+        ]
+      ),
+      _vm._v(" "),
+      _c("a", {
+        staticClass: "app-sidebar__toggle",
+        attrs: {
+          href: "#",
+          "data-toggle": "sidebar",
+          "aria-label": "Hide Sidebar"
+        }
+      }),
+      _vm._v(" "),
+      _vm._m(0)
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -43550,57 +43601,148 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("header", { staticClass: "app-header" }, [
-      _c(
-        "a",
-        { staticClass: "app-header__logo", attrs: { href: "index.html" } },
-        [_vm._v("Vali")]
-      ),
-      _vm._v(" "),
-      _c("a", {
-        staticClass: "app-sidebar__toggle",
-        attrs: {
-          href: "#",
-          "data-toggle": "sidebar",
-          "aria-label": "Hide Sidebar"
-        }
-      }),
-      _vm._v(" "),
-      _c("ul", { staticClass: "app-nav" }, [
-        _c("li", { staticClass: "app-search" }, [
-          _c("input", {
-            staticClass: "app-search__input",
-            attrs: { type: "search", placeholder: "Search" }
-          }),
-          _vm._v(" "),
-          _c("button", { staticClass: "app-search__button" }, [
-            _c("i", { staticClass: "fa fa-search" })
-          ])
-        ]),
+    return _c("ul", { staticClass: "app-nav" }, [
+      _c("li", { staticClass: "app-search" }, [
+        _c("input", {
+          staticClass: "app-search__input",
+          attrs: { type: "search", placeholder: "Search" }
+        }),
         _vm._v(" "),
-        _c("li", { staticClass: "dropdown" }, [
-          _c(
-            "a",
-            {
-              staticClass: "app-nav__item",
-              attrs: {
-                href: "#",
-                "data-toggle": "dropdown",
-                "aria-label": "Show notifications"
-              }
-            },
-            [_c("i", { staticClass: "fa fa-bell-o fa-lg" })]
-          ),
-          _vm._v(" "),
-          _c(
-            "ul",
-            {
-              staticClass: "app-notification dropdown-menu dropdown-menu-right"
-            },
-            [
-              _c("li", { staticClass: "app-notification__title" }, [
-                _vm._v(
-                  "\n                        You have 4 new notifications.\n                    "
+        _c("button", { staticClass: "app-search__button" }, [
+          _c("i", { staticClass: "fa fa-search" })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "dropdown" }, [
+        _c(
+          "a",
+          {
+            staticClass: "app-nav__item",
+            attrs: {
+              href: "#",
+              "data-toggle": "dropdown",
+              "aria-label": "Show notifications"
+            }
+          },
+          [_c("i", { staticClass: "fa fa-bell-o fa-lg" })]
+        ),
+        _vm._v(" "),
+        _c(
+          "ul",
+          { staticClass: "app-notification dropdown-menu dropdown-menu-right" },
+          [
+            _c("li", { staticClass: "app-notification__title" }, [
+              _vm._v(
+                "\n                        You have 4 new notifications.\n                    "
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "app-notification__content" }, [
+              _c("li", [
+                _c(
+                  "a",
+                  {
+                    staticClass: "app-notification__item",
+                    attrs: { href: "javascript:;" }
+                  },
+                  [
+                    _c("span", { staticClass: "app-notification__icon" }, [
+                      _c("span", { staticClass: "fa-stack fa-lg" }, [
+                        _c("i", {
+                          staticClass: "fa fa-circle fa-stack-2x text-primary"
+                        }),
+                        _c("i", {
+                          staticClass: "fa fa-envelope fa-stack-1x fa-inverse"
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c("p", { staticClass: "app-notification__message" }, [
+                        _vm._v(
+                          "\n                                        Lisa sent you a mail\n                                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "app-notification__meta" }, [
+                        _vm._v(
+                          "\n                                        2 min ago\n                                    "
+                        )
+                      ])
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c(
+                  "a",
+                  {
+                    staticClass: "app-notification__item",
+                    attrs: { href: "javascript:;" }
+                  },
+                  [
+                    _c("span", { staticClass: "app-notification__icon" }, [
+                      _c("span", { staticClass: "fa-stack fa-lg" }, [
+                        _c("i", {
+                          staticClass: "fa fa-circle fa-stack-2x text-danger"
+                        }),
+                        _c("i", {
+                          staticClass: "fa fa-hdd-o fa-stack-1x fa-inverse"
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c("p", { staticClass: "app-notification__message" }, [
+                        _vm._v(
+                          "\n                                        Mail server not working\n                                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "app-notification__meta" }, [
+                        _vm._v(
+                          "\n                                        5 min ago\n                                    "
+                        )
+                      ])
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c(
+                  "a",
+                  {
+                    staticClass: "app-notification__item",
+                    attrs: { href: "javascript:;" }
+                  },
+                  [
+                    _c("span", { staticClass: "app-notification__icon" }, [
+                      _c("span", { staticClass: "fa-stack fa-lg" }, [
+                        _c("i", {
+                          staticClass: "fa fa-circle fa-stack-2x text-success"
+                        }),
+                        _c("i", {
+                          staticClass: "fa fa-money fa-stack-1x fa-inverse"
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c("p", { staticClass: "app-notification__message" }, [
+                        _vm._v(
+                          "\n                                        Transaction complete\n                                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "app-notification__meta" }, [
+                        _vm._v(
+                          "\n                                        2 days ago\n                                    "
+                        )
+                      ])
+                    ])
+                  ]
                 )
               ]),
               _vm._v(" "),
@@ -43627,13 +43769,13 @@ var staticRenderFns = [
                       _c("div", [
                         _c("p", { staticClass: "app-notification__message" }, [
                           _vm._v(
-                            "\n                                        Lisa sent you a mail\n                                    "
+                            "\n                                            Lisa sent you a mail\n                                        "
                           )
                         ]),
                         _vm._v(" "),
                         _c("p", { staticClass: "app-notification__meta" }, [
                           _vm._v(
-                            "\n                                        2 min ago\n                                    "
+                            "\n                                            2 min ago\n                                        "
                           )
                         ])
                       ])
@@ -43663,13 +43805,13 @@ var staticRenderFns = [
                       _c("div", [
                         _c("p", { staticClass: "app-notification__message" }, [
                           _vm._v(
-                            "\n                                        Mail server not working\n                                    "
+                            "\n                                            Mail server not working\n                                        "
                           )
                         ]),
                         _vm._v(" "),
                         _c("p", { staticClass: "app-notification__meta" }, [
                           _vm._v(
-                            "\n                                        5 min ago\n                                    "
+                            "\n                                            5 min ago\n                                        "
                           )
                         ])
                       ])
@@ -43699,220 +43841,94 @@ var staticRenderFns = [
                       _c("div", [
                         _c("p", { staticClass: "app-notification__message" }, [
                           _vm._v(
-                            "\n                                        Transaction complete\n                                    "
+                            "\n                                            Transaction complete\n                                        "
                           )
                         ]),
                         _vm._v(" "),
                         _c("p", { staticClass: "app-notification__meta" }, [
                           _vm._v(
-                            "\n                                        2 days ago\n                                    "
+                            "\n                                            2 days ago\n                                        "
                           )
                         ])
                       ])
                     ]
                   )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "app-notification__content" }, [
-                  _c("li", [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "app-notification__item",
-                        attrs: { href: "javascript:;" }
-                      },
-                      [
-                        _c("span", { staticClass: "app-notification__icon" }, [
-                          _c("span", { staticClass: "fa-stack fa-lg" }, [
-                            _c("i", {
-                              staticClass:
-                                "fa fa-circle fa-stack-2x text-primary"
-                            }),
-                            _c("i", {
-                              staticClass:
-                                "fa fa-envelope fa-stack-1x fa-inverse"
-                            })
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", [
-                          _c(
-                            "p",
-                            { staticClass: "app-notification__message" },
-                            [
-                              _vm._v(
-                                "\n                                            Lisa sent you a mail\n                                        "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("p", { staticClass: "app-notification__meta" }, [
-                            _vm._v(
-                              "\n                                            2 min ago\n                                        "
-                            )
-                          ])
-                        ])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "app-notification__item",
-                        attrs: { href: "javascript:;" }
-                      },
-                      [
-                        _c("span", { staticClass: "app-notification__icon" }, [
-                          _c("span", { staticClass: "fa-stack fa-lg" }, [
-                            _c("i", {
-                              staticClass:
-                                "fa fa-circle fa-stack-2x text-danger"
-                            }),
-                            _c("i", {
-                              staticClass: "fa fa-hdd-o fa-stack-1x fa-inverse"
-                            })
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", [
-                          _c(
-                            "p",
-                            { staticClass: "app-notification__message" },
-                            [
-                              _vm._v(
-                                "\n                                            Mail server not working\n                                        "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("p", { staticClass: "app-notification__meta" }, [
-                            _vm._v(
-                              "\n                                            5 min ago\n                                        "
-                            )
-                          ])
-                        ])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "app-notification__item",
-                        attrs: { href: "javascript:;" }
-                      },
-                      [
-                        _c("span", { staticClass: "app-notification__icon" }, [
-                          _c("span", { staticClass: "fa-stack fa-lg" }, [
-                            _c("i", {
-                              staticClass:
-                                "fa fa-circle fa-stack-2x text-success"
-                            }),
-                            _c("i", {
-                              staticClass: "fa fa-money fa-stack-1x fa-inverse"
-                            })
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", [
-                          _c(
-                            "p",
-                            { staticClass: "app-notification__message" },
-                            [
-                              _vm._v(
-                                "\n                                            Transaction complete\n                                        "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("p", { staticClass: "app-notification__meta" }, [
-                            _vm._v(
-                              "\n                                            2 days ago\n                                        "
-                            )
-                          ])
-                        ])
-                      ]
-                    )
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "app-notification__footer" }, [
-                _c("a", { attrs: { href: "#" } }, [
-                  _vm._v("See all notifications.")
                 ])
               ])
-            ]
-          )
-        ]),
+            ]),
+            _vm._v(" "),
+            _c("li", { staticClass: "app-notification__footer" }, [
+              _c("a", { attrs: { href: "#" } }, [
+                _vm._v("See all notifications.")
+              ])
+            ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "dropdown" }, [
+        _c(
+          "a",
+          {
+            staticClass: "app-nav__item",
+            attrs: {
+              href: "#",
+              "data-toggle": "dropdown",
+              "aria-label": "Open Profile Menu"
+            }
+          },
+          [
+            _c("i", {
+              staticClass: "fa fa-user-o fa-lg",
+              attrs: { "aria-hidden": "true" }
+            })
+          ]
+        ),
         _vm._v(" "),
-        _c("li", { staticClass: "dropdown" }, [
-          _c(
-            "a",
-            {
-              staticClass: "app-nav__item",
-              attrs: {
-                href: "#",
-                "data-toggle": "dropdown",
-                "aria-label": "Open Profile Menu"
-              }
-            },
-            [
-              _c("i", {
-                staticClass: "fa fa-user-o fa-lg",
-                attrs: { "aria-hidden": "true" }
-              })
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "ul",
-            { staticClass: "dropdown-menu settings-menu dropdown-menu-right" },
-            [
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass: "dropdown-item",
-                    attrs: { href: "page-user.html" }
-                  },
-                  [
-                    _c("i", { staticClass: "fa fa-cog fa-lg" }),
-                    _vm._v(" Settings")
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass: "dropdown-item",
-                    attrs: { href: "page-user.html" }
-                  },
-                  [
-                    _c("i", { staticClass: "fa fa-user fa-lg" }),
-                    _vm._v(" Profile")
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c(
-                  "a",
-                  { staticClass: "dropdown-item", attrs: { href: "logout" } },
-                  [
-                    _c("i", { staticClass: "fa fa-sign-out fa-lg" }),
-                    _vm._v(" Logout")
-                  ]
-                )
-              ])
-            ]
-          )
-        ])
+        _c(
+          "ul",
+          { staticClass: "dropdown-menu settings-menu dropdown-menu-right" },
+          [
+            _c("li", [
+              _c(
+                "a",
+                {
+                  staticClass: "dropdown-item",
+                  attrs: { href: "page-user.html" }
+                },
+                [
+                  _c("i", { staticClass: "fa fa-cog fa-lg" }),
+                  _vm._v(" Settings")
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "a",
+                {
+                  staticClass: "dropdown-item",
+                  attrs: { href: "page-user.html" }
+                },
+                [
+                  _c("i", { staticClass: "fa fa-user fa-lg" }),
+                  _vm._v(" Profile")
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "a",
+                { staticClass: "dropdown-item", attrs: { href: "logout" } },
+                [
+                  _c("i", { staticClass: "fa fa-sign-out fa-lg" }),
+                  _vm._v(" Logout")
+                ]
+              )
+            ])
+          ]
+        )
       ])
     ])
   }
@@ -44725,7 +44741,6 @@ var render = function() {
       _c("div", { staticClass: "app-sidebar__user" }, [
         _c("img", {
           staticClass: "app-sidebar__user-avatar",
-          staticStyle: { "max-width": "70px" },
           attrs: { src: _vm.user && _vm.user.photo, alt: "User Image" }
         }),
         _vm._v(" "),
@@ -44739,7 +44754,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("p", { staticClass: "app-sidebar__user-designation" }, [
-            _vm._v("\n                    Frontend Developer\n                ")
+            _c("span", [_vm._v(_vm._s(_vm.user.photo))])
           ])
         ])
       ]),
@@ -44937,7 +44952,7 @@ var render = function() {
                 staticClass: "btn btn-secondary",
                 attrs: { type: "button", "data-dismiss": "modal" }
               },
-              [_vm._v("Cancel")]
+              [_vm._v("\n                        Cancel\n                    ")]
             ),
             _vm._v(" "),
             _c(
@@ -44951,7 +44966,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("Delete")]
+              [_vm._v("\n                        Delete\n                    ")]
             )
           ])
         ])
@@ -44969,20 +44984,7 @@ var staticRenderFns = [
         _c("i", { staticClass: "fas fa-trash-alt material-icons" })
       ]),
       _vm._v(" "),
-      _c("h4", { staticClass: "modal-title w-100" }, [_vm._v("Are you sure?")]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-hidden": "true"
-          }
-        },
-        [_vm._v("×")]
-      )
+      _c("h4", { staticClass: "modal-title w-100" }, [_vm._v("Are you sure?")])
     ])
   },
   function() {
@@ -44992,7 +44994,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "modal-body" }, [
       _c("p", [
         _vm._v(
-          "Do you really want to delete these records? This process cannot be undone."
+          "\n                        Do you really want to delete these records? This\n                        process cannot be undone.\n                    "
         )
       ])
     ])
@@ -45268,13 +45270,16 @@ var render = function() {
       _c("div", { staticClass: "app-sidebar__user" }, [
         _c("img", {
           staticClass: "app-sidebar__user-avatar",
-          staticStyle: { "max-width": "70px" },
           attrs: { src: _vm.user && _vm.user.photo, alt: "User Image" }
         }),
         _vm._v(" "),
         _c("div", [
           _c("p", { staticClass: "app-sidebar__user-name" }, [
-            _vm._v(_vm._s(_vm.user && _vm.user.name))
+            _vm._v(
+              "\n                    " +
+                _vm._s(_vm.user && _vm.user.name) +
+                "\n                "
+            )
           ]),
           _vm._v(" "),
           _c("p", { staticClass: "app-sidebar__user-designation" }, [

@@ -3,7 +3,6 @@
         <aside class="app-sidebar">
             <div class="app-sidebar__user">
                 <img
-                    style="max-width:70px"
                     class="app-sidebar__user-avatar"
                     :src="user && user.photo"
                     alt="User Image"
@@ -13,7 +12,7 @@
                         {{ user && user.name }}
                     </p>
                     <p class="app-sidebar__user-designation">
-                        Frontend Developer
+                        <span>{{ user.photo }}</span>
                     </p>
                 </div>
             </div>

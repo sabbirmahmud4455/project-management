@@ -2,7 +2,10 @@
     <div>
         <!-- Navbar-->
         <header class="app-header">
-            <a class="app-header__logo" href="index.html">Vali</a>
+            <a class="app-header__logo" href="index.html">
+                <span v-if="appInfo.name">{{ appInfo.name }}</span>
+                <span v-else>App Name</span>
+            </a>
             <!-- Sidebar toggle button--><a
                 class="app-sidebar__toggle"
                 href="#"
@@ -234,8 +237,23 @@
 <script>
 import leftSideBar from "../inc/dboard_left_sidbar";
 export default {
+    data() {
+        return {
+            appInfo: null
+        };
+    },
+    methods: {
+        getAppInfo() {
+            axios.get("api/app_info").then(res => {
+                this.appInfo = res.data;
+            });
+        }
+    },
     components: {
         leftSideBar
+    },
+    mounted() {
+        this.getAppInfo();
     }
 };
 </script>
