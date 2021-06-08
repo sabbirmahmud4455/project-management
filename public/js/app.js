@@ -2197,6 +2197,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -43859,7 +43860,12 @@ var staticRenderFns = [
                 "aria-label": "Open Profile Menu"
               }
             },
-            [_c("i", { staticClass: "fa fa-user fa-lg" })]
+            [
+              _c("i", {
+                staticClass: "fa fa-user-o fa-lg",
+                attrs: { "aria-hidden": "true" }
+              })
+            ]
           ),
           _vm._v(" "),
           _c(

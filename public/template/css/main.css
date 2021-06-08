@@ -14212,8 +14212,8 @@ be a descendant of the grid when it is being dragged.
 
 .app-sidebar__toggle:focus,
 .app-sidebar__toggle:hover {
-    color: #fff;
-    background-color: #00635a;
+    color: #85aeff;
+    background: rgba(0, 0, 0, 0.1);
     text-decoration: none;
 }
 
@@ -14239,7 +14239,7 @@ be a descendant of the grid when it is being dragged.
     display: block;
     padding: 15px;
     line-height: 20px;
-    color: #fff;
+    color: #5c90fd;
     -webkit-transition: background-color 0.3s ease;
     -o-transition: background-color 0.3s ease;
     transition: background-color 0.3s ease;
@@ -14248,7 +14248,7 @@ be a descendant of the grid when it is being dragged.
 .app-nav__item:hover,
 .app-nav__item:focus {
     background: rgba(0, 0, 0, 0.1);
-    color: #f6f6f6;
+    color: #85aeff;
 }
 
 .app-search {
@@ -14269,6 +14269,7 @@ be a descendant of the grid when it is being dragged.
 }
 
 .app-search__input {
+    outline: 2px solid #5c90fd;
     border: 0;
     padding: 5px 10px;
     padding-right: 30px;
@@ -14302,7 +14303,7 @@ be a descendant of the grid when it is being dragged.
     bottom: 10px;
     padding: 0 10px;
     border: 0;
-    color: rgba(0, 0, 0, 0.8);
+    color: #5c90fd;
     background: none;
     cursor: pointer;
 }
