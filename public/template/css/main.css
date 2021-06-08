@@ -14164,10 +14164,10 @@ be a descendant of the grid when it is being dragged.
     flex: 1 0 auto;
     color: #85aeff;
     text-align: center;
-    font-family: "Niconne";
+    /* font-family: "Niconne"; */
     padding: 0 15px;
-    font-size: 26px;
-    font-weight: 400;
+    font-size: 21px;
+    font-weight: 600;
     line-height: 50px;
 }
 

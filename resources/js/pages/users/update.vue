@@ -419,7 +419,7 @@ export default {
                 .then(response => {
                     this.$toast.success({
                         title: "SUCCESS",
-                        message: "User Created Successfully"
+                        message: "User Updated Successfully"
                     });
                 })
                 .catch(error => {

@@ -262,6 +262,7 @@ export default {
                     this.form.start_date = null;
                     this.form.end_date = null;
                     this.form.development_cost = "";
+                    this.$router.push({ name: 'projects' });
                     this.$toast.success({
                         title: "SUCCESS",
                         message: "project Created Successfully"

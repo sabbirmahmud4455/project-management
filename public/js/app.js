@@ -2205,7 +2205,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      appInfo: null
+      appInfo: []
     };
   },
   methods: {
@@ -3263,6 +3263,10 @@ __webpack_require__.r(__webpack_exports__);
         _this2.form.project_id = 0;
         _this2.form.description = '<h4 class="text-muted">Module Details</h4>';
 
+        _this2.$router.push({
+          name: 'modules'
+        });
+
         _this2.$toast.success({
           title: "SUCCESS",
           message: "Module Created Successfully"
@@ -4095,6 +4099,10 @@ __webpack_require__.r(__webpack_exports__);
         _this.form.end_date = null;
         _this.form.development_cost = "";
 
+        _this.$router.push({
+          name: 'projects'
+        });
+
         _this.$toast.success({
           title: "SUCCESS",
           message: "project Created Successfully"
@@ -4615,7 +4623,7 @@ __webpack_require__.r(__webpack_exports__);
       this.form.put("/api/project/".concat(id)).then(function (response) {
         _this2.$toast.success({
           title: "SUCCESS",
-          message: "project Created Successfully"
+          message: "project Updated Successfully"
         });
       })["catch"](function (error) {
         if (error) {
@@ -5262,82 +5270,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inc_sprint_tasks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../inc/sprint_tasks */ "./resources/js/inc/sprint_tasks.vue");
 /* harmony import */ var _independent_task_form_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./independent_task_form.vue */ "./resources/js/pages/sprint/independent_task_form.vue");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -5604,34 +5536,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       task_category: "independent_task",
       projectID: null,
       moduleId: null,
-      existingId: [],
-      newTask: {
-        sprint_id: this.$route.params.id,
-        task_name: null,
-        priority: null,
-        assigned_to: null,
-        status: null
-      }
+      existingId: []
     };
   },
   methods: {
-    createTaskWithSprint: function createTaskWithSprint() {
+    // createTaskWithSprint() {
+    //     axios.put("/api/task_sprint", this.newTask).then(res => {
+    //         this.$toast.success({
+    //             title: "SUCCESS",
+    //             message: "Task And Sprint-Task Created Successfully"
+    //         });
+    //     });
+    // },
+    getExistingTasksId: function getExistingTasksId() {
       var _this = this;
 
-      axios.put("/api/task_sprint", this.newTask).then(function (res) {
-        _this.$toast.success({
-          title: "SUCCESS",
-          message: "Task And Sprint-Task Created Successfully"
-        });
-      });
-    },
-    getExistingTasksId: function getExistingTasksId() {
-      var _this2 = this;
-
       axios.get("/api/sprint/".concat(this.$route.params.id)).then(function (response) {
-        _this2.existingId = response.data.sprint_task.map(function (task) {
-          return task.task_id;
-        });
+        if (_this.existingId.length) {
+          _this.existingId = response.data.sprint_task.map(function (task) {
+            return task.task_id;
+          });
+        }
       });
     },
     updateAllTask: function updateAllTask(index, task) {
@@ -5641,80 +5566,82 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     updateSprintTask: function updateSprintTask() {
-      var _this3 = this;
+      var _this2 = this;
 
       axios.post("/api/sprint/sprint-task", {
         selectedTask: this.finalSelectedTask
       }).then(function (res) {
-        _this3.$toast.success({
+        _this2.$router.push({
+          name: 'sprint_details',
+          params: {
+            id: _this2.spritnID
+          }
+        });
+
+        _this2.$toast.success({
           title: "SUCCESS",
           message: "Sprint-Task Updated Successfully"
         });
       });
     },
     getProjectModule: function getProjectModule(id) {
-      var _this4 = this;
+      var _this3 = this;
 
       axios.get("/api/product_modules/".concat(id)).then(function (response) {
-        _this4.projectModules = response.data;
+        _this3.projectModules = response.data;
       });
     },
-    getIndependentTask: function getIndependentTask() {
-      var _this5 = this;
-
-      this.tasks = [];
-      this.finalSelectedTask = [];
-      axios.get("/api/tasks/independent-task").then(function (res) {
-        _this5.tasks = res.data.filter(function (task) {
-          return !_this5.existingId.includes(task.id);
-        });
-        _this5.allTasks = _this5.tasks.map(function (task) {
-          return _objectSpread(_objectSpread({}, task), {}, {
-            selectTasks: false
-          });
-        });
-      });
-    },
+    // getIndependentTask() {
+    //     this.tasks = [];
+    //     this.finalSelectedTask = [];
+    //     axios.get("/api/tasks/independent-task").then(res => {
+    //         this.tasks = res.data.filter(
+    //             task => !this.existingId.includes(task.id)
+    //         );
+    //         this.allTasks = this.tasks.map(task => {
+    //             return { ...task, selectTasks: false };
+    //         });
+    //     });
+    // },
     getProject: function getProject() {
-      var _this6 = this;
+      var _this4 = this;
 
       axios.get("/api/all_projects").then(function (res) {
-        _this6.allProject = res.data;
+        _this4.allProject = res.data;
       });
     },
     getProjectTask: function getProjectTask() {
-      var _this7 = this;
+      var _this5 = this;
 
       this.finalSelectedTask = [];
       this.getProjectModule(this.projectID);
       this.selectTask = [];
       axios.get("/api/project/task/w/".concat(this.projectID)).then(function (res) {
-        _this7.tasks = res.data.filter(function (task) {
-          return !_this7.existingId.includes(task.id);
+        _this5.tasks = res.data.filter(function (task) {
+          return !_this5.existingId.includes(task.id);
         });
       });
       this.selectTask = [];
       axios.get("/api/project/task/w/".concat(this.projectID)).then(function (res) {
-        _this7.tasks = res.data.filter(function (task) {
-          return !_this7.existingId.includes(task.id);
+        _this5.tasks = res.data.filter(function (task) {
+          return !_this5.existingId.includes(task.id);
         });
       });
     },
     getModuleTask: function getModuleTask() {
-      var _this8 = this;
+      var _this6 = this;
 
       this.finalSelectedTask = [];
       axios.get("/api/module/task/w/".concat(this.moduleId)).then(function (res) {
-        _this8.tasks = res.data.filter(function (task) {
-          return !_this8.existingId.includes(task.id);
+        _this6.tasks = res.data.filter(function (task) {
+          return !_this6.existingId.includes(task.id);
         });
       });
     }
   },
   mounted: function mounted() {
     this.getExistingTasksId();
-    this.getProject();
-    this.getIndependentTask();
+    this.getProject(); // this.getIndependentTask();
   },
   components: {
     allTaskList: _inc_sprint_tasks__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -5893,6 +5820,10 @@ __webpack_require__.r(__webpack_exports__);
         _this.form.duration = null;
         _this.form.purposes = null;
         _this.form.description = null;
+
+        _this.$router.push({
+          name: 'sprints'
+        });
 
         _this.$toast.success({
           title: "SUCCESS",
@@ -6181,6 +6112,13 @@ __webpack_require__.r(__webpack_exports__);
         _this5.form.assign_to = 0;
         _this5.form.description = '<h4 class="text-muted">task Details</h4>';
 
+        _this5.$router.push({
+          name: 'sprint_details',
+          params: {
+            id: _this5.$route.params.id
+          }
+        });
+
         _this5.$toast.success({
           title: "SUCCESS",
           message: "task Created Successfully"
@@ -6381,20 +6319,79 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       tasks: [],
       sprintID: this.$route.params.id,
       sprint_task_edit: {
+        task_name: null,
         id: null,
         priority: null,
-        assigned_to: null,
+        assign_to: null,
         status: null
       },
       allUsers: null,
       allProject: null,
-      SprintTask: null,
+      sprintTasks: null,
       name: null,
       type: null,
       start_date: null,
@@ -6412,8 +6409,8 @@ __webpack_require__.r(__webpack_exports__);
         $("#edit_sprint_task").modal("show");
         _this.sprint_task_edit.id = res.data.id;
         _this.sprint_task_edit.priority = res.data.priority;
-        _this.sprint_task_edit.assigned_to = res.data.assigned_to;
-        _this.sprint_task_edit.status = res.data.status;
+        _this.sprint_task_edit.assign_to = res.data.assign_to;
+        _this.sprint_task_edit.status = res.data.status; // this.sprint_task_edit.task_name = res.data.task.name;
       });
     },
     updateSprintTask: function updateSprintTask() {
@@ -6460,8 +6457,8 @@ __webpack_require__.r(__webpack_exports__);
         _this5.description = response.data.description;
         _this5.status = response.data.status;
 
-        if (response.data.sprint_task.length) {
-          _this5.SprintTask = response.data.sprint_task;
+        if (response.data.sprint_task) {
+          _this5.sprintTasks = response.data.sprint_task;
         }
       });
     }
@@ -7183,6 +7180,10 @@ __webpack_require__.r(__webpack_exports__);
         _this4.form.module_id = 0;
         _this4.form.assign_to = 0;
         _this4.form.description = '<h4 class="text-muted">task Details</h4>';
+
+        _this4.$router.push({
+          name: 'tasks'
+        });
 
         _this4.$toast.success({
           title: "SUCCESS",
@@ -8350,6 +8351,10 @@ __webpack_require__.r(__webpack_exports__);
         _this.form.password = "";
         _this.form.password_confirmation = "";
 
+        _this.$router.push({
+          name: 'users'
+        });
+
         _this.$toast.success({
           title: "SUCCESS",
           message: "User Created Successfully"
@@ -8903,7 +8908,7 @@ __webpack_require__.r(__webpack_exports__);
       this.form.put("/api/user/".concat(id)).then(function (response) {
         _this2.$toast.success({
           title: "SUCCESS",
-          message: "User Created Successfully"
+          message: "User Updated Successfully"
         });
       })["catch"](function (error) {
         if (error) {
@@ -11864,7 +11869,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.content-wrapper[data-v-52860372] {\n    margin-left: 0px !important;\n}\n", ""]);
+exports.push([module.i, "\n.content-wrapper[data-v-52860372] {\r\n    margin-left: 0px !important;\n}\r\n", ""]);
 
 // exports
 
@@ -43544,10 +43549,10 @@ AlertSuccess_component.options.__file = "AlertSuccess.vue"
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/component/main.vue?vue&type=template&id=3d7cc809&lang=true&":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/component/main.vue?vue&type=template&id=3d7cc809&lang=true& ***!
-  \****************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/component/main.vue?vue&type=template&id=3d7cc809&":
+/*!******************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/component/main.vue?vue&type=template&id=3d7cc809& ***!
+  \******************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -43561,15 +43566,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("header", { staticClass: "app-header" }, [
-      _c(
-        "a",
-        { staticClass: "app-header__logo", attrs: { href: "index.html" } },
-        [
-          _vm.appInfo.name
-            ? _c("span", [_vm._v(_vm._s(_vm.appInfo.name))])
-            : _c("span", [_vm._v("App Name")])
-        ]
-      ),
+      _c("a", { staticClass: "app-header__logo", attrs: { href: "/" } }, [
+        _vm.appInfo.name
+          ? _c("span", [_vm._v(_vm._s(_vm.appInfo.name))])
+          : _c("span", [_vm._v("App Name")])
+      ]),
       _vm._v(" "),
       _c("a", {
         staticClass: "app-sidebar__toggle",
@@ -44751,10 +44752,6 @@ var render = function() {
                 _vm._s(_vm.user && _vm.user.name) +
                 "\n                "
             )
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "app-sidebar__user-designation" }, [
-            _c("span", [_vm._v(_vm._s(_vm.user.photo))])
           ])
         ])
       ]),
@@ -48048,15 +48045,7 @@ var render = function() {
                               _c("div", { staticClass: "form-check" }, [
                                 _c(
                                   "label",
-                                  {
-                                    staticClass: "form-check-label",
-                                    attrs: { C: "" },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.getIndependentTask()
-                                      }
-                                    }
-                                  },
+                                  { staticClass: "form-check-label" },
                                   [
                                     _c("input", {
                                       directives: [
@@ -48406,127 +48395,7 @@ var render = function() {
           ])
         ])
       ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "create_task_with_sprint",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "exampleModalCenterTitle",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          {
-            staticClass: "modal-dialog modal-dialog-centered",
-            attrs: { role: "document" }
-          },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c("form", { attrs: { action: "" } }, [
-                  _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-12" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "task_name" } }, [
-                          _vm._v("Task Name")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.newTask.task_name,
-                              expression: "newTask.task_name"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "",
-                            id: "task_name",
-                            placeholder: "Enter Task Name",
-                            "aria-describedby": "helpId"
-                          },
-                          domProps: { value: _vm.newTask.task_name },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.newTask,
-                                "task_name",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "small",
-                          {
-                            staticClass: "text-muted",
-                            attrs: { id: "helpId" }
-                          },
-                          [_vm._v("Help text")]
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6 col" })
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [
-                    _vm._v(
-                      "\n                        Close\n                    "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.createTaskWithSprint()
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                        Create\n                    "
-                    )
-                  ]
-                )
-              ])
-            ])
-          ]
-        )
-      ]
-    )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -48552,31 +48421,6 @@ var staticRenderFns = [
           ])
         ])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c(
-        "h5",
-        { staticClass: "modal-title", attrs: { id: "exampleModalLongTitle" } },
-        [_vm._v("\n                        Modal title\n                    ")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
     ])
   }
 ]
@@ -49334,40 +49178,108 @@ var render = function() {
                   _c("div", { staticClass: "details_col" }, [
                     _c("h4", { staticClass: "title" }, [
                       _vm._v(
-                        "\n                                    Sprint Info\n                                "
+                        "\n                                        Sprint Info\n                                    "
                       )
                     ]),
                     _vm._v(" "),
-                    _vm._m(0),
+                    _c("div", { staticClass: "info_propraty" }, [
+                      _c("p", { staticClass: "propraty_title" }, [
+                        _vm._v(
+                          "\n                                            name\n                                        "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm.name
+                        ? _c("p", { staticClass: "value" }, [
+                            _vm._v(_vm._s(_vm.name))
+                          ])
+                        : _c("p", { staticClass: "value" }, [_vm._v("N/A")])
+                    ]),
                     _vm._v(" "),
-                    _vm._m(1),
+                    _c("div", { staticClass: "info_propraty" }, [
+                      _c("p", { staticClass: "propraty_title" }, [
+                        _vm._v(
+                          "\n                                            Type\n                                        "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm.name
+                        ? _c("p", { staticClass: "value" }, [
+                            _vm._v(_vm._s(_vm.type))
+                          ])
+                        : _c("p", { staticClass: "value" }, [_vm._v("N/A")])
+                    ]),
                     _vm._v(" "),
-                    _vm._m(2),
+                    _c("div", { staticClass: "info_propraty" }, [
+                      _c("p", { staticClass: "propraty_title" }, [
+                        _vm._v(
+                          "\n                                            Start Date\n                                        "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm.start_date
+                        ? _c("p", { staticClass: "value" }, [
+                            _vm._v(_vm._s(_vm.start_date))
+                          ])
+                        : _c("p", { staticClass: "value" }, [_vm._v("N/A")])
+                    ]),
                     _vm._v(" "),
-                    _vm._m(3),
+                    _c("div", { staticClass: "info_propraty" }, [
+                      _c("p", { staticClass: "propraty_title" }, [
+                        _vm._v(
+                          "\n                                            End Date\n                                        "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm.end_date
+                        ? _c("p", { staticClass: "value" }, [
+                            _vm._v(_vm._s(_vm.end_date))
+                          ])
+                        : _c("p", { staticClass: "value" }, [_vm._v("N/A")])
+                    ]),
                     _vm._v(" "),
-                    _vm._m(4),
+                    _c("div", { staticClass: "info_propraty" }, [
+                      _c("p", { staticClass: "propraty_title" }, [
+                        _vm._v(
+                          "\n                                            Purpose\n                                        "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm.purposes
+                        ? _c("p", { staticClass: "value" }, [
+                            _vm._v(_vm._s(_vm.purposes))
+                          ])
+                        : _c("p", { staticClass: "value" }, [_vm._v("N/A")])
+                    ]),
                     _vm._v(" "),
-                    _vm._m(5),
+                    _c("div", { staticClass: "info_propraty" }, [
+                      _c("p", { staticClass: "propraty_title" }, [
+                        _vm._v(
+                          "\n                                            Status\n                                        "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm.status
+                        ? _c("p", { staticClass: "value" }, [
+                            _vm._v(_vm._s(_vm.status))
+                          ])
+                        : _c("p", { staticClass: "value" }, [_vm._v("N/A")])
+                    ]),
                     _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "info_propraty" },
-                      [
-                        _c("hp", { staticClass: "propraty_title" }, [
-                          _vm._v(
-                            "\n                                        Description\n                                    "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "value" }, [
-                          _vm._v(
-                            "\n                                        Lorem ipsum dolor sit amet\n                                        consectetur adipisicing elit.\n                                        Perspiciatis suscipit accusantium\n                                        fugit, natus quos rem quae.\n                                        Recusandae ad esse voluptas magni\n                                        officia adipisci, mollitia molestiae\n                                        possimus corrupti debitis\n                                        consectetur ratione.\n                                    "
-                          )
-                        ])
-                      ],
-                      1
-                    )
+                    _c("div", { staticClass: "info_propraty" }, [
+                      _c("p", { staticClass: "propraty_title" }, [
+                        _vm._v(
+                          "\n                                            Description\n                                        "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm.description
+                        ? _c("p", {
+                            staticClass: "value",
+                            domProps: { innerHTML: _vm._s(_vm.description) }
+                          })
+                        : _vm._e()
+                    ])
                   ])
                 ]),
                 _vm._v(" "),
@@ -49385,7 +49297,7 @@ var render = function() {
                         [
                           _c("h4", { staticClass: "title-heading" }, [
                             _vm._v(
-                              "\n                                        Sprint Tasks\n                                    "
+                              "\n                                            Sprint Tasks\n                                        "
                             )
                           ]),
                           _vm._v(" "),
@@ -49407,7 +49319,7 @@ var render = function() {
                             [
                               _c("i", { staticClass: "ri-add-line" }),
                               _vm._v(
-                                "\n                                        Add Task\n                                    "
+                                "\n                                            Add Task\n                                        "
                               )
                             ]
                           )
@@ -49415,7 +49327,88 @@ var render = function() {
                         1
                       ),
                       _vm._v(" "),
-                      _vm._m(6)
+                      _c("div", { staticClass: "info_propraty" }, [
+                        _c(
+                          "table",
+                          {
+                            staticClass: "table",
+                            attrs: { id: "sampleTable" }
+                          },
+                          [
+                            _vm._m(0),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              _vm._l(_vm.sprintTasks, function(
+                                sprint_task,
+                                index
+                              ) {
+                                return _c("tr", { key: index }, [
+                                  _c("td", [_vm._v(_vm._s(index + 1))]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    sprint_task.task.name
+                                      ? _c("span", [
+                                          _vm._v(_vm._s(sprint_task.task.name))
+                                        ])
+                                      : _vm._e()
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    sprint_task.priority
+                                      ? _c("span", [
+                                          _vm._v(_vm._s(sprint_task.priority))
+                                        ])
+                                      : _vm._e()
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    sprint_task.user
+                                      ? _c("span", [
+                                          _vm._v(_vm._s(sprint_task.user.name))
+                                        ])
+                                      : _vm._e()
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    sprint_task.status
+                                      ? _c("span", [
+                                          _vm._v(_vm._s(sprint_task.status))
+                                        ])
+                                      : _vm._e()
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-link px-1",
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.edit_sprint_task(
+                                              sprint_task.id
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass:
+                                            "fa fa-pencil text-secondary",
+                                          attrs: { "aria-hidden": "true" }
+                                        })
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _vm._m(1, true)
+                                  ])
+                                ])
+                              }),
+                              0
+                            )
+                          ]
+                        )
+                      ])
                     ])
                   ]
                 )
@@ -49423,6 +49416,126 @@ var render = function() {
             ])
           ])
         ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "edit_sprint_task",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalCenterTitle",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("form", { attrs: { action: "" } }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-12" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "task_name" } }, [
+                          _vm._v("Task Name")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.sprint_task_edit.task_name,
+                              expression: "sprint_task_edit.task_name"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            name: "",
+                            id: "task_name",
+                            placeholder: "Enter Task Name",
+                            "aria-describedby": "helpId"
+                          },
+                          domProps: { value: _vm.sprint_task_edit.task_name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.sprint_task_edit,
+                                "task_name",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "small",
+                          {
+                            staticClass: "text-muted",
+                            attrs: { id: "helpId" }
+                          },
+                          [_vm._v("Help text")]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6" }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6 col" })
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                            Close\n                        "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.createTaskWithSprint()
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                            Update\n                        "
+                    )
+                  ]
+                )
+              ])
+            ])
+          ]
+        )
       ]
     )
   ])
@@ -49432,166 +49545,60 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "info_propraty" }, [
-      _c("p", { staticClass: "propraty_title" }, [
-        _vm._v(
-          "\n                                        name\n                                    "
-        )
-      ]),
-      _vm._v(" "),
-      _c("p", { staticClass: "value" }, [_vm._v("ajsdfjldsj")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "info_propraty" }, [
-      _c("p", { staticClass: "propraty_title" }, [
-        _vm._v(
-          "\n                                        Type\n                                    "
-        )
-      ]),
-      _vm._v(" "),
-      _c("p", { staticClass: "value" }, [_vm._v("ajsdfjldsj")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "info_propraty" }, [
-      _c("p", { staticClass: "propraty_title" }, [
-        _vm._v(
-          "\n                                        Start Date\n                                    "
-        )
-      ]),
-      _vm._v(" "),
-      _c("p", { staticClass: "value" }, [_vm._v("ajsdfjldsj")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "info_propraty" }, [
-      _c("p", { staticClass: "propraty_title" }, [
-        _vm._v(
-          "\n                                        End Date\n                                    "
-        )
-      ]),
-      _vm._v(" "),
-      _c("p", { staticClass: "value" }, [_vm._v("ajsdfjldsj")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "info_propraty" }, [
-      _c("p", { staticClass: "propraty_title" }, [
-        _vm._v(
-          "\n                                        Purpose\n                                    "
-        )
-      ]),
-      _vm._v(" "),
-      _c("p", { staticClass: "value" }, [_vm._v("ajsdfjldsj")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "info_propraty" }, [
-      _c("p", { staticClass: "propraty_title" }, [
-        _vm._v(
-          "\n                                        Status\n                                    "
-        )
-      ]),
-      _vm._v(" "),
-      _c("p", { staticClass: "value" }, [_vm._v("ajsdfjldsj")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "info_propraty" }, [
-      _c("table", { staticClass: "table", attrs: { id: "sampleTable" } }, [
-        _c("thead", [
-          _c("tr", [
-            _c("th", [_vm._v("Sl")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Name")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Priority")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Assign To")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Status")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Action")])
-          ])
-        ]),
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Sl")]),
         _vm._v(" "),
-        _c("tbody", [
-          _c("tr", [
-            _c("td", [_vm._v("1")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("System Architect")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Edinburgh")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("61")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("2011/04/25")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("button", { staticClass: "btn btn-link px-1" }, [
-                _c("i", {
-                  staticClass: "fa fa-pencil text-secondary",
-                  attrs: { "aria-hidden": "true" }
-                })
-              ]),
-              _vm._v(" "),
-              _c("button", { staticClass: "btn btn-link px-1" }, [
-                _c("i", {
-                  staticClass: "fa fa-trash text-danger",
-                  attrs: { "aria-hidden": "true" }
-                })
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tr", [
-            _c("td", [_vm._v("2")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("System Architect")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Edinburgh")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("61")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("2011/04/25")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("button", { staticClass: "btn btn-link px-1" }, [
-                _c("i", {
-                  staticClass: "fa fa-pencil text-secondary",
-                  attrs: { "aria-hidden": "true" }
-                })
-              ]),
-              _vm._v(" "),
-              _c("button", { staticClass: "btn btn-link px-1" }, [
-                _c("i", {
-                  staticClass: "fa fa-trash text-danger",
-                  attrs: { "aria-hidden": "true" }
-                })
-              ])
-            ])
-          ])
-        ])
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Priority")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Assign To")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Status")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Action")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("button", { staticClass: "btn btn-link px-1" }, [
+      _c("i", {
+        staticClass: "fa fa-trash text-danger",
+        attrs: { "aria-hidden": "true" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLongTitle" } },
+        [
+          _vm._v(
+            "\n                            Modal title\n                        "
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
     ])
   }
 ]
@@ -74049,7 +74056,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _main_vue_vue_type_template_id_3d7cc809_lang_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./main.vue?vue&type=template&id=3d7cc809&lang=true& */ "./resources/js/component/main.vue?vue&type=template&id=3d7cc809&lang=true&");
+/* harmony import */ var _main_vue_vue_type_template_id_3d7cc809___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./main.vue?vue&type=template&id=3d7cc809& */ "./resources/js/component/main.vue?vue&type=template&id=3d7cc809&");
 /* harmony import */ var _main_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./main.vue?vue&type=script&lang=js& */ "./resources/js/component/main.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -74061,8 +74068,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _main_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _main_vue_vue_type_template_id_3d7cc809_lang_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _main_vue_vue_type_template_id_3d7cc809_lang_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _main_vue_vue_type_template_id_3d7cc809___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _main_vue_vue_type_template_id_3d7cc809___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -74091,19 +74098,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/component/main.vue?vue&type=template&id=3d7cc809&lang=true&":
-/*!**********************************************************************************!*\
-  !*** ./resources/js/component/main.vue?vue&type=template&id=3d7cc809&lang=true& ***!
-  \**********************************************************************************/
+/***/ "./resources/js/component/main.vue?vue&type=template&id=3d7cc809&":
+/*!************************************************************************!*\
+  !*** ./resources/js/component/main.vue?vue&type=template&id=3d7cc809& ***!
+  \************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_main_vue_vue_type_template_id_3d7cc809_lang_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./main.vue?vue&type=template&id=3d7cc809&lang=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/component/main.vue?vue&type=template&id=3d7cc809&lang=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_main_vue_vue_type_template_id_3d7cc809_lang_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_main_vue_vue_type_template_id_3d7cc809___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./main.vue?vue&type=template&id=3d7cc809& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/component/main.vue?vue&type=template&id=3d7cc809&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_main_vue_vue_type_template_id_3d7cc809___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_main_vue_vue_type_template_id_3d7cc809_lang_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_main_vue_vue_type_template_id_3d7cc809___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -76997,8 +77004,8 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\sabbir\project mangaement\project-management\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\sabbir\project mangaement\project-management\resources\css\app.css */"./resources/css/app.css");
+__webpack_require__(/*! C:\Users\Sabbir\Desktop\project-management\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Sabbir\Desktop\project-management\resources\css\app.css */"./resources/css/app.css");
 
 
 /***/ })

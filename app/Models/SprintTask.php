@@ -14,7 +14,7 @@ class SprintTask extends Model
         'task_id',
         'priority',
         'type',
-        'assigned_to',
+        'assign_to',
         'checked_by',
         'status'
     ];
@@ -24,6 +24,6 @@ class SprintTask extends Model
     }
     public function user()
     {
-        return $this->belongsTo(User::class, 'assigned_to', 'id');
+        return $this->belongsTo(User::class, 'assign_to', 'id');
     }
 }

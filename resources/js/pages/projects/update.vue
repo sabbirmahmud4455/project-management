@@ -292,7 +292,7 @@ export default {
                 .then(response => {
                     this.$toast.success({
                         title: "SUCCESS",
-                        message: "project Created Successfully"
+                        message: "project Updated Successfully"
                     });
                 })
                 .catch(error => {

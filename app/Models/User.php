@@ -64,18 +64,18 @@ class User extends Authenticatable
     }
     public function sprintTasks()
     {
-        return $this->hasMany(SprintTask::class, 'assigned_to', 'id');
+        return $this->hasMany(SprintTask::class, 'assign_to', 'id');
     }
     public function activeSprintTasks()
     {
-        return $this->hasMany(SprintTask::class, 'assigned_to', 'id')->where('status', '!=', 'Closed')->with('task');
+        return $this->hasMany(SprintTask::class, 'assign_to', 'id')->where('status', '!=', 'Closed')->with('task');
     }
     public function closedSprintTasks()
     {
-        return $this->hasMany(SprintTask::class, 'assigned_to', 'id')->where('status', '=', 'Closed')->with('task');
+        return $this->hasMany(SprintTask::class, 'assign_to', 'id')->where('status', '=', 'Closed')->with('task');
     }
     public function tasks()
     {
-        return $this->belongsToMany(Task::class, SprintTask::class, 'assigned_to');
+        return $this->belongsToMany(Task::class, SprintTask::class, 'assign_to');
     }
 }

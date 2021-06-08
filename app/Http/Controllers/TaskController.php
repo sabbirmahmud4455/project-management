@@ -59,7 +59,6 @@ class TaskController extends Controller
             'project_id' => $request->project_id,
             'module_id' => $request->module_id,
             'type' => $request->type,
-            'assign_to' => $request->assign_to,
             'description' => $description,
             'status' => 'Active',
             'created_at' => Carbon::now(),
@@ -93,7 +92,7 @@ class TaskController extends Controller
             $sprint_task = SprintTask::create([
                 'sprint_id' => $request->sprint_id,
                 'task_id' => $task->id,
-                'assign_to' => $request->assigned_to,
+                'assign_to' => $request->assign_to,
                 'priority' => $request->priority,
                 'status' => 'New'
             ]);

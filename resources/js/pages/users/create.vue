@@ -312,6 +312,7 @@ export default {
                     this.form.photo = "";
                     this.form.password = "";
                     this.form.password_confirmation = "";
+                    this.$router.push({ name: 'users' });
                     this.$toast.success({
                         title: "SUCCESS",
                         message: "User Created Successfully"

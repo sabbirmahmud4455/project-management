@@ -1,8 +1,8 @@
-<template lang="">
+<template>
     <div>
         <!-- Navbar-->
         <header class="app-header">
-            <a class="app-header__logo" href="index.html">
+            <a class="app-header__logo" href="/">
                 <span v-if="appInfo.name">{{ appInfo.name }}</span>
                 <span v-else>App Name</span>
             </a>
@@ -239,7 +239,7 @@ import leftSideBar from "../inc/dboard_left_sidbar";
 export default {
     data() {
         return {
-            appInfo: null
+            appInfo: []
         };
     },
     methods: {

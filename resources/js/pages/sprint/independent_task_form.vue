@@ -242,6 +242,7 @@ export default {
                     this.form.assign_to = 0;
                     this.form.description =
                         '<h4 class="text-muted">task Details</h4>';
+                        this.$router.push({   name: 'sprint_details',  params: { id: this.$route.params.id }  });
                     this.$toast.success({
                         title: "SUCCESS",
                         message: "task Created Successfully"

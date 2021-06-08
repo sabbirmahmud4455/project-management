@@ -11,9 +11,9 @@
                     <p class="app-sidebar__user-name">
                         {{ user && user.name }}
                     </p>
-                    <p class="app-sidebar__user-designation">
+                    <!-- <p class="app-sidebar__user-designation">
                         <span>{{ user.photo }}</span>
-                    </p>
+                    </p> -->
                 </div>
             </div>
             <ul class="app-menu">

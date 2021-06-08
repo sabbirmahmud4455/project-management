@@ -20,7 +20,7 @@ class CreateSprintTasksTable extends Migration
             $table->integer('task_id');
             $table->string('priority')->nullable();
             $table->string('type')->nullable();
-            $table->integer('assigned_to')->nullable();
+            $table->integer('assign_to')->nullable();
             $table->integer('checked_by')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();

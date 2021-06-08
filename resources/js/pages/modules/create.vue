@@ -124,6 +124,7 @@ export default {
                     this.form.project_id = 0;
                     this.form.description =
                         '<h4 class="text-muted">Module Details</h4>';
+                    this.$router.push({ name: 'modules' });
                     this.$toast.success({
                         title: "SUCCESS",
                         message: "Module Created Successfully"

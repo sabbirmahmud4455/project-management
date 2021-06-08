@@ -43,7 +43,7 @@ class SprintTaskController extends Controller
                 'sprint_id' => $task['sprintID'],
                 'priority' =>  $task['priority'],
                 'status'=>'New',
-                'assigned_to' =>  $task['asigneTo'],
+                'assign_to' =>  $task['asigneTo'],
                 'task_id' => $task['taskId'],
             ]);
         }
@@ -83,7 +83,7 @@ class SprintTaskController extends Controller
     {
         $sprintTask->update([
             'priority'=>$request->priority,
-            'assigned_to'=>$request->assigned_to,
+            'assign_to'=>$request->assign_to,
             'status'=>$request->status,
         ]);
         return response()->json('updated');

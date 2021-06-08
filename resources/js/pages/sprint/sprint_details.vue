@@ -14,51 +14,55 @@
                                         <p class="propraty_title">
                                             name
                                         </p>
-                                        <p class="value">ajsdfjldsj</p>
+                                        <p class="value" v-if="name">{{name}}</p>
+                                        <p class="value" v-else>N/A</p>
                                     </div>
                                     <div class="info_propraty">
                                         <p class="propraty_title">
                                             Type
                                         </p>
-                                        <p class="value">ajsdfjldsj</p>
+                                        <p class="value" v-if="name">{{type}}</p>
+                                        <p class="value" v-else>N/A</p>
+                                        
                                     </div>
                                     <div class="info_propraty">
                                         <p class="propraty_title">
                                             Start Date
                                         </p>
-                                        <p class="value">ajsdfjldsj</p>
+                                        <p class="value" v-if="start_date">{{start_date}}</p>
+                                        <p class="value" v-else>N/A</p>
                                     </div>
                                     <div class="info_propraty">
                                         <p class="propraty_title">
                                             End Date
                                         </p>
-                                        <p class="value">ajsdfjldsj</p>
+                                        <p class="value" v-if="end_date">{{end_date}}</p>
+                                        <p class="value" v-else>N/A</p>
+
+
+
+
+
                                     </div>
                                     <div class="info_propraty">
                                         <p class="propraty_title">
                                             Purpose
                                         </p>
-                                        <p class="value">ajsdfjldsj</p>
+                                        <p class="value" v-if="purposes">{{purposes}}</p>
+                                        <p class="value" v-else>N/A</p>
                                     </div>
                                     <div class="info_propraty">
                                         <p class="propraty_title">
                                             Status
                                         </p>
-                                        <p class="value">ajsdfjldsj</p>
+                                        <p class="value" v-if="status">{{status}}</p>
+                                        <p class="value" v-else>N/A</p>
                                     </div>
                                     <div class="info_propraty">
-                                        <hp class="propraty_title">
+                                        <p class="propraty_title">
                                             Description
-                                        </hp>
-                                        <p class="value">
-                                            Lorem ipsum dolor sit amet
-                                            consectetur adipisicing elit.
-                                            Perspiciatis suscipit accusantium
-                                            fugit, natus quos rem quae.
-                                            Recusandae ad esse voluptas magni
-                                            officia adipisci, mollitia molestiae
-                                            possimus corrupti debitis
-                                            consectetur ratione.
+                                        </p>
+                                        <p class="value" v-if="description" v-html="description">
                                         </p>
                                     </div>
                                 </div>
@@ -95,40 +99,17 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>System Architect</td>
-                                                    <td>Edinburgh</td>
-                                                    <td>61</td>
-                                                    <td>2011/04/25</td>
+                                                <tr v-for="(sprint_task, index) in sprintTasks" :key="index">
+                                                    <td>{{index +1}}</td>
+                                                    <td> <span v-if="sprint_task.task.name">{{sprint_task.task.name}}</span></td>
+                                                    <td ><span v-if="sprint_task.priority">{{sprint_task.priority}}</span></td>
+                                                    <td><span v-if="sprint_task.user">{{sprint_task.user.name}}</span></td>
                                                     <td>
-                                                        <button
-                                                            class="btn btn-link px-1"
-                                                        >
-                                                            <i
-                                                                class="fa fa-pencil text-secondary"
-                                                                aria-hidden="true"
-                                                            ></i>
-                                                        </button>
-                                                        <button
-                                                            class="btn btn-link px-1"
-                                                        >
-                                                            <i
-                                                                class="fa fa-trash text-danger"
-                                                                aria-hidden="true"
-                                                            ></i>
-                                                        </button>
+                                                        <span v-if="sprint_task.status">{{sprint_task.status}}</span>
                                                     </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>System Architect</td>
-                                                    <td>Edinburgh</td>
-                                                    <td>61</td>
-                                                    <td>2011/04/25</td>
                                                     <td>
                                                         <button
-                                                            class="btn btn-link px-1"
+                                                            class="btn btn-link px-1" @click="edit_sprint_task(sprint_task.id)"
                                                         >
                                                             <i
                                                                 class="fa fa-pencil text-secondary"
@@ -155,6 +136,83 @@
                 </div>
             </div>
         </div>
+
+
+
+
+<!-- Modal -->
+        <div
+            class="modal fade"
+            id="edit_sprint_task"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">
+                            Modal title
+                        </h5>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="task_name">Task Name</label>
+                                        <input
+                                            type="text"
+                                            name=""
+                                            v-model="sprint_task_edit.task_name"
+                                            id="task_name"
+                                            class="form-control"
+                                            placeholder="Enter Task Name"
+                                            aria-describedby="helpId"
+                                        />
+                                        <small id="helpId" class="text-muted"
+                                            >Help text</small
+                                        >
+                                    </div>
+                                </div>
+                                <div class="col-md-6"></div>
+                                <div class="col-md-6 col"></div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal"
+                        >
+                            Close
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            @click="createTaskWithSprint()"
+                        >
+                            Update
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
     </div>
 </template>
 <script>
@@ -165,15 +223,18 @@ export default {
             sprintID: this.$route.params.id,
 
             sprint_task_edit: {
+                task_name:null,
                 id: null,
                 priority: null,
-                assigned_to: null,
+                assign_to: null,
                 status: null
             },
 
             allUsers: null,
             allProject: null,
-            SprintTask: null,
+            sprintTasks: null,
+
+
             name: null,
             type: null,
             start_date: null,
@@ -189,8 +250,9 @@ export default {
                 $("#edit_sprint_task").modal("show");
                 this.sprint_task_edit.id = res.data.id;
                 this.sprint_task_edit.priority = res.data.priority;
-                this.sprint_task_edit.assigned_to = res.data.assigned_to;
+                this.sprint_task_edit.assign_to = res.data.assign_to;
                 this.sprint_task_edit.status = res.data.status;
+                // this.sprint_task_edit.task_name = res.data.task.name;
             });
         },
         updateSprintTask() {
@@ -231,8 +293,8 @@ export default {
                 this.purposes = response.data.purposes;
                 this.description = response.data.description;
                 this.status = response.data.status;
-                if (response.data.sprint_task.length) {
-                    this.SprintTask = response.data.sprint_task;
+                if (response.data.sprint_task) {
+                    this.sprintTasks = response.data.sprint_task;
                 }
             });
         }

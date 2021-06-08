@@ -155,6 +155,7 @@ export default {
                     this.form.duration = null;
                     this.form.purposes = null;
                     this.form.description = null;
+                    this.$router.push({ name: 'sprints' });
                     this.$toast.success({
                         title: "SUCCESS",
                         message: "Sprint Created Successfully"
