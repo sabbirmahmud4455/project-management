@@ -14,56 +14,65 @@
                                         <p class="propraty_title">
                                             name
                                         </p>
-                                        <p class="value" v-if="name">{{name}}</p>
+                                        <p class="value" v-if="name">
+                                            {{ name }}
+                                        </p>
                                         <p class="value" v-else>N/A</p>
                                     </div>
                                     <div class="info_propraty">
                                         <p class="propraty_title">
                                             Type
                                         </p>
-                                        <p class="value" v-if="name">{{type}}</p>
+                                        <p class="value" v-if="name">
+                                            {{ type }}
+                                        </p>
                                         <p class="value" v-else>N/A</p>
-                                        
                                     </div>
                                     <div class="info_propraty">
                                         <p class="propraty_title">
                                             Start Date
                                         </p>
-                                        <p class="value" v-if="start_date">{{start_date}}</p>
+                                        <p class="value" v-if="start_date">
+                                            {{ start_date }}
+                                        </p>
                                         <p class="value" v-else>N/A</p>
                                     </div>
                                     <div class="info_propraty">
                                         <p class="propraty_title">
                                             End Date
                                         </p>
-                                        <p class="value" v-if="end_date">{{end_date}}</p>
+                                        <p class="value" v-if="end_date">
+                                            {{ end_date }}
+                                        </p>
                                         <p class="value" v-else>N/A</p>
-
-
-
-
-
                                     </div>
                                     <div class="info_propraty">
                                         <p class="propraty_title">
                                             Purpose
                                         </p>
-                                        <p class="value" v-if="purposes">{{purposes}}</p>
+                                        <p class="value" v-if="purposes">
+                                            {{ purposes }}
+                                        </p>
                                         <p class="value" v-else>N/A</p>
                                     </div>
                                     <div class="info_propraty">
                                         <p class="propraty_title">
                                             Status
                                         </p>
-                                        <p class="value" v-if="status">{{status}}</p>
+                                        <p class="value" v-if="status">
+                                            {{ status }}
+                                        </p>
                                         <p class="value" v-else>N/A</p>
                                     </div>
                                     <div class="info_propraty">
                                         <p class="propraty_title">
                                             Description
                                         </p>
-                                        <p class="value" v-if="description" v-html="description">
-                                        </p>
+                                        <p
+                                            class="value"
+                                            v-if="description"
+                                            v-html="description"
+                                        ></p>
                                     </div>
                                 </div>
                             </div>
@@ -99,17 +108,63 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr v-for="(sprint_task, index) in sprintTasks" :key="index">
-                                                    <td>{{index +1}}</td>
-                                                    <td> <span v-if="sprint_task.task.name">{{sprint_task.task.name}}</span></td>
-                                                    <td ><span v-if="sprint_task.priority">{{sprint_task.priority}}</span></td>
-                                                    <td><span v-if="sprint_task.user">{{sprint_task.user.name}}</span></td>
+                                                <tr
+                                                    v-for="(sprint_task,
+                                                    index) in sprintTasks"
+                                                    :key="index"
+                                                >
+                                                    <td>{{ index + 1 }}</td>
                                                     <td>
-                                                        <span v-if="sprint_task.status">{{sprint_task.status}}</span>
+                                                        <span
+                                                            v-if="
+                                                                sprint_task.task
+                                                                    .name
+                                                            "
+                                                            >{{
+                                                                sprint_task.task
+                                                                    .name
+                                                            }}</span
+                                                        >
+                                                    </td>
+                                                    <td>
+                                                        <span
+                                                            v-if="
+                                                                sprint_task.priority
+                                                            "
+                                                            >{{
+                                                                sprint_task.priority
+                                                            }}</span
+                                                        >
+                                                    </td>
+                                                    <td>
+                                                        <span
+                                                            v-if="
+                                                                sprint_task.user
+                                                            "
+                                                            >{{
+                                                                sprint_task.user
+                                                                    .name
+                                                            }}</span
+                                                        >
+                                                    </td>
+                                                    <td>
+                                                        <span
+                                                            v-if="
+                                                                sprint_task.status
+                                                            "
+                                                            >{{
+                                                                sprint_task.status
+                                                            }}</span
+                                                        >
                                                     </td>
                                                     <td>
                                                         <button
-                                                            class="btn btn-link px-1" @click="edit_sprint_task(sprint_task.id)"
+                                                            class="btn btn-link px-1"
+                                                            @click="
+                                                                edit_sprint_task(
+                                                                    sprint_task.id
+                                                                )
+                                                            "
                                                         >
                                                             <i
                                                                 class="fa fa-pencil text-secondary"
@@ -118,6 +173,13 @@
                                                         </button>
                                                         <button
                                                             class="btn btn-link px-1"
+                                                            href="#delete_modal"
+                                                            data-toggle="modal"
+                                                            @click="
+                                                                (delete_data.id =
+                                                                    sprint_task.id),
+                                                                    (delete_data.index = index)
+                                                            "
                                                         >
                                                             <i
                                                                 class="fa fa-trash text-danger"
@@ -137,10 +199,7 @@
             </div>
         </div>
 
-
-
-
-<!-- Modal -->
+        <!-- Modal -->
         <div
             class="modal fade"
             id="edit_sprint_task"
@@ -209,21 +268,30 @@
             </div>
         </div>
 
+        <!-- delete Modal HTML -->
 
-
-
-
+        <dataDeleteModal
+            :id="delete_data.id"
+            :index="delete_data.index"
+            :deleteFunction="delete_sprint_task"
+        ></dataDeleteModal>
     </div>
 </template>
 <script>
+import dataDeleteModal from "../../inc/delete_modal.vue";
+
 export default {
     data() {
         return {
+            delete_data: {
+                id: null,
+                index: null
+            },
             tasks: [],
             sprintID: this.$route.params.id,
 
             sprint_task_edit: {
-                task_name:null,
+                task_name: null,
                 id: null,
                 priority: null,
                 assign_to: null,
@@ -233,7 +301,6 @@ export default {
             allUsers: null,
             allProject: null,
             sprintTasks: null,
-
 
             name: null,
             type: null,
@@ -272,7 +339,8 @@ export default {
         delete_sprint_task(id, index) {
             console.log(id);
             axios.delete(`/api/sprint/sprint-task/${id}`).then(res => {
-                this.SprintTask.splice(index, 1);
+                $("#delete_modal").modal("hide");
+                this.sprintTasks.splice(index, 1);
                 this.$toast.success({
                     title: "SUCCESS",
                     message: "Sprint-Task Delete Successfully"
@@ -302,6 +370,9 @@ export default {
     mounted() {
         this.getSprint();
         this.getUsers();
+    },
+    components: {
+        dataDeleteModal
     }
 };
 </script>

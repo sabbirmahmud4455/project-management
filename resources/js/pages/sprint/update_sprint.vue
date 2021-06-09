@@ -175,13 +175,13 @@ export default {
             this.form
                 .put(`/api/sprint/${this.sprintID}`)
                 .then(response => {
-                    this.form.name = null;
-                    this.form.type = null;
-                    this.form.start_date = null;
-                    this.form.end_date = null;
-                    this.form.duration = null;
-                    this.form.purposes = null;
-                    this.form.description = null;
+                    // this.form.name = null;
+                    // this.form.type = null;
+                    // this.form.start_date = null;
+                    // this.form.end_date = null;
+                    // this.form.duration = null;
+                    // this.form.purposes = null;
+                    // this.form.description = null;
                     this.$toast.success({
                         title: "SUCCESS",
                         message: "Sprint Updated Successfully"

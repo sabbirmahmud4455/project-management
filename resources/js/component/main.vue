@@ -254,6 +254,9 @@ export default {
     },
     mounted() {
         this.getAppInfo();
+        if (!$(".http-found")) {
+            this.$router.push("/404");
+        }
     }
 };
 </script>

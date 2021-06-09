@@ -23,7 +23,6 @@
                                     <tr>
                                         <th>Sl</th>
                                         <th>Name</th>
-                                        <th>title</th>
                                         <th>project</th>
                                         <th>status</th>
 
@@ -36,9 +35,8 @@
                                         v-for="(modul, index) in all_modules"
                                         :key="index"
                                     >
+                                        <td>{{ index + 1 }}</td>
                                         <td>{{ modul.name }}</td>
-                                        <td>{{ modul.name }}</td>
-                                        <td>{{ modul.title }}</td>
                                         <td>
                                             <span>
                                                 {{

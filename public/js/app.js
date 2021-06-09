@@ -2222,6 +2222,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getAppInfo();
+
+    if (!$(".http-found")) {
+      this.$router.push("/404");
+    }
   }
 });
 
@@ -2997,6 +3001,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["task", "users", "index", "updateAllTask", "sprint"],
   data: function data() {
@@ -3005,7 +3018,7 @@ __webpack_require__.r(__webpack_exports__);
         sprintID: this.sprint,
         taskId: this.task.id,
         asigneTo: null,
-        priority: 'Low',
+        priority: null,
         selectTasks: null
       }
     };
@@ -3105,6 +3118,89 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3308,8 +3404,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inc_delete_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../inc/delete_modal */ "./resources/js/inc/delete_modal.vue");
-//
-//
 //
 //
 //
@@ -3775,6 +3869,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4048,6 +4143,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -4100,7 +4199,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.form.development_cost = "";
 
         _this.$router.push({
-          name: 'projects'
+          name: "projects"
         });
 
         _this.$toast.success({
@@ -4550,6 +4649,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -4763,6 +4865,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4875,37 +4983,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -5434,94 +5511,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5532,10 +5521,10 @@ __webpack_require__.r(__webpack_exports__);
       finalSelectedTask: [],
       allProject: null,
       tasks: null,
-      projectModules: null,
+      projectModules: [],
       task_category: "independent_task",
-      projectID: null,
-      moduleId: null,
+      projectID: -1,
+      moduleId: 0,
       existingId: []
     };
   },
@@ -5572,7 +5561,7 @@ __webpack_require__.r(__webpack_exports__);
         selectedTask: this.finalSelectedTask
       }).then(function (res) {
         _this2.$router.push({
-          name: 'sprint_details',
+          name: "sprint_details",
           params: {
             id: _this2.spritnID
           }
@@ -5613,6 +5602,7 @@ __webpack_require__.r(__webpack_exports__);
     getProjectTask: function getProjectTask() {
       var _this5 = this;
 
+      this.allTasks = [];
       this.finalSelectedTask = [];
       this.getProjectModule(this.projectID);
       this.selectTask = [];
@@ -5631,6 +5621,7 @@ __webpack_require__.r(__webpack_exports__);
     getModuleTask: function getModuleTask() {
       var _this6 = this;
 
+      this.allTasks = [];
       this.finalSelectedTask = [];
       axios.get("/api/module/task/w/".concat(this.moduleId)).then(function (res) {
         _this6.tasks = res.data.filter(function (task) {
@@ -6020,6 +6011,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6113,7 +6118,7 @@ __webpack_require__.r(__webpack_exports__);
         _this5.form.description = '<h4 class="text-muted">task Details</h4>';
 
         _this5.$router.push({
-          name: 'sprint_details',
+          name: "sprint_details",
           params: {
             id: _this5.$route.params.id
           }
@@ -6160,6 +6165,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _inc_delete_modal_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../inc/delete_modal.vue */ "./resources/js/inc/delete_modal.vue");
 //
 //
 //
@@ -6377,9 +6383,76 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      delete_data: {
+        id: null,
+        index: null
+      },
       tasks: [],
       sprintID: this.$route.params.id,
       sprint_task_edit: {
@@ -6430,7 +6503,9 @@ __webpack_require__.r(__webpack_exports__);
 
       console.log(id);
       axios["delete"]("/api/sprint/sprint-task/".concat(id)).then(function (res) {
-        _this3.SprintTask.splice(index, 1);
+        $("#delete_modal").modal("hide");
+
+        _this3.sprintTasks.splice(index, 1);
 
         _this3.$toast.success({
           title: "SUCCESS",
@@ -6466,6 +6541,9 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.getSprint();
     this.getUsers();
+  },
+  components: {
+    dataDeleteModal: _inc_delete_modal_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -6832,14 +6910,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.form.put("/api/sprint/".concat(this.sprintID)).then(function (response) {
-        _this2.form.name = null;
-        _this2.form.type = null;
-        _this2.form.start_date = null;
-        _this2.form.end_date = null;
-        _this2.form.duration = null;
-        _this2.form.purposes = null;
-        _this2.form.description = null;
-
+        // this.form.name = null;
+        // this.form.type = null;
+        // this.form.start_date = null;
+        // this.form.end_date = null;
+        // this.form.duration = null;
+        // this.form.purposes = null;
+        // this.form.description = null;
         _this2.$toast.success({
           title: "SUCCESS",
           message: "Sprint Updated Successfully"
@@ -7662,11 +7739,7 @@ __webpack_require__.r(__webpack_exports__);
     updateTask: function updateTask() {
       var _this5 = this;
 
-      this.form.post("/api/task").then(function (response) {
-        _this5.form.name = "";
-        _this5.form.project_id = 0;
-        _this5.form.description = '<h4 class="text-muted">task Details</h4>';
-
+      this.form.put("/api/task/".concat(this.$route.params.id)).then(function (response) {
         _this5.$toast.success({
           title: "SUCCESS",
           message: "task Updated Successfully"
@@ -8894,7 +8967,10 @@ __webpack_require__.r(__webpack_exports__);
             return Object(object_to_formdata__WEBPACK_IMPORTED_MODULE_1__["objectToFormData"])(data);
           }]
         }).then(function (response) {
-          console.log(response);
+          _this2.$toast.success({
+            title: "SUCCESS",
+            message: "User Updated Successfully"
+          });
         })["catch"](function (error) {
           if (error.response.data.errors.photo) {
             _this2.$toast.error({
@@ -9202,36 +9278,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["activeTask"]
 });
@@ -9247,36 +9293,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -9326,13 +9342,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _active_task__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./active_task */ "./resources/js/pages/users/view/active_task.vue");
 /* harmony import */ var _complete_task__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./complete_task */ "./resources/js/pages/users/view/complete_task.vue");
 /* harmony import */ var _user_setting__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./user_setting */ "./resources/js/pages/users/view/user_setting.vue");
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -11869,7 +11878,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.content-wrapper[data-v-52860372] {\r\n    margin-left: 0px !important;\n}\r\n", ""]);
+exports.push([module.i, "\n.content-wrapper[data-v-52860372] {\n    margin-left: 0px !important;\n}\n", ""]);
 
 // exports
 
@@ -45021,221 +45030,221 @@ var render = function() {
   return _c("div", [
     _c("div", { staticClass: "card" }, [
       _c("div", { staticClass: "card-body" }, [
-        _c("label", { attrs: { for: "task" + _vm.task.id } }, [
-          _vm._v(_vm._s(_vm.task.name))
+        _c("div", { staticClass: "form-group" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.selectTasks,
+                expression: "form.selectTasks"
+              }
+            ],
+            attrs: { type: "checkbox", name: "", id: "task" + _vm.task.id },
+            domProps: {
+              value: _vm.task.id,
+              checked: Array.isArray(_vm.form.selectTasks)
+                ? _vm._i(_vm.form.selectTasks, _vm.task.id) > -1
+                : _vm.form.selectTasks
+            },
+            on: {
+              change: [
+                function($event) {
+                  var $$a = _vm.form.selectTasks,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = _vm.task.id,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 &&
+                        _vm.$set(_vm.form, "selectTasks", $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        _vm.$set(
+                          _vm.form,
+                          "selectTasks",
+                          $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                        )
+                    }
+                  } else {
+                    _vm.$set(_vm.form, "selectTasks", $$c)
+                  }
+                },
+                function($event) {
+                  return _vm.taskChecked($event)
+                }
+              ]
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "label",
+            { staticClass: "ml-1", attrs: { for: "task" + _vm.task.id } },
+            [_vm._v(_vm._s(_vm.task.name))]
+          )
         ]),
         _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.form.selectTasks,
-              expression: "form.selectTasks"
-            }
-          ],
-          attrs: { type: "checkbox", name: "", id: "task" + _vm.task.id },
-          domProps: {
-            value: _vm.task.id,
-            checked: Array.isArray(_vm.form.selectTasks)
-              ? _vm._i(_vm.form.selectTasks, _vm.task.id) > -1
-              : _vm.form.selectTasks
-          },
-          on: {
-            change: [
-              function($event) {
-                var $$a = _vm.form.selectTasks,
-                  $$el = $event.target,
-                  $$c = $$el.checked ? true : false
-                if (Array.isArray($$a)) {
-                  var $$v = _vm.task.id,
-                    $$i = _vm._i($$a, $$v)
-                  if ($$el.checked) {
-                    $$i < 0 &&
-                      _vm.$set(_vm.form, "selectTasks", $$a.concat([$$v]))
-                  } else {
-                    $$i > -1 &&
-                      _vm.$set(
-                        _vm.form,
-                        "selectTasks",
-                        $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                      )
-                  }
-                } else {
-                  _vm.$set(_vm.form, "selectTasks", $$c)
-                }
-              },
-              function($event) {
-                return _vm.taskChecked($event)
-              }
-            ]
-          }
-        }),
-        _vm._v(" "),
-        _vm.form.selectTasks
-          ? _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "" } }, [_vm._v("Priority")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "d-flex" }, [
-                _c("span", { staticClass: "mx-2" }, [
-                  _c("div", { staticClass: "form-check" }, [
-                    _c("label", { staticClass: "form-check-label" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.priority,
-                            expression: "form.priority"
-                          }
-                        ],
-                        staticClass: "form-check-input",
-                        attrs: {
-                          type: "radio",
-                          name: "priority" + _vm.task.id,
-                          value: "Low"
-                        },
-                        domProps: { checked: _vm._q(_vm.form.priority, "Low") },
-                        on: {
-                          change: function($event) {
-                            return _vm.$set(_vm.form, "priority", "Low")
-                          }
-                        }
-                      }),
-                      _vm._v("\n                low\n              ")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "mx-2" }, [
-                  _c("div", { staticClass: "form-check" }, [
-                    _c("label", { staticClass: "form-check-label" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.priority,
-                            expression: "form.priority"
-                          }
-                        ],
-                        staticClass: "form-check-input",
-                        attrs: {
-                          type: "radio",
-                          name: "priority" + _vm.task.id,
-                          value: "Medium"
-                        },
-                        domProps: {
-                          checked: _vm._q(_vm.form.priority, "Medium")
-                        },
-                        on: {
-                          change: function($event) {
-                            return _vm.$set(_vm.form, "priority", "Medium")
-                          }
-                        }
-                      }),
-                      _vm._v("\n                Medium\n              ")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "mx-2" }, [
-                  _c("div", { staticClass: "form-check" }, [
-                    _c("label", { staticClass: "form-check-label" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.priority,
-                            expression: "form.priority"
-                          }
-                        ],
-                        staticClass: "form-check-input",
-                        attrs: {
-                          type: "radio",
-                          name: "priority" + _vm.task.id,
-                          value: "High"
-                        },
-                        domProps: {
-                          checked: _vm._q(_vm.form.priority, "High")
-                        },
-                        on: {
-                          change: function($event) {
-                            return _vm.$set(_vm.form, "priority", "High")
-                          }
-                        }
-                      }),
-                      _vm._v("\n                High\n              ")
-                    ])
-                  ])
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Priority")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "d-flex" }, [
+            _c("span", { staticClass: "mx-2" }, [
+              _c("div", { staticClass: "form-check" }, [
+                _c("label", { staticClass: "form-check-label" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.priority,
+                        expression: "form.priority"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: {
+                      type: "radio",
+                      name: "priority" + _vm.task.id,
+                      value: "Low"
+                    },
+                    domProps: { checked: _vm._q(_vm.form.priority, "Low") },
+                    on: {
+                      change: function($event) {
+                        return _vm.$set(_vm.form, "priority", "Low")
+                      }
+                    }
+                  }),
+                  _vm._v(
+                    "\n                                low\n                            "
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "mx-2" }, [
+              _c("div", { staticClass: "form-check" }, [
+                _c("label", { staticClass: "form-check-label" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.priority,
+                        expression: "form.priority"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: {
+                      type: "radio",
+                      name: "priority" + _vm.task.id,
+                      value: "Medium"
+                    },
+                    domProps: { checked: _vm._q(_vm.form.priority, "Medium") },
+                    on: {
+                      change: function($event) {
+                        return _vm.$set(_vm.form, "priority", "Medium")
+                      }
+                    }
+                  }),
+                  _vm._v(
+                    "\n                                Medium\n                            "
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "mx-2" }, [
+              _c("div", { staticClass: "form-check" }, [
+                _c("label", { staticClass: "form-check-label" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.priority,
+                        expression: "form.priority"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: {
+                      type: "radio",
+                      name: "priority" + _vm.task.id,
+                      value: "High"
+                    },
+                    domProps: { checked: _vm._q(_vm.form.priority, "High") },
+                    on: {
+                      change: function($event) {
+                        return _vm.$set(_vm.form, "priority", "High")
+                      }
+                    }
+                  }),
+                  _vm._v(
+                    "\n                                High\n                            "
+                  )
                 ])
               ])
             ])
-          : _vm._e(),
+          ])
+        ]),
         _vm._v(" "),
-        _vm.form.selectTasks
-          ? _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "" } }, [_vm._v("Assigned To")]),
-              _vm._v(" "),
-              _c(
-                "select",
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Assigned To")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
                 {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.form.asigneTo,
-                      expression: "form.asigneTo"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { name: "", id: "" },
-                  on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.$set(
-                        _vm.form,
-                        "asigneTo",
-                        $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      )
-                    }
-                  }
-                },
-                [
-                  _c("option", { domProps: { value: null } }, [
-                    _vm._v("Select Member")
-                  ]),
-                  _vm._v(" "),
-                  _vm._l(_vm.users, function(user, index) {
-                    return _c(
-                      "option",
-                      {
-                        key: index,
-                        staticClass: "w-100",
-                        domProps: { value: user.id }
-                      },
-                      [
-                        _c("div", { staticClass: "w-100 d-flex" }, [
-                          _c("span", [_vm._v(_vm._s(user.name))])
-                        ])
-                      ]
-                    )
-                  })
-                ],
-                2
-              )
-            ])
-          : _vm._e()
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.asigneTo,
+                  expression: "form.asigneTo"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { name: "", id: "" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.form,
+                    "asigneTo",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            [
+              _c("option", { domProps: { value: null } }, [
+                _vm._v("Select Member")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.users, function(user, index) {
+                return _c(
+                  "option",
+                  {
+                    key: index,
+                    staticClass: "w-100",
+                    domProps: { value: user.id }
+                  },
+                  [
+                    _c("div", { staticClass: "w-100 d-flex" }, [
+                      _c("span", [_vm._v(_vm._s(user.name))])
+                    ])
+                  ]
+                )
+              })
+            ],
+            2
+          )
+        ])
       ])
     ])
   ])
@@ -45366,10 +45375,105 @@ var staticRenderFns = [
           _c("div", { staticClass: "tile" }, [
             _c("div", { staticClass: "tile-body" }, [
               _c("div", { staticClass: "details_col" }, [
-                _c("h4", { staticClass: "title" }, [_vm._v("Project Update")]),
-                _vm._v(
-                  "\n                        Create a beautiful dashboard\n                    "
-                )
+                _c("h4", { staticClass: "title" }, [_vm._v("Dashboard")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c("div", { staticClass: "widget-small primary" }, [
+                      _c("i", { staticClass: "ri-user-3-line icon fa-3x" }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "info" }, [
+                        _c("h4", [_vm._v("Users")]),
+                        _vm._v(" "),
+                        _c("p", [_c("b", [_vm._v("5")])])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c("div", { staticClass: "widget-small primary" }, [
+                      _c("i", { staticClass: "icon ri-profile-line fa-3x" }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "info" }, [
+                        _c("h4", [_vm._v("Active Project")]),
+                        _vm._v(" "),
+                        _c("p", [_c("b", [_vm._v("5")])])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c("div", { staticClass: "widget-small primary" }, [
+                      _c("i", { staticClass: "icon ri-profile-line fa-3x" }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "info" }, [
+                        _c("h4", [_vm._v("Completed Project")]),
+                        _vm._v(" "),
+                        _c("p", [_c("b", [_vm._v("5")])])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c("div", { staticClass: "widget-small primary" }, [
+                      _c("i", { staticClass: "icon ri-stackshare-line fa-3x" }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "info" }, [
+                        _c("h4", [_vm._v("Module")]),
+                        _vm._v(" "),
+                        _c("p", [_c("b", [_vm._v("5")])])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c("div", { staticClass: "widget-small primary" }, [
+                      _c("i", { staticClass: "icon ri-task-line fa-3x" }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "info" }, [
+                        _c("h4", [_vm._v("Active Task")]),
+                        _vm._v(" "),
+                        _c("p", [_c("b", [_vm._v("5")])])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c("div", { staticClass: "widget-small primary" }, [
+                      _c("i", { staticClass: "icon ri-task-line fa-3x" }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "info" }, [
+                        _c("h4", [_vm._v("Completed Task")]),
+                        _vm._v(" "),
+                        _c("p", [_c("b", [_vm._v("5")])])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c("div", { staticClass: "widget-small primary" }, [
+                      _c("i", { staticClass: "icon ri-flow-chart fa-3x" }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "info" }, [
+                        _c("h4", [_vm._v("Sprint")]),
+                        _vm._v(" "),
+                        _c("p", [_c("b", [_vm._v("5")])])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c("div", { staticClass: "widget-small primary" }, [
+                      _c("i", { staticClass: "icon ri-task-line fa-3x" }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "info" }, [
+                        _c("h4", [_vm._v("Completed Task")]),
+                        _vm._v(" "),
+                        _c("p", [_c("b", [_vm._v("5")])])
+                      ])
+                    ])
+                  ])
+                ])
               ])
             ])
           ])
@@ -45663,11 +45767,9 @@ var render = function() {
                         _vm._l(_vm.all_modules, function(modul, index) {
                           return _vm.all_modules
                             ? _c("tr", { key: index }, [
-                                _c("td", [_vm._v(_vm._s(modul.name))]),
+                                _c("td", [_vm._v(_vm._s(index + 1))]),
                                 _vm._v(" "),
                                 _c("td", [_vm._v(_vm._s(modul.name))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(modul.title))]),
                                 _vm._v(" "),
                                 _c("td", [
                                   _c("span", [
@@ -45799,8 +45901,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Sl")]),
         _vm._v(" "),
         _c("th", [_vm._v("Name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("title")]),
         _vm._v(" "),
         _c("th", [_vm._v("project")]),
         _vm._v(" "),
@@ -46608,10 +46708,15 @@ var render = function() {
                             ? _c(
                                 "button",
                                 {
-                                  staticClass: "btn btn-light",
+                                  staticClass: "btn btn-light btn-sm",
                                   on: { click: _vm.img_x }
                                 },
-                                [_c("i", { staticClass: "fas fa-times" })]
+                                [
+                                  _c("i", {
+                                    staticClass: "fa fa-times",
+                                    attrs: { "aria-hidden": "true" }
+                                  })
+                                ]
                               )
                             : _vm._e(),
                           _vm._v(" "),
@@ -47146,7 +47251,12 @@ var render = function() {
                                   staticClass: "btn btn-light",
                                   on: { click: _vm.img_x }
                                 },
-                                [_c("i", { staticClass: "fas fa-times" })]
+                                [
+                                  _c("i", {
+                                    staticClass: "fa fa-times",
+                                    attrs: { "aria-hidden": "true" }
+                                  })
+                                ]
                               )
                             : _vm._e(),
                           _vm._v(" "),
@@ -47309,7 +47419,12 @@ var render = function() {
                                 staticClass: "btn btn-light",
                                 on: { click: _vm.file_x }
                               },
-                              [_c("i", { staticClass: "fas fa-times" })]
+                              [
+                                _c("i", {
+                                  staticClass: "fa fa-times",
+                                  attrs: { "aria-hidden": "true" }
+                                })
+                              ]
                             )
                           : _vm._e(),
                         _vm._v(" "),
@@ -47427,7 +47542,12 @@ var render = function() {
                                 staticClass: "btn btn-light",
                                 on: { click: _vm.file_x }
                               },
-                              [_c("i", { staticClass: "fas fa-times" })]
+                              [
+                                _c("i", {
+                                  staticClass: "fa fa-times",
+                                  attrs: { "aria-hidden": "true" }
+                                })
+                              ]
                             )
                           : _vm._e(),
                         _vm._v(" "),
@@ -47496,67 +47616,18 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "div",
-      {
-        staticClass: "content-wrapper",
-        staticStyle: { "min-height": "1416.81px" }
-      },
-      [
-        _c("section", { staticClass: "content-header" }, [
-          _c("div", { staticClass: "container-fluid" }, [
-            _c("div", { staticClass: "row mb-2" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-6" }, [
-                _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
-                  _c(
-                    "li",
-                    { staticClass: "breadcrumb-item" },
-                    [
-                      _c("router-link", { attrs: { to: { name: "home" } } }, [
-                        _vm._v(
-                          "\n                                    Home\n                                "
-                        )
-                      ])
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "li",
-                    { staticClass: "breadcrumb-item" },
-                    [
-                      _c(
-                        "router-link",
-                        { attrs: { to: { name: "projects" } } },
-                        [
-                          _vm._v(
-                            "\n                                    Projects\n                                "
-                          )
-                        ]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("li", { staticClass: "breadcrumb-item active" }, [
-                    _vm._v(
-                      "\n                                Project Details\n                            "
-                    )
-                  ])
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("section", { staticClass: "content" }, [
-          _c("div", { staticClass: "container-fluid" }, [
+    _c("div", { staticClass: "row ", staticStyle: { margin: "0px -30px" } }, [
+      _c("div", { staticClass: "col-md-12 px-0" }, [
+        _c("div", { staticClass: "tile" }, [
+          _c("div", { staticClass: "tile-body" }, [
             _c("div", { staticClass: "row" }, [
               _c("div", { staticClass: "col-md-3" }, [
-                _c("div", { staticClass: "card card-primary card-outline" }, [
-                  _c("div", { staticClass: "card-body box-profile" }, [
+                _c("div", { staticClass: "details_col" }, [
+                  _c("h4", { staticClass: "title" }, [
+                    _vm._v("Project Update")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", {}, [
                     _c("div", { staticClass: "text-center" }, [
                       _vm.photo.length
                         ? _c("img", {
@@ -47569,199 +47640,191 @@ var render = function() {
                         : _vm._e()
                     ]),
                     _vm._v(" "),
-                    _vm.name.length
-                      ? _c(
-                          "h3",
-                          { staticClass: "profile-username text-center" },
-                          [
+                    _c("div", { staticClass: "info_propraty" }, [
+                      _vm.name.length
+                        ? _c("p", { staticClass: "propraty_title" }, [
                             _vm._v(
-                              "\n                                    " +
-                                _vm._s(_vm.name) +
-                                "\n                                "
+                              "\n                                            name\n                                        "
                             )
-                          ]
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "value" }, [
+                        _vm._v(
+                          "\n                                            " +
+                            _vm._s(_vm.name) +
+                            "\n                                        "
                         )
-                      : _vm._e(),
+                      ])
+                    ]),
                     _vm._v(" "),
-                    _c(
-                      "ul",
-                      { staticClass: "list-group list-group-unbordered mb-3" },
-                      [
-                        _c("li", { staticClass: "list-group-item" }, [
-                          _c("b", [_vm._v("Type")]),
-                          _vm._v(" "),
-                          _vm.type.length
-                            ? _c("span", { staticClass: "float-right" }, [
-                                _vm._v(_vm._s(_vm.type))
-                              ])
-                            : _vm._e()
-                        ]),
-                        _vm._v(" "),
-                        _c("li", { staticClass: "list-group-item" }, [
-                          _c("b", [_vm._v("Start Date")]),
-                          _vm._v(" "),
-                          _vm.start_date
-                            ? _c("span", { staticClass: "float-right" }, [
-                                _vm._v(_vm._s(_vm.start_date))
-                              ])
-                            : _vm._e()
-                        ]),
-                        _vm._v(" "),
-                        _c("li", { staticClass: "list-group-item" }, [
-                          _c("b", [_vm._v("End Date")]),
-                          _vm._v(" "),
-                          _vm.end_date
-                            ? _c("span", { staticClass: "float-right" }, [
-                                _vm._v(
-                                  "\n                                            " +
-                                    _vm._s(_vm.end_date)
-                                )
-                              ])
-                            : _vm._e()
-                        ]),
-                        _vm._v(" "),
-                        _c("li", { staticClass: "list-group-item" }, [
-                          _c("b", [_vm._v("Dev Cost")]),
-                          _vm._v(" "),
-                          _vm.development_cost > 0
-                            ? _c("span", { staticClass: "float-right" }, [
-                                _c("i", {
-                                  staticClass: "fas fa-dollar-sign    "
-                                }),
-                                _vm._v(
-                                  "\n                                            " +
-                                    _vm._s(_vm.development_cost)
-                                )
-                              ])
-                            : _vm._e()
-                        ])
-                      ]
-                    )
+                    _c("div", { staticClass: "info_propraty" }, [
+                      _vm.type.length
+                        ? _c("p", { staticClass: "propraty_title" }, [
+                            _vm._v(
+                              "\n                                            Type\n                                        "
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "value" }, [
+                        _vm._v(
+                          "\n                                            " +
+                            _vm._s(_vm.type) +
+                            "\n                                        "
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "info_propraty" }, [
+                      _vm.start_date
+                        ? _c("p", { staticClass: "propraty_title" }, [
+                            _vm._v(
+                              "\n                                            Start Date\n                                        "
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "value" }, [
+                        _vm._v(
+                          "\n                                            " +
+                            _vm._s(_vm.start_date) +
+                            "\n                                        "
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "info_propraty" }, [
+                      _vm.end_date
+                        ? _c("p", { staticClass: "propraty_title" }, [
+                            _vm._v(
+                              "\n                                            End Date\n                                        "
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "value" }, [
+                        _vm._v(
+                          "\n                                            " +
+                            _vm._s(_vm.end_date) +
+                            "\n                                        "
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "info_propraty" }, [
+                      _vm.development_cost
+                        ? _c("p", { staticClass: "propraty_title" }, [
+                            _vm._v(
+                              "\n                                            Development Cost\n                                        "
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "value" }, [
+                        _vm._v(
+                          "\n                                            " +
+                            _vm._s(_vm.development_cost) +
+                            "\n                                        "
+                        )
+                      ])
+                    ])
                   ])
                 ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-9" }, [
-                _c("div", { staticClass: "card" }, [
-                  _c("div", { staticClass: "card-header p-2" }, [
-                    _c("ul", { staticClass: "nav nav-pills" }, [
+                _c("div", { staticClass: "details_col" }, [
+                  _c("div", { staticClass: "card" }, [
+                    _c("div", { staticClass: "card-header p-2" }, [
+                      _c("ul", { staticClass: "nav nav-pills" }, [
+                        _c(
+                          "li",
+                          { staticClass: "nav-item" },
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "nav-link",
+                                attrs: {
+                                  to: {
+                                    name: "project_view",
+                                    params: { id: _vm.id }
+                                  },
+                                  "active-class": "active"
+                                }
+                              },
+                              [_vm._v("Modules")]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "li",
+                          { staticClass: "nav-item" },
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "nav-link",
+                                attrs: {
+                                  to: {
+                                    name: "project_view_tasks",
+                                    params: { id: _vm.id }
+                                  },
+                                  "active-class": "active"
+                                }
+                              },
+                              [_vm._v("Tasks")]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "li",
+                          { staticClass: "nav-item" },
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "nav-link",
+                                attrs: {
+                                  to: {
+                                    name: "project_view_details",
+                                    params: { id: _vm.id }
+                                  },
+                                  "active-class": "active"
+                                }
+                              },
+                              [_vm._v("Details")]
+                            )
+                          ],
+                          1
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card-body" }, [
                       _c(
-                        "li",
-                        { staticClass: "nav-item" },
-                        [
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "nav-link",
-                              attrs: {
-                                to: {
-                                  name: "project_view",
-                                  params: { id: _vm.id }
-                                },
-                                "active-class": "active "
-                              }
-                            },
-                            [_vm._v("Status")]
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "li",
-                        { staticClass: "nav-item" },
-                        [
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "nav-link",
-                              attrs: {
-                                to: {
-                                  name: "project_view_module",
-                                  params: { id: _vm.id }
-                                },
-                                "active-class": "active"
-                              }
-                            },
-                            [_vm._v("Modules")]
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "li",
-                        { staticClass: "nav-item" },
-                        [
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "nav-link",
-                              attrs: {
-                                to: {
-                                  name: "project_view_tasks",
-                                  params: { id: _vm.id }
-                                },
-                                "active-class": "active"
-                              }
-                            },
-                            [_vm._v("Tasks")]
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "li",
-                        { staticClass: "nav-item" },
-                        [
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "nav-link",
-                              attrs: {
-                                to: {
-                                  name: "project_view_details",
-                                  params: { id: _vm.id }
-                                },
-                                "active-class": "active"
-                              }
-                            },
-                            [_vm._v("Details")]
-                          )
-                        ],
+                        "div",
+                        { staticClass: "tab-content" },
+                        [_c("router-view")],
                         1
                       )
                     ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "card-body" }, [
-                    _c(
-                      "div",
-                      { staticClass: "tab-content" },
-                      [_c("router-view")],
-                      1
-                    )
                   ])
                 ])
               ])
             ])
           ])
         ])
-      ]
-    )
+      ])
+    ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-sm-6" }, [
-      _c("h1", [_vm._v("Project Details")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -48023,140 +48086,217 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "content-wrapper" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("div", { staticClass: "content" }, [
-        _c("div", { staticClass: "container-fluid" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-12" }, [
-              _c("div", { staticClass: "card card-primary card-outline" }, [
-                _c("div", { staticClass: "card-body" }, [
-                  _c("div", { staticClass: "tab-content" }, [
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-12" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("label", { attrs: { for: "" } }, [
-                            _vm._v("Task Type")
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "d-flex" }, [
-                            _c("span", { staticClass: "mx-2" }, [
-                              _c("div", { staticClass: "form-check" }, [
-                                _c(
-                                  "label",
-                                  { staticClass: "form-check-label" },
-                                  [
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.task_category,
-                                          expression:
-                                            "\n                                                                        task_category\n                                                                    "
-                                        }
-                                      ],
-                                      staticClass: "form-check-input",
-                                      attrs: {
-                                        type: "radio",
-                                        name: "tasks",
-                                        value: "independent_task",
-                                        checked: ""
-                                      },
-                                      domProps: {
-                                        checked: _vm._q(
-                                          _vm.task_category,
-                                          "independent_task"
-                                        )
-                                      },
-                                      on: {
-                                        change: function($event) {
-                                          _vm.task_category = "independent_task"
-                                        }
-                                      }
-                                    }),
-                                    _vm._v(
-                                      "\n                                                                independent\n                                                                Task\n                                                            "
-                                    )
-                                  ]
+    _c("div", { staticClass: "row ", staticStyle: { margin: "0px -30px" } }, [
+      _c("div", { staticClass: "col-md-12 px-0" }, [
+        _c("div", { staticClass: "tile" }, [
+          _c("div", { staticClass: "tile-body" }, [
+            _c("div", { staticClass: "details_col" }, [
+              _c("h4", { staticClass: "title" }, [_vm._v("Project Update")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-12" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "" } }, [_vm._v("Task Type")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "d-flex" }, [
+                    _c("span", { staticClass: "mx-2" }, [
+                      _c("div", { staticClass: "form-check" }, [
+                        _c("label", { staticClass: "form-check-label" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.task_category,
+                                expression: "task_category"
+                              }
+                            ],
+                            staticClass: "form-check-input",
+                            attrs: {
+                              type: "radio",
+                              name: "tasks",
+                              value: "independent_task",
+                              checked: ""
+                            },
+                            domProps: {
+                              checked: _vm._q(
+                                _vm.task_category,
+                                "independent_task"
+                              )
+                            },
+                            on: {
+                              change: function($event) {
+                                _vm.task_category = "independent_task"
+                              }
+                            }
+                          }),
+                          _vm._v(
+                            "\n                                                independent Task\n                                            "
+                          )
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "mx-2" }, [
+                      _c("div", { staticClass: "form-check" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "form-check-label",
+                            on: {
+                              click: function($event) {
+                                ;(_vm.finalSelectedTask = []), (_vm.tasks = [])
+                              }
+                            }
+                          },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.task_category,
+                                  expression: "task_category"
+                                }
+                              ],
+                              staticClass: "form-check-input",
+                              attrs: {
+                                type: "radio",
+                                name: "tasks",
+                                id: "",
+                                value: "module_task",
+                                checked: ""
+                              },
+                              domProps: {
+                                checked: _vm._q(
+                                  _vm.task_category,
+                                  "module_task"
                                 )
-                              ])
+                              },
+                              on: {
+                                change: function($event) {
+                                  _vm.task_category = "module_task"
+                                }
+                              }
+                            }),
+                            _vm._v(
+                              "\n                                                Prject/Module Task\n                                            "
+                            )
+                          ]
+                        )
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm.task_category === "independent_task"
+                  ? _c(
+                      "div",
+                      [
+                        _c("independentTaskForm", {
+                          attrs: { sprintID: this.$route.params.id }
+                        })
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.task_category === "module_task"
+                  ? _c("div", [
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-6 col-12" }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", { attrs: { for: "project_input" } }, [
+                              _vm._v("Project")
                             ]),
                             _vm._v(" "),
-                            _c("span", { staticClass: "mx-2" }, [
-                              _c("div", { staticClass: "form-check" }, [
-                                _c(
-                                  "label",
+                            _c(
+                              "select",
+                              {
+                                directives: [
                                   {
-                                    staticClass: "form-check-label",
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.projectID,
+                                    expression: "projectID"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { name: "", id: "project_input" },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.projectID = $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    },
+                                    function($event) {
+                                      return _vm.getProjectTask()
+                                    }
+                                  ]
+                                }
+                              },
+                              [
+                                _c(
+                                  "option",
+                                  {
+                                    attrs: { selected: "" },
+                                    domProps: { value: -1 },
                                     on: {
                                       click: function($event) {
-                                        ;(_vm.finalSelectedTask = []),
-                                          (_vm.tasks = [])
+                                        _vm.form.tasks = []
                                       }
                                     }
                                   },
                                   [
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.task_category,
-                                          expression:
-                                            "\n                                                                        task_category\n                                                                    "
-                                        }
-                                      ],
-                                      staticClass: "form-check-input",
-                                      attrs: {
-                                        type: "radio",
-                                        name: "tasks",
-                                        id: "",
-                                        value: "module_task",
-                                        checked: ""
-                                      },
-                                      domProps: {
-                                        checked: _vm._q(
-                                          _vm.task_category,
-                                          "module_task"
-                                        )
-                                      },
-                                      on: {
-                                        change: function($event) {
-                                          _vm.task_category = "module_task"
-                                        }
-                                      }
-                                    }),
                                     _vm._v(
-                                      "\n                                                                Prject/Module\n                                                                Task\n                                                            "
+                                      "\n                                                    Select Project\n                                                "
                                     )
                                   ]
-                                )
-                              ])
-                            ])
+                                ),
+                                _vm._v(" "),
+                                _vm._l(_vm.allProject, function(
+                                  project,
+                                  index
+                                ) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: project.id }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                                    " +
+                                          _vm._s(project.name) +
+                                          "\n                                                "
+                                      )
+                                    ]
+                                  )
+                                })
+                              ],
+                              2
+                            )
                           ])
                         ]),
                         _vm._v(" "),
-                        _vm.task_category === "independent_task"
-                          ? _c(
-                              "div",
-                              [
-                                _c("independentTaskForm", {
-                                  attrs: { sprintID: this.$route.params.id }
-                                })
-                              ],
-                              1
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.task_category === "module_task"
-                          ? _c("div", [
-                              _c("div", { staticClass: "form-group" }, [
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _vm.projectModules.length
+                            ? _c("div", { staticClass: "form-group" }, [
                                 _c(
                                   "label",
-                                  { attrs: { for: "project_input" } },
-                                  [_vm._v("Project")]
+                                  { attrs: { for: "module_input" } },
+                                  [_vm._v("Module")]
                                 ),
                                 _vm._v(" "),
                                 _c(
@@ -48166,12 +48306,12 @@ var render = function() {
                                       {
                                         name: "model",
                                         rawName: "v-model",
-                                        value: _vm.projectID,
-                                        expression: "projectID"
+                                        value: _vm.moduleId,
+                                        expression: "moduleId"
                                       }
                                     ],
                                     staticClass: "form-control",
-                                    attrs: { name: "", id: "project_input" },
+                                    attrs: { name: "", id: "module_input" },
                                     on: {
                                       change: [
                                         function($event) {
@@ -48189,12 +48329,12 @@ var render = function() {
                                                   : o.value
                                               return val
                                             })
-                                          _vm.projectID = $event.target.multiple
+                                          _vm.moduleId = $event.target.multiple
                                             ? $$selectedVal
                                             : $$selectedVal[0]
                                         },
                                         function($event) {
-                                          return _vm.getProjectTask()
+                                          return _vm.getModuleTask()
                                         }
                                       ]
                                     }
@@ -48204,35 +48344,26 @@ var render = function() {
                                       "option",
                                       {
                                         attrs: { selected: "" },
-                                        domProps: { value: -1 },
-                                        on: {
-                                          click: function($event) {
-                                            _vm.form.tasks = []
-                                          }
-                                        }
+                                        domProps: { value: 0 }
                                       },
-                                      [
-                                        _vm._v(
-                                          "\n                                                            Select Project\n                                                        "
-                                        )
-                                      ]
+                                      [_vm._v("Select Module")]
                                     ),
                                     _vm._v(" "),
-                                    _vm._l(_vm.allProject, function(
-                                      project,
+                                    _vm._l(_vm.projectModules, function(
+                                      projectModule,
                                       index
                                     ) {
                                       return _c(
                                         "option",
                                         {
                                           key: index,
-                                          domProps: { value: project.id }
+                                          domProps: { value: projectModule.id }
                                         },
                                         [
                                           _vm._v(
-                                            "\n                                                            " +
-                                              _vm._s(project.name) +
-                                              "\n                                                        "
+                                            "\n                                                    " +
+                                              _vm._s(projectModule.name) +
+                                              "\n                                                "
                                           )
                                         ]
                                       )
@@ -48240,153 +48371,64 @@ var render = function() {
                                   ],
                                   2
                                 )
-                              ]),
-                              _vm._v(" "),
-                              _vm.projectModules
-                                ? _c("div", { staticClass: "form-group" }, [
-                                    _c(
-                                      "label",
-                                      { attrs: { for: "module_input" } },
-                                      [_vm._v("Module")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "select",
-                                      {
-                                        directives: [
-                                          {
-                                            name: "model",
-                                            rawName: "v-model",
-                                            value: _vm.moduleId,
-                                            expression: "moduleId"
-                                          }
-                                        ],
-                                        staticClass: "form-control",
-                                        attrs: { name: "", id: "module_input" },
-                                        on: {
-                                          change: [
-                                            function($event) {
-                                              var $$selectedVal = Array.prototype.filter
-                                                .call(
-                                                  $event.target.options,
-                                                  function(o) {
-                                                    return o.selected
-                                                  }
-                                                )
-                                                .map(function(o) {
-                                                  var val =
-                                                    "_value" in o
-                                                      ? o._value
-                                                      : o.value
-                                                  return val
-                                                })
-                                              _vm.moduleId = $event.target
-                                                .multiple
-                                                ? $$selectedVal
-                                                : $$selectedVal[0]
-                                            },
-                                            function($event) {
-                                              return _vm.getModuleTask()
-                                            }
-                                          ]
-                                        }
-                                      },
-                                      [
-                                        _c(
-                                          "option",
-                                          {
-                                            attrs: { selected: "" },
-                                            domProps: { value: -1 }
-                                          },
-                                          [
-                                            _vm._v(
-                                              "Select\n                                                            Module"
-                                            )
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _vm._l(_vm.projectModules, function(
-                                          projectModule,
-                                          index
-                                        ) {
-                                          return _c(
-                                            "option",
-                                            {
-                                              key: index,
-                                              domProps: {
-                                                value: projectModule.id
-                                              }
-                                            },
-                                            [
-                                              _vm._v(
-                                                "\n                                                            " +
-                                                  _vm._s(projectModule.name) +
-                                                  "\n                                                        "
-                                              )
-                                            ]
-                                          )
-                                        })
-                                      ],
-                                      2
-                                    )
-                                  ])
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _vm.tasks
-                                ? _c("div", { staticClass: "col-12" }, [
-                                    _c("h5", [_vm._v("Task List")])
-                                  ])
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "row" },
-                                _vm._l(_vm.tasks, function(task, index) {
-                                  return _vm.tasks
-                                    ? _c(
-                                        "div",
-                                        { key: index, staticClass: "col-4" },
-                                        [
-                                          _c("allTaskList", {
-                                            attrs: {
-                                              updateAllTask: _vm.updateAllTask,
-                                              sprint: _vm.spritnID,
-                                              task: task,
-                                              users: _vm.allUsers,
-                                              index: index
-                                            }
-                                          })
-                                        ],
-                                        1
-                                      )
-                                    : _vm._e()
-                                }),
-                                0
-                              )
-                            ])
-                          : _vm._e()
-                      ])
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _vm.finalSelectedTask.length
-                  ? _c("div", { staticClass: "card-footer" }, [
+                              ])
+                            : _vm._e()
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _vm.tasks.length
+                        ? _c("div", { staticClass: "col-12" }, [
+                            _c("h5", [_vm._v("Task List")])
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
                       _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-block btn-primary",
-                          on: {
-                            click: function($event) {
-                              return _vm.updateSprintTask()
-                            }
-                          }
-                        },
+                        "div",
+                        { staticClass: "row" },
                         [
-                          _vm._v(
-                            "\n                                    Update\n                                "
-                          )
-                        ]
+                          _vm._l(_vm.tasks, function(task, index) {
+                            return _vm.tasks
+                              ? _c(
+                                  "div",
+                                  { key: index, staticClass: "col-4 mt-2" },
+                                  [
+                                    _c("allTaskList", {
+                                      attrs: {
+                                        updateAllTask: _vm.updateAllTask,
+                                        sprint: _vm.spritnID,
+                                        task: task,
+                                        users: _vm.allUsers,
+                                        index: index
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              : _vm._e()
+                          }),
+                          _vm._v(" "),
+                          _vm.finalSelectedTask.length
+                            ? _c("div", { staticClass: "col-12 mt-2" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: " btn btn-primary",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.updateSprintTask()
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                            Add Sprint Task\n                                        "
+                                    )
+                                  ]
+                                )
+                              ])
+                            : _vm._e()
+                        ],
+                        2
                       )
                     ])
                   : _vm._e()
@@ -48398,32 +48440,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "content-header" }, [
-      _c("div", { staticClass: "container-fluid" }, [
-        _c("div", { staticClass: "row mb-2" }, [
-          _c("div", { staticClass: "col-sm-6" }, [
-            _c("h1", { staticClass: "m-0 text-dark" }, [
-              _vm._v("Add Sprint Task")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-sm-6" }, [
-            _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
-              _c("li", { staticClass: "breadcrumb-item active" }, [
-                _vm._v("Home")
-              ])
-            ])
-          ])
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -48897,7 +48914,122 @@ var render = function() {
                       ])
                     ])
                   ])
-                ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c("label", { attrs: { for: "inputStatus" } }, [
+                      _vm._v("Type")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.type,
+                            expression: "form.type"
+                          }
+                        ],
+                        staticClass: "form-control custom-select",
+                        class: {
+                          "is-invalid": _vm.form.errors.has("type")
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.form,
+                              "type",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { domProps: { value: null } }, [
+                          _vm._v("Task Type")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Epic" } }, [
+                          _vm._v("Epic")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Story" } }, [
+                          _vm._v("Story")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Development" } }, [
+                          _vm._v("Development")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Bug" } }, [
+                          _vm._v("Bug")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Update" } }, [
+                          _vm._v("Update")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Change Request" } }, [
+                          _vm._v("Change Request")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Idea" } }, [
+                          _vm._v("Idea")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Enhancement" } }, [
+                          _vm._v("Enhancement")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Research & Do" } }, [
+                          _vm._v("Research & Do")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Maintenance" } }, [
+                          _vm._v("Maintenance")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          { attrs: { value: "Quality Assurance" } },
+                          [
+                            _vm._v(
+                              "\n                                    Quality Assurance\n                                "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Unit Testing" } }, [
+                          _vm._v("Unit Testing")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Enhancement" } }, [
+                          _vm._v("Enhancement")
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("has-error", {
+                      attrs: { form: _vm.form, field: "project_id" }
+                    })
+                  ],
+                  1
+                )
               ])
             ])
           ]),
@@ -48906,117 +49038,6 @@ var render = function() {
             "div",
             { staticClass: "col-6" },
             [
-              _c(
-                "div",
-                { staticClass: "form-group" },
-                [
-                  _c("label", { attrs: { for: "inputStatus" } }, [
-                    _vm._v("Type")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.type,
-                          expression: "form.type"
-                        }
-                      ],
-                      staticClass: "form-control custom-select",
-                      class: {
-                        "is-invalid": _vm.form.errors.has("type")
-                      },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.form,
-                            "type",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        }
-                      }
-                    },
-                    [
-                      _c("option", { domProps: { value: null } }, [
-                        _vm._v("Task Type")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "Epic" } }, [
-                        _vm._v("Epic")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "Story" } }, [
-                        _vm._v("Story")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "Development" } }, [
-                        _vm._v("Development")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "Bug" } }, [
-                        _vm._v("Bug")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "Update" } }, [
-                        _vm._v("Update")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "Change Request" } }, [
-                        _vm._v("Change Request")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "Idea" } }, [
-                        _vm._v("Idea")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "Enhancement" } }, [
-                        _vm._v("Enhancement")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "Research & Do" } }, [
-                        _vm._v("Research & Do")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "Maintenance" } }, [
-                        _vm._v("Maintenance")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "Quality Assurance" } }, [
-                        _vm._v(
-                          "\n                            Quality Assurance\n                        "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "Unit Testing" } }, [
-                        _vm._v("Unit Testing")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "Enhancement" } }, [
-                        _vm._v("Enhancement")
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("has-error", {
-                    attrs: { form: _vm.form, field: "project_id" }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
                 _c("label", { attrs: { for: "assign_to" } }, [
                   _vm._v("Assign To")
@@ -49136,7 +49157,7 @@ var staticRenderFns = [
       _c(
         "button",
         { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("\n                Create Task\n            ")]
+        [_vm._v("\n                Create Sprint-Task\n            ")]
       )
     ])
   }
@@ -49162,383 +49183,446 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      {
-        staticClass: "row",
-        staticStyle: { margin: "0px -30px", background: "" }
-      },
-      [
-        _c("div", { staticClass: "col-md-12 px-0" }, [
-          _c("div", { staticClass: "tile" }, [
-            _c("div", { staticClass: "tile-body " }, [
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-3" }, [
-                  _c("div", { staticClass: "details_col" }, [
-                    _c("h4", { staticClass: "title" }, [
-                      _vm._v(
-                        "\n                                        Sprint Info\n                                    "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "info_propraty" }, [
-                      _c("p", { staticClass: "propraty_title" }, [
+  return _c(
+    "div",
+    [
+      _c(
+        "div",
+        {
+          staticClass: "row",
+          staticStyle: { margin: "0px -30px", background: "" }
+        },
+        [
+          _c("div", { staticClass: "col-md-12 px-0" }, [
+            _c("div", { staticClass: "tile" }, [
+              _c("div", { staticClass: "tile-body " }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-3" }, [
+                    _c("div", { staticClass: "details_col" }, [
+                      _c("h4", { staticClass: "title" }, [
                         _vm._v(
-                          "\n                                            name\n                                        "
+                          "\n                                    Sprint Info\n                                "
                         )
                       ]),
                       _vm._v(" "),
-                      _vm.name
-                        ? _c("p", { staticClass: "value" }, [
-                            _vm._v(_vm._s(_vm.name))
-                          ])
-                        : _c("p", { staticClass: "value" }, [_vm._v("N/A")])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "info_propraty" }, [
-                      _c("p", { staticClass: "propraty_title" }, [
-                        _vm._v(
-                          "\n                                            Type\n                                        "
-                        )
+                      _c("div", { staticClass: "info_propraty" }, [
+                        _c("p", { staticClass: "propraty_title" }, [
+                          _vm._v(
+                            "\n                                        name\n                                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _vm.name
+                          ? _c("p", { staticClass: "value" }, [
+                              _vm._v(
+                                "\n                                        " +
+                                  _vm._s(_vm.name) +
+                                  "\n                                    "
+                              )
+                            ])
+                          : _c("p", { staticClass: "value" }, [_vm._v("N/A")])
                       ]),
                       _vm._v(" "),
-                      _vm.name
-                        ? _c("p", { staticClass: "value" }, [
-                            _vm._v(_vm._s(_vm.type))
-                          ])
-                        : _c("p", { staticClass: "value" }, [_vm._v("N/A")])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "info_propraty" }, [
-                      _c("p", { staticClass: "propraty_title" }, [
-                        _vm._v(
-                          "\n                                            Start Date\n                                        "
-                        )
+                      _c("div", { staticClass: "info_propraty" }, [
+                        _c("p", { staticClass: "propraty_title" }, [
+                          _vm._v(
+                            "\n                                        Type\n                                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _vm.name
+                          ? _c("p", { staticClass: "value" }, [
+                              _vm._v(
+                                "\n                                        " +
+                                  _vm._s(_vm.type) +
+                                  "\n                                    "
+                              )
+                            ])
+                          : _c("p", { staticClass: "value" }, [_vm._v("N/A")])
                       ]),
                       _vm._v(" "),
-                      _vm.start_date
-                        ? _c("p", { staticClass: "value" }, [
-                            _vm._v(_vm._s(_vm.start_date))
-                          ])
-                        : _c("p", { staticClass: "value" }, [_vm._v("N/A")])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "info_propraty" }, [
-                      _c("p", { staticClass: "propraty_title" }, [
-                        _vm._v(
-                          "\n                                            End Date\n                                        "
-                        )
+                      _c("div", { staticClass: "info_propraty" }, [
+                        _c("p", { staticClass: "propraty_title" }, [
+                          _vm._v(
+                            "\n                                        Start Date\n                                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _vm.start_date
+                          ? _c("p", { staticClass: "value" }, [
+                              _vm._v(
+                                "\n                                        " +
+                                  _vm._s(_vm.start_date) +
+                                  "\n                                    "
+                              )
+                            ])
+                          : _c("p", { staticClass: "value" }, [_vm._v("N/A")])
                       ]),
                       _vm._v(" "),
-                      _vm.end_date
-                        ? _c("p", { staticClass: "value" }, [
-                            _vm._v(_vm._s(_vm.end_date))
-                          ])
-                        : _c("p", { staticClass: "value" }, [_vm._v("N/A")])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "info_propraty" }, [
-                      _c("p", { staticClass: "propraty_title" }, [
-                        _vm._v(
-                          "\n                                            Purpose\n                                        "
-                        )
+                      _c("div", { staticClass: "info_propraty" }, [
+                        _c("p", { staticClass: "propraty_title" }, [
+                          _vm._v(
+                            "\n                                        End Date\n                                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _vm.end_date
+                          ? _c("p", { staticClass: "value" }, [
+                              _vm._v(
+                                "\n                                        " +
+                                  _vm._s(_vm.end_date) +
+                                  "\n                                    "
+                              )
+                            ])
+                          : _c("p", { staticClass: "value" }, [_vm._v("N/A")])
                       ]),
                       _vm._v(" "),
-                      _vm.purposes
-                        ? _c("p", { staticClass: "value" }, [
-                            _vm._v(_vm._s(_vm.purposes))
-                          ])
-                        : _c("p", { staticClass: "value" }, [_vm._v("N/A")])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "info_propraty" }, [
-                      _c("p", { staticClass: "propraty_title" }, [
-                        _vm._v(
-                          "\n                                            Status\n                                        "
-                        )
+                      _c("div", { staticClass: "info_propraty" }, [
+                        _c("p", { staticClass: "propraty_title" }, [
+                          _vm._v(
+                            "\n                                        Purpose\n                                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _vm.purposes
+                          ? _c("p", { staticClass: "value" }, [
+                              _vm._v(
+                                "\n                                        " +
+                                  _vm._s(_vm.purposes) +
+                                  "\n                                    "
+                              )
+                            ])
+                          : _c("p", { staticClass: "value" }, [_vm._v("N/A")])
                       ]),
                       _vm._v(" "),
-                      _vm.status
-                        ? _c("p", { staticClass: "value" }, [
-                            _vm._v(_vm._s(_vm.status))
-                          ])
-                        : _c("p", { staticClass: "value" }, [_vm._v("N/A")])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "info_propraty" }, [
-                      _c("p", { staticClass: "propraty_title" }, [
-                        _vm._v(
-                          "\n                                            Description\n                                        "
-                        )
+                      _c("div", { staticClass: "info_propraty" }, [
+                        _c("p", { staticClass: "propraty_title" }, [
+                          _vm._v(
+                            "\n                                        Status\n                                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _vm.status
+                          ? _c("p", { staticClass: "value" }, [
+                              _vm._v(
+                                "\n                                        " +
+                                  _vm._s(_vm.status) +
+                                  "\n                                    "
+                              )
+                            ])
+                          : _c("p", { staticClass: "value" }, [_vm._v("N/A")])
                       ]),
                       _vm._v(" "),
-                      _vm.description
-                        ? _c("p", {
-                            staticClass: "value",
-                            domProps: { innerHTML: _vm._s(_vm.description) }
-                          })
-                        : _vm._e()
+                      _c("div", { staticClass: "info_propraty" }, [
+                        _c("p", { staticClass: "propraty_title" }, [
+                          _vm._v(
+                            "\n                                        Description\n                                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _vm.description
+                          ? _c("p", {
+                              staticClass: "value",
+                              domProps: { innerHTML: _vm._s(_vm.description) }
+                            })
+                          : _vm._e()
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "col-md-9 ",
+                      staticStyle: { "padding-left": "5px" }
+                    },
+                    [
+                      _c("div", { staticClass: "details_col" }, [
+                        _c(
+                          "div",
+                          { staticClass: " d-flex title" },
+                          [
+                            _c("h4", { staticClass: "title-heading" }, [
+                              _vm._v(
+                                "\n                                        Sprint Tasks\n                                    "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "btn-add-task ml-auto",
+                                staticStyle: {
+                                  "background-color": "#547FF3",
+                                  border: "none"
+                                },
+                                attrs: {
+                                  to: {
+                                    name: "sprint_task",
+                                    params: { id: _vm.sprintID }
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", { staticClass: "ri-add-line" }),
+                                _vm._v(
+                                  "\n                                        Add Task\n                                    "
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "info_propraty" }, [
+                          _c(
+                            "table",
+                            {
+                              staticClass: "table",
+                              attrs: { id: "sampleTable" }
+                            },
+                            [
+                              _vm._m(0),
+                              _vm._v(" "),
+                              _c(
+                                "tbody",
+                                _vm._l(_vm.sprintTasks, function(
+                                  sprint_task,
+                                  index
+                                ) {
+                                  return _c("tr", { key: index }, [
+                                    _c("td", [_vm._v(_vm._s(index + 1))]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      sprint_task.task.name
+                                        ? _c("span", [
+                                            _vm._v(
+                                              _vm._s(sprint_task.task.name)
+                                            )
+                                          ])
+                                        : _vm._e()
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      sprint_task.priority
+                                        ? _c("span", [
+                                            _vm._v(_vm._s(sprint_task.priority))
+                                          ])
+                                        : _vm._e()
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      sprint_task.user
+                                        ? _c("span", [
+                                            _vm._v(
+                                              _vm._s(sprint_task.user.name)
+                                            )
+                                          ])
+                                        : _vm._e()
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      sprint_task.status
+                                        ? _c("span", [
+                                            _vm._v(_vm._s(sprint_task.status))
+                                          ])
+                                        : _vm._e()
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass: "btn btn-link px-1",
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.edit_sprint_task(
+                                                sprint_task.id
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass:
+                                              "fa fa-pencil text-secondary",
+                                            attrs: { "aria-hidden": "true" }
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass: "btn btn-link px-1",
+                                          attrs: {
+                                            href: "#delete_modal",
+                                            "data-toggle": "modal"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              ;(_vm.delete_data.id =
+                                                sprint_task.id),
+                                                (_vm.delete_data.index = index)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass:
+                                              "fa fa-trash text-danger",
+                                            attrs: { "aria-hidden": "true" }
+                                          })
+                                        ]
+                                      )
+                                    ])
+                                  ])
+                                }),
+                                0
+                              )
+                            ]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                ])
+              ])
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "edit_sprint_task",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-labelledby": "exampleModalCenterTitle",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass: "modal-dialog modal-dialog-centered",
+              attrs: { role: "document" }
+            },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-body" }, [
+                  _c("form", { attrs: { action: "" } }, [
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-12" }, [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("label", { attrs: { for: "task_name" } }, [
+                            _vm._v("Task Name")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.sprint_task_edit.task_name,
+                                expression: "sprint_task_edit.task_name"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              name: "",
+                              id: "task_name",
+                              placeholder: "Enter Task Name",
+                              "aria-describedby": "helpId"
+                            },
+                            domProps: { value: _vm.sprint_task_edit.task_name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.sprint_task_edit,
+                                  "task_name",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "small",
+                            {
+                              staticClass: "text-muted",
+                              attrs: { id: "helpId" }
+                            },
+                            [_vm._v("Help text")]
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6 col" })
                     ])
                   ])
                 ]),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "col-md-9 ",
-                    staticStyle: { "padding-left": "5px" }
-                  },
-                  [
-                    _c("div", { staticClass: "details_col" }, [
-                      _c(
-                        "div",
-                        { staticClass: " d-flex title" },
-                        [
-                          _c("h4", { staticClass: "title-heading" }, [
-                            _vm._v(
-                              "\n                                            Sprint Tasks\n                                        "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "btn-add-task ml-auto",
-                              staticStyle: {
-                                "background-color": "#547FF3",
-                                border: "none"
-                              },
-                              attrs: {
-                                to: {
-                                  name: "sprint_task",
-                                  params: { id: _vm.sprintID }
-                                }
-                              }
-                            },
-                            [
-                              _c("i", { staticClass: "ri-add-line" }),
-                              _vm._v(
-                                "\n                                            Add Task\n                                        "
-                              )
-                            ]
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "info_propraty" }, [
-                        _c(
-                          "table",
-                          {
-                            staticClass: "table",
-                            attrs: { id: "sampleTable" }
-                          },
-                          [
-                            _vm._m(0),
-                            _vm._v(" "),
-                            _c(
-                              "tbody",
-                              _vm._l(_vm.sprintTasks, function(
-                                sprint_task,
-                                index
-                              ) {
-                                return _c("tr", { key: index }, [
-                                  _c("td", [_vm._v(_vm._s(index + 1))]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    sprint_task.task.name
-                                      ? _c("span", [
-                                          _vm._v(_vm._s(sprint_task.task.name))
-                                        ])
-                                      : _vm._e()
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    sprint_task.priority
-                                      ? _c("span", [
-                                          _vm._v(_vm._s(sprint_task.priority))
-                                        ])
-                                      : _vm._e()
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    sprint_task.user
-                                      ? _c("span", [
-                                          _vm._v(_vm._s(sprint_task.user.name))
-                                        ])
-                                      : _vm._e()
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    sprint_task.status
-                                      ? _c("span", [
-                                          _vm._v(_vm._s(sprint_task.status))
-                                        ])
-                                      : _vm._e()
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass: "btn btn-link px-1",
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.edit_sprint_task(
-                                              sprint_task.id
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass:
-                                            "fa fa-pencil text-secondary",
-                                          attrs: { "aria-hidden": "true" }
-                                        })
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _vm._m(1, true)
-                                  ])
-                                ])
-                              }),
-                              0
-                            )
-                          ]
-                        )
-                      ])
-                    ])
-                  ]
-                )
-              ])
-            ])
-          ])
-        ])
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "edit_sprint_task",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "exampleModalCenterTitle",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          {
-            staticClass: "modal-dialog modal-dialog-centered",
-            attrs: { role: "document" }
-          },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _vm._m(2),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c("form", { attrs: { action: "" } }, [
-                  _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-12" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "task_name" } }, [
-                          _vm._v("Task Name")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.sprint_task_edit.task_name,
-                              expression: "sprint_task_edit.task_name"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            name: "",
-                            id: "task_name",
-                            placeholder: "Enter Task Name",
-                            "aria-describedby": "helpId"
-                          },
-                          domProps: { value: _vm.sprint_task_edit.task_name },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.sprint_task_edit,
-                                "task_name",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "small",
-                          {
-                            staticClass: "text-muted",
-                            attrs: { id: "helpId" }
-                          },
-                          [_vm._v("Help text")]
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6 col" })
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [
-                    _vm._v(
-                      "\n                            Close\n                        "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.createTaskWithSprint()
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      attrs: { type: "button", "data-dismiss": "modal" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Close\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.createTaskWithSprint()
+                        }
                       }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                            Update\n                        "
-                    )
-                  ]
-                )
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Update\n                    "
+                      )
+                    ]
+                  )
+                ])
               ])
-            ])
-          ]
-        )
-      ]
-    )
-  ])
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("dataDeleteModal", {
+        attrs: {
+          id: _vm.delete_data.id,
+          index: _vm.delete_data.index,
+          deleteFunction: _vm.delete_sprint_task
+        }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -49565,26 +49649,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("button", { staticClass: "btn btn-link px-1" }, [
-      _c("i", {
-        staticClass: "fa fa-trash text-danger",
-        attrs: { "aria-hidden": "true" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLongTitle" } },
-        [
-          _vm._v(
-            "\n                            Modal title\n                        "
-          )
-        ]
+        [_vm._v("\n                        Modal title\n                    ")]
       ),
       _vm._v(" "),
       _c(
@@ -53047,104 +53116,43 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "col-12" }, [
-    _c(
-      "div",
-      { staticClass: "row" },
-      [
-        _vm._l(_vm.activeTask, function(activTask, index) {
-          return _vm.activeTask.length
-            ? _c("div", { key: index, staticClass: "col-6" }, [
-                _c("div", { staticClass: "timeline-post" }, [
-                  _c("div", { staticClass: "post-media" }, [
-                    _c("div", { staticClass: "content" }, [
-                      _c("h5", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _vm._v(_vm._s(activTask.task.name))
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _vm._m(0, true)
-                    ])
-                  ]),
+    _c("table", { staticClass: "table", attrs: { id: "sampleTable" } }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        [
+          _vm._l(_vm.activeTask, function(aTask, index) {
+            return _vm.activeTask
+              ? _c("tr", { key: index }, [
+                  _c("td", [_vm._v(_vm._s(index + 1))]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "post-content" }, [
-                    _c("div", { staticClass: "card-body" }, [
-                      _c("h6", [
-                        _c(
-                          "span",
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                staticClass: " text-dark",
-                                attrs: {
-                                  to: {
-                                    name: "task_view",
-                                    params: { id: activTask.task.id }
-                                  }
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                    " +
-                                    _vm._s(activTask.task.name) +
-                                    "\n                                "
-                                )
-                              ]
-                            )
-                          ],
-                          1
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("h5", [
-                        _c(
-                          "span",
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                staticClass: " text-dark",
-                                attrs: {
-                                  to: {
-                                    name: "task_view",
-                                    params: { id: activTask.task.id }
-                                  }
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                    " +
-                                    _vm._s(activTask.task.name) +
-                                    "\n                                "
-                                )
-                              ]
-                            )
-                          ],
-                          1
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("span", { staticClass: " bg-primary px-2" }, [
-                        _vm._v(_vm._s(activTask.status))
-                      ])
-                    ])
+                  _c("td", [_vm._v(_vm._s(aTask.task.name))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(aTask.priority))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(aTask.status) +
+                        "\n                "
+                    )
                   ])
+                ])
+              : _vm._e()
+          }),
+          _vm._v(" "),
+          !_vm.activeTask.length
+            ? _c("div", { staticClass: "col-12" }, [
+                _c("h5", { staticClass: "py-2 text-center text-muted" }, [
+                  _vm._v("Data Not Found")
                 ])
               ])
             : _vm._e()
-        }),
-        _vm._v(" "),
-        !_vm.activeTask.length
-          ? _c("div", { staticClass: "col-12" }, [
-              _c("h5", { staticClass: "py-2 text-center text-muted" }, [
-                _vm._v("Data Not Found")
-              ])
-            ])
-          : _vm._e()
-      ],
-      2
-    )
+        ],
+        2
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -53152,8 +53160,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "text-muted" }, [
-      _c("small", [_vm._v("2 January at 9:30")])
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Sl")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Priority")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Status")])
+      ])
     ])
   }
 ]
@@ -53179,104 +53195,43 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "col-12" }, [
-    _c(
-      "div",
-      { staticClass: "row" },
-      [
-        _vm._l(_vm.completedTask, function(comTask, index) {
-          return _vm.completedTask
-            ? _c("div", { key: index, staticClass: "col-6" }, [
-                _c("div", { staticClass: "timeline-post" }, [
-                  _c("div", { staticClass: "post-media" }, [
-                    _c("div", { staticClass: "content" }, [
-                      _c("h5", [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _vm._v(_vm._s(comTask.task.name))
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _vm._m(0, true)
-                    ])
-                  ]),
+    _c("table", { staticClass: "table", attrs: { id: "sampleTable" } }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        [
+          _vm._l(_vm.completedTask, function(comTask, index) {
+            return _vm.activeTask
+              ? _c("tr", { key: index }, [
+                  _c("td", [_vm._v(_vm._s(index + 1))]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "post-content" }, [
-                    _c("div", { staticClass: "card-body" }, [
-                      _c("h6", [
-                        _c(
-                          "span",
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                staticClass: " text-dark",
-                                attrs: {
-                                  to: {
-                                    name: "task_view",
-                                    params: { id: comTask.task.id }
-                                  }
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                    " +
-                                    _vm._s(comTask.task.name) +
-                                    "\n                                "
-                                )
-                              ]
-                            )
-                          ],
-                          1
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("h5", [
-                        _c(
-                          "span",
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                staticClass: " text-dark",
-                                attrs: {
-                                  to: {
-                                    name: "task_view",
-                                    params: { id: comTask.task.id }
-                                  }
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                    " +
-                                    _vm._s(comTask.task.name) +
-                                    "\n                                "
-                                )
-                              ]
-                            )
-                          ],
-                          1
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("span", { staticClass: " bg-primary px-2" }, [
-                        _vm._v(_vm._s(comTask.status))
-                      ])
-                    ])
+                  _c("td", [_vm._v(_vm._s(comTask.task.name))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(comTask.priority))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(comTask.status) +
+                        "\n                "
+                    )
                   ])
+                ])
+              : _vm._e()
+          }),
+          _vm._v(" "),
+          !_vm.completedTask.length
+            ? _c("div", { staticClass: "d-block" }, [
+                _c("h5", { staticClass: "py-2 text-center text-muted" }, [
+                  _vm._v("Data Not Found")
                 ])
               ])
             : _vm._e()
-        }),
-        _vm._v(" "),
-        !_vm.completedTask.length
-          ? _c("div", { staticClass: "col-12" }, [
-              _c("h5", { staticClass: "py-2 text-center text-muted" }, [
-                _vm._v("Data Not Found")
-              ])
-            ])
-          : _vm._e()
-      ],
-      2
-    )
+        ],
+        2
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -53284,8 +53239,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "text-muted" }, [
-      _c("small", [_vm._v("2 January at 9:30")])
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Sl")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Priority")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Status")])
+      ])
     ])
   }
 ]
@@ -53319,141 +53282,246 @@ var render = function() {
           _c("div", { staticClass: "tile" }, [
             _c("div", { staticClass: "tile-body" }, [
               _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-12 details_col" }, [
-                  _c("div", { staticClass: "profile " }, [
-                    _c("div", { staticClass: "info" }, [
-                      _vm.user.photo
-                        ? _c("img", {
-                            staticClass: "user-img",
-                            attrs: {
-                              src:
-                                "https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg",
-                              src: _vm.user.photo,
-                              alt: "User Profile picture"
-                            }
-                          })
-                        : _vm._e(),
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c("div", { staticClass: "details_col" }, [
+                    _c(
+                      "div",
+                      { staticClass: "user-img d-flex justify-content-center" },
+                      [
+                        _vm.user.photo
+                          ? _c("img", {
+                              staticStyle: { width: "70px" },
+                              attrs: {
+                                src:
+                                  "https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg",
+                                src: _vm.user.photo,
+                                alt: "User Profile picture"
+                              }
+                            })
+                          : _vm._e()
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _vm.user.name
+                      ? _c(
+                          "h5",
+                          { staticClass: "mt-2 profile-username text-center" },
+                          [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.user.name) +
+                                "\n                                "
+                            )
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "info_propraty" }, [
+                      _c("p", { staticClass: "propraty_title" }, [
+                        _vm._v(
+                          "\n                                        Email\n                                    "
+                        )
+                      ]),
                       _vm._v(" "),
-                      _vm.user.name
-                        ? _c(
-                            "h3",
-                            {
-                              staticClass: "mt-2 profile-username text-center"
-                            },
-                            [
-                              _vm._v(
-                                "\n                                        " +
-                                  _vm._s(_vm.user.name) +
-                                  "\n                                    "
-                              )
-                            ]
+                      _c(
+                        "p",
+                        { staticClass: "value", attrs: { "user.email": "" } },
+                        [
+                          _vm._v(
+                            "\n                                        " +
+                              _vm._s(_vm.user.name) +
+                              "\n                                    "
                           )
-                        : _vm._e(),
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "info_propraty" }, [
+                      _c("p", { staticClass: "propraty_title" }, [
+                        _vm._v(
+                          "\n                                        Email\n                                    "
+                        )
+                      ]),
                       _vm._v(" "),
-                      _vm.user.types
-                        ? _c(
-                            "p",
-                            _vm._l(_vm.user.types, function(type, index) {
-                              return _c("span", { key: index }, [
-                                _vm._v(_vm._s(type.name))
-                              ])
-                            }),
-                            0
+                      _c(
+                        "p",
+                        { staticClass: "value", attrs: { "user.email": "" } },
+                        [
+                          _vm._v(
+                            "\n                                        " +
+                              _vm._s(_vm.user.email) +
+                              "\n                                    "
                           )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "info_propraty" }, [
+                      _c("p", { staticClass: "propraty_title" }, [
+                        _vm._v(
+                          "\n                                        Contact No\n                                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm.user.contact_no
+                        ? _c("p", { staticClass: "value" }, [
+                            _vm._v(
+                              "\n                                        " +
+                                _vm._s(_vm.user.contact_no) +
+                                "\n                                    "
+                            )
+                          ])
                         : _vm._e()
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "cover-image" })
+                    _c("div", { staticClass: "info_propraty" }, [
+                      _c("p", { staticClass: "propraty_title" }, [
+                        _vm._v(
+                          "\n                                        Gender\n                                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm.user.gender
+                        ? _c("p", { staticClass: "value" }, [
+                            _vm._v(
+                              "\n                                        " +
+                                _vm._s(_vm.user.gender) +
+                                "\n                                    "
+                            )
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "info_propraty" }, [
+                      _c("p", { staticClass: "propraty_title" }, [
+                        _vm._v(
+                          "\n                                        Date of birth\n                                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm.user.profile.date_of_birth
+                        ? _c("p", { staticClass: "value" }, [
+                            _vm._v(
+                              "\n                                        " +
+                                _vm._s(_vm.user.profile.date_of_birth) +
+                                "\n                                    "
+                            )
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "info_propraty" }, [
+                      _c("p", { staticClass: "propraty_title" }, [
+                        _vm._v(
+                          "\n                                        Present Address\n                                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm.user.profile.present_address
+                        ? _c("p", { staticClass: "value" }, [
+                            _vm._v(
+                              "\n                                        " +
+                                _vm._s(_vm.user.profile.present_address) +
+                                "\n                                    "
+                            )
+                          ])
+                        : _vm._e()
+                    ])
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._m(0),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-9 details_col" }, [
-                  _c("div", { staticClass: "tab-content" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "tab-pane fade",
-                        attrs: { id: "user-settings" }
-                      },
-                      [
-                        _c(
-                          "div",
-                          { staticClass: "tile user-settings" },
-                          [
-                            _c("h4", { staticClass: "line-head" }, [
-                              _vm._v("Settings")
-                            ]),
+                _c(
+                  "div",
+                  {
+                    staticClass: "col-md-9",
+                    staticStyle: { "padding-left": "5px" }
+                  },
+                  [
+                    _c("div", { staticClass: "details_col" }, [
+                      _c("div", { staticClass: "card" }, [
+                        _vm._m(0),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "card-body" }, [
+                          _c("div", { staticClass: "tab-content" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "tab-pane fade",
+                                attrs: { id: "user-settings" }
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  { staticClass: "tile user-settings" },
+                                  [_c("UserSetting")],
+                                  1
+                                )
+                              ]
+                            ),
                             _vm._v(" "),
-                            _c("UserSetting")
-                          ],
-                          1
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "tab-pane active ",
-                        attrs: { id: "user-active-tasks" }
-                      },
-                      [
-                        _c("div", { staticClass: "tile user-settings" }, [
-                          _c("h4", { staticClass: "line-head" }, [
-                            _vm._v(
-                              "\n                                            Active Task\n                                        "
+                            _c(
+                              "div",
+                              {
+                                staticClass: "tab-pane active ",
+                                attrs: { id: "user-active-tasks" }
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  { staticClass: "tile user-settings" },
+                                  [
+                                    _c(
+                                      "div",
+                                      { staticClass: "row" },
+                                      [
+                                        _c("userActiveTask", {
+                                          attrs: {
+                                            activeTask:
+                                              _vm.user.active_sprint_tasks
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    )
+                                  ]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass: "tab-pane fade",
+                                attrs: { id: "user-complete-tasks" }
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  { staticClass: "tile user-settings" },
+                                  [
+                                    _c(
+                                      "div",
+                                      { staticClass: "row" },
+                                      [
+                                        _c("userCompetedTask", {
+                                          attrs: {
+                                            completedTask:
+                                              _vm.user.closed_sprint_tasks
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    )
+                                  ]
+                                )
+                              ]
                             )
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "row" },
-                            [
-                              _c("userActiveTask", {
-                                attrs: {
-                                  activeTask: _vm.user.active_sprint_tasks
-                                }
-                              })
-                            ],
-                            1
-                          )
+                          ])
                         ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "tab-pane fade",
-                        attrs: { id: "user-complete-tasks" }
-                      },
-                      [
-                        _c("div", { staticClass: "tile user-settings" }, [
-                          _c("h4", { staticClass: "line-head" }, [
-                            _vm._v(
-                              "\n                                            completed Task\n                                        "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "row" },
-                            [
-                              _c("userCompetedTask", {
-                                attrs: {
-                                  completedTask: _vm.user.closed_sprint_tasks
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ])
-                      ]
-                    )
-                  ])
-                ])
+                      ])
+                    ])
+                  ]
+                )
               ])
             ])
           ])
@@ -53467,41 +53535,39 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-3 details_col" }, [
-      _c("div", { staticClass: "tile" }, [
-        _c("ul", { staticClass: "nav flex-column nav-tabs user-tabs" }, [
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link active",
-                attrs: { href: "#user-active-tasks", "data-toggle": "tab" }
-              },
-              [_vm._v("Active Tasks")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link ",
-                attrs: { href: "#user-complete-tasks", "data-toggle": "tab" }
-              },
-              [_vm._v("complete Tasks")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: { href: "#user-settings", "data-toggle": "tab" }
-              },
-              [_vm._v("Settings")]
-            )
-          ])
+    return _c("div", { staticClass: "card-header" }, [
+      _c("ul", { staticClass: "nav nav-pills" }, [
+        _c("li", { staticClass: "nav-item" }, [
+          _c(
+            "a",
+            {
+              staticClass: "nav-link active",
+              attrs: { href: "#user-active-tasks", "data-toggle": "tab" }
+            },
+            [_vm._v("Active Tasks")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "nav-item" }, [
+          _c(
+            "a",
+            {
+              staticClass: "nav-link ",
+              attrs: { href: "#user-complete-tasks", "data-toggle": "tab" }
+            },
+            [_vm._v("complete Tasks")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "nav-item" }, [
+          _c(
+            "a",
+            {
+              staticClass: "nav-link",
+              attrs: { href: "#user-settings", "data-toggle": "tab" }
+            },
+            [_vm._v("Settings")]
+          )
         ])
       ])
     ])
@@ -76903,12 +76969,8 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     component: _pages_projects_view_index_vue__WEBPACK_IMPORTED_MODULE_12__["default"],
     children: [{
       path: '',
-      component: _pages_projects_view_status_vue__WEBPACK_IMPORTED_MODULE_13__["default"],
-      name: 'project_view'
-    }, {
-      path: '/project-view/module/:id',
       component: _pages_projects_view_module_vue__WEBPACK_IMPORTED_MODULE_14__["default"],
-      name: 'project_view_module'
+      name: 'project_view'
     }, {
       path: '/project-view/tasks/:id',
       component: _pages_projects_view_task_vue__WEBPACK_IMPORTED_MODULE_15__["default"],
@@ -77004,8 +77066,8 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Sabbir\Desktop\project-management\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Sabbir\Desktop\project-management\resources\css\app.css */"./resources/css/app.css");
+__webpack_require__(/*! E:\sabbir\project mangaement\project-management\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\sabbir\project mangaement\project-management\resources\css\app.css */"./resources/css/app.css");
 
 
 /***/ })

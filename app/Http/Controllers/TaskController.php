@@ -46,7 +46,6 @@ class TaskController extends Controller
             'name' => 'required',
             'project_id' => 'required|integer',
             'module_id' => 'integer',
-            'assign_to' => 'integer',
         ]);
         if ($request->description == '<h4 class="text-muted">Client Details</h4>') {
             $description = '';
@@ -61,7 +60,6 @@ class TaskController extends Controller
             'type' => $request->type,
             'description' => $description,
             'status' => 'Active',
-            'created_at' => Carbon::now(),
         ]);
         if ($request->images) {
             foreach ($request->images as $image) {
@@ -133,7 +131,27 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'project_id' => 'required|integer',
+            'module_id' => 'integer',
+        ]);
+        if ($request->description == '<h4 class="text-muted">Client Details</h4>') {
+            $description = '';
+        } else {
+            $description = $request->description;
+        }
+        $task->update([
+            'name' => $request->name,
+            'project_id' => $request->project_id,
+            'module_id' => $request->module_id,
+            'type' => $request->type,
+            'description' => $description,
+            'status' => 'Active',
+
+        ]);
+
+        return response()->json($request);
     }
 
     /**

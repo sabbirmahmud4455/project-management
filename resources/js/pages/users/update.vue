@@ -403,7 +403,10 @@ export default {
                         ]
                     })
                     .then(response => {
-                        console.log(response);
+                        this.$toast.success({
+                            title: "SUCCESS",
+                            message: "User Updated Successfully"
+                        });
                     })
                     .catch(error => {
                         if (error.response.data.errors.photo) {

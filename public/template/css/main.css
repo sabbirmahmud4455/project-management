@@ -14269,7 +14269,7 @@ be a descendant of the grid when it is being dragged.
 }
 
 .app-search__input {
-    outline: 2px solid #5c90fd;
+    outline: 2px solid #759ef7c5;
     border: 0;
     padding: 5px 10px;
     padding-right: 30px;
@@ -14278,6 +14278,9 @@ be a descendant of the grid when it is being dragged.
     -webkit-transition: background-color 0.3s ease;
     -o-transition: background-color 0.3s ease;
     transition: background-color 0.3s ease;
+}
+.app-search__input:focus {
+    outline: 2px solid #5c90fd;
 }
 
 .app-search__input::-webkit-input-placeholder {
@@ -15761,14 +15764,14 @@ be a descendant of the grid when it is being dragged.
 }
 
 .user .user-tabs .nav-link.active {
-    border-left-color: #009688;
-    border-bottom: 0;
+    background-color: rgba(92, 143, 253, 0.08);
+    color: #5c90fd;
 }
 
 .user .user-tabs .nav-link:hover,
 .user .user-tabs .nav-link:active {
-    background-color: #eee !important;
-    border-bottom: 0;
+    background-color: rgba(92, 143, 253, 0.08);
+    color: #5c90fd;
 }
 
 .user .tab-content {
@@ -15889,12 +15892,12 @@ be a descendant of the grid when it is being dragged.
     margin-bottom: 47px;
 }
 .info_propraty {
-    margin-bottom: 37px;
+    margin-bottom: 24px;
 }
 .info_propraty .propraty_title {
     color: #aeaeae;
-    font-size: 15px;
-    margin-bottom: 18px;
+    font-size: 14px;
+    margin-bottom: 8px;
 }
 
 .info_propraty .value {
@@ -15906,6 +15909,7 @@ be a descendant of the grid when it is being dragged.
 .table thead th {
     color: #aeaeae;
     font-size: 16px;
+    font-weight: 500;
 }
 .table tbody tr td {
     color: #636363;
@@ -15928,7 +15932,8 @@ table .btn-link .fa {
     font-size: 20px;
     transition: transform 0.6s;
 }
-table .btn-link .fa:hover {
-    rotate: 90;
-    transform: rotate(360deg);
+
+.profile-username {
+    font-weight: 500;
+    margin-bottom: 20px;
 }

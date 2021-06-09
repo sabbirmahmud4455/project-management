@@ -5,170 +5,163 @@
                 <div class="tile">
                     <div class="tile-body">
                         <div class="row">
-                            <div class="col-md-12 details_col">
-                                <div class="profile ">
-                                    <div class="info">
+                            <div class="col-md-3">
+                                <div class="details_col">
+                                    <div
+                                        class="user-img d-flex justify-content-center"
+                                    >
                                         <img
-                                            class="user-img"
+                                            style="width: 70px;"
                                             src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg"
                                             v-if="user.photo"
                                             :src="user.photo"
                                             alt="User Profile picture"
                                         />
-                                        <h3
-                                            v-if="user.name"
-                                            class="mt-2 profile-username text-center"
-                                        >
+                                    </div>
+                                    <h5
+                                        v-if="user.name"
+                                        class="mt-2 profile-username text-center"
+                                    >
+                                        {{ user.name }}
+                                    </h5>
+
+                                    <div class="info_propraty">
+                                        <p class="propraty_title">
+                                            Email
+                                        </p>
+                                        <p class="value" user.email>
                                             {{ user.name }}
-                                        </h3>
-                                        <p v-if="user.types">
-                                            <span
-                                                v-for="(type,
-                                                index) in user.types"
-                                                :key="index"
-                                                >{{ type.name }}</span
-                                            >
                                         </p>
                                     </div>
-                                    <div class="cover-image"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-3 details_col">
-                                <div class="tile">
-                                    <ul
-                                        class="nav flex-column nav-tabs user-tabs"
-                                    >
-                                        <!-- <li class="nav-item">
-                            <a
-                                class="nav-link active"
-                                href="#user-timeline"
-                                data-toggle="tab"
-                                >Timeline</a
-                            >
-                        </li> -->
-                                        <li class="nav-item">
-                                            <a
-                                                class="nav-link active"
-                                                href="#user-active-tasks"
-                                                data-toggle="tab"
-                                                >Active Tasks</a
-                                            >
-                                        </li>
-                                        <li class="nav-item">
-                                            <a
-                                                class="nav-link "
-                                                href="#user-complete-tasks"
-                                                data-toggle="tab"
-                                                >complete Tasks</a
-                                            >
-                                        </li>
-                                        <li class="nav-item">
-                                            <a
-                                                class="nav-link"
-                                                href="#user-settings"
-                                                data-toggle="tab"
-                                                >Settings</a
-                                            >
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-md-9 details_col">
-                                <div class="tab-content">
-                                    <!-- <div class="tab-pane active" id="user-timeline">
-                        <div class="timeline-post">
-                            <div class="post-media">
-                                <a href="#"
-                                    ><img
-                                        src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg"
-                                /></a>
-                                <div class="content">
-                                    <h5><a href="#">John Doe</a></h5>
-                                    <p class="text-muted">
-                                        <small>2 January at 9:30</small>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="post-content">
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
-                                    Ut enim ad minim veniam, quis tion ullamco
-                                    laboris nisi ut aliquip ex ea commodo
-                                    consequat. Duis aute irure dolor in
-                                    reprehenderit in voluptate velit esse cillum
-                                    dolore eu fugiat nulla pariatur. Excepteur
-                                    sint occaecat cupidatat non proident, sunt
-                                    in culpa qui officia deserunt mollit anim id
-                                    est laborum.
-                                </p>
-                            </div>
-                            <ul class="post-utility">
-                                <li class="likes">
-                                    <a href="#"
-                                        ><i
-                                            class="fa fa-fw fa-lg fa-thumbs-o-up"
-                                        ></i
-                                        >Like</a
-                                    >
-                                </li>
-                                <li class="shares">
-                                    <a href="#"
-                                        ><i class="fa fa-fw fa-lg fa-share"></i
-                                        >Share</a
-                                    >
-                                </li>
-                                <li class="comments">
-                                    <i class="fa fa-fw fa-lg fa-comment-o"></i>
-                                    5 Comments
-                                </li>
-                            </ul>
-                        </div>
-                    </div> -->
-                                    <div
-                                        class="tab-pane fade"
-                                        id="user-settings"
-                                    >
-                                        <div class="tile user-settings">
-                                            <h4 class="line-head">Settings</h4>
 
-                                            <UserSetting></UserSetting>
-                                        </div>
+                                    <div class="info_propraty">
+                                        <p class="propraty_title">
+                                            Email
+                                        </p>
+                                        <p class="value" user.email>
+                                            {{ user.email }}
+                                        </p>
                                     </div>
-                                    <div
-                                        class="tab-pane active "
-                                        id="user-active-tasks"
-                                    >
-                                        <div class="tile user-settings">
-                                            <h4 class="line-head">
-                                                Active Task
-                                            </h4>
 
-                                            <div class="row">
-                                                <userActiveTask
-                                                    :activeTask="
-                                                        user.active_sprint_tasks
-                                                    "
-                                                ></userActiveTask>
-                                            </div>
-                                        </div>
+                                    <div class="info_propraty">
+                                        <p class="propraty_title">
+                                            Contact No
+                                        </p>
+                                        <p class="value" v-if="user.contact_no">
+                                            {{ user.contact_no }}
+                                        </p>
                                     </div>
-                                    <div
-                                        class="tab-pane fade"
-                                        id="user-complete-tasks"
-                                    >
-                                        <div class="tile user-settings">
-                                            <h4 class="line-head">
-                                                completed Task
-                                            </h4>
 
-                                            <div class="row">
-                                                <userCompetedTask
-                                                    :completedTask="
-                                                        user.closed_sprint_tasks
-                                                    "
-                                                ></userCompetedTask>
+                                    <div class="info_propraty">
+                                        <p class="propraty_title">
+                                            Gender
+                                        </p>
+                                        <p class="value" v-if="user.gender">
+                                            {{ user.gender }}
+                                        </p>
+                                    </div>
+
+                                    <div class="info_propraty">
+                                        <p class="propraty_title">
+                                            Date of birth
+                                        </p>
+                                        <p
+                                            class="value"
+                                            v-if="user.profile.date_of_birth"
+                                        >
+                                            {{ user.profile.date_of_birth }}
+                                        </p>
+                                    </div>
+
+                                    <div class="info_propraty">
+                                        <p class="propraty_title">
+                                            Present Address
+                                        </p>
+                                        <p
+                                            class="value"
+                                            v-if="user.profile.present_address"
+                                        >
+                                            {{ user.profile.present_address }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9" style="padding-left: 5px;">
+                                <div class="details_col">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <ul class="nav nav-pills">
+                                                <li class="nav-item">
+                                                    <a
+                                                        class="nav-link active"
+                                                        href="#user-active-tasks"
+                                                        data-toggle="tab"
+                                                        >Active Tasks</a
+                                                    >
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a
+                                                        class="nav-link "
+                                                        href="#user-complete-tasks"
+                                                        data-toggle="tab"
+                                                        >complete Tasks</a
+                                                    >
+                                                </li>
+
+                                                <li class="nav-item">
+                                                    <a
+                                                        class="nav-link"
+                                                        href="#user-settings"
+                                                        data-toggle="tab"
+                                                        >Settings</a
+                                                    >
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="tab-content">
+                                                <div
+                                                    class="tab-pane fade"
+                                                    id="user-settings"
+                                                >
+                                                    <div
+                                                        class="tile user-settings"
+                                                    >
+                                                        <UserSetting></UserSetting>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="tab-pane active "
+                                                    id="user-active-tasks"
+                                                >
+                                                    <div
+                                                        class="tile user-settings"
+                                                    >
+                                                        <div class="row">
+                                                            <userActiveTask
+                                                                :activeTask="
+                                                                    user.active_sprint_tasks
+                                                                "
+                                                            ></userActiveTask>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="tab-pane fade"
+                                                    id="user-complete-tasks"
+                                                >
+                                                    <div
+                                                        class="tile user-settings"
+                                                    >
+                                                        <div class="row">
+                                                            <userCompetedTask
+                                                                :completedTask="
+                                                                    user.closed_sprint_tasks
+                                                                "
+                                                            ></userCompetedTask>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -190,6 +183,7 @@ export default {
         return {
             id: this.$route.params.id,
             user: null,
+
             name: "",
             bio: "",
             email: "",

@@ -1,175 +1,144 @@
 <template lang="">
     <div>
-        <div class="content-wrapper" style="min-height: 1416.81px;">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1>Project Details</h1>
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item">
-                                    <router-link :to="{ name: 'home' }">
-                                        Home
-                                    </router-link>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <router-link :to="{ name: 'projects' }">
-                                        Projects
-                                    </router-link>
-                                </li>
-                                <li class="breadcrumb-item active">
-                                    Project Details
-                                </li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.container-fluid -->
-            </section>
+        <div class="row " style="margin: 0px -30px;">
+            <div class="col-md-12 px-0">
+                <div class="tile">
+                    <div class="tile-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="details_col">
+                                    <h4 class="title">Project Update</h4>
+                                    <div class="">
+                                        <div class="text-center">
+                                            <img
+                                                v-if="photo.length"
+                                                class="img-fluid"
+                                                :src="photo"
+                                                alt="Project main picture"
+                                            />
+                                        </div>
 
-            <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <!-- Profile Image -->
-                            <div class="card card-primary card-outline">
-                                <div class="card-body box-profile">
-                                    <div class="text-center">
-                                        <img
-                                            v-if="photo.length"
-                                            class="img-fluid"
-                                            :src="photo"
-                                            alt="Project main picture"
-                                        />
-                                    </div>
+                                        <div class="info_propraty">
+                                            <p
+                                                v-if="name.length"
+                                                class="propraty_title"
+                                            >
+                                                name
+                                            </p>
+                                            <p class="value">
+                                                {{ name }}
+                                            </p>
+                                        </div>
 
-                                    <h3
-                                        v-if="name.length"
-                                        class="profile-username text-center"
-                                    >
-                                        {{ name }}
-                                    </h3>
-
-                                    <ul
-                                        class="list-group list-group-unbordered mb-3"
-                                    >
-                                        <li class="list-group-item">
-                                            <b>Type</b>
-                                            <span
+                                        <div class="info_propraty">
+                                            <p
                                                 v-if="type.length"
-                                                class="float-right"
-                                                >{{ type }}</span
+                                                class="propraty_title"
                                             >
-                                        </li>
-                                        <li class="list-group-item">
-                                            <b>Start Date</b>
-                                            <span
-                                                class="float-right"
+                                                Type
+                                            </p>
+                                            <p class="value">
+                                                {{ type }}
+                                            </p>
+                                        </div>
+
+                                        <div class="info_propraty">
+                                            <p
                                                 v-if="start_date"
-                                                >{{ start_date }}</span
+                                                class="propraty_title"
                                             >
-                                        </li>
-                                        <li class="list-group-item">
-                                            <b>End Date</b>
-                                            <span
-                                                class="float-right"
+                                                Start Date
+                                            </p>
+                                            <p class="value">
+                                                {{ start_date }}
+                                            </p>
+                                        </div>
+
+                                        <div class="info_propraty">
+                                            <p
                                                 v-if="end_date"
+                                                class="propraty_title"
                                             >
-                                                {{ end_date }}</span
+                                                End Date
+                                            </p>
+                                            <p class="value">
+                                                {{ end_date }}
+                                            </p>
+                                        </div>
+
+                                        <div class="info_propraty">
+                                            <p
+                                                v-if="development_cost"
+                                                class="propraty_title"
                                             >
-                                        </li>
-                                        <li class="list-group-item">
-                                            <b>Dev Cost</b>
-                                            <span
-                                                v-if="development_cost > 0"
-                                                class="float-right"
-                                                ><i
-                                                    class="fas fa-dollar-sign    "
-                                                ></i>
-                                                {{ development_cost }}</span
-                                            >
-                                        </li>
-                                    </ul>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-md-9">
-                            <div class="card">
-                                <div class="card-header p-2">
-                                    <ul class="nav nav-pills">
-                                        <li class="nav-item">
-                                            <router-link
-                                                :to="{
-                                                    name: 'project_view',
-                                                    params: { id: id }
-                                                }"
-                                                class="nav-link"
-                                                active-class="active "
-                                                >Status</router-link
-                                            >
-                                        </li>
-                                        <li class="nav-item">
-                                            <router-link
-                                                :to="{
-                                                    name: 'project_view_module',
-                                                    params: { id: id }
-                                                }"
-                                                class="nav-link"
-                                                active-class="active"
-                                                >Modules</router-link
-                                            >
-                                        </li>
-                                        <li class="nav-item">
-                                            <router-link
-                                                :to="{
-                                                    name: 'project_view_tasks',
-                                                    params: { id: id }
-                                                }"
-                                                class="nav-link"
-                                                active-class="active"
-                                                >Tasks</router-link
-                                            >
-                                        </li>
-                                        <li class="nav-item">
-                                            <router-link
-                                                :to="{
-                                                    name:
-                                                        'project_view_details',
-                                                    params: { id: id }
-                                                }"
-                                                class="nav-link"
-                                                active-class="active"
-                                                >Details</router-link
-                                            >
-                                        </li>
-                                    </ul>
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                    <div class="tab-content">
-                                        <!-- vue route view -->
-                                        <router-view></router-view>
+                                                Development Cost
+                                            </p>
+                                            <p class="value">
+                                                {{ development_cost }}
+                                            </p>
+                                        </div>
                                     </div>
-                                    <!-- /.tab-content -->
                                 </div>
-                                <!-- /.card-body -->
                             </div>
-                            <!-- /.nav-tabs-custom -->
+                            <div class="col-md-9">
+                                <div class="details_col">
+                                    <div class="card">
+                                        <div class="card-header p-2">
+                                            <ul class="nav nav-pills">
+                                                <li class="nav-item">
+                                                    <router-link
+                                                        :to="{
+                                                            name:
+                                                                'project_view',
+                                                            params: { id: id }
+                                                        }"
+                                                        class="nav-link"
+                                                        active-class="active"
+                                                        >Modules</router-link
+                                                    >
+                                                </li>
+                                                <li class="nav-item">
+                                                    <router-link
+                                                        :to="{
+                                                            name:
+                                                                'project_view_tasks',
+                                                            params: { id: id }
+                                                        }"
+                                                        class="nav-link"
+                                                        active-class="active"
+                                                        >Tasks</router-link
+                                                    >
+                                                </li>
+                                                <li class="nav-item">
+                                                    <router-link
+                                                        :to="{
+                                                            name:
+                                                                'project_view_details',
+                                                            params: { id: id }
+                                                        }"
+                                                        class="nav-link"
+                                                        active-class="active"
+                                                        >Details</router-link
+                                                    >
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.card-header -->
+                                        <div class="card-body">
+                                            <div class="tab-content">
+                                                <!-- vue route view -->
+                                                <router-view></router-view>
+                                            </div>
+                                            <!-- /.tab-content -->
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <!-- /.col -->
                     </div>
-                    <!-- /.row -->
                 </div>
-                <!-- /.container-fluid -->
-            </section>
-            <!-- /.content -->
+            </div>
         </div>
     </div>
 </template>

@@ -175,7 +175,10 @@
                                                     @click="img_x"
                                                     class="btn btn-light"
                                                 >
-                                                    <i class="fas fa-times"></i>
+                                                     <i
+                                                        class="fa fa-times"
+                                                        aria-hidden="true"
+                                                    ></i>
                                                 </button>
                                                 <img
                                                     v-if="

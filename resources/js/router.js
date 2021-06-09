@@ -133,12 +133,8 @@ const routes = new VueRouter({
             component: ViewProject,
             children: [
                 { path: '',
-                component: product_view_status,
-                name: 'project_view',
-                },
-                { path: '/project-view/module/:id',
                 component: product_view_module,
-                name:'project_view_module'
+                name: 'project_view',
                 },
                 { path: '/project-view/tasks/:id',
                 component: product_view_task,

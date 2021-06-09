@@ -208,8 +208,10 @@
                                                         <a
                                                             href="#"
                                                             class="float-right btn-tool"
-                                                            ><i
-                                                                class="fas fa-times"
+                                                        >
+                                                            <i
+                                                                class="fa fa-times"
+                                                                aria-hidden="true"
                                                             ></i
                                                         ></a>
                                                     </span>
@@ -286,8 +288,10 @@
                                                         <a
                                                             href="#"
                                                             class="float-right btn-tool"
-                                                            ><i
-                                                                class="fas fa-times"
+                                                        >
+                                                            <i
+                                                                class="fa fa-times"
+                                                                aria-hidden="true"
                                                             ></i
                                                         ></a>
                                                     </span>
@@ -349,8 +353,10 @@
                                                         <a
                                                             href="#"
                                                             class="float-right btn-tool"
-                                                            ><i
-                                                                class="fas fa-times"
+                                                        >
+                                                            <i
+                                                                class="fa fa-times"
+                                                                aria-hidden="true"
                                                             ></i
                                                         ></a>
                                                     </span>
@@ -643,10 +649,9 @@
                                             class="tab-pane active"
                                             id="settings"
                                         >
-
-                                            <UserSetting :userID="this.$route.params.id"></UserSetting>
-
-
+                                            <UserSetting
+                                                :userID="this.$route.params.id"
+                                            ></UserSetting>
                                         </div>
                                         <!-- /.tab-pane -->
                                     </div>
@@ -669,38 +674,38 @@
 <script>
 import UserSetting from "./view/details";
 export default {
-  data() {
-    return {
-      user: null,
-      //   name: "",
-      //   bio: "",
-      //   email: "",
-      //   contact_no: "",
-      //   type: "",
-      //   gender: "",
-      //   photo: "",
-    };
-  },
-  methods: {
-    getUser() {
-      let id = this.$route.params.id;
-      axios.get(`/api/user/${id}`).then((response) => {
-        this.user = response.data;
-        // this.name = response.data.name;
-        // this.email = response.data.email;
-        // // this.type = response.data.type_id;
-        // this.contact_no = response.data.contact_no;
-        // this.gender = response.data.gender;
-        // this.photo = response.data.photo;
-      });
+    data() {
+        return {
+            user: null
+            //   name: "",
+            //   bio: "",
+            //   email: "",
+            //   contact_no: "",
+            //   type: "",
+            //   gender: "",
+            //   photo: "",
+        };
     },
-  },
-  mounted() {
-    this.getUser();
-  },
-  components: {
-    UserSetting,
-  },
+    methods: {
+        getUser() {
+            let id = this.$route.params.id;
+            axios.get(`/api/user/${id}`).then(response => {
+                this.user = response.data;
+                // this.name = response.data.name;
+                // this.email = response.data.email;
+                // // this.type = response.data.type_id;
+                // this.contact_no = response.data.contact_no;
+                // this.gender = response.data.gender;
+                // this.photo = response.data.photo;
+            });
+        }
+    },
+    mounted() {
+        this.getUser();
+    },
+    components: {
+        UserSetting
+    }
 };
 </script>
 <style lang=""></style>

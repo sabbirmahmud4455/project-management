@@ -1,253 +1,165 @@
 <template>
     <div>
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Add Sprint Task</h1>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item active">Home</li>
-                            </ol>
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                    <!-- /.row -->
-                </div>
-                <!-- /.container-fluid -->
-            </div>
-            <!-- /.content-header -->
-
-            <!-- Main content -->
-            <div class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <!-- /.col -->
-                        <div class="col-12">
-                            <div class="card card-primary card-outline">
-                                <div class="card-body">
-                                    <div class="tab-content">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for=""
-                                                        >Task Type</label
-                                                    >
-                                                    <div class="d-flex">
-                                                        <span class="mx-2">
-                                                            <div
-                                                                class="form-check"
-                                                            >
-                                                                <label
-                                                                    
-                                                                    class="form-check-label"
-                                                                >
-                                                                    <input
-                                                                        type="radio"
-                                                                        class="form-check-input"
-                                                                        name="tasks"
-                                                                        v-model="
-                                                                            task_category
-                                                                        "
-                                                                        value="independent_task"
-                                                                        checked
-                                                                    />
-                                                                    independent
-                                                                    Task
-                                                                </label>
-                                                            </div>
-                                                        </span>
-                                                        <span class="mx-2">
-                                                            <div
-                                                                class="form-check"
-                                                            >
-                                                                <label
-                                                                    @click="
-                                                                        (finalSelectedTask = []),
-                                                                            (tasks = [])
-                                                                    "
-                                                                    class="form-check-label"
-                                                                >
-                                                                    <input
-                                                                        type="radio"
-                                                                        v-model="
-                                                                            task_category
-                                                                        "
-                                                                        class="form-check-input"
-                                                                        name="tasks"
-                                                                        id=""
-                                                                        value="module_task"
-                                                                        checked
-                                                                    />
-                                                                    Prject/Module
-                                                                    Task
-                                                                </label>
-                                                            </div>
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                                <div
-                                                    v-if="
-                                                        task_category ===
-                                                            'independent_task'
+        <div class="row " style="margin: 0px -30px;">
+            <div class="col-md-12 px-0">
+                <div class="tile">
+                    <div class="tile-body">
+                        <div class="details_col">
+                            <h4 class="title">Project Update</h4>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="">Task Type</label>
+                                    <div class="d-flex">
+                                        <span class="mx-2">
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input
+                                                        type="radio"
+                                                        class="form-check-input"
+                                                        name="tasks"
+                                                        v-model="task_category"
+                                                        value="independent_task"
+                                                        checked
+                                                    />
+                                                    independent Task
+                                                </label>
+                                            </div>
+                                        </span>
+                                        <span class="mx-2">
+                                            <div class="form-check">
+                                                <label
+                                                    @click="
+                                                        (finalSelectedTask = []),
+                                                            (tasks = [])
                                                     "
+                                                    class="form-check-label"
                                                 >
-                                                    <independentTaskForm
-                                                        :sprintID="
-                                                            this.$route.params
-                                                                .id
+                                                    <input
+                                                        type="radio"
+                                                        v-model="task_category"
+                                                        class="form-check-input"
+                                                        name="tasks"
+                                                        id=""
+                                                        value="module_task"
+                                                        checked
+                                                    />
+                                                    Prject/Module Task
+                                                </label>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div
+                                    v-if="task_category === 'independent_task'"
+                                >
+                                    <independentTaskForm
+                                        :sprintID="this.$route.params.id"
+                                    ></independentTaskForm>
+                                </div>
+
+                                <div v-if="task_category === 'module_task'">
+                                    <div class="row">
+                                        <div class="col-md-6 col-12">
+                                            <div class="form-group">
+                                                <label for="project_input"
+                                                    >Project</label
+                                                >
+                                                <select
+                                                    @change="getProjectTask()"
+                                                    class="form-control"
+                                                    name=""
+                                                    v-model="projectID"
+                                                    id="project_input"
+                                                >
+                                                    <option
+                                                        selected
+                                                        @click="form.tasks = []"
+                                                        :value="-1"
+                                                    >
+                                                        Select Project
+                                                    </option>
+                                                    <option
+                                                        v-for="(project,
+                                                        index) in allProject"
+                                                        :key="index"
+                                                        :value="project.id"
+                                                    >
+                                                        {{ project.name }}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div
+                                                v-if="projectModules.length"
+                                                class="form-group"
+                                            >
+                                                <label for="module_input"
+                                                    >Module</label
+                                                >
+                                                <select
+                                                    class="form-control"
+                                                    name=""
+                                                    @change="getModuleTask()"
+                                                    id="module_input"
+                                                    v-model="moduleId"
+                                                >
+                                                    <option selected :value="0"
+                                                        >Select Module</option
+                                                    >
+                                                    <option
+                                                        v-for="(projectModule,
+                                                        index) in projectModules"
+                                                        :key="index"
+                                                        :value="
+                                                            projectModule.id
                                                         "
-                                                    ></independentTaskForm>
-                                                </div>
-
-                                                <div
-                                                    v-if="
-                                                        task_category ===
-                                                            'module_task'
-                                                    "
-                                                >
-                                                    <div class="form-group">
-                                                        <label
-                                                            for="project_input"
-                                                            >Project</label
-                                                        >
-                                                        <select
-                                                            @change="
-                                                                getProjectTask()
-                                                            "
-                                                            class="form-control"
-                                                            name=""
-                                                            v-model="projectID"
-                                                            id="project_input"
-                                                        >
-                                                            <option
-                                                                selected
-                                                                @click="
-                                                                    form.tasks = []
-                                                                "
-                                                                :value="-1"
-                                                            >
-                                                                Select Project
-                                                            </option>
-                                                            <option
-                                                                v-for="(project,
-                                                                index) in allProject"
-                                                                :key="index"
-                                                                :value="
-                                                                    project.id
-                                                                "
-                                                            >
-                                                                {{
-                                                                    project.name
-                                                                }}
-                                                            </option>
-                                                        </select>
-                                                    </div>
-
-                                                    <div
-                                                        v-if="projectModules"
-                                                        class="form-group"
                                                     >
-                                                        <label
-                                                            for="module_input"
-                                                            >Module</label
-                                                        >
-                                                        <select
-                                                            class="form-control"
-                                                            name=""
-                                                            @change="
-                                                                getModuleTask()
-                                                            "
-                                                            id="module_input"
-                                                            v-model="moduleId"
-                                                        >
-                                                            <option
-                                                                selected
-                                                                :value="-1"
-                                                                >Select
-                                                                Module</option
-                                                            >
-                                                            <option
-                                                                v-for="(projectModule,
-                                                                index) in projectModules"
-                                                                :key="index"
-                                                                :value="
-                                                                    projectModule.id
-                                                                "
-                                                            >
-                                                                {{
-                                                                    projectModule.name
-                                                                }}
-                                                            </option>
-                                                        </select>
-                                                    </div>
-                                                    <div
-                                                        v-if="tasks"
-                                                        class="col-12"
-                                                    >
-                                                        <h5>Task List</h5>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div
-                                                            class="col-4"
-                                                            v-if="tasks"
-                                                            v-for="(task,
-                                                            index) in tasks"
-                                                            :key="index"
-                                                        >
-                                                            <allTaskList
-                                                                :updateAllTask="
-                                                                    updateAllTask
-                                                                "
-                                                                :sprint="
-                                                                    spritnID
-                                                                "
-                                                                :task="task"
-                                                                :users="
-                                                                    allUsers
-                                                                "
-                                                                :index="index"
-                                                            ></allTaskList>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                        {{ projectModule.name }}
+                                                    </option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- /.tab-content -->
-                                </div>
-                                <!-- /.card-body -->
-                                <div
-                                    class="card-footer"
-                                    v-if="finalSelectedTask.length"
-                                >
-                                    <button
-                                        @click="updateSprintTask()"
-                                        class="btn btn-block btn-primary"
-                                    >
-                                        Update
-                                    </button>
+
+                                    <div v-if="tasks.length" class="col-12">
+                                        <h5>Task List</h5>
+                                    </div>
+                                    <div class="row">
+                                        <div
+                                            class="col-4 mt-2"
+                                            v-if="tasks"
+                                            v-for="(task, index) in tasks"
+                                            :key="index"
+                                        >
+                                            <allTaskList
+                                                :updateAllTask="updateAllTask"
+                                                :sprint="spritnID"
+                                                :task="task"
+                                                :users="allUsers"
+                                                :index="index"
+                                            ></allTaskList>
+                                        </div>
+                                        <div
+                                            class="col-12 mt-2"
+                                            v-if="finalSelectedTask.length"
+                                        >
+                                            <button
+                                                class=" btn btn-primary"
+                                                @click="updateSprintTask()"
+                                            >
+                                                Add Sprint Task
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <!-- /.nav-tabs-custom -->
                         </div>
-                        <!-- /.col -->
                     </div>
-                    <!-- /.row -->
                 </div>
-                <!-- /.container-fluid -->
             </div>
-            <!-- /.content -->
         </div>
-        <!-- /.content-wrapper -->
-
-     
     </div>
 </template>
 <script>
@@ -261,12 +173,11 @@ export default {
             finalSelectedTask: [],
             allProject: null,
             tasks: null,
-            projectModules: null,
+            projectModules: [],
             task_category: "independent_task",
-            projectID: null,
-            moduleId: null,
-            existingId: [],
-         
+            projectID: -1,
+            moduleId: 0,
+            existingId: []
         };
     },
     methods: {
@@ -282,10 +193,9 @@ export default {
             axios.get(`/api/sprint/${this.$route.params.id}`).then(response => {
                 if (this.existingId.length) {
                     this.existingId = response.data.sprint_task.map(
-                    task => task.task_id
-                );
+                        task => task.task_id
+                    );
                 }
-                
             });
         },
         updateAllTask(index, task) {
@@ -300,7 +210,10 @@ export default {
                     selectedTask: this.finalSelectedTask
                 })
                 .then(res => {
-                    this.$router.push({   name: 'sprint_details',  params: { id: this.spritnID }  });
+                    this.$router.push({
+                        name: "sprint_details",
+                        params: { id: this.spritnID }
+                    });
                     this.$toast.success({
                         title: "SUCCESS",
                         message: "Sprint-Task Updated Successfully"
@@ -332,6 +245,7 @@ export default {
             });
         },
         getProjectTask() {
+            this.allTasks = [];
             this.finalSelectedTask = [];
             this.getProjectModule(this.projectID);
 
@@ -349,6 +263,7 @@ export default {
             });
         },
         getModuleTask() {
+            this.allTasks = [];
             this.finalSelectedTask = [];
             axios.get(`/api/module/task/w/${this.moduleId}`).then(res => {
                 this.tasks = res.data.filter(

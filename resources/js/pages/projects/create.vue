@@ -173,9 +173,13 @@
                                                             0
                                                     "
                                                     @click="img_x"
-                                                    class="btn btn-light"
+                                                    class="btn btn-light btn-sm"
                                                 >
-                                                    <i class="fas fa-times"></i>
+
+                                                    <i
+                                                        class="fa fa-times"
+                                                        aria-hidden="true"
+                                                    ></i>
                                                 </button>
                                                 <img
                                                     v-if="
@@ -262,7 +266,7 @@ export default {
                     this.form.start_date = null;
                     this.form.end_date = null;
                     this.form.development_cost = "";
-                    this.$router.push({ name: 'projects' });
+                    this.$router.push({ name: "projects" });
                     this.$toast.success({
                         title: "SUCCESS",
                         message: "project Created Successfully"

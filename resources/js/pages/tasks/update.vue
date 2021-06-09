@@ -252,12 +252,8 @@ export default {
         },
         updateTask() {
             this.form
-                .post("/api/task")
+                .put(`/api/task/${this.$route.params.id}`)
                 .then(response => {
-                    this.form.name = "";
-                    this.form.project_id = 0;
-                    this.form.description =
-                        '<h4 class="text-muted">task Details</h4>';
                     this.$toast.success({
                         title: "SUCCESS",
                         message: "task Updated Successfully"

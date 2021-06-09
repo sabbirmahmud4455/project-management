@@ -71,41 +71,55 @@
                                     </span>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="inputStatus">Type</label>
+                                <select
+                                    v-model="form.type"
+                                    class="form-control custom-select"
+                                    :class="{
+                                        'is-invalid': form.errors.has('type')
+                                    }"
+                                >
+                                    <option :value="null">Task Type</option>
+                                    <option value="Epic">Epic</option>
+                                    <option value="Story">Story</option>
+                                    <option value="Development"
+                                        >Development</option
+                                    >
+                                    <option value="Bug">Bug</option>
+                                    <option value="Update">Update</option>
+                                    <option value="Change Request"
+                                        >Change Request</option
+                                    >
+                                    <option value="Idea">Idea</option>
+                                    <option value="Enhancement"
+                                        >Enhancement</option
+                                    >
+                                    <option value="Research & Do"
+                                        >Research & Do</option
+                                    >
+                                    <option value="Maintenance"
+                                        >Maintenance</option
+                                    >
+                                    <option value="Quality Assurance">
+                                        Quality Assurance
+                                    </option>
+                                    <option value="Unit Testing"
+                                        >Unit Testing</option
+                                    >
+                                    <option value="Enhancement"
+                                        >Enhancement</option
+                                    >
+                                </select>
+                                <has-error
+                                    :form="form"
+                                    field="project_id"
+                                ></has-error>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="form-group">
-                        <label for="inputStatus">Type</label>
-                        <select
-                            v-model="form.type"
-                            class="form-control custom-select"
-                            :class="{
-                                'is-invalid': form.errors.has('type')
-                            }"
-                        >
-                            <option :value="null">Task Type</option>
-                            <option value="Epic">Epic</option>
-                            <option value="Story">Story</option>
-                            <option value="Development">Development</option>
-                            <option value="Bug">Bug</option>
-                            <option value="Update">Update</option>
-                            <option value="Change Request"
-                                >Change Request</option
-                            >
-                            <option value="Idea">Idea</option>
-                            <option value="Enhancement">Enhancement</option>
-                            <option value="Research & Do">Research & Do</option>
-                            <option value="Maintenance">Maintenance</option>
-                            <option value="Quality Assurance">
-                                Quality Assurance
-                            </option>
-                            <option value="Unit Testing">Unit Testing</option>
-                            <option value="Enhancement">Enhancement</option>
-                        </select>
-                        <has-error :form="form" field="project_id"></has-error>
-                    </div>
-
                     <div class="form-group">
                         <label for="assign_to">Assign To</label>
                         <select
@@ -150,7 +164,7 @@
 
             <div class="tile-footer">
                 <button type="submit" class="btn btn-primary">
-                    Create Task
+                    Create Sprint-Task
                 </button>
             </div>
         </form>
@@ -242,7 +256,10 @@ export default {
                     this.form.assign_to = 0;
                     this.form.description =
                         '<h4 class="text-muted">task Details</h4>';
-                        this.$router.push({   name: 'sprint_details',  params: { id: this.$route.params.id }  });
+                    this.$router.push({
+                        name: "sprint_details",
+                        params: { id: this.$route.params.id }
+                    });
                     this.$toast.success({
                         title: "SUCCESS",
                         message: "task Created Successfully"

@@ -3,7 +3,7 @@
         <div class="tab-pane container mt-3" id="settings">
             <form v-if="form.id" @submit.prevent="updateProject_desc()" @keydown="form.onKeydown($event)">
                 <div class="card-body row">
-                    
+
                     <div class="col-12">
                         <div class="form-group">
                             <label for="address">Documentation Description</label>
@@ -18,11 +18,14 @@
                                 <input name="docu" type="file" class="custom-file-input" id="docu_file_id" @change="onImageChange" :class="{ 'is-invalid': form.errors.has('document_file') }">
                                 <label class="custom-file-label" for="profilePhoto">Choose zip file</label>
                             </div>
-                            <button v-if="have_file" @click="file_x" class="btn btn-light"><i class="fas fa-times"></i></button>
-                            
+                            <button v-if="have_file" @click="file_x" class="btn btn-light"> <i
+                                                        class="fa fa-times"
+                                                        aria-hidden="true"
+                                                    ></i></button>
+
                             <i v-if="have_file" class="fas fa-file-archive btn"></i>
                             </div>
-                            
+
                         </div>
                     </div>
                     <div class="col-12">
@@ -35,11 +38,11 @@
                     <!-- /.card-body -->
 
                     <button type="submit" class="btn btn-primary">Update Project Description</button>
-                    
+
             </form>
             <form v-else @submit.prevent="createProject_desc()" @keydown="form.onKeydown($event)">
                 <div class="card-body row">
-                    
+
                     <div class="col-12">
                         <div class="form-group">
                             <label for="address">Documentation Description</label>
@@ -54,11 +57,14 @@
                                 <input name="docu" type="file" class="custom-file-input" id="docu_file_id" @change="onImageChange" :class="{ 'is-invalid': form.errors.has('document_file') }">
                                 <label class="custom-file-label" for="profilePhoto">Choose zip file</label>
                             </div>
-                            <button  v-if="have_file" @click="file_x" class="btn btn-light"><i class="fas fa-times"></i></button>
-                            
+                            <button  v-if="have_file" @click="file_x" class="btn btn-light"> <i
+                                                        class="fa fa-times"
+                                                        aria-hidden="true"
+                                                    ></i></i></button>
+
                             <i v-if="form.have_file" class="fas fa-file-archive btn"></i>
                             </div>
-                            
+
                         </div>
                     </div>
                     <div class="col-12">
@@ -112,7 +118,7 @@ export default {
             })
         },
         updateProject_desc(){
-        
+
         this.form.post(`/api/project_desc/update/${this.id}` , {
                 transformRequest: [function (data, headers) {
                     return objectToFormData(data)
@@ -122,7 +128,7 @@ export default {
                     console.log(e)
                 }
             })
-            .then(response => { 
+            .then(response => {
                 this.$toast.success({
                     title:'SUCCESS',
                     message:'Updated Successfully'
@@ -137,7 +143,7 @@ export default {
                 })
       },
       createProject_desc(){
-        
+
        this.form.post(`/api/project_desc/create/${this.id}` , {
                 transformRequest: [function (data, headers) {
                     return objectToFormData(data)
@@ -145,9 +151,9 @@ export default {
                 onUploadProgress: e => {
                     // Do whatever you want with the progress event
                     console.log(e)
-                } 
+                }
             })
-            .then(response => { 
+            .then(response => {
                 this.$toast.success({
                     title:'SUCCESS',
                     message:'Updated Successfully'
@@ -178,8 +184,8 @@ export default {
     components : {
         VueEditor
     },
-    
-    
+
+
 }
 </script>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
