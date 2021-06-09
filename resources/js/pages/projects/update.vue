@@ -94,7 +94,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col">
+                                    <!-- <div class="col-md-6 col">
                                         <div class="form-group">
                                             <label for="project_type"
                                                 >Type</label
@@ -117,7 +117,7 @@
                                                 field="type"
                                             ></has-error>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="col-md-6 col">
                                         <div class="form-group">
                                             <label for="development_cost"

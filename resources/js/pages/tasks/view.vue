@@ -1,52 +1,16 @@
 <template lang="">
     <div>
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Task</h1>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item">
-                                    <router-link :to="{ name: 'home' }">
-                                        Home
-                                    </router-link>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <router-link :to="{ name: 'tasks' }">
-                                        Tasks
-                                    </router-link>
-                                </li>
-                                <li class="breadcrumb-item active">
-                                    Task Detailes
-                                </li>
-                            </ol>
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                    <!-- /.row -->
-                </div>
-                <!-- /.container-fluid -->
-            </div>
-            <!-- /.content-header -->
 
-            <!-- Main content -->
-            <div class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col">
-                            <div class="card card-primary card-outline">
-                                <div class="card-header">
-                                    <h5>Module Description</h5>
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                    <ul
+
+
+
+        <div class="row " style="margin: 0px -30px;">
+            <div class="col-md-12 px-0">
+                <div class="tile">
+                    <div class="tile-body">
+                        <div class="details_col">
+                            <h4 class="title">Project Update</h4>
+                            <ul
                                         class="list-group list-group-unbordered mb-3"
                                     >
                                         <li class="list-group-item">
@@ -103,18 +67,20 @@
                                             ></div>
                                         </li>
                                     </ul>
-                                </div>
-                            </div>
+
+
+                           
                         </div>
-                        <!-- /.col-md-6 -->
                     </div>
-                    <!-- /.row -->
                 </div>
-                <!-- /.container-fluid -->
             </div>
-            <!-- /.content -->
         </div>
-        <!-- /.content-wrapper -->
+
+
+
+
+
+
     </div>
 </template>
 

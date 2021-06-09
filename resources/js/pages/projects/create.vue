@@ -94,7 +94,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col">
+                                    <!-- <div class="col-md-6 col">
                                         <div class="form-group">
                                             <label for="project_type"
                                                 >Type</label
@@ -117,7 +117,7 @@
                                                 field="type"
                                             ></has-error>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="col-md-6 col">
                                         <div class="form-group">
                                             <label for="development_cost"
@@ -262,7 +262,7 @@ export default {
                     this.img_x();
                     this.form.client_id = 0;
                     this.form.name = "";
-                    this.form.type = "";
+                    this.form.type = null;
                     this.form.start_date = null;
                     this.form.end_date = null;
                     this.form.development_cost = "";

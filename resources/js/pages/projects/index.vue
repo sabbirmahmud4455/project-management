@@ -22,7 +22,6 @@
                 <thead>
                   <tr>
                     <th>Name</th>
-                    <th>Type</th>
                     <th> Start Date </th>
                     <th> End Date </th>
                     <th>Status</th>
@@ -33,7 +32,6 @@
                 <tbody>
                   <tr  v-if="all_projects" v-for="(project, index) in all_projects" :key="index">
                     <td>{{project.name}}</td>
-                    <td>{{project.type}}</td>
                     <td>{{project.start_date}}</td>
                     <td>{{project.end_date}}</td>
                     <td >

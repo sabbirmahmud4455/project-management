@@ -9,7 +9,7 @@
                                 <div class="details_col">
                                     <h4 class="title">Project Update</h4>
                                     <div class="">
-                                        <div class="text-center">
+                                        <div class="text-center mb-3">
                                             <img
                                                 v-if="photo.length"
                                                 class="img-fluid"
@@ -30,7 +30,7 @@
                                             </p>
                                         </div>
 
-                                        <div class="info_propraty">
+                                        <!-- <div class="info_propraty">
                                             <p
                                                 v-if="type.length"
                                                 class="propraty_title"
@@ -40,7 +40,7 @@
                                             <p class="value">
                                                 {{ type }}
                                             </p>
-                                        </div>
+                                        </div> -->
 
                                         <div class="info_propraty">
                                             <p
@@ -80,7 +80,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-9" style="padding-left: 5px;">
                                 <div class="details_col">
                                     <div class="card">
                                         <div class="card-header p-2">

@@ -25,6 +25,51 @@
                         </div>
                         <div class="col-12">
                             <div class="form-group">
+                                <label for="inputStatus">Type</label>
+                                <select
+                                    v-model="form.type"
+                                    class="form-control custom-select"
+                                    :class="{
+                                        'is-invalid': form.errors.has('type')
+                                    }"
+                                >
+                                    <option :value="null">Task Type</option>
+                                    <option value="Epic">Epic</option>
+                                    <option value="Story">Story</option>
+                                    <option value="Development"
+                                        >Development</option
+                                    >
+                                    <option value="Bug">Bug</option>
+                                    <option value="Update">Update</option>
+                                    <option value="Change Request"
+                                        >Change Request</option
+                                    >
+                                    <option value="Idea">Idea</option>
+                                    <option value="Enhancement"
+                                        >Enhancement</option
+                                    >
+                                    <option value="Research & Do"
+                                        >Research & Do</option
+                                    >
+                                    <option value="Maintenance"
+                                        >Maintenance</option
+                                    >
+                                    <option value="Quality Assurance">
+                                        Quality Assurance
+                                    </option>
+                                    <option value="Unit Testing"
+                                        >Unit Testing</option
+                                    >
+                                    <option value="Enhancement"
+                                        >Enhancement</option
+                                    >
+                                </select>
+                                <has-error
+                                    :form="form"
+                                    field="project_id"
+                                ></has-error>
+                            </div>
+                            <div class="form-group">
                                 <label for="">Priority</label>
                                 <div class="d-flex">
                                     <span class="mx-2">
@@ -70,51 +115,6 @@
                                         </div>
                                     </span>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputStatus">Type</label>
-                                <select
-                                    v-model="form.type"
-                                    class="form-control custom-select"
-                                    :class="{
-                                        'is-invalid': form.errors.has('type')
-                                    }"
-                                >
-                                    <option :value="null">Task Type</option>
-                                    <option value="Epic">Epic</option>
-                                    <option value="Story">Story</option>
-                                    <option value="Development"
-                                        >Development</option
-                                    >
-                                    <option value="Bug">Bug</option>
-                                    <option value="Update">Update</option>
-                                    <option value="Change Request"
-                                        >Change Request</option
-                                    >
-                                    <option value="Idea">Idea</option>
-                                    <option value="Enhancement"
-                                        >Enhancement</option
-                                    >
-                                    <option value="Research & Do"
-                                        >Research & Do</option
-                                    >
-                                    <option value="Maintenance"
-                                        >Maintenance</option
-                                    >
-                                    <option value="Quality Assurance">
-                                        Quality Assurance
-                                    </option>
-                                    <option value="Unit Testing"
-                                        >Unit Testing</option
-                                    >
-                                    <option value="Enhancement"
-                                        >Enhancement</option
-                                    >
-                                </select>
-                                <has-error
-                                    :form="form"
-                                    field="project_id"
-                                ></has-error>
                             </div>
                         </div>
                     </div>

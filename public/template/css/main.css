@@ -4436,7 +4436,7 @@ input[type="button"].btn-block {
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
     color: #fff;
-    background-color: #009688;
+    background-color:#547ff3;
 }
 
 .nav-fill .nav-item {
@@ -14056,9 +14056,9 @@ be a descendant of the grid when it is being dragged.
     .app.sidenav-toggled .app-sidebar {
         left: -230px;
     }
-    .app.sidenav-toggled .app-sidebar__overlay {
+    /* .app.sidenav-toggled .app-sidebar__overlay {
         visibility: hidden;
-    }
+    } */
 }
 
 @media (max-width: 767px) {
@@ -15920,7 +15920,7 @@ be a descendant of the grid when it is being dragged.
     color: #fff;
     font-size: 16px;
     font-weight: 500px;
-    padding: 11px 18px 12px 42px;
+    padding: 11px 18px;
     border-radius: 4px;
 }
 .details_col .btn-add-task:hover {
