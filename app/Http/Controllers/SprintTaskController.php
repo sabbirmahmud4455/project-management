@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SprintTask;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class SprintTaskController extends Controller
@@ -42,7 +43,7 @@ class SprintTaskController extends Controller
             $sprintTask = SprintTask::create([
                 'sprint_id' => $task['sprintID'],
                 'priority' =>  $task['priority'],
-                'status'=>'New',
+                'status' => 'New',
                 'assign_to' =>  $task['asigneTo'],
                 'task_id' => $task['taskId'],
             ]);
@@ -69,7 +70,8 @@ class SprintTaskController extends Controller
      */
     public function edit(SprintTask $sprintTask)
     {
-        return response()->json($sprintTask);
+        $sprint_task = SprintTask::with(['task'])->find($sprintTask->id);
+        return response()->json($sprint_task);
     }
 
     /**
@@ -81,11 +83,21 @@ class SprintTaskController extends Controller
      */
     public function update(Request $request, SprintTask $sprintTask)
     {
+        $task = Task::find($sprintTask->task_id);
+
+
         $sprintTask->update([
-            'priority'=>$request->priority,
-            'assign_to'=>$request->assign_to,
-            'status'=>$request->status,
+            'priority' => $request->priority,
+            'assign_to' => $request->assign_to,
+            'status' => $request->status,
         ]);
+
+        $task->update([
+            'name' => $request->name,
+            'type' => $request->type,
+            'description' => $request->description,
+        ]);
+
         return response()->json('updated');
     }
 

@@ -158,19 +158,23 @@
                                                         >
                                                     </td>
                                                     <td>
-                                                        <button
+                                                        <router-link
+                                                            :to="{
+                                                                name:
+                                                                    'sprint_task_edit',
+                                                                params: {
+                                                                    id:
+                                                                        sprint_task.id
+                                                                }
+                                                            }"
                                                             class="btn btn-link px-1"
-                                                            @click="
-                                                                edit_sprint_task(
-                                                                    sprint_task.id
-                                                                )
-                                                            "
                                                         >
                                                             <i
-                                                                class="fa fa-pencil text-secondary"
+                                                                class=" text-secondary fa fa-pencil"
                                                                 aria-hidden="true"
                                                             ></i>
-                                                        </button>
+                                                        </router-link>
+
                                                         <button
                                                             class="btn btn-link px-1"
                                                             href="#delete_modal"

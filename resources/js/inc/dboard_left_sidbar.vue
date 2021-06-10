@@ -95,8 +95,8 @@
                         class="app-menu__item"
                         active-class="active"
                     >
-                        <i class="app-menu__icon fa fa-dashboard"></i
-                        ><span class="app-menu__label">App Info</span>
+                        <i class="ri-information-line"></i>
+                        <span class="app-menu__label">App Info</span>
                     </router-link>
                 </li>
             </ul>
