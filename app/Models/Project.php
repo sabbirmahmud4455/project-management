@@ -19,4 +19,9 @@ class Project extends Model
         'status',
         'development_cost',
     ];
+
+    public function modules()
+    {
+        return $this->hasMany(Module::class)->with(['tasks']);
+    }
 }

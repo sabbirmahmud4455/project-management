@@ -95,6 +95,24 @@
                                             />
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="status">Status</label>
+                                            <select
+                                                class="form-control"
+                                                name=""
+                                                id="status"
+                                                v-model="form.status"
+                                            >
+                                                <option value="Active"
+                                                    >Active</option
+                                                >
+                                                <option value="Complete"
+                                                    >Complete</option
+                                                >
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="">Description</label>
@@ -138,6 +156,7 @@ export default {
                 duration: null,
                 purposes: null,
                 start_date: null,
+                status: "Active",
                 end_date: null,
                 description: ""
             })
@@ -148,14 +167,7 @@ export default {
             this.form
                 .post("/api/sprint")
                 .then(response => {
-                    this.form.name = null;
-                    this.form.type = null;
-                    this.form.start_date = null;
-                    this.form.end_date = null;
-                    this.form.duration = null;
-                    this.form.purposes = null;
-                    this.form.description = null;
-                    this.$router.push({ name: 'sprints' });
+                    this.$router.push({ name: "sprints" });
                     this.$toast.success({
                         title: "SUCCESS",
                         message: "Sprint Created Successfully"

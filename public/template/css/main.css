@@ -4428,16 +4428,26 @@ input[type="button"].btn-block {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
-
+.nav-pills {
+    overflow: auto;
+}
 .nav-pills .nav-link {
     border-radius: 0.25rem;
 }
 
-.nav-pills .nav-link.active,
+.nav-pills .nav-item .btn {
+    background-color: rgba(84, 126, 243, 0.582);
+    color: #fff;
+    font-weight: 500;
+}
+.nav-pills .nav-item .btn:active {
+    background-color: red !important;
+}
+/* .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
     color: #fff;
-    background-color:#547ff3;
-}
+    background-color: #547ff3;
+} */
 
 .nav-fill .nav-item {
     -webkit-box-flex: 1;
@@ -7019,6 +7029,14 @@ button.bg-dark:focus {
     display: -webkit-inline-box !important;
     display: -ms-inline-flexbox !important;
     display: inline-flex !important;
+}
+.horizontal_scroll {
+    overflow: auto;
+    white-space: nowrap;
+}
+table {
+    overflow: auto;
+    white-space: nowrap;
 }
 
 @media (min-width: 576px) {

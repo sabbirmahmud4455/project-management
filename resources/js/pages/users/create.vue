@@ -381,3 +381,4 @@ export default {
     }
 };
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

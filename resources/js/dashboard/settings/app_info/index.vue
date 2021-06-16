@@ -276,6 +276,9 @@ export default {
                         title: "SUCCESS",
                         message: "App Info Updated Successfully"
                     });
+                    document.getElementsByClassName(
+                        "app-header__logo"
+                    )[0].children[0].innerHTML = this.form.app_name;
                 })
                 .catch(error => {
                     if (error.response.data.errors.email) {

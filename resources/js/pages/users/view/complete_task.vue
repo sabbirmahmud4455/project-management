@@ -1,5 +1,5 @@
 <template lang="">
-    <div class="col-12">
+    <div class="col-12" style="overflow: auto">
         <table class="table" id="sampleTable">
             <thead>
                 <tr>
@@ -11,7 +11,7 @@
             </thead>
             <tbody>
                 <tr
-                    v-if="activeTask"
+                    v-if="completedTask"
                     v-for="(comTask, index) in completedTask"
                     :key="index"
                 >
@@ -22,7 +22,7 @@
                         {{ comTask.status }}
                     </td>
                 </tr>
-                <div v-if="!completedTask.length" class="d-block">
+                <div v-if="!completedTask" class="d-block">
                     <h5 class="py-2 text-center text-muted">Data Not Found</h5>
                 </div>
             </tbody>

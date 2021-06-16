@@ -53,7 +53,7 @@
                 </li>
 
                 <!-- modules -->
-                <li class="nav-item has-treeview ">
+                <!-- <li class="nav-item has-treeview ">
                     <router-link
                         :to="{ name: 'modules' }"
                         class="app-menu__item"
@@ -62,10 +62,10 @@
                         <i class="ri-stackshare-line"></i>
                         <span class="app-menu__label">Modules</span>
                     </router-link>
-                </li>
+                </li> -->
 
                 <!-- tasks -->
-                <li class="nav-item has-treeview ">
+                <!-- <li class="nav-item has-treeview ">
                     <router-link
                         :to="{ name: 'tasks' }"
                         class="app-menu__item"
@@ -74,7 +74,7 @@
                         <i class="ri-task-line"></i>
                         <span class="app-menu__label">Tasks</span>
                     </router-link>
-                </li>
+                </li> -->
 
                 <!-- sprint -->
                 <li class="nav-item has-treeview ">
@@ -105,23 +105,7 @@
 </template>
 <script>
 export default {
-    data() {
-        return {
-            user: null
-        };
-    },
-    methods: {
-        getUser() {
-            axios.get("/sanctum/csrf-cookie").then(response => {
-                axios.get("/api/get-profile").then(response => {
-                    this.user = response.data;
-                });
-            });
-        }
-    },
-    mounted() {
-        this.getUser();
-    }
+    props: ["user"]
 };
 </script>
 <style lang=""></style>

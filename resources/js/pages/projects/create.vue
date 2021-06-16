@@ -142,6 +142,25 @@
                                             ></has-error>
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="status">Status</label>
+                                            <select
+                                                class="form-control"
+                                                name=""
+                                                id="status"
+                                                v-model="form.status"
+                                            >
+                                                <option value="Active"
+                                                    >Active</option
+                                                >
+                                                <option value="Complete"
+                                                    >Complete</option
+                                                >
+                                            </select>
+                                        </div>
+                                    </div>
+
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
                                             <label for="profilePhoto"
@@ -175,7 +194,6 @@
                                                     @click="img_x"
                                                     class="btn btn-light btn-sm"
                                                 >
-
                                                     <i
                                                         class="fa fa-times"
                                                         aria-hidden="true"
@@ -229,6 +247,7 @@ export default {
                 name: "",
                 type: "",
                 photo: "",
+                status: "Active",
                 start_date: null,
                 end_date: null,
                 development_cost: ""

@@ -54,7 +54,7 @@ Route::get('/client_complete/project/{id}', [ProjectController::class, 'client_c
 //module
 Route::resource('/module', ModuleController::class);
 // Route::get('/all_modules', function () {
-//     $projects= Project::orderBy('id', 'desc')->get();
+//     $projects = Project::orderBy('id', 'desc')->get();
 //     return response()->json($projects);
 // });
 Route::get('/product_modules/{id}', [ModuleController::class, 'project_modules']);

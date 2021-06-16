@@ -51,7 +51,7 @@ class ModuleController extends Controller
             'name' => $request->name,
             'project_id' => $request->project_id,
             'description' => $description,
-            'status' => 'Pending',
+            'status' => $request->status,
             'created_at' => Carbon::now(),
         ]);
         return response()->json('Module Store successfully');
@@ -65,7 +65,7 @@ class ModuleController extends Controller
      */
     public function show(Module $module)
     {
-        $get_module = Module::where('id', $module->id)->with(['project'])->get();
+        $get_module = Module::where('id', $module->id)->with(['project'])->first();
         return response()->json($get_module);
     }
 
@@ -77,7 +77,9 @@ class ModuleController extends Controller
      */
     public function edit(Module $module)
     {
-        return response()->json($module);
+        $get_module = Module::where('id', $module->id)->with(['project'])->first();
+        return response()->json($get_module);
+        // return response()->json($module);
     }
 
     /**
@@ -91,7 +93,6 @@ class ModuleController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'project_id' => 'integer'
         ]);
         if ($request->description == '<h4 class="text-muted">Client Details</h4>') {
             $description = '';
@@ -101,10 +102,8 @@ class ModuleController extends Controller
 
         $module->update([
             'name' => $request->name,
-            'project_id' => $request->project_id,
             'description' => $description,
-            'status' => 'Pending',
-            'updated_at' => Carbon::now(),
+            'status' => $request->status,
         ]);
         return response()->json('Module Update successfully');
     }

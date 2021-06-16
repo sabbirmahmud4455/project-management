@@ -5,6 +5,7 @@
                 <div class="tile">
                     <div class="tile-body">
                         <div class="details_col">
+                            <h4 class="title">Users</h4>
                             <!-- vue route view -->
                             <userList></userList>
                         </div>

@@ -123,7 +123,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $user_pro = User::where('id', $user->id)->with(['profile', 'types', 'roles', 'activeSprintTasks', 'closedSprintTasks'])->first();
+        $user_pro = User::where('id', $user->id)->with(['types', 'roles', 'activeSprintTasks', 'closedSprintTasks'])->first();
         return response()->json($user_pro);
     }
 
@@ -159,19 +159,16 @@ class UserController extends Controller
                 'old_password' => 'required',
                 'password' => 'required|confirmed|min:6'
             ]);
-            if (Hash::check('$request->old_password', $user->password)) {
+            if (Hash::check($request->old_password, $user->password)) {
                 $user->update([
                     'password' => Hash::make($request->password),
                 ]);
+                return response()->json('ok');
+            } else {
+                return response()->json(['old_password' => 'Old Password Not Match'], 422);
             }
-            return response()->json(['old_password' => 'Old Password Not Match'], 422);
         }
 
-        if ($request->user_type == 1) {
-            $user_type = 'Admin';
-        } else {
-            $user_type = 'Member';
-        }
 
         $user->update([
             'name' => $request->name,

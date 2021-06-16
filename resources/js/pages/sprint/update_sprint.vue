@@ -83,7 +83,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <!-- <div class="col-6">
                                         <div class="form-group">
                                             <label for="">Duration</label>
                                             <input
@@ -96,7 +96,7 @@
                                                 aria-describedby="helpId"
                                             />
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="">Purposes</label>
@@ -107,6 +107,24 @@
                                                 placeholder="Purposes"
                                                 aria-describedby="helpId"
                                             />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="status">Status</label>
+                                            <select
+                                                class="form-control"
+                                                name=""
+                                                id="status"
+                                                v-model="form.status"
+                                            >
+                                                <option value="Active"
+                                                    >Active</option
+                                                >
+                                                <option value="Complete"
+                                                    >Complete</option
+                                                >
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col">
@@ -152,6 +170,7 @@ export default {
                 type: null,
                 duration: null,
                 purposes: null,
+                status: null,
                 start_date: null,
                 end_date: null,
                 description: ""
@@ -166,6 +185,7 @@ export default {
                 this.form.start_date = res.data.start_date;
                 this.form.end_date = res.data.end_date;
                 this.form.duration = res.data.duration;
+                this.form.status = res.data.status;
                 this.form.purposes = res.data.purposes;
                 this.form.description = res.data.description;
             });
@@ -175,13 +195,7 @@ export default {
             this.form
                 .put(`/api/sprint/${this.sprintID}`)
                 .then(response => {
-                    // this.form.name = null;
-                    // this.form.type = null;
-                    // this.form.start_date = null;
-                    // this.form.end_date = null;
-                    // this.form.duration = null;
-                    // this.form.purposes = null;
-                    // this.form.description = null;
+                    this.$router.push({ name: "sprints" });
                     this.$toast.success({
                         title: "SUCCESS",
                         message: "Sprint Updated Successfully"

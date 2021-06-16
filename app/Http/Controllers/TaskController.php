@@ -59,7 +59,7 @@ class TaskController extends Controller
             'module_id' => $request->module_id,
             'type' => $request->type,
             'description' => $description,
-            'status' => 'Active',
+            'status' => $request->status,
         ]);
         if ($request->images) {
             foreach ($request->images as $image) {
@@ -119,6 +119,7 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
+        $task = Task::where('id', $task->id)->with(['module'])->first();
         return response()->json($task);
     }
 
@@ -133,8 +134,6 @@ class TaskController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'project_id' => 'required|integer',
-            'module_id' => 'integer',
         ]);
         if ($request->description == '<h4 class="text-muted">Client Details</h4>') {
             $description = '';
@@ -147,7 +146,7 @@ class TaskController extends Controller
             'module_id' => $request->module_id,
             'type' => $request->type,
             'description' => $description,
-            'status' => 'Active',
+            'status' => $request->status,
 
         ]);
 

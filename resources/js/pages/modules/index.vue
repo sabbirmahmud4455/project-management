@@ -6,97 +6,102 @@
                     <div class="tile-body">
                         <div class="details_col">
                             <h4 class="title">Modules</h4>
-                            <router-link
-                                :to="{
-                                    name: 'module_create'
-                                }"
-                                style="float:right"
-                                class="btn btn-outline-success"
-                            >
-                                Create New
-                            </router-link>
-                            <table
-                                class="table table-hover table-bordered"
-                                id="sampleTable"
-                            >
-                                <thead>
-                                    <tr>
-                                        <th>Sl</th>
-                                        <th>Name</th>
-                                        <th>project</th>
-                                        <th>status</th>
 
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr
-                                        v-if="all_modules"
-                                        v-for="(modul, index) in all_modules"
-                                        :key="index"
-                                    >
-                                        <td>{{ index + 1 }}</td>
-                                        <td>{{ modul.name }}</td>
-                                        <td>
-                                            <span>
-                                                {{
-                                                    modul.project
-                                                        ? modul.project.name
-                                                        : "N/A"
-                                                }}
-                                            </span>
-                                        </td>
-                                        <td
-                                            v-html="
-                                                [
-                                                    `<span class='badge badge-danger'>In Active</span>`,
-                                                    `<span class='badge badge-success'>Active</span>`
-                                                ][modul.status]
-                                            "
-                                        ></td>
-                                        <td>
-                                            <router-link
-                                                :to="{
-                                                    name: 'module_view',
-                                                    params: { id: modul.id }
-                                                }"
-                                                class="btn btn-link px-1"
-                                            >
-                                                <i
-                                                    class=" text-primary fa fa-eye"
-                                                    aria-hidden="true"
-                                                ></i>
-                                            </router-link>
-                                            <router-link
-                                                :to="{
-                                                    name: 'module_update',
-                                                    params: { id: modul.id }
-                                                }"
-                                                class="btn btn-link px-1"
-                                            >
-                                                <i
-                                                    class=" text-secondary fa fa-pencil"
-                                                    aria-hidden="true"
-                                                ></i>
-                                            </router-link>
-                                            <a
-                                                class="btn btn-link px-1"
-                                                href="#delete_modal"
-                                                data-toggle="modal"
-                                                @click="
-                                                    (delete_data.id = modul.id),
-                                                        (delete_data.index = index)
+                            <div style="overflow: auto">
+                                <router-link
+                                    :to="{
+                                        name: 'module_create'
+                                    }"
+                                    style="float:right"
+                                    class="btn btn-outline-success"
+                                >
+                                    Create New
+                                </router-link>
+                                <table
+                                    class="table table-hover table-bordered"
+                                    id="sampleTable"
+                                >
+                                    <thead>
+                                        <tr>
+                                            <th>Sl</th>
+                                            <th>Name</th>
+                                            <th>project</th>
+                                            <th>status</th>
+
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr
+                                            v-if="all_modules"
+                                            v-for="(modul,
+                                            index) in all_modules"
+                                            :key="index"
+                                        >
+                                            <td>{{ index + 1 }}</td>
+                                            <td>{{ modul.name }}</td>
+                                            <td>
+                                                <span>
+                                                    {{
+                                                        modul.project
+                                                            ? modul.project.name
+                                                            : "N/A"
+                                                    }}
+                                                </span>
+                                            </td>
+                                            <td
+                                                v-html="
+                                                    [
+                                                        `<span class='badge badge-danger'>In Active</span>`,
+                                                        `<span class='badge badge-success'>Active</span>`
+                                                    ][modul.status]
                                                 "
-                                            >
-                                                <i
-                                                    class=" text-danger fa fa-trash"
-                                                    aria-hidden="true"
-                                                ></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                            ></td>
+                                            <td>
+                                                <router-link
+                                                    :to="{
+                                                        name: 'module_view',
+                                                        params: { id: modul.id }
+                                                    }"
+                                                    class="btn btn-link px-1"
+                                                >
+                                                    <i
+                                                        class=" text-primary fa fa-eye"
+                                                        aria-hidden="true"
+                                                    ></i>
+                                                </router-link>
+                                                <router-link
+                                                    :to="{
+                                                        name: 'module_update',
+                                                        params: { id: modul.id }
+                                                    }"
+                                                    class="btn btn-link px-1"
+                                                >
+                                                    <i
+                                                        class=" text-secondary fa fa-pencil"
+                                                        aria-hidden="true"
+                                                    ></i>
+                                                </router-link>
+                                                <a
+                                                    class="btn btn-link px-1"
+                                                    href="#delete_modal"
+                                                    data-toggle="modal"
+                                                    @click="
+                                                        (delete_data.id =
+                                                            modul.id),
+                                                            (delete_data.index = index)
+                                                    "
+                                                >
+                                                    <i
+                                                        class=" text-danger fa fa-trash"
+                                                        aria-hidden="true"
+                                                    ></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

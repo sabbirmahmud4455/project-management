@@ -37,15 +37,17 @@ class SprintTaskController extends Controller
     public function store(Request $request)
     {
 
+
         foreach ($request->selectedTask as $key => $task) {
 
+            $sprintTask = SprintTask::updateOrCreate([
+                'sprint_id' => $task['sprint_id'],
+                'task_id' => $task['task_id'],
+            ], [
 
-            $sprintTask = SprintTask::create([
-                'sprint_id' => $task['sprintID'],
                 'priority' =>  $task['priority'],
                 'status' => 'New',
-                'assign_to' =>  $task['asigneTo'],
-                'task_id' => $task['taskId'],
+                'assign_to' =>  $task['assign_to'],
             ]);
         }
         return $request;

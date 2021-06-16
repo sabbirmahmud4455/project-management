@@ -7,7 +7,10 @@
                 <div class="tile">
                     <div class="tile-body">
                         <div class="details_col">
-                            <router-link
+                            <h4 class="title">Projects</h4>
+
+      <div style="overflow: auto" >
+          <router-link
                                     :to="{
                                         name: 'project_create',
 
@@ -18,7 +21,7 @@
 
                                     Create New
                                 </router-link>
-      <table class="table table-hover table-bordered" id="sampleTable">
+          <table class="table table-hover table-bordered" id="sampleTable">
                 <thead>
                   <tr>
                     <th>Name</th>
@@ -51,18 +54,19 @@
                                                     aria-hidden="true"
                                                 ></i>
                                                 </router-link>
-                                                <button class="btn btn-link px-1" href="#delete_modal"  data-toggle="modal" @click="delete_data.id=project.id, delete_data.index=index">
+                                                <!-- <button class="btn btn-link px-1" href="#delete_modal"  data-toggle="modal" @click="delete_data.id=project.id, delete_data.index=index">
                                                    <i
                                                     class=" text-danger fa fa-trash"
                                                     aria-hidden="true"
                                                 ></i>
-                                                </button>
+                                                </button> -->
                     </td>
 
                   </tr>
 
                 </tbody>
               </table>
+      </div>
                         </div>
 
 

@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Redirect;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +39,9 @@ Route::get('/{any}', function () {
     }
     return view('main');
 })->where('any', '.*');
+
+
+
 
 
 // Route::get('/download/{id}', [CustomController::class, 'download']);

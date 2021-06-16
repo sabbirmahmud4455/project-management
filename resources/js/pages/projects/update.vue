@@ -142,6 +142,24 @@
                                             ></has-error>
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="status">Status</label>
+                                            <select
+                                                class="form-control"
+                                                name=""
+                                                id="status"
+                                                v-model="form.status"
+                                            >
+                                                <option value="Active"
+                                                    >Active</option
+                                                >
+                                                <option value="Complete"
+                                                    >Complete</option
+                                                >
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
                                             <label for="profilePhoto"
@@ -175,7 +193,7 @@
                                                     @click="img_x"
                                                     class="btn btn-light"
                                                 >
-                                                     <i
+                                                    <i
                                                         class="fa fa-times"
                                                         aria-hidden="true"
                                                     ></i>
@@ -236,6 +254,7 @@ export default {
                 type: "",
                 photo: "",
                 start_date: null,
+                status: null,
                 end_date: null,
                 development_cost: ""
             }),
@@ -249,19 +268,15 @@ export default {
             document.getElementById("profilePhoto").value = "";
             this.real_time_photo = "";
         },
-        // getClient() {
-        //     axios.get("/api/all_clients").then(response => {
-        //         this.all_clients = response.data;
-        //     });
-        // },
         editproject() {
             let id = this.$route.params.id;
             axios.get(`/api/project/${id}/edit`).then(response => {
                 this.form.name = response.data.name;
-                this.form.client_id = response.data.client_id;
                 this.form.type = response.data.type;
                 this.form.start_date = response.data.start_date;
                 this.form.end_date = response.data.end_date;
+                this.form.status = response.data.status;
+
                 this.form.development_cost = response.data.development_cost;
                 this.real_photo = response.data.photo;
             });
@@ -279,7 +294,11 @@ export default {
                         ]
                     })
                     .then(response => {
-                        console.log(response);
+                        this.$router.push({ name: "projects" });
+                        this.$toast.success({
+                            title: "SUCCESS",
+                            message: "project Updated Successfully"
+                        });
                     })
                     .catch(error => {
                         if (error.response.data.errors.photo) {
@@ -293,6 +312,7 @@ export default {
             this.form
                 .put(`/api/project/${id}`)
                 .then(response => {
+                    this.$router.push({ name: "projects" });
                     this.$toast.success({
                         title: "SUCCESS",
                         message: "project Updated Successfully"

@@ -29,14 +29,7 @@ import CreateProject from './pages/projects/create.vue'
 import UpdateProject from './pages/projects/update.vue'
 //project view
 import ViewProject from './pages/projects/view/index.vue'
-//product view status
-import product_view_status from './pages/projects/view/status.vue'
-//product view module
-import product_view_module from './pages/projects/view/module.vue'
-//product view task
-import product_view_task from './pages/projects/view/task.vue'
-//product view details
-import product_view_details from './pages/projects/view/details.vue'
+
 
 
 //all module
@@ -132,21 +125,9 @@ const routes = new VueRouter({
         {
             path: '/project-view/:id',
             component: ViewProject,
-            children: [
-                { path: '',
-                component: product_view_module,
-                name: 'project_view',
-                },
-                { path: '/project-view/tasks/:id',
-                component: product_view_task,
-                name:'project_view_tasks'
-                },
-                { path: '/project-view/details/:id',
-                component: product_view_details,
-                name:'project_view_details'
-                },
-            ]
+            name: 'project_view',
         },
+
         {
             path: '/project-create',
             component: CreateProject,
@@ -167,7 +148,7 @@ const routes = new VueRouter({
             name: 'modules',
         },
         {
-            path: '/module-create',
+            path: '/module-create/:id',
             component: ModuleCreate,
             name: 'module_create',
         },
@@ -189,7 +170,7 @@ const routes = new VueRouter({
             name: 'tasks',
         },
         {
-            path: '/task-create',
+            path: '/task-create/:id',
             component: TaskCreate,
             name: 'task_create',
         },

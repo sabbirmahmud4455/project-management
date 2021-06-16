@@ -364,7 +364,7 @@ export default {
                 types: [],
                 roles: [],
                 contact_no: "",
-                gender: "Male",
+                gender: null,
                 pass_change: "Off",
                 old_password: "",
                 password: "",
@@ -403,6 +403,7 @@ export default {
                         ]
                     })
                     .then(response => {
+                        this.$router.push({ name: "users" });
                         this.$toast.success({
                             title: "SUCCESS",
                             message: "User Updated Successfully"
@@ -420,6 +421,7 @@ export default {
             this.form
                 .put(`/api/user/${id}`)
                 .then(response => {
+                    this.$router.push({ name: "users" });
                     this.$toast.success({
                         title: "SUCCESS",
                         message: "User Updated Successfully"
@@ -500,3 +502,4 @@ export default {
     }
 };
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

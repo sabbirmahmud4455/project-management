@@ -210,12 +210,20 @@
                             >
                         </li>
                         <li>
-                            <a class="dropdown-item" href="page-user.html"
-                                ><i class="fa fa-user fa-lg"></i> Profile</a
+                            <router-link
+                                :to="{
+                                    name: 'user_profile',
+                                    params: { id: user.id }
+                                }"
+                                class="dropdown-item"
                             >
+                                <i class="fa fa-user fa-lg"></i> Profile
+                            </router-link>
+
+                            <a href="page-user.html"></a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="logout"
+                            <a class="dropdown-item" href="/logout"
                                 ><i class="fa fa-sign-out fa-lg"></i> Logout</a
                             >
                         </li>
@@ -225,7 +233,7 @@
         </header>
         <!-- Sidebar menu-->
         <div class="app-sidebar__overlay" data-toggle="sidebar">
-            <leftSideBar></leftSideBar>
+            <leftSideBar :user="user"></leftSideBar>
         </div>
 
         <main class="app-content">
@@ -239,10 +247,19 @@ import leftSideBar from "../inc/dboard_left_sidbar";
 export default {
     data() {
         return {
-            appInfo: []
+            appInfo: [],
+            user: []
         };
     },
     methods: {
+        getUser() {
+            axios.get("/sanctum/csrf-cookie").then(response => {
+                axios.get("/api/get-profile").then(response => {
+                    this.user = response.data;
+                });
+            });
+        },
+
         getAppInfo() {
             axios.get("api/app_info").then(res => {
                 this.appInfo = res.data;
@@ -253,6 +270,7 @@ export default {
         leftSideBar
     },
     mounted() {
+        this.getUser();
         this.getAppInfo();
         if (!$(".http-found")) {
             this.$router.push("/404");
@@ -261,3 +279,5 @@ export default {
 };
 </script>
 <style lang=""></style>
+
+data() { return { }; }, methods: { }, mounted() { }

@@ -1,5 +1,5 @@
 <template lang="">
-    <div class="col-12">
+    <div class="col-12" style="overflow: auto">
         <table class="table" id="sampleTable">
             <thead>
                 <tr>
@@ -22,7 +22,7 @@
                         {{ aTask.status }}
                     </td>
                 </tr>
-                <div v-if="!activeTask.length" class="col-12">
+                <div v-if="!activeTask" class="col-12">
                     <h5 class="py-2 text-center text-muted">Data Not Found</h5>
                 </div>
             </tbody>

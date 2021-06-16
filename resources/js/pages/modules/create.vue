@@ -34,36 +34,34 @@
                                             ></has-error>
                                         </div>
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="inputStatus"
-                                                >Project</label
-                                            >
+                                            <label for="status">Status</label>
                                             <select
-                                                v-model="form.project_id"
-                                                class="form-control custom-select"
-                                                :class="{
-                                                    'is-invalid': form.errors.has(
-                                                        'project_id'
-                                                    )
-                                                }"
+                                                class="form-control"
+                                                name=""
+                                                id="status"
+                                                v-model="form.status"
                                             >
-                                                <option value="0"
-                                                    >Select Project</option
+                                                <option value="Active"
+                                                    >Active</option
                                                 >
-                                                <option
-                                                    v-if="all_projects.length"
-                                                    v-for="(project,
-                                                    index) in all_projects"
-                                                    :key="index"
-                                                    :value="project.id"
-                                                    >{{ project.name }}</option
+                                                <option value="Complete"
+                                                    >Complete</option
                                                 >
                                             </select>
-                                            <has-error
-                                                :form="form"
-                                                field="project_id"
-                                            ></has-error>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Project</label>
+                                            <input
+                                                type="text"
+                                                disabled
+                                                v-model="project.name"
+                                                class="form-control"
+                                                placeholder=""
+                                            />
                                         </div>
                                     </div>
                                     <div class="col-12">
@@ -102,29 +100,32 @@ import { VueEditor } from "vue2-editor";
 export default {
     data() {
         return {
-            all_projects: [],
+            project: [],
+            projectId: this.$route.params.id,
             form: new Form({
                 name: "",
-                project_id: 0,
+                status: "Active",
+                project_id: this.$route.params.id,
                 description: '<h4 class="text-muted">Module Details</h4>'
             })
         };
     },
     methods: {
         getProject() {
-            axios.get("/api/all_projects").then(response => {
-                this.all_projects = response.data;
+            axios.get(`/api/project/${this.projectId}`).then(response => {
+                this.project = response.data;
             });
         },
         createModule() {
             this.form
                 .post("/api/module")
                 .then(response => {
-                    this.form.name = "";
-                    this.form.project_id = 0;
-                    this.form.description =
-                        '<h4 class="text-muted">Module Details</h4>';
-                    this.$router.push({ name: 'modules' });
+                    this.$router.push({
+                        name: "project_view",
+                        params: {
+                            id: this.projectId
+                        }
+                    });
                     this.$toast.success({
                         title: "SUCCESS",
                         message: "Module Created Successfully"

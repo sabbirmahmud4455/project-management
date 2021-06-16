@@ -20,15 +20,15 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $passSystem = 741852963;
         $userSystem = User::create([
-            'name' => 'Sabbir Vai',
-            'email' => 'sabbir@gmail.com',
+            'name' => 'Sabbir',
+            'email' => 'sabbir@aleshasolutions.com',
             'status' => 1,
             'password' => bcrypt($passSystem),
             //'remember_token' => str_random(10),
         ]);
-        
-        $user_profile= Profile::create([
-            "user_id"=> $userSystem->id
+
+        $user_profile = Profile::create([
+            "user_id" => $userSystem->id
         ]);
 
         $user_role = UserRole::create([

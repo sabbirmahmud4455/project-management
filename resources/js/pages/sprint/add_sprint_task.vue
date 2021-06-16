@@ -5,7 +5,7 @@
                 <div class="tile">
                     <div class="tile-body">
                         <div class="details_col">
-                            <h4 class="title">Project Update</h4>
+                            <h4 class="title">Add Sprint Task</h4>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="">Task Type</label>
@@ -28,10 +28,7 @@
                                         <span class="mx-2">
                                             <div class="form-check">
                                                 <label
-                                                    @click="
-                                                        (finalSelectedTask = []),
-                                                            (tasks = [])
-                                                    "
+                                                    @click="tasks = []"
                                                     class="form-check-label"
                                                 >
                                                     <input
@@ -55,6 +52,7 @@
                                 >
                                     <independentTaskForm
                                         :sprintID="this.$route.params.id"
+                                        :users="allUsers"
                                     ></independentTaskForm>
                                 </div>
 
@@ -139,17 +137,25 @@
                                                 :task="task"
                                                 :users="allUsers"
                                                 :index="index"
+                                                :finalSelectedTask="
+                                                    finalSelectedTask
+                                                "
+                                                :exist="
+                                                    existingId.includes(task.id)
+                                                        ? true
+                                                        : false
+                                                "
                                             ></allTaskList>
                                         </div>
                                         <div
                                             class="col-12 mt-2"
-                                            v-if="finalSelectedTask.length"
+                                            v-if="finalSelectedTask"
                                         >
                                             <button
                                                 class=" btn btn-primary"
                                                 @click="updateSprintTask()"
                                             >
-                                                Add Sprint Task
+                                                Update Sprint Task
                                             </button>
                                         </div>
                                     </div>
@@ -176,26 +182,26 @@ export default {
             projectModules: [],
             task_category: "independent_task",
             projectID: -1,
+            allUsers: [],
             moduleId: 0,
             existingId: []
         };
     },
     methods: {
-        // createTaskWithSprint() {
-        //     axios.put("/api/task_sprint", this.newTask).then(res => {
-        //         this.$toast.success({
-        //             title: "SUCCESS",
-        //             message: "Task And Sprint-Task Created Successfully"
-        //         });
-        //     });
-        // },
+        getUsers() {
+            axios.get("/api/all_users").then(res => {
+                this.allUsers = res.data;
+            });
+        },
         getExistingTasksId() {
             axios.get(`/api/sprint/${this.$route.params.id}`).then(response => {
-                if (this.existingId.length) {
-                    this.existingId = response.data.sprint_task.map(
-                        task => task.task_id
-                    );
-                }
+                // if (this.existingId.length) {
+                this.existingId = response.data.sprint_task.map(
+                    task => task.task_id
+                );
+                this.finalSelectedTask = response.data.sprint_task;
+                console.log(this.finalSelectedTask, "Kholo kholo dhar");
+                // }
             });
         },
         updateAllTask(index, task) {
@@ -246,36 +252,30 @@ export default {
         },
         getProjectTask() {
             this.allTasks = [];
-            this.finalSelectedTask = [];
+            // this.finalSelectedTask = [];
             this.getProjectModule(this.projectID);
 
             this.selectTask = [];
             axios.get(`/api/project/task/w/${this.projectID}`).then(res => {
-                this.tasks = res.data.filter(
-                    task => !this.existingId.includes(task.id)
-                );
+                this.tasks = res.data;
             });
             this.selectTask = [];
             axios.get(`/api/project/task/w/${this.projectID}`).then(res => {
-                this.tasks = res.data.filter(
-                    task => !this.existingId.includes(task.id)
-                );
+                this.tasks = res.data;
             });
         },
         getModuleTask() {
             this.allTasks = [];
-            this.finalSelectedTask = [];
+            // this.finalSelectedTask = [];
             axios.get(`/api/module/task/w/${this.moduleId}`).then(res => {
-                this.tasks = res.data.filter(
-                    task => !this.existingId.includes(task.id)
-                );
+                this.tasks = res.data;
             });
         }
     },
     mounted() {
         this.getExistingTasksId();
         this.getProject();
-        // this.getIndependentTask();
+        this.getUsers();
     },
 
     components: {

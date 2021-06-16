@@ -35,36 +35,35 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="inputStatus"
-                                                >Project</label
-                                            >
+                                            <label for="">Project</label>
+                                            <input
+                                                type="text"
+                                                disabled
+                                                v-model="project.name"
+                                                class="form-control"
+                                                placeholder=""
+                                                ds
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="status">Status</label>
                                             <select
-                                                v-model="form.project_id"
-                                                class="form-control custom-select"
-                                                :class="{
-                                                    'is-invalid': form.errors.has(
-                                                        'project_id'
-                                                    )
-                                                }"
+                                                class="form-control"
+                                                name=""
+                                                id="status"
+                                                v-model="form.status"
                                             >
-                                                <option value="0"
-                                                    >Select Project</option
+                                                <option value="Active"
+                                                    >Active</option
                                                 >
-                                                <option
-                                                    v-if="all_projects.length"
-                                                    v-for="(project,
-                                                    index) in all_projects"
-                                                    :key="index"
-                                                    :value="project.id"
-                                                    >{{ project.name }}</option
+                                                <option value="Complete"
+                                                    >Complete</option
                                                 >
                                             </select>
-                                            <has-error
-                                                :form="form"
-                                                field="project_id"
-                                            ></has-error>
                                         </div>
                                     </div>
                                     <div class="col-12">
@@ -103,10 +102,10 @@ import { VueEditor } from "vue2-editor";
 export default {
     data() {
         return {
-            all_projects: [],
+            project: [],
             form: new Form({
                 name: "",
-                project_id: 0,
+                status: null,
                 description: '<h4 class="text-muted">Module Details</h4>'
             })
         };
@@ -121,7 +120,8 @@ export default {
             let id = this.$route.params.id;
             axios.get(`/api/module/${id}/edit`).then(response => {
                 this.form.name = response.data.name;
-                this.form.project_id = response.data.project_id;
+                this.project = response.data.project;
+                this.form.status = response.data.status;
                 this.form.description = response.data.description;
             });
         },
@@ -130,6 +130,12 @@ export default {
             this.form
                 .put(`/api/module/${id}`)
                 .then(response => {
+                    this.$router.push({
+                        name: "project_view",
+                        params: {
+                            id: this.project.id
+                        }
+                    });
                     this.$toast.success({
                         title: "SUCCESS",
                         message: "Module Updated Successfully"

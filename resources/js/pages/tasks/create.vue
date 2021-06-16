@@ -12,7 +12,7 @@
                                 @keydown="form.onKeydown($event)"
                             >
                                 <div class="card-body row">
-                                    <div class="col-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="task_name"
                                                 >Name *</label
@@ -35,7 +35,7 @@
                                             ></has-error>
                                         </div>
                                     </div>
-
+                                    <!--
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="inputStatus"
@@ -75,39 +75,20 @@
                                                 field="project_id"
                                             ></has-error>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6" v-if="all_modules">
+                                    </div> -->
+                                    <div class="col-md-6 col-12">
                                         <div class="form-group">
-                                            <label for="inputStatus"
-                                                >Module</label
-                                            >
-                                            <select
-                                                v-model="form.module_id"
-                                                class="form-control custom-select"
-                                                :class="{
-                                                    'is-invalid': form.errors.has(
-                                                        'module_id'
-                                                    )
-                                                }"
-                                            >
-                                                <option value="0"
-                                                    >Select Module</option
-                                                >
-                                                <option
-                                                    v-for="(module,
-                                                    index) in all_modules"
-                                                    :key="index"
-                                                    :value="module.id"
-                                                >
-                                                    {{ module.name }}
-                                                </option>
-                                            </select>
-                                            <has-error
-                                                :form="form"
-                                                field="project_id"
-                                            ></has-error>
+                                            <label for="">Module</label>
+                                            <input
+                                                v-model="module.name"
+                                                type="text"
+                                                class="form-control"
+                                                placeholder=""
+                                                disabled
+                                            />
                                         </div>
                                     </div>
+
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="inputStatus"
@@ -171,6 +152,43 @@
                                             ></has-error>
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="inputStatus"
+                                                >Status</label
+                                            >
+                                            <select
+                                                v-model="form.status"
+                                                class="form-control custom-select"
+                                                :class="{
+                                                    'is-invalid': form.errors.has(
+                                                        'status'
+                                                    )
+                                                }"
+                                            >
+                                                <option :value="null"
+                                                    >Task Status</option
+                                                >
+
+                                                <option value="TO_DO"
+                                                    >To do</option
+                                                >
+                                                <option value="DOING"
+                                                    >Doing</option
+                                                >
+                                                <option value="IN_TEST"
+                                                    >In Test</option
+                                                >
+                                                <option value="DONE"
+                                                    >Done</option
+                                                >
+                                            </select>
+                                            <has-error
+                                                :form="form"
+                                                field="project_id"
+                                            ></has-error>
+                                        </div>
+                                    </div>
                                     <div class="col-12">
                                         <vue-dropzone
                                             v-on:vdropzone-queue-complete="
@@ -224,8 +242,7 @@ import "vue2-dropzone/dist/vue2Dropzone.min.css";
 export default {
     data() {
         return {
-            all_projects: [],
-            all_modules: null,
+            module: null,
             dropzoneOptions: {
                 url: "/api/upload-image",
                 maxFiles: 1000,
@@ -234,14 +251,14 @@ export default {
                 addRemoveLinks: true,
                 autoProcessQueue: false
             },
-            all_users: [],
             form: new Form({
                 project_id: null,
                 images: [],
-                module_id: 0,
+                module_id: this.$route.params.id,
                 assign_to: 0,
                 type: null,
                 name: "",
+                status: null,
                 description: '<h4 class="text-muted">Task Details</h4>'
             })
         };
@@ -253,23 +270,14 @@ export default {
         removeImage(file, error, xhr) {
             console.log(file);
         },
-        getProject() {
-            axios.get("/api/all_projects").then(response => {
-                this.all_projects = response.data;
-            });
-        },
+
         getModule() {
-            axios
-                .get(`/api/product_modules/${this.form.project_id}`)
-                .then(response => {
-                    this.all_modules = response.data;
-                });
-        },
-        getUser() {
-            axios.get("/api/all_users").then(response => {
-                this.all_users = response.data;
+            axios.get(`/api/module/${this.$route.params.id}`).then(response => {
+                this.module = response.data;
+                this.form.project_id = response.data.project_id;
             });
         },
+
         uploadImage() {
             if (!this.form.name) {
                 this.$toast.error({
@@ -288,13 +296,12 @@ export default {
             this.form
                 .post("/api/task")
                 .then(response => {
-                    this.form.name = "";
-                    this.form.project_id = null;
-                    this.form.module_id = 0;
-                    this.form.assign_to = 0;
-                    this.form.description =
-                        '<h4 class="text-muted">task Details</h4>';
-                    this.$router.push({ name: 'tasks' });
+                    this.$router.push({
+                        name: "project_view",
+                        params: {
+                            id: this.form.project_id
+                        }
+                    });
 
                     this.$toast.success({
                         title: "SUCCESS",
@@ -318,8 +325,7 @@ export default {
         }
     },
     mounted() {
-        this.getProject();
-        this.getUser();
+        this.getModule();
     },
     components: {
         VueEditor,

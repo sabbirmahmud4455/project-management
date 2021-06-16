@@ -1,6 +1,9 @@
 <template>
     <div>
-        <div class="card">
+        <div
+            class="card "
+            :class="form.selectTasks ? 'border border-success' : ''"
+        >
             <div class="card-body">
                 <div class="form-group">
                     <input
@@ -9,6 +12,7 @@
                         type="checkbox"
                         name=""
                         :id="'task' + task.id"
+                        :checked="true"
                         @change="taskChecked($event)"
                     />
                     <label class="ml-1" :for="'task' + task.id">{{
@@ -28,6 +32,7 @@
                                         :name="'priority' + task.id"
                                         v-model="form.priority"
                                         value="Low"
+                                        @click="taskChecked($event)"
                                     />
                                     low
                                 </label>
@@ -42,6 +47,7 @@
                                         :name="'priority' + task.id"
                                         v-model="form.priority"
                                         value="Medium"
+                                        @click="taskChecked($event)"
                                     />
                                     Medium
                                 </label>
@@ -56,6 +62,7 @@
                                         :name="'priority' + task.id"
                                         v-model="form.priority"
                                         value="High"
+                                        @click="taskChecked($event)"
                                     />
                                     High
                                 </label>
@@ -67,8 +74,9 @@
                     <label for="">Assigned To</label>
 
                     <select
-                        v-model="form.asigneTo"
+                        v-model="form.assign_to"
                         class="form-control"
+                        @change="taskChecked($event)"
                         name=""
                         id=""
                     >
@@ -91,20 +99,38 @@
 </template>
 <script>
 export default {
-    props: ["task", "users", "index", "updateAllTask", "sprint"],
+    props: [
+        "task",
+        "users",
+        "index",
+        "updateAllTask",
+        "sprint",
+        "exist",
+        "allTaskList",
+        "finalSelectedTask"
+    ],
     data() {
         return {
             form: {
-                sprintID: this.sprint,
-                taskId: this.task.id,
-                asigneTo: null,
-                priority: null,
-                selectTasks: null
+                sprint_id: this.sprint,
+                task_id: this.task.id,
+                assign_to: this.exist
+                    ? this.finalSelectedTask.filter(
+                          task => task.task_id == this.task.id
+                      )[0].assign_to
+                    : null,
+                priority: this.exist
+                    ? this.finalSelectedTask.filter(
+                          task => task.task_id == this.task.id
+                      )[0].priority
+                    : null,
+                selectTasks: this.exist
             }
         };
     },
     methods: {
         taskChecked() {
+            console.log("here");
             this.updateAllTask(this.index, this.form);
             //this.form
         }

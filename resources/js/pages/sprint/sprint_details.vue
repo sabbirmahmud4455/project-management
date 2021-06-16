@@ -95,7 +95,10 @@
                                         </router-link>
                                     </div>
 
-                                    <div class="info_propraty">
+                                    <div
+                                        class="info_propraty"
+                                        style="overflow: auto"
+                                    >
                                         <table class="table" id="sampleTable">
                                             <thead>
                                                 <tr>

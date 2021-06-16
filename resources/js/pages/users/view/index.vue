@@ -60,30 +60,6 @@
                                             {{ user.gender }}
                                         </p>
                                     </div>
-
-                                    <div class="info_propraty">
-                                        <p class="propraty_title">
-                                            Date of birth
-                                        </p>
-                                        <p
-                                            class="value"
-                                            v-if="user.profile.date_of_birth"
-                                        >
-                                            {{ user.profile.date_of_birth }}
-                                        </p>
-                                    </div>
-
-                                    <div class="info_propraty">
-                                        <p class="propraty_title">
-                                            Present Address
-                                        </p>
-                                        <p
-                                            class="value"
-                                            v-if="user.profile.present_address"
-                                        >
-                                            {{ user.profile.present_address }}
-                                        </p>
-                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-9" style="padding-left: 5px;">
@@ -107,29 +83,10 @@
                                                         >complete Tasks</a
                                                     >
                                                 </li>
-
-                                                <li class="nav-item">
-                                                    <a
-                                                        class="nav-link"
-                                                        href="#user-settings"
-                                                        data-toggle="tab"
-                                                        >Settings</a
-                                                    >
-                                                </li>
                                             </ul>
                                         </div>
                                         <div class="card-body">
                                             <div class="tab-content">
-                                                <div
-                                                    class="tab-pane fade"
-                                                    id="user-settings"
-                                                >
-                                                    <div
-                                                        class="tile user-settings"
-                                                    >
-                                                        <UserSetting></UserSetting>
-                                                    </div>
-                                                </div>
                                                 <div
                                                     class="tab-pane active "
                                                     id="user-active-tasks"
@@ -177,12 +134,11 @@
 <script>
 import userActiveTask from "./active_task";
 import userCompetedTask from "./complete_task";
-import UserSetting from "./user_setting";
 export default {
     data() {
         return {
             id: this.$route.params.id,
-            user: null,
+            user: [],
 
             name: "",
             bio: "",
@@ -211,7 +167,6 @@ export default {
         this.getUser();
     },
     components: {
-        UserSetting,
         userActiveTask,
         userCompetedTask
     }

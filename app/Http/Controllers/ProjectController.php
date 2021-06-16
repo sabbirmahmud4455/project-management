@@ -58,7 +58,7 @@ class ProjectController extends Controller
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'development_cost' => $request->development_cost,
-            'status' => 'Pending',
+            'status' => $request->status,
             'created_at' => Carbon::now(),
         ]);
         return response()->json('Project Store successfully');
@@ -72,7 +72,8 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        return response()->json($project);
+        $project_modules = Project::with(['modules'])->find($project->id);
+        return response()->json($project_modules);
     }
 
     /**
@@ -107,7 +108,7 @@ class ProjectController extends Controller
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'development_cost' => $request->development_cost,
-            'status' => 'Pending',
+            'status' => $request->status,
             'updated_at' => Carbon::now(),
         ]);
         return response()->json('Project Update successfully');

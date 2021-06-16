@@ -121,6 +121,24 @@
                 </div>
                 <div class="col-6">
                     <div class="form-group">
+                        <label for="inputStatus">Status</label>
+                        <select
+                            v-model="form.status"
+                            class="form-control custom-select"
+                            :class="{
+                                'is-invalid': form.errors.has('status')
+                            }"
+                        >
+                            <option :value="null">Task Status</option>
+
+                            <option value="TO_DO">To do</option>
+                            <option value="DOING">Doing</option>
+                            <option value="IN_TEST">In Test</option>
+                            <option value="DONE">Done</option>
+                        </select>
+                        <has-error :form="form" field="project_id"></has-error>
+                    </div>
+                    <div class="form-group">
                         <label for="assign_to">Assign To</label>
                         <select
                             class="form-control"
@@ -129,8 +147,8 @@
                         >
                             <option :value="null">Assign</option>
                             <option
-                                v-if="allUsers"
-                                v-for="(user, index) in allUsers"
+                                v-if="users"
+                                v-for="(user, index) in users"
                                 :key="index"
                                 :value="user.id"
                                 >{{ user.name }}</option
@@ -147,6 +165,7 @@
                         :options="dropzoneOptions"
                     ></vue-dropzone>
                 </div>
+
                 <div class="col-12">
                     <div class="form-group">
                         <label for="address">Description</label>
@@ -175,11 +194,11 @@ import { Form } from "vform";
 import vue2Dropzone from "vue2-dropzone";
 import "vue2-dropzone/dist/vue2Dropzone.min.css";
 export default {
+    props: ["users"],
     data() {
         return {
             all_projects: [],
             all_modules: null,
-            allUsers: null,
             dropzoneOptions: {
                 url: "/api/upload-image",
                 maxFiles: 1000,
@@ -204,11 +223,6 @@ export default {
         };
     },
     methods: {
-        getUsers() {
-            axios.get("/api/all_users").then(res => {
-                this.allUsers = res.data;
-            });
-        },
         uploadSuccess: function(file, response) {
             this.form.images.push(response.imageName);
         },
@@ -283,7 +297,6 @@ export default {
     },
     mounted() {
         this.getProject();
-        this.getUsers();
     },
     components: {
         vueDropzone: vue2Dropzone
